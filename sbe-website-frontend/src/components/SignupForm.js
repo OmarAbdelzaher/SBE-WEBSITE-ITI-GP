@@ -74,13 +74,13 @@ const SignupForm = () => {
         </div>
         <div className="row">
           <div className="col-12">
+            <label className="form-label select-label">Role</label><br/>
             <select className="select form-control-lg">
-              <option value={1} disabled>Role</option>
-              <option value={2}>Department staff</option>
+              <option value={1}>Dr</option>
+              <option value={2}>TA</option>
               <option value={3}>Employee</option>
               <option value={4}>Student</option>
             </select>
-            <label className="form-label select-label">Role</label>
           </div>
         </div>
                     <button type="submit" className="btn btn-success btn-lg mb-1">Submit</button>
