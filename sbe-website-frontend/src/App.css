@@ -1,6 +1,7 @@
 @media (min-width: 1025px) {
   .h-custom {
-    height: 200vh !important;
+	  margin-top: 10%;
+      height: 150vh !important;
   }
 }
 .floating-label-group {
