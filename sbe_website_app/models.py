@@ -1,5 +1,4 @@
 from django.db import models, IntegrityError
-from phone_field import PhoneField
 from django.core.validators import RegexValidator
 # from django.core.exceptions import ValidationError
 from django.db.models import Q, Func
