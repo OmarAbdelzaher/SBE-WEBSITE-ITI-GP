@@ -1,11 +1,9 @@
-
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Header from "./components/header";
 import Home from "./pages/home";
-import NavBar from "./components/nav-bar";
-// import Form from './components/Form';
+import Form from './components/Form';
+// import About from "./components/about";
 
 
 
@@ -33,11 +31,11 @@ function App() {
 =======
     <>
       <BrowserRouter>
-        <Header />
-        <NavBar />
         <Switch>
-        {/* <Form/> */}
         <Route path={"/"} exact component={Home} />
+        <Route path={"/signup"} exact component={Form} />
+        {/* <Route path={"/login"} exact component={} /> */}
+        {/* <Route path={"/about"} exact component={About} /> */}
         </Switch>
       </BrowserRouter>
     </>
