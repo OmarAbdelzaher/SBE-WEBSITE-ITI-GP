@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 migrations
 __pycache__
 node_modules
 settings.py
+=======
+migrations/
+__pycache__/
+node_modules/
+settings.py
+build/
+>>>>>>> 27eb928ad64821dc42abb652a6a8f225a57841cd
