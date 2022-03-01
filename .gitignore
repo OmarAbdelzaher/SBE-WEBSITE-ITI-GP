@@ -1,4 +1,5 @@
-migrations
-__pycache__
-node_modules
+migrations/
+__pycache__/
+node_modules/
 settings.py
+build/
