@@ -1,9 +1,11 @@
 import React from "react";
-import SignupForm from "./SignupForm";
+//import LoginForm from "./LoginForm";
+// import SignupForm from "./SignupForm";
+import ReservationForm from "./ReservationForm";
 
 const Form = () => {
     return <div>
-        <SignupForm />
+        <ReservationForm />
     </div>;
 };
 
