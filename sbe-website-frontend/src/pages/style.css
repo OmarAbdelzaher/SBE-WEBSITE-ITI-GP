@@ -1,11 +1,21 @@
 .head{
     position: fixed;
     height: 15vh;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.header-link{
+    text-decoration: none;
+    color: #003049;
 }
 .bar{
     position: fixed;
     margin-top: 7%;
     font-weight:500;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.nav-links{
+    text-decoration: none;
+
 }
 
 .active{
@@ -30,9 +40,10 @@
     background-blend-mode: multiply; */
 }
 .s-tow{
-    height: 80vh;
+    height: 50vh;
     width: 99.8vw;
     background-color: #bcb8b1;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .about-h{
@@ -40,4 +51,8 @@
     font-weight: 900;
     padding-top: 5%;
     color: #001233;
+}
+.about-b{
+    font-weight: 500;
+    color: #003049;
 }
