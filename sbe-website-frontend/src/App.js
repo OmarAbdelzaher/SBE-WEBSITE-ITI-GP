@@ -1,18 +1,26 @@
-import './App.css';
-import Form from './components/Form';
-import 'bootstrap/dist/css/bootstrap.min.css';
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-  crossorigin="anonymous"
-/>
+
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Header from "./components/header";
+import Home from "./pages/home";
+import NavBar from "./components/nav-bar";
+// import Form from './components/Form';
+
+
 
 function App() {
   return (
-    <div>
-      <Form/>
-    </div>
+    <>
+      <BrowserRouter>
+        <Header />
+        <NavBar />
+        <Switch>
+        {/* <Form/> */}
+        <Route path={"/"} exact component={Home} />
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 }
 export default App;

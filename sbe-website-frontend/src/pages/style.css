@@ -1,0 +1,43 @@
+.head{
+    position: fixed;
+    height: 15vh;
+}
+.bar{
+    position: fixed;
+    margin-top: 7%;
+    font-weight:500;
+}
+
+.active{
+    background-color: white;
+}
+.scroll{
+    background-color: #457b9d;
+    
+}
+.logo{
+    background-image: url(../assets/image/departmentLogo.png);
+}
+.search{
+    width: 60%;
+}
+
+.s-one{
+    height: 90vh;
+    background-size: 100%;
+    background-image: url(../assets/image/Fac_eng.jpg);
+    /* background-color: #d8e2dc;
+    background-blend-mode: multiply; */
+}
+.s-tow{
+    height: 80vh;
+    width: 99.8vw;
+    background-color: #bcb8b1;
+}
+
+.about-h{
+    font-size:55px;
+    font-weight: 900;
+    padding-top: 5%;
+    color: #001233;
+}
