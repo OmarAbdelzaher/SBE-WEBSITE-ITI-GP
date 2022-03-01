@@ -1,22 +1,24 @@
-import './App.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Home from "./pages/home";
 import Form from './components/Form';
-import 'bootstrap/dist/css/bootstrap.min.css';
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-  crossorigin="anonymous"
-/>
+// import About from "./components/about";
+
+
 
 function App() {
   return (
-
-    <div className="App">
-      <header className="App-header">
-        <h1>Hiii</h1>
-      </header>
-      <Form/>
-    </div>
+    <>
+      <BrowserRouter>
+        <Switch>
+        <Route path={"/"} exact component={Home} />
+        <Route path={"/signup"} exact component={Form} />
+        {/* <Route path={"/login"} exact component={} /> */}
+        {/* <Route path={"/about"} exact component={About} /> */}
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 }
 export default App;
