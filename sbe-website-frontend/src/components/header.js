@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 
 const Header = () => {
+
   const [head, setHeader] = useState(false);
 
   //navbar scroll changeBackground function
@@ -43,7 +44,9 @@ const Header = () => {
           <Link className="fs-5 header-link" to="/">Home</Link>
         </Nav.Link>
         <Nav.Link>
-        <Link className="fs-5 header-link" to="/login" >Login</Link>
+        <Link className="fs-5 header-link" to="/login" >
+          Log In
+        </Link>
         </Nav.Link>
         <Nav.Link>
         <Link className="fs-5 header-link" to="/signup">Sign Up</Link>

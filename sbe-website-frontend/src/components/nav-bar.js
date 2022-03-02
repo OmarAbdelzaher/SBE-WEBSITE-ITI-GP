@@ -67,7 +67,6 @@ const NavBar = () => {
             <NavDropdown.Item href="">Graduate</NavDropdown.Item>
             <NavDropdown.Item href="">Undergraduate</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#action5">Something else</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
