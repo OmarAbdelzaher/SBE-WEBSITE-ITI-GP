@@ -1,11 +1,17 @@
 import React from "react";
 import Header from "../components/header";
 import { useState } from "react";
+// import Datetime from 'react-datetime';
+// import "react-datetime/css/react-datetime.css"
+import ReactDaytime from 'react-daytime';
 import axios from "axios";
 
-const studentUrl = "http://127.0.0.1:8000/api/students/"
-const staffUrl = "http://127.0.0.1:8000/api/staff/"
-const FacultyEmpUrl = "http://127.0.0.1:8000/api/facultyemps/"
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
+const studentUrl = "http://localhost:8000/api/students/"
+const staffUrl = "http://localhost:8000/api/staff/"
+const FacultyEmpUrl = "http://localhost:8000/api/facultyemps/"
 let url = ""
 
 const SignupForm = () => {
@@ -17,9 +23,13 @@ const SignupForm = () => {
     'birthdate':'',
     'address':'',
     'phone_number':'',
-    'role':'',
+    'role':'student',
     'password':'',
     'confirm_password':'',
+    'graduate':'',
+    'year_of_graduation':'',
+    'title':'',
+    'office_hours':'',
   });
 
   const handleChange = (event)=>{
@@ -31,9 +41,10 @@ const SignupForm = () => {
 
   // console.log(formData)
 
-  const submitForm = ()=>{
-    const userFormData = new FormData();
+  const submitForm = (e)=>{
+    e.preventDefault();
 
+    const userFormData = new FormData();
     userFormData.append("fname", formData.fname)
     userFormData.append("lname", formData.lname)
     userFormData.append("email", formData.email)
@@ -42,6 +53,19 @@ const SignupForm = () => {
     userFormData.append("password", formData.password)
     userFormData.append("gender", formData.gender)
     userFormData.append("phone_number", formData.phone_number)
+    if (formData.role == "student")
+    {
+      userFormData.append("graduate",formData.phone_number)
+      userFormData.append("year_of_graduation",formData.year_of_graduation)
+    }
+    else if (formData.role == "dr" || formData.role == "ta")
+    {
+      userFormData.append("office_hours",formData.office_hours)
+    }
+    else if (formData.role == "employee")
+    {
+      userFormData.append("title",formData.title)
+    }
 
   try{
     if(formData.role == "student"){
@@ -54,7 +78,13 @@ const SignupForm = () => {
       url = FacultyEmpUrl
     }
     console.log(url)
-    axios.post(url,userFormData).then((response)=>{
+    
+    axios.post(url,userFormData,
+    //   headers:{
+    //     "X-CSRFToken":Cookies.get('csrftoken') 
+    //   }
+    // }
+    ).then((response)=>{
       console.log(response.data)
     });
   }
@@ -228,6 +258,58 @@ const SignupForm = () => {
                         </select>
                       </div>
                     </div>
+                    { formData.role === 'student' ?
+                   <>
+                   <br/>
+                    <div className="row">
+                    <div className="col-12">
+                       <label htmlFor="graduate">Graduate</label>
+                       <select className="select form-control-lg" onChange={handleChange} name="graduate">
+                        <option value="gradstd">Graduate</option>
+                        <option value="undergradstd">Undergraduate</option>
+                       </select>
+                      </div>
+                      </div>
+                    <br/>
+                    <div className="row">
+                    <div className="col-12">
+                      <label htmlFor="yeargrade">Year Of Graduation</label>
+                        <input type="number"
+                            name="year_of_graduation"
+                            id = "yeargrade"
+                        />
+                      </div>
+                      </div>
+                   </>
+                   : null
+                    } 
+                    { formData.role == 'employee' ?
+                   <>
+                   <br/>
+                   <div className="row">
+                    <div className="col-12">
+                       <label htmlFor="title">Title</label>
+                       <input type="text"
+                           name="title"
+                       />
+                      </div>
+                      </div>
+                   </>
+                   : null
+               } 
+                { formData.role == 'dr' || formData.role == 'ta' ?
+                   <>
+                   <br/>
+                   <div className="row">
+                    <div className="col-12">
+                       <label >Office Hours</label>
+                       <ReactDaytime name = 'office_hours' />
+                      </div>
+                      </div>
+                   </>
+                   : null
+               } 
+
                     <br/>
                     <button
                       type="submit"
