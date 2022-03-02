@@ -1,6 +1,26 @@
 from rest_framework import serializers
 from .models import * 
 
+class PersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ['fname','lname','email','gender','birthdate','address','phone_number','password']
+
+        def create(self, validated_data):
+            user = Person.objects.create(
+                fname = validated_data['fname'],
+                lname = validated_data['lname'],
+                email = validated_data['email'],
+                phone_number= validated_data['phone_number'],
+                gender = validated_data['gender'],
+                birthdate = validated_data['birthdate'],
+                address = validated_data['address'],
+            )
+            user.set_password(validated_data['password'])
+            user.save()
+            return user
+    
+    
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
