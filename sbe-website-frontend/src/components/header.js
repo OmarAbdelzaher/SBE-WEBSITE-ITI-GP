@@ -51,6 +51,9 @@ const Header = () => {
         <Nav.Link>
         <Link className="fs-5 header-link" to="/signup">Sign Up</Link>
         </Nav.Link>
+        <Nav.Link>
+        <Link className="fs-5 header-link" to="/reservation" >Reservation</Link>
+        </Nav.Link>
         {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
       </Nav>
     </Navbar>
