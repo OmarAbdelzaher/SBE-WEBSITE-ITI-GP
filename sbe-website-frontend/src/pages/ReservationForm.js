@@ -1,7 +1,11 @@
 import React from "react";
+import Header from "../components/header";
+
 const ReservationForm = () => {
     return (
-        <section className="h-150 h-custom" style={{backgroundColor: '#8fc4b7'}}>
+      <>
+      <Header/>
+        <section className="h-150 h-custom">
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
@@ -52,6 +56,7 @@ const ReservationForm = () => {
           </div>
         </div>
       </section>
+      </>
     );
   }
 export default ReservationForm;

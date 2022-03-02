@@ -1,7 +1,11 @@
-import React from "react";
-const LoginForm = () => {
-    return (
-        <section className="h-150 h-custom" style={{backgroundColor: '#8fc4b7'}}>
+import React from 'react'
+import Header from '../components/header'
+
+function LoginForm() {
+  return (
+    <>
+    <Header/>
+    <section className="h-150 h-custom">
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
@@ -34,6 +38,8 @@ const LoginForm = () => {
                 </div>
             </div>
         </section>
-    );
-  }
-export default LoginForm;
+    </>
+  )
+}
+
+export default LoginForm

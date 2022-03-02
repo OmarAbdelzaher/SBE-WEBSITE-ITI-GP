@@ -2,6 +2,8 @@ import Navbar from "react-bootstrap/Navbar";
 import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import logo from '../assets/image/departmentLogo.png'
+import { Link } from "react-router-dom";
+
 
 const Header = () => {
   const [head, setHeader] = useState(false);
@@ -25,7 +27,7 @@ const Header = () => {
 
   return (
     <Navbar fixed="top" className={head ? "head scroll" : "head"}>
-      <Navbar.Brand href="#home">
+      <Navbar.Brand href="/">
         <img
           src={logo}
           width="200"
@@ -37,9 +39,19 @@ const Header = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav"></Navbar.Collapse>
       <Nav variant="dark" className="">
-        <Nav.Link className="text-light fs-5" href="/">Home</Nav.Link>
-        <Nav.Link className="text-light fs-5" href="">Login</Nav.Link>
-        <Nav.Link className="text-light fs-5" href="">Sign Up</Nav.Link>
+        <Nav.Link>
+          <Link className="fs-5 header-link" to="/">Home</Link>
+        </Nav.Link>
+        <Nav.Link>
+        <Link className="fs-5 header-link" to="/login" >Login</Link>
+        </Nav.Link>
+        <Nav.Link>
+        <Link className="fs-5 header-link" to="/signup">Sign Up</Link>
+        </Nav.Link>
+        <Nav.Link>
+        <Link className="fs-5 header-link" to="/reservation" >Reservation</Link>
+        </Nav.Link>
+        {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
       </Nav>
     </Navbar>
   );

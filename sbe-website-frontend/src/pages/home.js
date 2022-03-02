@@ -1,15 +1,16 @@
 import React from "react";
+import About from "../components/about";
+import Header from "../components/header";
+import NavBar from "../components/nav-bar";
 import "./style.css";
 
 const Home = () => {
   return (
     <>
+      <Header/>
+      <NavBar />
       <section className="s-one"></section>
-      <section className="s-tow row">
-        <h1 className="col-md-6 offset-md-3 text-center about-h">
-          About Department
-        </h1>  
-      </section>
+      <About />
     </>
   );
 };
