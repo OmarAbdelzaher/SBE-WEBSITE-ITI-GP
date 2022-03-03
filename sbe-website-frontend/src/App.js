@@ -9,6 +9,8 @@ import CoursesMenu from "./pages/CoursesMenu";
 import CoursesPage from "./pages/CoursesPage";
 import CourseDetails from "./pages/CourseDetails";
 // import About from "./components/about";
+import Header from "./components/header";
+import About from "./components/about";
 
 
 
@@ -16,6 +18,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <Header/>
         <Switch>
         <Route path={"/"} exact component={Home} />
         <Route path={"/signup"} exact component={SignupForm} />
@@ -26,6 +29,7 @@ function App() {
         <Route path={"/courseDetails"} exact component={CourseDetails} />
 
         {/* <Route path={"/about"} exact component={About} /> */}
+        <Route path={"/about"} exact component={About} />
         </Switch>
       </BrowserRouter>
     </>

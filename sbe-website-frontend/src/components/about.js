@@ -1,4 +1,5 @@
 import React from "react";
+import '../pages/style.css'
 
 function About() {
   return (
@@ -7,7 +8,7 @@ function About() {
         <h1 className="col-md-6 offset-md-3 text-center about-h">
           About Department
         </h1>
-        <p className=" text-center about-b">
+        <p className=" text-center about-b col-12">
           CASBEC (Center for Advanced Software and Biomedical Engineering
           Consultations) is one of the special units Faculty of Engineering
           semi[private centers working under the authority of Cairo University.
@@ -20,6 +21,7 @@ function About() {
           provide solutions within CASBEC environment.
         </p>
       </section>
+      
     </>
   );
 }
