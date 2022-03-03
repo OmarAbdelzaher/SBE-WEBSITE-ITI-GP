@@ -35,9 +35,19 @@ const SignupForm = () => {
     'graduate':'graduate',
     'year_of_graduation':'',
     'title':'',
-    'office_hours':'',
   });
-  const [formErrors,setFormErrors] = useState({})
+  const [formErrors,setFormErrors] = useState({
+    fnameErr: null,
+    lnameErr: null,
+    emailErr: null,
+    addressErr: null,
+    birthdateErr: null,
+    phone_numberErr: null,
+    passwordErr: null,
+    ConfirmPasswordErr: null,
+    year_of_graduationErr:null,
+    titleErr:null,
+  })
   // const [isSubmit,setIsSubmit] = useState(false)
 
   const handleChange = (event)=>{
@@ -47,79 +57,85 @@ const SignupForm = () => {
     })
   }
 
-  // console.log(formData)
-  const validate = (values) =>{
-    const errors = {};
-    const pattern_email = new RegExp(
-      /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
-    );
-    const pattern_pass = new RegExp(
-      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])" )
-    if (!values.fname)
-    {
-      errors.fname = "First Name is Required ! "
-    }
-    if (!values.lname)
-    {
-      errors.lname = "Last Name is Required ! "
-    }
-    if (!values.email)
-    {
-      errors.email = "Email is Required ! "
-    }else if (!pattern_email.test(values.email)) {
-      errors.email = "Email is invalid !";
-    }
-    if (!values.password) {
-      errors.password = "Password is required ";
-    } else if (values.password.length < 8) {
-      errors.password = "Password must be more than 8 charachters ";
-    } else if (!pattern_pass.test(values.password)) {
-      errors.password =
-        "Password must contains at least one lowercase,one uppercase and one special character ";
-    }
-    if (!values.confirm_password) {
-      errors.confirm_password = "Confirm Password is required";
-    } else if (values.confirm_password !==  values.password) {
-      errors.confirm_password = "Unmatched Password";
-    }
-    if (!values.phone_number){
-      errors.phone_number = "Phone Number is required";
-    } else if (values.phone_number.length != 11 )
-    {
-      errors.phone_number = "Phone Number must be 11 digits"
-    }
-    if (!values.address)
-    {
-      errors.address = " Address is required "
-    }
-    var now = new Date();
-    var birthdate = new Date(values.birthdate)
-    if(!values.birthdate)
-    {
-      errors.birthdate = "BirthDate is required"
+  const pattern_email = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+  const pattern_pass = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/ )
 
-    }
-    else if(birthdate.getTime() > now.getTime() )
-    {
-      errors.birthdate = "Enter a valid birth date which is a past date "
+  // console.log(formData)
+  // const validate = (values) =>{
+  //   const errors = {};
+  //   const pattern_email = new RegExp(
+  //     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+  //   );
+  //   const pattern_pass = new RegExp(
+  //     "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])" )
+  //   if (!values.fname)
+  //   {
+  //     errors.fname = "First Name is Required ! "
+  //   }
+  //   if (!values.lname)
+  //   {
+  //     errors.lname = "Last Name is Required ! "
+  //   }
+  //   if (!values.email)
+  //   {
+  //     errors.email = "Email is Required ! "
+  //   }else if (!pattern_email.test(values.email)) {
+  //     errors.email = "Email is invalid !";
+  //   }
+  //   if (!values.password) {
+  //     errors.password = "Password is required ";
+  //   } else if (values.password.length < 8) {
+  //     errors.password = "Password must be more than 8 charachters ";
+  //   } else if (!pattern_pass.test(values.password)) {
+  //     errors.password =
+  //       "Password must contains at least one lowercase,one uppercase and one special character ";
+  //   }
+  //   if (!values.confirm_password) {
+  //     errors.confirm_password = "Confirm Password is required";
+  //   } else if (values.confirm_password !=  values.password) {
+  //     errors.confirm_password = "Unmatched Password";
+  //   }
+  //   if (!values.phone_number){
+  //     errors.phone_number = "Phone Number is required";
+  //   } else if (values.phone_number.length != 11 )
+  //   {
+  //     errors.phone_number = "Phone Number must be 11 digits"
+  //   }
+  //   if (!values.address)
+  //   {
+  //     errors.address = " Address is required "
+  //   }
+  //   var now = new Date();
+  //   var birthdate = new Date(values.birthdate)
+  //   if(!values.birthdate)
+  //   {
+  //     errors.birthdate = "BirthDate is required"
+
+  //   }
+  //   else if(birthdate.getTime() > now.getTime() )
+  //   {
+  //     errors.birthdate = "Enter a valid birth date which is a past date "
       
-    } 
+  //   } 
     // else if (values.birthdate > today_date )
     // {
     //   errors.birthdate = "BirthDate must be in the past !"
     // }
     
-    if (!values.year_of_graduation)
-    {
-      errors.year_of_graduation = " Year Of Graduation is required "
-    }
-    if (!values.title)
-    {
-      errors.title = " Title is required "
-    }
+    // if (!values.year_of_graduation)
+    // {
+    //   errors.year_of_graduation = " Year Of Graduation is required "
+    // }
+    // if (!values.title)
+    // {
+    //   errors.title = " Title is required "
+    // }
     
-    return errors
-  }
+    // return errors
+  // }
+
+
+
   // useEffect(()=>{
   //   if(Object.keys(formErrors).length === 0 && isSubmit)
   //   {
@@ -130,15 +146,15 @@ const SignupForm = () => {
 
   const submitForm = (e)=>{
     e.preventDefault();
-    console.log(formData)
-    setFormErrors(validate(formData))
-    console.log(setFormErrors(validate(formData)))
-    console.log(formErrors)
-    console.log(Object.keys(formErrors).length)
-    if (Object.keys(formErrors).length != 0)
-    {
-      return false 
-    }
+    // console.log(formData)
+    // setFormErrors(validate(formData))
+    // console.log(setFormErrors(validate(formData)))
+    // console.log(formErrors)
+    // console.log(Object.keys(formErrors).length)
+    // if (Object.keys(formErrors).length != 0)
+    // {
+    //   return false 
+    // }
       
     const userFormData = new FormData();
     userFormData.append("fname", formData.fname)
@@ -179,7 +195,7 @@ const SignupForm = () => {
     
     ).then((response)=>{
       console.log(response.data)
-      history.push('/')
+      // history.push('/')
     });
   }
   catch(error){
@@ -437,6 +453,16 @@ const SignupForm = () => {
                       type="submit"
                       className="btn btn-success btn-lg mb-1"
                       onClick={submitForm}
+                      disabled={
+                        formErrors.fname ||
+                        formErrors.lname ||
+                        formErrors.email ||
+                        formErrors.password ||
+                        formErrors.confirm_password ||
+                        formErrors.address ||
+                        formErrors.phone_number ||
+                        formErrors.birthdate
+                        }
                     >
                       Submit
                     </button>
