@@ -1,12 +1,14 @@
 import React from "react";
 import Header from "../components/header";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 // import Datetime from 'react-datetime';
 // import "react-datetime/css/react-datetime.css"
 import ReactDaytime from 'react-daytime';
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
+
+// const localizer = momentLocalizer(moment)
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
@@ -35,6 +37,8 @@ const SignupForm = () => {
     'title':'',
     'office_hours':'',
   });
+  const [formErrors,setFormErrors] = useState({})
+  // const [isSubmit,setIsSubmit] = useState(false)
 
   const handleChange = (event)=>{
     setFormData({
@@ -44,10 +48,98 @@ const SignupForm = () => {
   }
 
   // console.log(formData)
+  const validate = (values) =>{
+    const errors = {};
+    const pattern_email = new RegExp(
+      /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+    );
+    const pattern_pass = new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])" )
+    if (!values.fname)
+    {
+      errors.fname = "First Name is Required ! "
+    }
+    if (!values.lname)
+    {
+      errors.lname = "Last Name is Required ! "
+    }
+    if (!values.email)
+    {
+      errors.email = "Email is Required ! "
+    }else if (!pattern_email.test(values.email)) {
+      errors.email = "Email is invalid !";
+    }
+    if (!values.password) {
+      errors.password = "Password is required ";
+    } else if (values.password.length < 8) {
+      errors.password = "Password must be more than 8 charachters ";
+    } else if (!pattern_pass.test(values.password)) {
+      errors.password =
+        "Password must contains at least one lowercase,one uppercase and one special character ";
+    }
+    if (!values.confirm_password) {
+      errors.confirm_password = "Confirm Password is required";
+    } else if (values.confirm_password !==  values.password) {
+      errors.confirm_password = "Unmatched Password";
+    }
+    if (!values.phone_number){
+      errors.phone_number = "Phone Number is required";
+    } else if (values.phone_number.length != 11 )
+    {
+      errors.phone_number = "Phone Number must be 11 digits"
+    }
+    if (!values.address)
+    {
+      errors.address = " Address is required "
+    }
+    var now = new Date();
+    var birthdate = new Date(values.birthdate)
+    if(!values.birthdate)
+    {
+      errors.birthdate = "BirthDate is required"
 
-   function submitForm(e) {
+    }
+    else if(birthdate.getTime() > now.getTime() )
+    {
+      errors.birthdate = "Enter a valid birth date which is a past date "
+      
+    } 
+    // else if (values.birthdate > today_date )
+    // {
+    //   errors.birthdate = "BirthDate must be in the past !"
+    // }
+    
+    if (!values.year_of_graduation)
+    {
+      errors.year_of_graduation = " Year Of Graduation is required "
+    }
+    if (!values.title)
+    {
+      errors.title = " Title is required "
+    }
+    
+    return errors
+  }
+  // useEffect(()=>{
+  //   if(Object.keys(formErrors).length === 0 && isSubmit)
+  //   {
+  //     console.log(formData)
+  //   }
 
+  // },[formErrors])
+
+  const submitForm = (e)=>{
     e.preventDefault();
+    console.log(formData)
+    setFormErrors(validate(formData))
+    console.log(setFormErrors(validate(formData)))
+    console.log(formErrors)
+    console.log(Object.keys(formErrors).length)
+    if (Object.keys(formErrors).length != 0)
+    {
+      return false 
+    }
+      
     const userFormData = new FormData();
     userFormData.append("fname", formData.fname)
     userFormData.append("lname", formData.lname)
@@ -83,13 +175,9 @@ const SignupForm = () => {
       url = FacultyEmpUrl
     }
     
-    const options = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      }
-    };
+    axios.post(url,userFormData,
     
-     axios.post(url,userFormData,options).then((response)=>{
+    ).then((response)=>{
       console.log(response.data)
       history.push('/')
     });
@@ -134,8 +222,9 @@ const SignupForm = () => {
                             className="form-control form-control-lg"
                             name="fname"
                             onChange={handleChange}
+                            value = {formData.fname}
                           />
-                          
+                          <p className="text-danger">{formErrors.fname}</p>
                         </div>
                       </div>
                       <div className="col-md-6 mb-4">
@@ -149,10 +238,13 @@ const SignupForm = () => {
                             className="form-control form-control-lg"
                             name="lname"
                             onChange={handleChange}
+                            value = {formData.lname}
                           />
+                          <p className="text-danger">{formErrors.lname}</p>
                         </div>
                       </div>
                     </div>
+
                     <div className="row">
                       <div className="col-md-12 mb-4 pb-2">
                         <div className="form-outline">
@@ -165,10 +257,13 @@ const SignupForm = () => {
                             className="form-control form-control-lg"
                             name="email"
                             onChange={handleChange}
+                            value = {formData.email}
                           />
+                          <p className="text-danger">{formErrors.email}</p>
                         </div>
                       </div>
                     </div>
+                    
                     <div className="row">
                       <div className="col-md-12 mb-4 pb-2">
                         <div className="form-outline">
@@ -181,7 +276,10 @@ const SignupForm = () => {
                             className="form-control form-control-lg"
                             name="password"
                             onChange={handleChange}
+                            value = {formData.password}
+
                           />
+                          <p className="text-danger">{formErrors.password}</p>
                         </div>
                       </div>
                     </div>
@@ -197,7 +295,10 @@ const SignupForm = () => {
                             className="form-control form-control-lg"
                             name="confirm_password"
                             onChange={handleChange}
+                            value = {formData.confirm_password}
+
                           />
+                          <p className="text-danger">{formErrors.confirm_password}</p>
                         </div>
                       </div>
                     </div>
@@ -213,7 +314,10 @@ const SignupForm = () => {
                             id="birthdayDate"
                             name="birthdate"
                             onChange={handleChange}
+                            value = {formData.birthdate}
+
                           />
+                          <p className="text-danger">{formErrors.birthdate}</p>
                         </div>
                       </div>
                       <div className="col-md-12 mb-4 pb-2">
@@ -227,7 +331,9 @@ const SignupForm = () => {
                             className="form-control form-control-lg"
                             name="phone_number"
                             onChange={handleChange}
+                            value = {formData.phone_number}
                           />
+                          <p className="text-danger">{formErrors.phone_number}</p>
                         </div>
                       </div>
                       <div className="col-md-12 mb-4 pb-2">
@@ -241,7 +347,11 @@ const SignupForm = () => {
                             className="form-control form-control-lg"
                             name="address"
                             onChange={handleChange}
+                            value = {formData.address}
+                            
+
                           />
+                          <p className="text-danger">{formErrors.address}</p>
                         </div>
                       </div>
                       <div className="col-md-6 mb-4">
@@ -258,7 +368,7 @@ const SignupForm = () => {
                     <div className="row">
                       <div className="col-12">
                         <label className="form-label select-label">Role</label><br/>
-                        <select className="select form-control-lg" onChange={handleChange} name="role">
+                        <select className="select form-control-lg" value={formData.role} onChange={handleChange} name="role">
                           <option value="student">Student</option>
                           <option value="dr">Dr</option>
                           <option value="ta">TA</option>
@@ -272,7 +382,7 @@ const SignupForm = () => {
                     <div className="row">
                     <div className="col-12">
                        <label htmlFor="graduate">Graduate</label>
-                       <select className="select form-control-lg" onChange={handleChange} name="graduate">
+                       <select className="select form-control-lg" value ={formData.graduate} onChange={handleChange} name="graduate">
                         <option value="gradstd">Graduate</option>
                         <option value="undergradstd">Undergraduate</option>
                        </select>
@@ -287,6 +397,7 @@ const SignupForm = () => {
                             id = "yeargrade"
                             onChange={handleChange}
                         />
+                        <p className="text-danger">{formErrors.year_of_graduation}</p>
                       </div>
                       </div>
                    </>
@@ -302,6 +413,7 @@ const SignupForm = () => {
                            name="title"
                            onChange={handleChange}
                        />
+                       <p className="text-danger">{formErrors.title}</p>
                       </div>
                       </div>
                    </>
@@ -313,7 +425,7 @@ const SignupForm = () => {
                    <div className="row">
                     <div className="col-12">
                        <label >Office Hours</label>
-                        <ReactDaytime/>
+                       <ReactDaytime name='office_hours' onChange={handleChange}  value = {formData.office_hours} />
                       </div>
                       </div>
                    </>
