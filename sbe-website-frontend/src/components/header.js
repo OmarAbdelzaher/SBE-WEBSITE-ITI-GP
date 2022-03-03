@@ -10,7 +10,6 @@ const Header = () => {
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
-    console.log(window.scrollY);
     if (window.scrollY >= 60) {
       setHeader(true);
     } else {
@@ -47,6 +46,9 @@ const Header = () => {
         </Nav.Link>
         <Nav.Link>
         <Link className="fs-5 header-link" to="/signup">Sign Up</Link>
+        </Nav.Link>
+        <Nav.Link>
+        <Link className="fs-5 header-link" to="/reservation" >Reservation</Link>
         </Nav.Link>
         {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
       </Nav>

@@ -10,7 +10,6 @@ const NavBar = () => {
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
-    console.log(window.scrollY);
     if (window.scrollY >= 60) {
       setNavbar(true);
     } else {
@@ -39,7 +38,7 @@ const NavBar = () => {
           style={{ maxHeight: "100px" }}
           navbarScroll
         >
-          <Nav.Link className="text-dark" href="/">
+          <Nav.Link className="text-dark" href="">
             News
           </Nav.Link>
           <Nav.Link className="text-dark" href="">
