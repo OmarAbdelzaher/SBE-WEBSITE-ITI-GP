@@ -1,16 +1,20 @@
 import React from "react";
 import About from "../components/about";
-import Header from "../components/header";
+import Footer from "../components/footer";
 import NavBar from "../components/nav-bar";
 import "./style.css";
 
 const Home = () => {
+
   return (
     <>
-      <Header/>
+    <div className="home">
       <NavBar />
-      <section className="s-one"></section>
-      <About />
+      <section className="s-one"><div className="img"></div></section>
+        <About />
+      <Footer/>
+    </div>
+      
     </>
   );
 };

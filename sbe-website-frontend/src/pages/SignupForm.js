@@ -183,7 +183,6 @@ const SignupForm = () => {
 }
   return (
     <>
-    <Header/>
       <section
         className="h-150 h-custom"
       >

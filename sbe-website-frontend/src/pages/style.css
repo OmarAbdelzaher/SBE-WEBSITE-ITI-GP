@@ -1,58 +1,194 @@
-.head{
-    position: fixed;
-    height: 15vh;
-    font-family:Arial, Helvetica, sans-serif;
+.home {
+  margin: 0%;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
-.header-link{
-    text-decoration: none;
-    color: #003049;
+.clear {
+  clear: both;
 }
-.bar{
-    position: fixed;
-    margin-top: 7%;
-    font-weight:500;
-    font-family:Arial, Helvetica, sans-serif;
-}
-.nav-links{
-    text-decoration: none;
-
+.container {
+  width: 100%;
+  margin: 0 auto;
 }
 
-.active{
-    background-color: white;
+.head {
+  position: fixed;
+  font-family: Arial, Helvetica, sans-serif;
 }
-.scroll{
-    background-color: #457b9d;
-    
+.header-link {
+  text-decoration: none;
+  color: #ffff;
 }
-.logo{
-    background-image: url(../assets/image/departmentLogo.png);
-}
-.search{
-    width: 60%;
-}
-
-.s-one{
-    height: 90vh;
-    background-size: 100%;
-    background-image: url(../assets/image/Fac_eng.jpg);
-    /* background-color: #d8e2dc;
-    background-blend-mode: multiply; */
-}
-.s-tow{
-    height: 50vh;
-    width: 99.8vw;
-    background-color: #bcb8b1;
-    font-family:Arial, Helvetica, sans-serif;
+.button {
+  border-radius: 4px;
+  background-color: #003049;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
 
-.about-h{
-    font-size:55px;
-    font-weight: 900;
-    padding-top: 5%;
-    color: #001233;
+.button .ani {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
-.about-b{
-    font-weight: 500;
-    color: #003049;
+.button .ani:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover .ani {
+  padding-right: 25px;
+  color: #9b2226;
+}
+
+.button:hover .ani:after {
+  opacity: 1;
+  right: 0;
+}
+
+.bar {
+  position: fixed;
+  margin-top: 9%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+@media only screen and (max-width: 1024px) {
+  .bar {
+    margin-top: 11%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .bar {
+    margin-top: 15%;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .bar {
+    margin-top: 25%;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .bar {
+    margin-top: 29%;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .bar {
+    margin-top: 33%;
+  }
+}
+
+.nav-links {
+  text-decoration: none;
+  color: #001233;
+}
+.nav-links:hover {
+  color: #9b2226;
+}
+
+.active {
+  background-color: white;
+}
+.active .nav-links {
+  color: #001233;
+}
+.scroll {
+    background-image: linear-gradient(to right, #8ecae6, #0096c7);
+    background-image: -o-linear-gradient(right, #457b9d, #0096c7);
+    background-image: -moz-linear-gradient(right, #8ecae6, #0096c7);
+    background-image: -webkit-linear-gradient(left, #8ecae6, #003049);
+}
+
+.logo {
+  background-image: url(../assets/image/departmentLogo.png);
+}
+
+#navbarScrollingDropdown {
+  color: #001233;
+}
+#navbarScrollingDropdown:hover {
+  color: #9b2226;
+}
+.active #navbarScrollingDropdown {
+  color: #457b9d;
+}
+.active #navbarScrollingDropdown:hover {
+  color: #9b2226;
+}
+.active .nav-links:hover {
+  color: #9b2226;
+}
+.s-one {
+  position: relative;
+  height: 90vh;
+}
+
+.img {
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../assets/image/Fac_eng.jpg);
+  filter: blur(2px);
+    -webkit-filter: blur(2px);
+  /* background-color: #bcb8b1;
+  background-blend-mode: multiply; */
+  background-attachment: fixed;
+}
+.s-tow {
+  margin: 0%;
+  background-color: #bcb8b1;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 1%;
+}
+
+.about-h {
+  font-size: 55px;
+  font-weight: 900;
+  padding-top: 2%;
+  color: #001233;
+}
+.about-b {
+  color: #003049;
+  padding-bottom: 2%;
+}
+.footer {
+  margin: 0%;
+}
+.f-one {
+  background-color: #001233;
+}
+
+.icon {
+  color: aliceblue;
+  padding: 2%;
+  background-color: #003049;
+}
+.icon:hover {
+  color: #9b2226;
+}
+.contact {
+  text-align: left;
+  margin-left: 4%;
+  color: #457b9d;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.adress {
+  margin-right: 4%;
+  text-align: start;
+  color: #457b9d;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.rights {
+  background-color: #003049;
+  color: #001233;
+  padding-top: 1.5%;
 }
