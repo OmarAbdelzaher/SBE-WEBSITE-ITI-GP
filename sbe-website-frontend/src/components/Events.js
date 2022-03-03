@@ -42,7 +42,7 @@ export default function Events(props) {
             <div class="row">
     <div class="col text-center">
     <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >
-                More SBE News
+                More SBE Events 
             </button>
 
 

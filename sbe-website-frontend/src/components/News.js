@@ -10,14 +10,15 @@ export default function News(props) {
         color: 'white',
         width: '50%',
         height: '50%',
-        background:'blue',
+        // background:'blue',
         
     };
 
 
     return (
         <>
-            <h1 className="mb-5 mt-3 text-center">News section </h1>
+        <br></br>
+            <h1 className="mb-5 mt-5 text-center">News section </h1>
 
             <div className="container-fluid mt-2">
                 <div className="row">
