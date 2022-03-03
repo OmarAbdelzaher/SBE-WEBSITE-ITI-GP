@@ -4,14 +4,23 @@ from .models import *
 # Register your models here.
 class StaffAdmin(admin.ModelAdmin):
     fieldsets = (
-        ["Personal Information",{'fields':["fname","lname","email","gender","birthdate","address","phone_number"]}],
+        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number"]}],
         ["Office Hours",{'fields':["office_hours"]}]
     )
 
+class StudentAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","graduate","year_of_graduation"]}],
+    )
+
+class FacEmpAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","title"]}],
+    )   
 admin.site.register(Staff,StaffAdmin)
-admin.site.register(Student)
+admin.site.register(Student,StudentAdmin)
 admin.site.register(OfficeHours)
-admin.site.register(FacultyEmp)
+admin.site.register(FacultyEmp,FacEmpAdmin)
 admin.site.register(Course)
 admin.site.register(Hall)
 admin.site.register(ReserveHall)

@@ -12,7 +12,6 @@ const Header = () => {
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
-    console.log(window.scrollY);
     if (window.scrollY >= 60) {
       setHeader(true);
     } else {
