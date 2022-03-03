@@ -1,10 +1,8 @@
 import React from 'react'
-import Header from '../components/header'
 
 function LoginForm() {
   return (
     <>
-    <Header/>
     <section className="h-150 h-custom">
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">

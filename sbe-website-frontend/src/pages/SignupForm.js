@@ -4,7 +4,6 @@ import Header from "../components/header";
 const SignupForm = () => {
   return (
     <>
-    <Header/>
       <section
         className="h-150 h-custom"
         // style={{ backgroundColor: "#8fc4b7" }}
