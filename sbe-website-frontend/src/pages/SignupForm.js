@@ -5,6 +5,7 @@ import { useState } from "react";
 // import "react-datetime/css/react-datetime.css"
 import ReactDaytime from 'react-daytime';
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
@@ -14,19 +15,22 @@ const staffUrl = "http://localhost:8000/api/staff/"
 const FacultyEmpUrl = "http://localhost:8000/api/facultyemps/"
 let url = ""
 
+
+
 const SignupForm = () => {
+  let history = useHistory();
   const [formData,setFormData] = useState({
     'fname':'',
     'lname':'',
     'email':'',
-    'gender':'',
+    'gender':'M',
     'birthdate':'',
     'address':'',
     'phone_number':'',
     'role':'student',
     'password':'',
     'confirm_password':'',
-    'graduate':'',
+    'graduate':'graduate',
     'year_of_graduation':'',
     'title':'',
     'office_hours':'',
@@ -41,9 +45,9 @@ const SignupForm = () => {
 
   // console.log(formData)
 
-  const submitForm = (e)=>{
-    e.preventDefault();
+   function submitForm(e) {
 
+    e.preventDefault();
     const userFormData = new FormData();
     userFormData.append("fname", formData.fname)
     userFormData.append("lname", formData.lname)
@@ -53,9 +57,10 @@ const SignupForm = () => {
     userFormData.append("password", formData.password)
     userFormData.append("gender", formData.gender)
     userFormData.append("phone_number", formData.phone_number)
+
     if (formData.role == "student")
     {
-      userFormData.append("graduate",formData.phone_number)
+      userFormData.append("graduate",formData.graduate)
       userFormData.append("year_of_graduation",formData.year_of_graduation)
     }
     else if (formData.role == "dr" || formData.role == "ta")
@@ -77,15 +82,16 @@ const SignupForm = () => {
     else if(formData.role == "employee"){
       url = FacultyEmpUrl
     }
-    console.log(url)
     
-    axios.post(url,userFormData,
-    //   headers:{
-    //     "X-CSRFToken":Cookies.get('csrftoken') 
-    //   }
-    // }
-    ).then((response)=>{
+    const options = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    };
+    
+     axios.post(url,userFormData,options).then((response)=>{
       console.log(response.data)
+      history.push('/')
     });
   }
   catch(error){
@@ -240,11 +246,13 @@ const SignupForm = () => {
                       </div>
                       <div className="col-md-6 mb-4">
                         <h6 className="mb-2 pb-1">Gender: </h6>
+
                         <div onChange={handleChange}>
-                          <input type="radio" value="Male" name="gender"/> Male
+                          <input type="radio" value="M" name="gender"/> Male
                           
-                          <input type="radio" value="Female" name="gender"/> Female
+                          <input type="radio" value="F" name="gender"/> Female
                         </div>
+
                       </div>
                     </div>
                     <div className="row">
@@ -277,6 +285,7 @@ const SignupForm = () => {
                         <input type="number"
                             name="year_of_graduation"
                             id = "yeargrade"
+                            onChange={handleChange}
                         />
                       </div>
                       </div>
@@ -291,6 +300,7 @@ const SignupForm = () => {
                        <label htmlFor="title">Title</label>
                        <input type="text"
                            name="title"
+                           onChange={handleChange}
                        />
                       </div>
                       </div>
@@ -303,7 +313,7 @@ const SignupForm = () => {
                    <div className="row">
                     <div className="col-12">
                        <label >Office Hours</label>
-                       <ReactDaytime name = 'office_hours' />
+                        <ReactDaytime/>
                       </div>
                       </div>
                    </>
