@@ -3,6 +3,8 @@ from django.core.validators import RegexValidator
 from django.db.models import Q, Func
 from django.contrib.postgres.constraints import ExclusionConstraint
 from django.contrib.postgres.fields import DateTimeRangeField, RangeOperators, RangeBoundary
+# from django.contrib.auth.hashers import make_password
+# from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
 
 class UserAccountManager(BaseUserManager):
@@ -14,7 +16,8 @@ class UserAccountManager(BaseUserManager):
         user = self.model(email=email,**extra_fields)
 
         user.set_password(password)
-        user.save()
+        # user.save()
+        user.save(using=self._db)
         return user
     
     def create_staffuser(self, email, password,**extra_fields):
@@ -62,19 +65,46 @@ class Person(AbstractBaseUser,PermissionsMixin):
     phone_regex = RegexValidator(regex=r'^01[0125][0-9]{8}$', message="Phone number must be 11 digits")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
     
+    # is_active = models.BooleanField(default=False)
+    # is_staff = models.BooleanField(default=False)
+    # is_active = models.BooleanField(default=True)
+    # is_superuser = models.BooleanField(default=False)
+    
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False) # a admin user; non super-user
     is_admin = models.BooleanField(default=False) # a superuser
-    is_superuser = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['fname','lname']
 
     objects = UserAccountManager()
+
+    def save(self,*args,**kwargs):
+        self.set_password(self.password)
+        super().save(*args,**kwargs)
         
     def __str__(self):
         return self.fname + ' ' + self.lname
 
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    # @property
+    # def is_staff(self):
+    #     "Is the user a member of staff?"
+    #     return self.is_staff
+
+    # @property
+    # def is_admin(self):
+    #     "Is the user a admin member?"
+    #     return self.is_admin
     
 class Student(Person,models.Model):
     GRADE_CHOICES = (
@@ -165,7 +195,10 @@ class ReserveHall(models.Model):
                 condition=Q(cancelled=False),
             )
         ]
+        # except IntegrityError as e:
+            # print(e.message,"helloooooooooo")
     
+            
     def __str__(self):
         return str(self.hall_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
     
