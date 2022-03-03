@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.aaac71cf.css",
-    "main.js": "/static/js/main.53ca78bf.js",
+    "main.js": "/static/js/main.6daf72cf.js",
     "static/js/787.067f0637.chunk.js": "/static/js/787.067f0637.chunk.js",
     "static/media/Fac_eng.jpg": "/static/media/Fac_eng.41c947b7ecb274d9c4e6.jpg",
     "static/media/departmentLogo.png": "/static/media/departmentLogo.fa309d9060c64454d36e.png",
     "index.html": "/index.html",
     "main.aaac71cf.css.map": "/static/css/main.aaac71cf.css.map",
-    "main.53ca78bf.js.map": "/static/js/main.53ca78bf.js.map",
+    "main.6daf72cf.js.map": "/static/js/main.6daf72cf.js.map",
     "787.067f0637.chunk.js.map": "/static/js/787.067f0637.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.aaac71cf.css",
-    "static/js/main.53ca78bf.js"
+    "static/js/main.6daf72cf.js"
   ]
 }
