@@ -1,12 +1,15 @@
 from django.db import models, IntegrityError
 from django.core.validators import RegexValidator
-# from django.core.exceptions import ValidationError
 from django.db.models import Q, Func
 from django.contrib.postgres.constraints import ExclusionConstraint
 from django.contrib.postgres.fields import DateTimeRangeField, RangeOperators, RangeBoundary
+# from django.contrib.auth.hashers import make_password
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import UserManager
 
+        
 # Create your models here.
-class Person(models.Model):
+class Person(AbstractBaseUser):
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -14,13 +17,23 @@ class Person(models.Model):
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    # password =  models.CharField(max_length=50)
     birthdate = models.DateField(null=True)
     address = models.CharField(max_length=100)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
 
     phone_regex = RegexValidator(regex=r'^01[0125][0-9]{8}$', message="Phone number must be 11 digits")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
     
+    USERNAME_FIELD = 'fname'
+    REQUIRED_FIELDS = []
+
+    objects = UserManager()
+
+    def save(self,*args,**kwargs):
+        self.set_password(self.password)
+        super().save(*args,**kwargs)
+        
     def __str__(self):
         return self.fname + ' ' + self.lname
 

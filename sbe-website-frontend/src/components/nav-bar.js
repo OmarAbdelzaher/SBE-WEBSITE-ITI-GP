@@ -10,7 +10,6 @@ const NavBar = () => {
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
-    console.log(window.scrollY);
     if (window.scrollY >= 60) {
       setNavbar(true);
     } else {
@@ -45,9 +44,6 @@ const NavBar = () => {
           <Nav.Link className="text-dark" href="">
             Events
           </Nav.Link>
-          <Link className="text-dark" to="/coursesMenu">Courses</Link>
-          <Link className="text-dark" to="/coursespage">Courses page</Link>
-          <Link className="text-dark" to="/courseDetails">Details</Link>
           <Nav.Link>
             <Link
               className="text-dark nav-links"
