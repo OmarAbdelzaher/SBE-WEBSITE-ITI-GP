@@ -78,14 +78,14 @@ const SignupForm = () => {
     }
     if (!values.confirm_password) {
       errors.confirm_password = "Confirm Password is required";
-    } else if (values.confirm_password !==  values.password) {
+    } else if (values.confirm_password !=  values.password) {
       errors.confirm_password = "Unmatched Password";
     }
     if (!values.phone_number){
       errors.phone_number = "Phone Number is required";
     } else if (values.phone_number.length != 11 )
     {
-      errors.phone_number = "Phone Number must be 11 digits"
+      errors.phone_number = "Phone Number must be 11 digits"  
     }
     if (!values.address)
     {
@@ -120,11 +120,8 @@ const SignupForm = () => {
     return errors
   }
   // useEffect(()=>{
-  //   if(Object.keys(formErrors).length === 0 && isSubmit)
-  //   {
-  //     console.log(formData)
-  //   }
-
+  //   setFormErrors(validate(formData))
+  //   console.log(formErrors)
   // },[formErrors])
 
   const submitForm = (e)=>{
@@ -153,10 +150,10 @@ const SignupForm = () => {
       userFormData.append("graduate",formData.graduate)
       userFormData.append("year_of_graduation",formData.year_of_graduation)
     }
-    else if (formData.role == "dr" || formData.role == "ta")
-    {
-      userFormData.append("office_hours",formData.office_hours)
-    }
+    // else if (formData.role == "dr" || formData.role == "ta")
+    // {
+    //   userFormData.append("office_hours",formData.office_hours)
+    // }
     else if (formData.role == "employee")
     {
       userFormData.append("title",formData.title)
@@ -429,7 +426,7 @@ const SignupForm = () => {
                    <div className="row">
                     <div className="col-12">
                        <label >Office Hours</label>
-                       <ReactDaytime name='office_hours' onChange={handleChange}  value = {formData.office_hours} />
+                       {/* <ReactDaytime name='office_hours' onChange={handleChange}  value = {formData.office_hours} /> */}
                      
                        
                       </div>
