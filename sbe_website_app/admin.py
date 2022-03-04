@@ -16,7 +16,9 @@ class StudentAdmin(admin.ModelAdmin):
 class FacEmpAdmin(admin.ModelAdmin):
     fieldsets = (
         ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","title"]}],
-    )   
+    )
+    
+admin.site.register(Person)  
 admin.site.register(Staff,StaffAdmin)
 admin.site.register(Student,StudentAdmin)
 admin.site.register(OfficeHours)

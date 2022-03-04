@@ -1,29 +1,35 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { login } from "../actions/auth"
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { reset_password_confirm } from '../actions/auth';
 
-function LoginForm({login , isAuthenticated}) {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const { email, password } = formData;
+const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
+    const [requestSent, setRequestSent] = useState(false);
+    const [formData, setFormData] = useState({
+        new_password: '',
+        re_new_password: ''
+    });
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { new_password, re_new_password } = formData;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
         e.preventDefault();
 
-        login(email, password);
+        const uid = match.params.uid;
+        const token = match.params.token;
+
+        reset_password_confirm(uid, token, new_password, re_new_password);
+        setRequestSent(true);
     };
 
-  if (isAuthenticated) {
-    return <Redirect to='/' />
-}
-  return (
-    <>
+    if (requestSent) {
+        return <Redirect to='/' />
+    }
+
+    return (
+        <>
       <section className="h-150 h-custom">
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
@@ -40,9 +46,9 @@ function LoginForm({login , isAuthenticated}) {
                 />
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
-                    Login Form
+                    Password Reset
                   </h3>
-                  <form className="px-md-2" onSubmit={e => onSubmit(e)}>
+                  <form className="px-md-2" onSubmit={e => onSubmit(e)} >
                     <div className="row">
                       <div className="col-md-12 mb-4 pb-2">
                         <div className="form-outline">
@@ -50,12 +56,13 @@ function LoginForm({login , isAuthenticated}) {
                             Email
                           </label>
                           <input
-                            type="email"
-                            id="emailAddress"
-                            className="form-control form-control-lg"
+                            className='form-control form-control-lg'
+                            type='password'
+                            placeholder='New Password'
+                            name='new_password'
+                            value={new_password}
                             onChange={e => onChange(e)}
-                            value={email}
-                            name="email"
+                            required
                           />
                         </div>
                       </div>
@@ -63,16 +70,17 @@ function LoginForm({login , isAuthenticated}) {
                     <div className="row">
                       <div className="col-md-12 mb-4 pb-2">
                         <div className="form-outline">
-                          <label className="form-label" htmlFor="Password">
-                            Password
+                          <label className="form-label" htmlFor="emailAddress">
+                            Email
                           </label>
                           <input
-                            type="password"
-                            id="Password"
-                            name="password"
-                            className="form-control form-control-lg"
+                            className='form-control form-control-lg'
+                            type='password'
+                            placeholder='Confirm New Password'
+                            name='re_new_password'
+                            value={re_new_password}
                             onChange={e => onChange(e)}
-                            value={password}
+                            required
                           />
                         </div>
                       </div>
@@ -81,16 +89,9 @@ function LoginForm({login , isAuthenticated}) {
                       type="submit"
                       className="btn btn-success btn-lg mb-1"
                     >
-                      Login
+                      Reset Password 
                     </button>
                   </form>
-                  <p className="mt-3">
-                    Don't have an account? <Link to="/signup">Sign Up</Link>
-                  </p>
-                  <p className="mt-3">
-                    Forgot your Password?{" "}
-                    <Link to="/reset-password">Reset Password</Link>
-                  </p>
                 </div>
               </div>
             </div>
@@ -98,10 +99,8 @@ function LoginForm({login , isAuthenticated}) {
         </div>
       </section>
     </>
-  );
-}
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
 
-export default connect(mapStateToProps, { login })(LoginForm);
+    );
+};
+
+export default connect(null, { reset_password_confirm })(ResetPasswordConfirm);

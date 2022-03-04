@@ -18,8 +18,14 @@ export default function AllNews(){
       }, []);
     
 
-
-    const btnStyle = {
+      const btnStyle = {
+        color: 'white',
+        width: '50%',
+        height: '50%',
+        // background:'blue',
+        
+    };
+    const start = {
         // color: 'red',
         // width: '50%',
         // height: '50%',
@@ -34,7 +40,7 @@ export default function AllNews(){
          {/* <Header/> */}
          <br className="mt-5"></br>
 
-<div style={btnStyle} >
+<div style={start} >
         <h1> Hello in All News</h1>
 
         <p>ALOOOOOOOOOOOOOOoo</p>
@@ -62,7 +68,9 @@ export default function AllNews(){
                     })}
 
                 </div>
-
+                <Link to='/' className="nav-link">
+                    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >Return Home            </button>
+                </Link>
             </div>
 
         </div>

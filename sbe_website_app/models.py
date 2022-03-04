@@ -3,21 +3,58 @@ from django.core.validators import RegexValidator
 from django.db.models import Q, Func
 from django.contrib.postgres.constraints import ExclusionConstraint
 from django.contrib.postgres.fields import DateTimeRangeField, RangeOperators, RangeBoundary
-# from django.contrib.auth.hashers import make_password
-from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import UserManager
+from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
 
-        
+class UserAccountManager(BaseUserManager):
+    def create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email,**extra_fields)
+
+        user.set_password(password)
+        user.save()
+        return user
+    
+    def create_staffuser(self, email, password,**extra_fields):
+        """
+        Creates and saves a staff user with the given email and password.
+        """
+        user = self.create_user(
+            email,
+            password=password,
+            **extra_fields
+        )
+        user.is_staff = True
+        user.save()
+        return user
+    
+    def create_superuser(self, email, password, **extra_fields):
+        """
+        Creates and saves a superuser with the given email and password.
+        """
+        user = self.create_user(
+            email,
+            password=password,
+            **extra_fields
+        )
+        user.is_staff = True
+        user.is_admin = True
+        user.is_superuser = True 
+        user.save()
+        return user
+    
 # Create your models here.
-class Person(AbstractBaseUser):
+class Person(AbstractBaseUser,PermissionsMixin):
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
     )
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
-    email = models.EmailField(max_length=50)
-    # password =  models.CharField(max_length=50)
+    email = models.EmailField(max_length=255, unique=True)
+    
     birthdate = models.DateField(null=True)
     address = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
@@ -25,18 +62,20 @@ class Person(AbstractBaseUser):
     phone_regex = RegexValidator(regex=r'^01[0125][0-9]{8}$', message="Phone number must be 11 digits")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
     
-    USERNAME_FIELD = 'fname'
-    REQUIRED_FIELDS = []
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False) # a admin user; non super-user
+    is_admin = models.BooleanField(default=False) # a superuser
+    is_superuser = models.BooleanField(default=False)
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['fname','lname']
 
-    objects = UserManager()
-
-    def save(self,*args,**kwargs):
-        self.set_password(self.password)
-        super().save(*args,**kwargs)
+    objects = UserAccountManager()
         
     def __str__(self):
         return self.fname + ' ' + self.lname
 
+    
 class Student(Person,models.Model):
     GRADE_CHOICES = (
         ('graduate', 'Graduate'),
@@ -59,10 +98,11 @@ class OfficeHours(models.Model):
     weekday = models.CharField(
         max_length=20,
         choices=WEEKDAYS,
-        unique=True
+        unique=True,
+        null=True
     )
-    from_hour = models.TimeField()
-    to_hour = models.TimeField()
+    from_hour = models.TimeField(null=True)
+    to_hour = models.TimeField(null=True)
     
     def __str__(self):
         return self.weekday + ' ' + str(self.from_hour) + ' ' + 'to' + ' ' + str(self.to_hour)
@@ -74,7 +114,6 @@ class Staff(Person,models.Model):
     )
     position = models.CharField(max_length=10, choices=POS_CHOICES)
     office_hours = models.ManyToManyField(OfficeHours)
-    
     def __str__(self):
         return self.fname + ' ' + self.lname
     
@@ -138,10 +177,7 @@ class ReserveHall(models.Model):
                 condition=Q(cancelled=False),
             )
         ]
-        # except IntegrityError as e:
-            # print(e.message,"helloooooooooo")
     
-            
     def __str__(self):
         return str(self.hall_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
     
