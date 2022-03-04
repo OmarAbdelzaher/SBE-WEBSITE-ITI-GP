@@ -13,7 +13,6 @@ from braces.views import CsrfExemptMixin
 
 # Get and Post HTTP Methods using API For Students 
 class StudentList(CsrfExemptMixin,APIView):
-    authentication_classes = []
     
     def get(self,request):
         students = Student.objects.all()
