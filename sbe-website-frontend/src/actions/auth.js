@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
@@ -17,6 +18,10 @@ import {
     ACTIVATION_FAIL,
 
 } from './types'
+
+
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken' 
 
     export const load_user = () => async dispatch => {
         if (localStorage.getItem('access')) {
@@ -50,7 +55,7 @@ import {
 export const login = (email, password) => async dispatch => {
     const config = {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
     };
 
@@ -75,15 +80,16 @@ export const login = (email, password) => async dispatch => {
 export const signup = (fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title) => async dispatch => {
     const config = {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
     };
 
     const body = JSON.stringify({ fname, lname, email, password, birthdate,address,graduate,phone_number,gender,year_of_graduation,title});
-    
+
     const studentUrl = "http://localhost:8000/api/students/"
     const staffUrl = "http://localhost:8000/api/staff/"
     const FacultyEmpUrl = "http://localhost:8000/api/facultyemps/"
+   
     let url = ""
 
     if(role == "student"){
