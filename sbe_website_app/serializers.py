@@ -50,7 +50,7 @@ class FacultyEmpSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta :
         model = Course
-        fields = ['name','total_grade','stds_grades','schedule','instructions','materials','staff_id']
+        fields = ['id','name','total_grade','stds_grades','schedule','instructions','materials','staff_id']
 
 
 class HallSerializer(serializers.ModelSerializer):
@@ -87,3 +87,13 @@ class ReserveDeviceSerializer(serializers.ModelSerializer):
      class Meta :
         model = ReserveDevice
         fields = ['hall_id','staff_id','start','end','cancelled']
+
+class NewsSerializer(serializers.ModelSerializer):
+     class Meta :
+        model = New
+        fields = ['id','name','description','picture']
+
+class EventSerializer(serializers.ModelSerializer):
+     class Meta :
+        model = Event
+        fields = ['id','name','details','picture']

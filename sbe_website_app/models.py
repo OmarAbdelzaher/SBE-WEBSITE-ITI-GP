@@ -143,6 +143,18 @@ class Hall(models.Model):
 
     def __str__(self):
         return self.name
+
+class New(models.Model):
+    name = models.CharField(max_length=20)
+    
+    description = models.CharField(max_length=100)
+
+    picture = models.ImageField(null=True,upload_to='images/') 
+       
+    def __str__(self):
+        return self.name
+    
+
     
 class TsTzRange(Func):
     function = 'TSTZRANGE'
@@ -228,3 +240,14 @@ class ReserveDevice(models.Model):
     
     def __str__(self):
         return str(self.device_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
+
+
+class Event(models.Model):
+    name = models.CharField(max_length=20)
+    
+    details = models.CharField(max_length=100)
+
+    picture = models.ImageField(null=True,upload_to='images/') 
+       
+    def __str__(self):
+        return self.name
