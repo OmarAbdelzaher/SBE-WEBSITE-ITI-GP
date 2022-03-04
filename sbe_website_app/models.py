@@ -59,10 +59,11 @@ class OfficeHours(models.Model):
     weekday = models.CharField(
         max_length=20,
         choices=WEEKDAYS,
-        unique=True
+        unique=True,
+        null=True
     )
-    from_hour = models.TimeField()
-    to_hour = models.TimeField()
+    from_hour = models.TimeField(null=True)
+    to_hour = models.TimeField(null=True)
     
     def __str__(self):
         return self.weekday + ' ' + str(self.from_hour) + ' ' + 'to' + ' ' + str(self.to_hour)
@@ -74,7 +75,6 @@ class Staff(Person,models.Model):
     )
     position = models.CharField(max_length=10, choices=POS_CHOICES)
     office_hours = models.ManyToManyField(OfficeHours)
-    
     def __str__(self):
         return self.fname + ' ' + self.lname
     
