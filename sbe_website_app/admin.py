@@ -28,4 +28,5 @@ admin.site.register(Lab)
 admin.site.register(ReserveLab)
 admin.site.register(Device)
 admin.site.register(ReserveDevice)
+admin.site.register(New)
 

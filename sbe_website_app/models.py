@@ -102,6 +102,18 @@ class Hall(models.Model):
 
     def __str__(self):
         return self.name
+
+class New(models.Model):
+    name = models.CharField(max_length=20)
+    
+    description = models.CharField(max_length=100)
+
+    picture = models.ImageField(null=True,upload_to='images/') 
+       
+    def __str__(self):
+        return self.name
+    
+
     
 class TsTzRange(Func):
     function = 'TSTZRANGE'

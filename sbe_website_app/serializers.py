@@ -77,3 +77,8 @@ class ReserveDeviceSerializer(serializers.ModelSerializer):
      class Meta :
         model = ReserveDevice
         fields = ['hall_id','staff_id','start','end','cancelled']
+
+class NewsSerializer(serializers.ModelSerializer):
+     class Meta :
+        model = New
+        fields = ['id','name','description','picture']
