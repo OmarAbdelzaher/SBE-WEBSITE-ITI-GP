@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 
 function CourseDetails() {
-    // const params = useParams();
+    const params = useParams();
     const [course, setCourse] = useState({});
     useEffect(() => {
       axios
-        .get(`http://localhost:8000/api/course/${course.id}`)
+        .get(`http://localhost:8000/api/course/${params.id}`)
         .then((res) =>{
             console.log(res.data)
             setCourse(res.data)

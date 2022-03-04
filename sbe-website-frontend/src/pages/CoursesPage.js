@@ -30,6 +30,7 @@ function CoursesPage() {
                     return (
                     <div className="card text-white bg-secondary mb-3" key={course.id}>
                 <Link className="nav-links btn-lg mb-1" to={`/courseDetails/${course.id}`}>
+                    <h1>{course.id}</h1>
                   <h2 className="pt-3 text-170 text-600 text-primary-d1 letter-spacing">
                   {course.name}
                   </h2></Link>

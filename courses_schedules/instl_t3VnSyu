@@ -1,0 +1,106 @@
+############################################################
+#----------------------------------------------------------#
+#----------------------------------------------------------#
+#............ install django into a virtualenv ............#
+#----------------------------------------------------------#
+#------------------------ mo_ramadan ----------------------#
+############################################################
+
+1- sudo apt install python3-pip
+2- sudo pip3 install virtualenv
+3- mkdir django_project
+4- cd django_project
+5- virtualenv env
+6- source env/bin/activate
+7- which pip3
+8- pip3 install django
+	8.1- django-admin --version
+9- pip install pymysql
+django-admin startproject djproj
+(inside my django project)10- in file __init__.py add the next 2 lines
+	10.1-	import pymysql
+	10.2-	pymysql.install_as_MySQLdb()
+11- deactivate
+
+------------------------------------------------------------
+#installing mysql
+#====================
+sudo apt-get install mysql-server mysql-client
+mysql -u root
+
+
+
+DB.sql
+----------
+select user, authentication_string, host, plugin from mysql.user;
+alter user 'root'@'localhost' identified with mysql_native_password by 'passw0rd';
+create user 'ramadan'@'localhost' identified with mysql_native_password by 'passw0rd';
+grant all privileges on *.* to 'ramadan'@'localhost';
+exit
+
+
+mysql -u [user name] -p
+------------------------------------------------------------
+#installing rest_framework
+============================ 
+1- pip install djangorestframework
+2- import to installed apps rest_framework
+3- from tutorials/request and responsee get the decorator and response imports into our views
+	from rest_framework.decorators import api_view
+	from rest_framework.response import Response
+4- create serializers.py under our app
+5- import serializers and models
+	from rest_framework import serializers
+	from .models import Student, Track
+	
+	
+	
+	
+	
+------------------------------------------------------------
+#django auth
+==============
+
+
+1- in views render UserCreationForm to signup template
+	1.1 from django.contrib.auth.forms import UserCreationForm
+	1.2 render
+2- in forms.py specifiy the User fields
+	2.1 from django.contrib.auth.forms import UserCeartionForm
+	2.2 from django.contrib.auth.models import User
+	2.3 create class inherets from UserCreationForm and Meta model is User
+3- in template render from.feild.label 
+4- in template {{ form.errors }}
+5- in view add flash msg for created user
+	5.1 from django.contrib import messages
+	5.2 messagees.info(request, 'user craeted for: ' + username)
+		5.2.1 username = form.cleaned_data.get('username')
+	5.3 in template loop for msg in messages to flash 
+6- handling login 
+	6.1 from django.contrib.auth import login, logout, authenticate
+	6.2 get username request.POST.get('username'), ('password')
+	6.3 user = authenticate(username=usrname, password=passwd)
+	6.4 if user not none, login(request, user)  redirect home else add a flash message 
+	6.5 limit access if request.GET.get('next') is not None: 
+		redirect to request.GET.get('next')
+
+7- handling logout
+	7.1 logout(request)
+	7.2 redirect('login')
+	7.3 in header template add user and logout link
+		7.3.1 <a href="% url 'logout' %">signout</a>
+		7.3.2 {{ request.user }} gets the username
+8- limit access
+	8.1 in views from django.contrib.auth.decorators import login_required
+	8.2 on top of home view func @login_required(login_url='login')
+9- redirect loggedin user to home without login
+	9.1 in both login and signup 
+		9.1.1 if request.user.is_authenticated #a property not a method.
+			then return redirect to 'home', else do the logic of signup or login
+
+
+
+
+
+
+
