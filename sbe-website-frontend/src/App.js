@@ -11,6 +11,8 @@ import CourseDetails from "./pages/CourseDetails";
 // import About from "./components/about";
 import Header from "./components/header";
 import About from "./components/about";
+import AllNews from "./components/AllNews";
+
 import Activate from "./pages/Activate";
 import ResetPassword from "./pages/ResetPassword";
 import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
@@ -33,6 +35,8 @@ function App() {
             <Route path={"/courseDetails/:id"} exact component={CourseDetails} />
             <Route path={"/about"} exact component={About} />
             <Route path={"/reset-password"} exact component={ResetPassword} />
+            <Route path={"/allnews"} exact component={AllNews} />
+
             <Route
               path={"/password/reset/confirm/:uid/:token"}
               exact

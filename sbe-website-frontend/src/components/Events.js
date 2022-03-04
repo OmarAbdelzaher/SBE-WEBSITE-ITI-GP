@@ -3,7 +3,7 @@ import EventData from "./EventData";
 import image from '../assets/image/cardimg.jpg'
 
 
-export default function Events(props) {
+export default function Events() {
     const btnStyle = {
         color: 'white',
         width: '50%',
