@@ -11,16 +11,14 @@ function LoginForm({login , isAuthenticated}) {
   });
   const { email, password } = formData;
 
-  const handleChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-  };
-  const submitForm = (e) => {
-    e.preventDefault();
-    login(email,password)
-  };
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        login(email, password);
+    };
+
   if (isAuthenticated) {
     return <Redirect to='/' />
 }
@@ -44,7 +42,7 @@ function LoginForm({login , isAuthenticated}) {
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Login Form
                   </h3>
-                  <form className="px-md-2">
+                  <form className="px-md-2" onSubmit={e => onSubmit(e)}>
                     <div className="row">
                       <div className="col-md-12 mb-4 pb-2">
                         <div className="form-outline">
@@ -55,8 +53,9 @@ function LoginForm({login , isAuthenticated}) {
                             type="email"
                             id="emailAddress"
                             className="form-control form-control-lg"
-                            onChange={handleChange}
+                            onChange={e => onChange(e)}
                             value={email}
+                            name="email"
                           />
                         </div>
                       </div>
@@ -68,10 +67,11 @@ function LoginForm({login , isAuthenticated}) {
                             Password
                           </label>
                           <input
-                            type="Password"
+                            type="password"
                             id="Password"
+                            name="password"
                             className="form-control form-control-lg"
-                            onChange={handleChange}
+                            onChange={e => onChange(e)}
                             value={password}
                           />
                         </div>
@@ -80,7 +80,6 @@ function LoginForm({login , isAuthenticated}) {
                     <button
                       type="submit"
                       className="btn btn-success btn-lg mb-1"
-                      onClick={submitForm}
                     >
                       Login
                     </button>

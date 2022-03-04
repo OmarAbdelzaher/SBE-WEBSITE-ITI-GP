@@ -27,6 +27,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
         if (localStorage.getItem('access')) {
             const config = {
                 headers: {
+
                     'Content-Type': 'application/json',
                     'Authorization': `JWT ${localStorage.getItem('access')}`,
                     'Accept': 'application/json'
@@ -103,7 +104,7 @@ export const signup = (fname, lname, email, password, confirm_password ,birthdat
       }
 
     try {
-        const res = await axios.post(url, body, config);
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/students/`, body, config);
 
         dispatch({
             type: SIGNUP_SUCCESS,
