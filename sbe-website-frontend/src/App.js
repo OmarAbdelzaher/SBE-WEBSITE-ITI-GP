@@ -10,7 +10,7 @@ import CoursesPage from "./pages/CoursesPage";
 import CourseDetails from "./pages/CourseDetails";
 // import About from "./components/about";
 import Header from "./components/header";
-import About from "./components/about";
+// import Footer from "./components/footer";
 
 
 
@@ -27,9 +27,8 @@ function App() {
         <Route path={"/coursesMenu"} exact component={CoursesMenu} />
         <Route path={"/coursesPage"} exact component={CoursesPage} />
         <Route path={"/courseDetails"} exact component={CourseDetails} />
-
         {/* <Route path={"/about"} exact component={About} /> */}
-        <Route path={"/about"} exact component={About} />
+        {/* <Route path={"/contact"} exact component={Footer} /> */}
         </Switch>
       </BrowserRouter>
     </>

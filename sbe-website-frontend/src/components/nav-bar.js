@@ -3,8 +3,8 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../pages/style.css";
 import React, { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-router-dom";
+// import { Link, animateScroll as scroll } from "react-scroll";
 
 import "../pages/style.css";
 
@@ -49,7 +49,7 @@ const NavBar = () => {
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link className="nav-links" to="">
+              <Link className="nav-links" to="/coursesMenu">
                 Courses
               </Link>
             </Nav.Link>
@@ -57,7 +57,7 @@ const NavBar = () => {
               <Link
                 className="nav-links"
                 activeClass="active"
-                to="/about"
+                to="/#about"
                 spy={true}
                 smooth={true}
               >

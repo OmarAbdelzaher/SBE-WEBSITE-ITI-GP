@@ -1,17 +1,18 @@
 import React from 'react'
-import Header from '../components/header'
+import { Link } from 'react-router-dom'
 
 function CoursesPage() {
   return (
     <>
-    <Header/>
-    <section className="h-150 h-custom">
+    <section className="h-150 ">
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-12">
               <div className="card rounded-3">
                 <div className="card-body p-4 p-md-5">
+                  <Link to="/courseDetails">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Students Courses</h3>
+                  </Link>
                 </div>
                 <div className="card">
         <div className="card-header">

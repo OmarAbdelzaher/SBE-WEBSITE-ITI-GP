@@ -1,34 +1,72 @@
-@media (min-width: 1025px) {
+/* @media (min-width: 1025px) { */
   .h-custom {
-	  margin-top: 10%;
-      height: 150vh !important;
-  }
-}
-.floating-label-group {
-	position: relative;
-	margin-top: 15px;
-	margin-bottom: 25px;
-}
-	.floating-label {
-		font-size: 13px;
-		color: #cccccc;
-		position: absolute;
-		pointer-events: none;
-		top: 9px;
-		left: 12px;
-		transition: all 0.1s ease;
-	}
+    /* margin-top: 10%; */
+    /* height: 150vh !important; */
+    /* background-color: #001233; */
+    background-image: url(../src/assets/image/Fac_eng.jpg);
+    height: auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 
-	input:focus ~ .floating-label,
-	input:not(:focus):valid ~ .floating-label {
-		top: -15px;
-		bottom: 0px;
-		left: 0px;
-		font-size: 11px;
-		opacity: 1;
-		color: #404040;
-	}
+    /* 
+    background-image: linear-gradient(to right, #8ecae6, #0096c7);
+	  background-image: -o-linear-gradient(right, #457b9d, #0096c7);
+	  background-image: -moz-linear-gradient(right, #8ecae6, #0096c7);
+	  background-image: -webkit-linear-gradient(left, #8ecae6, #003049); */
+  }
+  .d{
+    height: 150vh !important;
+  }
+/* } */
+.form {
+  margin-top: 34% !important;
+}
+
+.courses-b {
+  background: rgb(0, 0, 0);
+  /* background: rgba(0, 0, 0, 0.5); */
+  background: rgba(3, 29, 53, 0.5);
+  color: #f1f1f1;
+}
+
+.course-d {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 98vw;
+  padding: 2%;
+  background: rgb(0, 0, 0);
+  background: rgba(3, 29, 53, 0.5);
+  color: #f1f1f1;
+}
+
+.floating-label-group {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.floating-label {
+  font-size: 13px;
+  color: #cccccc;
+  position: absolute;
+  pointer-events: none;
+  top: 9px;
+  left: 12px;
+  transition: all 0.1s ease;
+}
+
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label {
+  top: -15px;
+  bottom: 0px;
+  left: 0px;
+  font-size: 11px;
+  opacity: 1;
+  color: #404040;
+}
 
 .row {
-	margin-top: 50px;
+  margin-top: 50px;
 }
