@@ -29,6 +29,10 @@ class StudentSerializer(serializers.ModelSerializer):
         return super(StudentSerializer, self).create(validated_data)
 
 
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(StudentSerializer, self).create(validated_data) 
+    
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
@@ -40,13 +44,16 @@ class StaffSerializer(serializers.ModelSerializer):
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
         model = FacultyEmp
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','title']
+        fields = ['fname','lname','email','gender','birthdate','address','phone_number','title','password']
 
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(FacultyEmpSerializer, self).create(validated_data) 
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta :
         model = Course
-        fields = ['name','total_grade','stds_grades','schedule','instructions','materials','staff_id']
+        fields = ['id','name','total_grade','stds_grades','schedule','instructions','materials','staff_id']
 
 
 class HallSerializer(serializers.ModelSerializer):
@@ -83,3 +90,13 @@ class ReserveDeviceSerializer(serializers.ModelSerializer):
      class Meta :
         model = ReserveDevice
         fields = ['hall_id','staff_id','start','end','cancelled']
+
+class NewsSerializer(serializers.ModelSerializer):
+     class Meta :
+        model = New
+        fields = ['id','name','description','picture']
+
+class EventSerializer(serializers.ModelSerializer):
+     class Meta :
+        model = Event
+        fields = ['id','name','details','picture']

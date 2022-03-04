@@ -6,6 +6,7 @@ import News from "../components/News";
 import Events from "../components/Events";
 import Academics from "../components/Academics";
 // import Counter from "../components/Counter";
+// import Grad from "../components/Grad";
 
 import "./style.css";
 
@@ -21,6 +22,7 @@ const Home = () => {
       <News/>
       <Events/>
       <Academics/>
+      {/* <Grad/> */}
       {/* <Counter/> */}
         <About />
       <Footer/>

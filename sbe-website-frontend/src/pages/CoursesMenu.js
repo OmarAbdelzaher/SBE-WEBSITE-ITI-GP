@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../components/header'
+import { Link } from "react-router-dom";
 
 function CoursesMenu() {
   return (
@@ -37,7 +38,9 @@ function CoursesMenu() {
                     </div>
                     <br></br>
                     <div className="row">
-                    <button type="submit" className="btn btn-success btn-lg mb-1">Show Courses</button>
+                    <Link className="nav-links btn-lg mb-1" to="/coursesPage">
+                    <button type="submit" className="btn btn-success btn-lg mb-1"> Courses</button>
+                    </Link>
                     <br></br>
                     <button type="submit" className="btn btn-success btn-lg mb-1">Show Schedule</button>
                     </div>

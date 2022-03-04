@@ -1,43 +1,52 @@
 import React from "react";
-import DataNews from "./DataNews";
-import './cards.css'
-import img from '../assets/image/new.jpg'
-// import images from "../../images"
+// import Header from "./header";
 import axios from "axios";
 import { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 
 
+export default function AllNews(){
 
-export default function News() {
-
-    const [News, setNews] = useState([]);
+    const [AllNews, setAllNews] = useState([]);
 
     useEffect(() => {
         axios
           .get(
             "http://localhost:8000/api/news"
           )
-          .then((res) => setNews(res.data));
+          .then((res) => setAllNews(res.data));
       }, []);
     
-    const btnStyle = {
+
+      const btnStyle = {
         color: 'white',
         width: '50%',
         height: '50%',
         // background:'blue',
         
     };
+    const start = {
+        // color: 'red',
+        // width: '50%',
+        // height: '50%',
+        marginTop:'150px',
+        // background:'blue',
+        
+    };
 
+    return(
 
-    return (
         <>
-        <br></br>
-            <h1 className="mb-5 mt-5 text-center">News section </h1>
+         {/* <Header/> */}
+         <br className="mt-5"></br>
 
-            <div className="container mt-2">
+<div style={start} >
+        <h1> Hello in All News</h1>
+
+
+        <div className="container-fluid mt-2">
                 <div className="row">
-                    {News.slice(0,3).map((item) => {
+                    {AllNews.map((item) => {
                         return (
 
                             <div className="col-md-4 ">
@@ -45,8 +54,7 @@ export default function News() {
                                     <p>{item.id}</p>
 
                                     <h2>{item.name}</h2>
-                                   {/* <img src={`${item.picture}`}/> */}
-                                   {/* {item.picture.url}  */}
+                                    {item.picture}
                                     {/* <img src={img}  className="card--image" /> */}
                                     <p>{item.description}</p>
 
@@ -59,26 +67,12 @@ export default function News() {
                     })}
 
                 </div>
-
+                <Link to='/' className="nav-link">
+                    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >Return Home            </button>
+                </Link>
             </div>
-       
-            <div class="container">
-  <div class="row">
-    <div class="col text-center">
 
-
-    <Link to='/allnews' className="nav-link">
-    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >
-                More SBE News
-            </button>
-            </Link>
-          
-               
-
-    </div>
-  </div>
-</div>
-
+        </div>
         </>
     )
 }

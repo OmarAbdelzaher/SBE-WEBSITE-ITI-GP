@@ -4,6 +4,15 @@ from django.db.models import Q, Func
 from django.contrib.postgres.constraints import ExclusionConstraint
 from django.contrib.postgres.fields import DateTimeRangeField, RangeOperators, RangeBoundary
 from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
+from django.contrib.auth.hashers import make_password
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from django.core.exceptions import ValidationError
+
+# import email confirmation stuff
+from django.core.mail import send_mail
+from django.conf import settings
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -62,10 +71,12 @@ class Person(AbstractBaseUser,PermissionsMixin):
     phone_regex = RegexValidator(regex=r'^01[0125][0-9]{8}$', message="Phone number must be 11 digits")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
     
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False) # a admin user; non super-user
     is_admin = models.BooleanField(default=False) # a superuser
     is_superuser = models.BooleanField(default=False)
+    
+    is_activated = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['fname','lname']
@@ -75,6 +86,24 @@ class Person(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         return self.fname + ' ' + self.lname
 
+@receiver(post_save, sender=Person)
+def send_activation_email(sender, instance, created, **kwargs):
+
+    if not instance.is_activated:
+        if instance.is_active:
+            try:
+                send_mail("Activation Done",
+                        "hello" +instance.fname+ " , Your account has been activated",
+                        'settings.EMAIL_HOST_USER',[instance.email] ,fail_silently=False,)
+                
+                instance.is_activated = True
+                instance.save()
+            except Exception :
+                raise ValidationError("Couldn't send the message to the email ! ")    
+        else:
+            print("no change")
+    else:
+        print("already activated")
     
 class Student(Person,models.Model):
     GRADE_CHOICES = (
@@ -141,6 +170,18 @@ class Hall(models.Model):
 
     def __str__(self):
         return self.name
+
+class New(models.Model):
+    name = models.CharField(max_length=20)
+    
+    description = models.CharField(max_length=100)
+
+    picture = models.ImageField(null=True,upload_to='images/') 
+       
+    def __str__(self):
+        return self.name
+    
+
     
 class TsTzRange(Func):
     function = 'TSTZRANGE'
@@ -226,3 +267,14 @@ class ReserveDevice(models.Model):
     
     def __str__(self):
         return str(self.device_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
+
+
+class Event(models.Model):
+    name = models.CharField(max_length=20)
+    
+    details = models.CharField(max_length=100)
+
+    picture = models.ImageField(null=True,upload_to='images/') 
+       
+    def __str__(self):
+        return self.name
