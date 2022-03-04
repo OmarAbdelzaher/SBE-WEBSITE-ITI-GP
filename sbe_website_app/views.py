@@ -6,18 +6,23 @@ from .models import *
 from rest_framework import status
 from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from braces.views import CsrfExemptMixin
 
 
 # Create your views here.
 
 # Get and Post HTTP Methods using API For Students 
-class StudentList(CsrfExemptMixin,APIView):
-    
+@method_decorator(csrf_exempt, name='dispatch') 
+class StudentList(APIView):
+
+    # @csrf_exempt
     def get(self,request):
         students = Student.objects.all()
         serializer = StudentSerializer(students,many=True)
         return Response(serializer.data)
+        
+    # @csrf_exempt
     def post(self,request):
         serializer = StudentSerializer(data=request.data)
         if serializer.is_valid():

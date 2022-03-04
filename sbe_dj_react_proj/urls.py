@@ -22,7 +22,6 @@ urlpatterns = [
     # path('',index),
     path('admin/', admin.site.urls),
     path('api/',include('sbe_website_app.urls')),
-
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('auth/', include('djoser.social.urls')),
