@@ -108,7 +108,7 @@ export const signup = (fname, lname, email, password, confirm_password ,birthdat
 
         dispatch({
             type: SIGNUP_SUCCESS,
-            payload: res.data
+            payload: res.data,
         });
     } catch (err) {
         dispatch({

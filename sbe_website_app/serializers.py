@@ -1,29 +1,41 @@
 from rest_framework import serializers
 from .models import * 
-
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
+
 User = get_user_model()
 
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
         fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password']
+
         
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = ['fname','lname','email','gender','birthdate','address','phone_number','password']
-    
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(PersonSerializer, self).create(validated_data)
+
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','graduate','year_of_graduation']
+        fields = ['fname','lname','email','gender','birthdate','address','phone_number','password','graduate','year_of_graduation']
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(StudentSerializer, self).create(validated_data)
+
 
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
         fields = ['fname','lname','email','gender','birthdate','address','phone_number','position','office_hours']
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(StaffSerializer, self).create(validated_data)
 
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
