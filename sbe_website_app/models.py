@@ -4,16 +4,18 @@ from django.db.models import Q, Func
 from django.contrib.postgres.constraints import ExclusionConstraint
 from django.contrib.postgres.fields import DateTimeRangeField, RangeOperators, RangeBoundary
 from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
+from django.contrib.auth.hashers import make_password
 
 class UserAccountManager(BaseUserManager):
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('Users must have an email address')
 
         email = self.normalize_email(email)
         user = self.model(email=email,**extra_fields)
-
-        user.set_password(password)
+        passwd = make_password(password)
+        
+        user.set_password(password=passwd)
         user.save()
         return user
     

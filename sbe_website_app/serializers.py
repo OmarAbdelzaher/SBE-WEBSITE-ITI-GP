@@ -15,21 +15,37 @@ class PersonSerializer(serializers.ModelSerializer):
         model = Person
         fields = ['fname','lname','email','gender','birthdate','address','phone_number','password']
     
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(PersonSerializer, self).create(validated_data) 
+    
+    
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','graduate','year_of_graduation']
+        fields = ['fname','lname','email','gender','birthdate','address','phone_number','graduate','year_of_graduation','password']
 
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(StudentSerializer, self).create(validated_data) 
+    
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','position','office_hours']
-
+        fields = ['fname','lname','email','gender','birthdate','address','phone_number','position','office_hours','password']
+    
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(StaffSerializer, self).create(validated_data) 
+    
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
         model = FacultyEmp
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','title']
+        fields = ['fname','lname','email','gender','birthdate','address','phone_number','title','password']
 
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(FacultyEmpSerializer, self).create(validated_data) 
 
 class CourseSerializer(serializers.ModelSerializer):
     class Meta :
