@@ -9,8 +9,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from braces.views import CsrfExemptMixin
 
+from django.core.exceptions import ValidationError
 
-# Create your views here.
+# import email confirmation stuff
+from django.core.mail import send_mail
+from django.conf import settings
+
+
 
 # Get and Post HTTP Methods using API For Students 
 @method_decorator(csrf_exempt, name='dispatch') 
@@ -26,12 +31,25 @@ class StudentList(APIView):
     def post(self,request):
         serializer = StudentSerializer(data=request.data)
         if serializer.is_valid():
+            sendActivationRequest(request)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Get , Put and delete HTTP Methods using API For a specific student  
-
+def sendActivationRequest(request):
+    try:
+        send_mail("Activation Request",
+            "a new user has signed up called "+request.data["fname"]+" " +request.data["lname"] +" waiting for account activation",
+            'settings.EMAIL_HOST_USER', ['djblog2022@gmail.com'],fail_silently=False,)
+        
+        send_mail("Activation Pending",
+            "hello "+request.data["fname"]+" , please wait for account activation",
+            'settings.EMAIL_HOST_USER', [request.data["email"]],fail_silently=False,)
+        
+    except Exception :
+                raise ValidationError("Couldn't send the message to the email ! ") 
+    
 class StudentDetails(APIView):
     def get_object(self, pk):
         try:
