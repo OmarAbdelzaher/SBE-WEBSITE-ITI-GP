@@ -17,7 +17,7 @@ const Signup = ({ signup, isAuthenticated }) => {
     fname: "",
     lname: "",
     email: "",
-    gender: "",
+    gender: "M",
     birthdate: "",
     address: "",
     phone_number: "",
@@ -61,19 +61,7 @@ const Signup = ({ signup, isAuthenticated }) => {
 
     if (password === confirm_password) {
       signup(
-        fname,
-        lname,
-        email,
-        password,
-        confirm_password,
-        gender,
-        birthdate,
-        address,
-        role,
-        phone_number,
-        graduate,
-        year_of_graduation,
-        title
+        fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title
       );
       setAccountCreated(true);
     }
