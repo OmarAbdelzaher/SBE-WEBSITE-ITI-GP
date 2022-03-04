@@ -5,16 +5,16 @@ import { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 
 
-export default function AllNews(){
+export default function AllEvents(){
 
-    const [AllNews, setAllNews] = useState([]);
+    const [AllEvents, setAllEvents] = useState([]);
 
     useEffect(() => {
         axios
           .get(
-            "http://localhost:8000/api/news"
+            "http://localhost:8000/api/events/"
           )
-          .then((res) => setAllNews(res.data));
+          .then((res) => setAllEvents(res.data));
       }, []);
     
 
@@ -41,22 +41,22 @@ export default function AllNews(){
          <br className="mt-5"></br>
 
 <div style={start} >
-        <h1> Hello in All News</h1>
+        <h1> Hello in All Events</h1>
 
 
         <div className="container-fluid mt-2">
                 <div className="row">
-                    {AllNews.map((item) => {
+                    {AllEvents.map((item) => {
                         return (
 
                             <div className="col-md-4 ">
-                                <div className="card mb-4 cardItem" key={item.id}>
+                                <div className="card mb-4 " key={item.id}>
                                     <p>{item.id}</p>
 
                                     <h2>{item.name}</h2>
-                                    {item.picture}
+                                    {/* {item.picture} */}
                                     {/* <img src={img}  className="card--image" /> */}
-                                    <p>{item.description}</p>
+                                    <p>{item.details}</p>
 
 
                                 </div>

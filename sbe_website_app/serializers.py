@@ -76,3 +76,8 @@ class NewsSerializer(serializers.ModelSerializer):
      class Meta :
         model = New
         fields = ['id','name','description','picture']
+
+class EventSerializer(serializers.ModelSerializer):
+     class Meta :
+        model = Event
+        fields = ['id','name','details','picture']

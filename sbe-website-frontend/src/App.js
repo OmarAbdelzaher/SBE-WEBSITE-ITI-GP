@@ -18,6 +18,8 @@ import ResetPassword from "./pages/ResetPassword";
 import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
 import { Provider } from "react-redux";
 import store from "./store";
+import AllEvents from "./components/AllEvents";
+
 
 function App() {
   return (
@@ -36,6 +38,7 @@ function App() {
             <Route path={"/about"} exact component={About} />
             <Route path={"/reset-password"} exact component={ResetPassword} />
             <Route path={"/allnews"} exact component={AllNews} />
+            <Route path={"/allevents"} exact component={AllEvents} />
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}
