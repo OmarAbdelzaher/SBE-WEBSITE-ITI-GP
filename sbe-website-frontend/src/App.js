@@ -26,7 +26,7 @@ function App() {
         <Route path={"/reservation"} exact component={ReservationForm} />
         <Route path={"/coursesMenu"} exact component={CoursesMenu} />
         <Route path={"/coursesPage"} exact component={CoursesPage} />
-        <Route path={"/courseDetails"} exact component={CourseDetails} />
+        <Route path={"/courseDetails/:pk"} exact component={CourseDetails} />
 
         {/* <Route path={"/about"} exact component={About} /> */}
         <Route path={"/about"} exact component={About} />
