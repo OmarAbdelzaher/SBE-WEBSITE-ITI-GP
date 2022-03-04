@@ -44,12 +44,12 @@ const NavBar = () => {
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link className="nav-links" to="/coursesPage">
+              <Link className="nav-links" to="/">
                 Events
               </Link>
             </Nav.Link>
             <Nav.Link>
-            <Link className="nav-links" to="/coursesPage">
+            <Link className="nav-links" to="/coursesMenu">
                 Courses
                 </Link>
             </Nav.Link>
