@@ -8,7 +8,7 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from braces.views import CsrfExemptMixin
-
+from django.http import HttpResponse
 from django.core.exceptions import ValidationError
 
 # import email confirmation stuff
@@ -29,12 +29,16 @@ class StudentList(APIView):
         
     # @csrf_exempt
     def post(self,request):
-        serializer = StudentSerializer(data=request.data)
-        if serializer.is_valid():
-            sendActivationRequest(request)
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user = Student.objects.filter(email=request.data['email'])
+        if not user.exists():
+            serializer = StudentSerializer(data=request.data)
+            if serializer.is_valid():
+                sendActivationRequest(request)
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else :
+            return Response("this email is already exist")
 
 # Get , Put and delete HTTP Methods using API For a specific student  
 def sendActivationRequest(request):
