@@ -60,7 +60,7 @@ class DeviceSerializer(serializers.ModelSerializer):
 class ReserveHallSerializer(serializers.ModelSerializer):
      class Meta :
         model = ReserveHall
-        fields = ['hall_id','staff_id','start','end','cancelled']
+        fields = ['hall_id','staff_id','timeslot']
 
 class ReserveLabSerializer(serializers.ModelSerializer):
      class Meta :
@@ -81,3 +81,15 @@ class EventSerializer(serializers.ModelSerializer):
      class Meta :
         model = Event
         fields = ['id','name','details','picture']
+
+class TimeslotSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = TimeSlot
+        fields = ['id','timeslot']
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['timeslot'] = str(instance)
+
+        return ret
+        

@@ -24,6 +24,15 @@ export default function Events() {
         width: '50%',
         height: '50%',
     };
+    function orderByOrderValue( a, b ) {
+        if ( a.id > b.id ){
+          return -1;
+        }
+        if ( a.id <b.id ){
+          return 1;
+        }
+        return 0;
+      }
 
     return (
         <>
@@ -31,9 +40,9 @@ export default function Events() {
 
             <h1 className="mb-5 mt-3 text-center">Events section </h1>
 
-            <div className="container-fluid mt-2">
+            <div className="container mt-2">
                 <div className="row">
-                    {Events.slice(0,3).map((item) => {
+                    {Events.sort(orderByOrderValue).slice(0,3).map((item) => {
                         return (
 
                             <div className="col-md-4 ">
@@ -68,3 +77,5 @@ export default function Events() {
         </>
     );
 }
+
+
