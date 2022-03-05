@@ -48,6 +48,7 @@ class UserAccountManager(BaseUserManager):
             password=password,
             **extra_fields
         )
+        user.is_active = True
         user.is_staff = True
         user.is_admin = True
         user.is_superuser = True 
@@ -86,9 +87,32 @@ class Person(AbstractBaseUser,PermissionsMixin):
     def __str__(self):
         return self.fname + ' ' + self.lname
 
+
+class TimeSlot(models.Model):
+    # device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
+    # staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    # hall_id = models.ForeignKey(Hall, on_delete=models.CASCADE)
+    # lab_id = models.ForeignKey(Lab, on_delete=models.CASCADE)
+
+    TIMESLOT_LIST = (
+        (0, '08:30 - 10:00 AM'),
+        (1, '10:15 - 11:45 AM'),
+        (2, '12:15 - 01:45 PM'),
+        (3, '02:00 - 03:30 PM'),
+        (4, '03:45 - 05:45 PM'),
+        (5, '06:00 - 07:30 PM'),
+    )
+    timeslot = models.IntegerField(choices=TIMESLOT_LIST)
+
+    def __str__(self):
+        return '{}'.format( self.time)
+
+    @property
+    def time(self):
+        return self.TIMESLOT_LIST[self.timeslot][1]
+  
 @receiver(post_save, sender=Person)
 def send_activation_email(sender, instance, created, **kwargs):
-
     if not instance.is_activated:
         if instance.is_active:
             try:
@@ -173,40 +197,55 @@ class Hall(models.Model):
 
 class New(models.Model):
     name = models.CharField(max_length=20)
-    
     description = models.CharField(max_length=100)
-
-    picture = models.ImageField(null=True,upload_to='images/') 
+    picture = models.ImageField(null=True,upload_to='sbe-website-frontend/build/static/media/') 
        
     def __str__(self):
         return self.name
     
 
     
-class TsTzRange(Func):
-    function = 'TSTZRANGE'
-    output_field = DateTimeRangeField()
+# class TsTzRange(Func):
+#     function = 'TSTZRANGE'
+#     output_field = DateTimeRangeField()
     
 class ReserveHall(models.Model):
     hall_id = models.ForeignKey(Hall, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
 
-    start = models.DateTimeField()
-    end = models.DateTimeField()
-    cancelled = models.BooleanField(default=False)
+    # start = models.DateTimeField()
+    # end = models.DateTimeField()
+    # cancelled = models.BooleanField(default=False)
 
-    class Meta:
-        constraints = [
-            ExclusionConstraint(
-                name='exclude_overlapping_reservations_hall',
-                expressions=(
-                    (TsTzRange('start', 'end', RangeBoundary()), RangeOperators.OVERLAPS),
-                    ('hall_id', RangeOperators.EQUAL),
-                ),
-                condition=Q(cancelled=False),
-            )
-        ]
+    # class Meta:
+    #     constraints = [
+    #         ExclusionConstraint(
+    #             name='exclude_overlapping_reservations_hall',
+    #             expressions=(
+    #                 (TsTzRange('start', 'end', RangeBoundary()), RangeOperators.OVERLAPS),
+    #                 ('hall_id', RangeOperators.EQUAL),
+    #             ),
+    #             condition=Q(cancelled=False),
+    #         )
+    #     ]
+    TIMESLOT_LIST = (
+        (0, '08:30 - 10:00 AM'),
+        (1, '10:15 - 11:45 AM'),
+        (2, '12:15 - 01:45 PM'),
+        (3, '02:00 - 03:30 PM'),
+        (4, '03:45 - 05:45 PM'),
+        (5, '06:00 - 07:30 PM'),
     
+    )
+    timeslot = models.IntegerField(choices=TIMESLOT_LIST)
+
+    def __str__(self):
+        return '{}'.format( self.time)
+
+    @property
+    def time(self):
+        return self.TIMESLOT_LIST[self.timeslot][1]
+  
     def __str__(self):
         return str(self.hall_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
     
@@ -219,23 +258,8 @@ class Lab(models.Model):
 class ReserveLab(models.Model):
     lab_id = models.ForeignKey(Lab, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    
-    start = models.DateTimeField()
-    end = models.DateTimeField()
-    cancelled = models.BooleanField(default=False)
+    timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
 
-    class Meta:
-        constraints = [
-            ExclusionConstraint(
-                name='exclude_overlapping_reservations_lab',
-                expressions=(
-                    (TsTzRange('start', 'end', RangeBoundary()), RangeOperators.OVERLAPS),
-                    ('lab_id', RangeOperators.EQUAL),
-                ),
-                condition=Q(cancelled=False),
-            )
-        ]
-    
     def __str__(self):
         return str(self.lab_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
     
@@ -248,22 +272,7 @@ class Device(models.Model):
 class ReserveDevice(models.Model):
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    
-    start = models.DateTimeField()
-    end = models.DateTimeField()
-    cancelled = models.BooleanField(default=False)
-
-    class Meta:
-        constraints = [
-            ExclusionConstraint(
-                name='exclude_overlapping_reservations_device',
-                expressions=(
-                    (TsTzRange('start', 'end', RangeBoundary()), RangeOperators.OVERLAPS),
-                    ('device_id', RangeOperators.EQUAL),
-                ),
-                condition=Q(cancelled=False),
-            )
-        ]
+    timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
     
     def __str__(self):
         return str(self.device_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
@@ -271,10 +280,11 @@ class ReserveDevice(models.Model):
 
 class Event(models.Model):
     name = models.CharField(max_length=20)
-    
     details = models.CharField(max_length=100)
-
     picture = models.ImageField(null=True,upload_to='images/') 
        
     def __str__(self):
         return self.name
+
+
+    

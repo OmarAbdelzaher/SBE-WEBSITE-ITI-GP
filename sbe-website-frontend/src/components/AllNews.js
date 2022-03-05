@@ -12,7 +12,7 @@ export default function AllNews(){
     useEffect(() => {
         axios
           .get(
-            "http://localhost:8000/api/news"
+            "http://localhost:8000/api/news/"
           )
           .then((res) => setAllNews(res.data));
       }, []);
@@ -33,6 +33,16 @@ export default function AllNews(){
         // background:'blue',
         
     };
+    function orderByOrderValue( a, b ) {
+        if ( a.id > b.id ){
+          return -1;
+        }
+        if ( a.id <b.id ){
+          return 1;
+        }
+        return 0;
+      }
+
 
     return(
 
@@ -46,19 +56,15 @@ export default function AllNews(){
 
         <div className="container-fluid mt-2">
                 <div className="row">
-                    {AllNews.map((item) => {
+                    {AllNews.sort(orderByOrderValue).map((item) => {
                         return (
-
                             <div className="col-md-4 ">
                                 <div className="card mb-4 cardItem" key={item.id}>
                                     <p>{item.id}</p>
-
                                     <h2>{item.name}</h2>
-                                    {item.picture}
-                                    {/* <img src={img}  className="card--image" /> */}
+                                    <h1>{item.picture}</h1>
+                                    <img src={"static/media/PyQt-Poster.png"}  className="card--image" />
                                     <p>{item.description}</p>
-
-
                                 </div>
                             </div>
                         );

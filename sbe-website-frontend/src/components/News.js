@@ -28,6 +28,16 @@ export default function News() {
         // background:'blue',
         
     };
+    function orderByOrderValue( a, b ) {
+        if ( a.id > b.id ){
+          return -1;
+        }
+        if ( a.id <b.id ){
+          return 1;
+        }
+        return 0;
+      }
+
 
 
     return (
@@ -37,7 +47,7 @@ export default function News() {
 
             <div className="container mt-2">
                 <div className="row">
-                    {News.slice(0,3).map((item) => {
+                    {News.sort(orderByOrderValue).slice(0,3).map((item) => {
                         return (
 
                             <div className="col-md-4 ">

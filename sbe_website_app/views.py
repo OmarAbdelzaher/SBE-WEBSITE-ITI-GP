@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .serializers import CourseSerializer, DeviceSerializer, FacultyEmpSerializer, HallSerializer, LabSerializer, ReserveDeviceSerializer, ReserveHallSerializer, ReserveLabSerializer, StaffSerializer, StudentSerializer,NewsSerializer,EventSerializer
+from .serializers import *
 from rest_framework.response import Response
 from .models import *
 from rest_framework import status
@@ -334,6 +334,7 @@ class ReserveHallList(APIView):
     def get(self,request):
         reserved_halls = ReserveHall.objects.all()
         serializer = ReserveHallSerializer(reserved_halls,many=True)
+        # print(serializer.data[0]['timeslot'])
         return Response(serializer.data)
     def post(self,request):
         serializer = ReserveHallSerializer(data=request.data)
@@ -529,3 +530,10 @@ class EventsDetails(APIView):
         event = self.get_object(pk)
         event.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TimeSlotsView(APIView):
+    def get(self,request):
+        timeslots = TimeSlot.objects.all()
+        serializer = TimeslotSerializer(timeslots,many=True)
+        print(timeslots[0])
+        return Response(serializer.data)
