@@ -16,11 +16,12 @@ const Home = () => {
       <div className="home">
         <NavBar />
         <section className="s-one"><div className="img"></div></section>
-        {/* <section className="s-one"></section> */}
         <News />
         <Events />
         <Academics />
         {/* <Counter/> */}
+      {/* <Grad/> */}
+      {/* <Counter/> */}
         <About />
         <Footer />
       </div>

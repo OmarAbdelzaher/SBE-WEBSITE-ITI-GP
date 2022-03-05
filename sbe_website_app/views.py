@@ -1,15 +1,21 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .serializers import CourseSerializer, DeviceSerializer, FacultyEmpSerializer, HallSerializer, LabSerializer, ReserveDeviceSerializer, ReserveHallSerializer, ReserveLabSerializer, StaffSerializer, StudentSerializer
+from .serializers import *
 from rest_framework.response import Response
 from .models import *
 from rest_framework import status
 from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from braces.views import CsrfExemptMixin
+from django.http import HttpResponse
+from django.core.exceptions import ValidationError
+
+# import email confirmation stuff
+from django.core.mail import send_mail
+from django.conf import settings
 
 
-# Create your views here.
 
 # Get and Post HTTP Methods using API For Students 
 @method_decorator(csrf_exempt, name='dispatch') 
@@ -23,14 +29,31 @@ class StudentList(APIView):
         
     # @csrf_exempt
     def post(self,request):
-        serializer = StudentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user = Student.objects.filter(email=request.data['email'])
+        if not user.exists():
+            serializer = StudentSerializer(data=request.data)
+            if serializer.is_valid():
+                sendActivationRequest(request)
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else :
+            return Response("this email is already exist")
 
 # Get , Put and delete HTTP Methods using API For a specific student  
-
+def sendActivationRequest(request):
+    try:
+        send_mail("Activation Request",
+            "a new user has signed up called "+request.data["fname"]+" " +request.data["lname"] +" waiting for account activation",
+            'settings.EMAIL_HOST_USER', ['djblog2022@gmail.com'],fail_silently=False,)
+        
+        send_mail("Activation Pending",
+            "hello "+request.data["fname"]+" , please wait for account activation",
+            'settings.EMAIL_HOST_USER', [request.data["email"]],fail_silently=False,)
+        
+    except Exception :
+                raise ValidationError("Couldn't send the message to the email ! ") 
+    
 class StudentDetails(APIView):
     def get_object(self, pk):
         try:
@@ -315,6 +338,7 @@ class ReserveHallList(APIView):
     def get(self,request):
         reserved_halls = ReserveHall.objects.all()
         serializer = ReserveHallSerializer(reserved_halls,many=True)
+        # print(serializer.data[0]['timeslot'])
         return Response(serializer.data)
     def post(self,request):
         serializer = ReserveHallSerializer(data=request.data)
@@ -432,3 +456,88 @@ class ReserveDeviceDetails(APIView):
         reserved_device = self.get_object(pk)
         reserved_device.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class News(APIView):
+    def get(self,request):
+        news = New.objects.all()
+        serializer = NewsSerializer(news,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = NewsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class NewDetails(APIView):
+    def get_object(self, pk):
+        try:
+            return New.objects.get(pk=pk)
+        except New.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        new = self.get_object(pk)
+        serializer = NewsSerializer(new)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        new = self.get_object(pk)
+        serializer = NewsSerializer(new, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        new = self.get_object(pk)
+        new.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class Events(APIView):
+    def get(self,request):
+        events = Event.objects.all()
+        serializer = EventSerializer(events,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = EventSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EventsDetails(APIView):
+    def get_object(self, pk):
+        try:
+            return Event.objects.get(pk=pk)
+        except Event.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        event = self.get_object(pk)
+        serializer = Event(event)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        event = self.get_object(pk)
+        serializer = EventSerializer(event, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        event = self.get_object(pk)
+        event.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TimeSlotsView(APIView):
+    def get(self,request):
+        timeslots = TimeSlot.objects.all()
+        serializer = TimeslotSerializer(timeslots,many=True)
+        print(timeslots[0])
+        return Response(serializer.data)
