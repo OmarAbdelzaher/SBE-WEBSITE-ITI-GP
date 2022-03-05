@@ -41,12 +41,6 @@ const ReservationForm = () => {
           </div>
         </div>
         <br></br>
-        <div className="col-md-12 mb-4 pb-2">
-            <div className="form-outline">
-              <input type="text" id="ReservationName<" className="form-control form-control-lg" />
-              <label className="form-label" htmlFor="ReservationName<">Reservation Name</label>
-            </div>
-          </div>
                     <button type="submit" className="btn btn-success btn-lg mb-1">Submit</button>
                   </form>
                 </div>
