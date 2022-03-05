@@ -3,9 +3,9 @@ import React from "react";
 import axios from "axios";
 import { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
+import image from '../assets/image/new.jpg'
 
-
-export default function AllNews(){
+export default function GraduatePage(){
 
     const [AllNews, setAllNews] = useState([]);
 
@@ -16,7 +16,19 @@ export default function AllNews(){
           )
           .then((res) => setAllNews(res.data));
       }, []);
-    
+      function orderByOrderValue( a, b ) {
+        if ( a.id > b.id ){
+          return -1;
+        }
+        if ( a.id <b.id ){
+          return 1;
+        }
+        return 0;
+      }
+
+        const imgEvent={
+            height:'250px',
+        }
 
       const btnStyle = {
         color: 'white',
@@ -33,16 +45,6 @@ export default function AllNews(){
         // background:'blue',
         
     };
-    function orderByOrderValue( a, b ) {
-        if ( a.id > b.id ){
-          return -1;
-        }
-        if ( a.id <b.id ){
-          return 1;
-        }
-        return 0;
-      }
-
 
     return(
 
@@ -51,7 +53,7 @@ export default function AllNews(){
          <br className="mt-5"></br>
 
 <div style={start} >
-        <h1> Hello in All News</h1>
+        <h1> Hello graduate page</h1>
 
 
         <div className="container-fluid mt-2">
@@ -59,18 +61,23 @@ export default function AllNews(){
                     {AllNews.sort(orderByOrderValue).map((item) => {
                         return (
 
-                            <div className="col-md-4 ">
-                                <div className="card mb-4 cardItem" key={item.id}>
-                                    <p>{item.id}</p>
-
-                                    <h2>{item.name}</h2>
-                                    {item.picture}
-                                    {/* <img src={img}  className="card--image" /> */}
-                                    <p>{item.description}</p>
-
-
-                                </div>
+                            <div className="col-md-9 col-sm-12">
+                            <div  class="card " key={item.id}  >
+                              <div class="card-body">
+                                <h5 class="card-title">{item.name}</h5>
+                                <p class="card-text">{item.description}</p>
+                                {/* <p class="card-text">
+                                  <small class="text-muted">Last updated 3 mins ago</small>
+                                </p> */}
+                              </div>
+                              <img
+                                class="card-img-bottom"
+                                src={image}
+                                alt="Card image cap"
+                                style={imgEvent}
+                              />
                             </div>
+                          </div>
                         );
 
 

@@ -32,5 +32,7 @@ admin.site.register(Device)
 admin.site.register(ReserveDevice)
 admin.site.register(New)
 admin.site.register(Event)
+admin.site.register(TimeSlot)
+
 
 

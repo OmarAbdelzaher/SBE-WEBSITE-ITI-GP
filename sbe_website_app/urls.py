@@ -28,6 +28,8 @@ urlpatterns = [
     path('news/<int:pk>', views.NewDetails.as_view()),
     path('events/', views.Events.as_view()),
     path('event/<int:pk>', views.EventsDetails.as_view()),
+    path('timeslots/', views.TimeSlotsView.as_view()),
+
 
 
 

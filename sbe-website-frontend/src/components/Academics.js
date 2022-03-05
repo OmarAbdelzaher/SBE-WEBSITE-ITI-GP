@@ -4,6 +4,8 @@ import React from 'react'
 // import Card from 'react-bootstrap/Card'
 // import 'react-card-with-image/dist/index.css'
 import './Academics.css'
+import { Link } from "react-router-dom";
+
 
 
 export default function Academics() {
@@ -30,11 +32,15 @@ export default function Academics() {
                             {/*Card content*/}
                             <div className="card-body">
                                 {/*Title*/}
-                                <h4 className="card-title">Gradute</h4>
+                                <h4 className="card-title">Graduate</h4>
                                 {/*Text*/}
                                 <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
+                                {/* <button type="button" className="btn btn-primary btn-md">Read more</button> */}
+                                <Link to='/graduatepage' className="nav-link">
                                 <button type="button" className="btn btn-primary btn-md">Read more</button>
+
+            </Link>
                             </div>
                         </div>
                         {/* Card */}
