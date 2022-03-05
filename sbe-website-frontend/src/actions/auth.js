@@ -114,7 +114,6 @@ export const signup = (fname, lname, email, password, confirm_password ,birthdat
     } catch (error) {   
         dispatch({
             type: SIGNUP_FAIL,
-            payload : error,
         })
     }
 

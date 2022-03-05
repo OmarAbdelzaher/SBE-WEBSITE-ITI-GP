@@ -53,18 +53,6 @@ export default function(state = initialState, action) {
             }
         case LOGIN_FAIL:
         case SIGNUP_FAIL:
-            localStorage.removeItem('access');
-            localStorage.removeItem('refresh');
-            return{
-                ...state,
-                access:null,
-                refresh:null,
-                isAuthenticated : false,
-                user:null,
-                error : action.error,
-
-            }
-
         case LOGOUT:
             localStorage.removeItem('access');
             localStorage.removeItem('refresh');
