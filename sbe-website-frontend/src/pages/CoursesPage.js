@@ -1,63 +1,49 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 function CoursesPage() {
+  const [courses, setCourses] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/courses/")
+      .then((res) => {
+        setCourses(res.data)
+
+      })
+  }, []);
   return (
     <>
-    <section className="h-150 ">
-        <div className="container py-5 h-150">
+      <section className="h-custom py-5">
+        <div className="container">
           <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-lg-8 col-xl-12">
-              <div className="card rounded-3">
+            <div className="col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
+              <div className="margin">
                 <div className="card-body p-4 p-md-5">
-                  <Link to="/courseDetails">
-                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Students Courses</h3>
-                  </Link>
+                    <h1 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Students Courses</h1>
                 </div>
-                <div className="card">
-        <div className="card-header">
-          Course
-        </div>
-        <div className="card-body">
-          <h5 className="card-title">Parallel Programming</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-success">Read More about the course</a>
-        </div>
-      </div>
-      <br></br>
-      <div className="card">
-        <div className="card-header">
-        Course
-        </div>
-        <div className="card-body">
-          <h5 className="card-title">Compiler Design</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-success">Read More about the course</a>
-        </div>
-      </div>
-      <br></br>
-      <div className="card">
-        <div className="card-header">
-        Course
-        </div>
-        <div className="card-body">
-          <h5 className="card-title">Cloud Computing</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-success">Read More about the course</a>
-        </div>
-      </div>
-      <br></br>
-      <div className="card">
-        <div className="card-header">
-        Course
-        </div>
-        <div className="card-body">
-          <h5 className="card-title">SComputer Networks</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-success">Read More about the course</a>
-        </div>
-      </div>
-      <br></br>
+                <div className="row table-b">
+                  <table className="text-light table table-hover fs-4">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Course Name</th>
+                      </tr>
+                    </thead>
+                  
+                  {courses.map((course) => {
+                    return (
+                        <tbody className="mb-3" key={course.id}>
+                          <tr className='tr'>
+                            <td><Link className='table-b ' to={`/courseDetails/${course.id}`}>{course.id}</Link></td>
+                            <td><Link className='table-b'  to={`/courseDetails/${course.id}`}>{course.name}</Link></td>
+                          </tr>
+                        </tbody>
+                    );
+                  })}
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -68,3 +54,13 @@ function CoursesPage() {
 }
 
 export default CoursesPage
+
+//  {/* <tbody>
+//                     <tr>
+//                     <Link className="nav-links btn-lg mb-1" to={`/courseDetails/${course.id}`}>
+//                     <h1>{course.id}</h1>
+//                   <h2 className="pt-3 text-170 text-600 text-primary-d1 letter-spacing">
+//                   {course.name}
+//                   </h2></Link>
+//                     </tr>
+//                   </tbody> */}

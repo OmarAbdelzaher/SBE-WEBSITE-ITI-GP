@@ -2,13 +2,46 @@ import Navbar from "react-bootstrap/Navbar";
 import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import logo from "../assets/image/departmentLogo.png";
-import { Link } from "react-router-dom";
+import { Link , Redirect } from "react-router-dom";
 import "../pages/style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { connect } from 'react-redux';
+import { logout } from '../actions/auth';
 
-const Header = () => {
+
+const Header = ({ logout, isAuthenticated }) => {
   const [head, setHeader] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
+
+  const logout_user = () => {
+    logout();
+    setRedirect(true);
+};
+
+const guestLinks = () => (
+  <>
+     <Nav.Link className="button">
+          <Link className="fs-5 header-link ani" to="/login">
+            Log In
+          </Link>
+        </Nav.Link>
+        <Nav.Link className="button">
+          <Link className="fs-5 header-link ani" to="/signup">
+            Sign Up
+          </Link>
+        </Nav.Link>
+  </>
+);
+const authLinks = () => (
+  <li className='nav-item'>
+      <a className='nav-link' href='#!' onClick={logout_user}>Logout</a>
+  </li>
+
+
+);
+
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
@@ -26,44 +59,54 @@ const Header = () => {
   });
 
   return (
-    <Navbar fixed="top" expand="lg" className={head ? "head scroll" : "head"}>
-      <Navbar.Brand className="col-3" href="/">
-        <img
-          src={logo}
-          width="200"
-          height="90"
-          className="d-inline-block align-top"
-          alt="Department logo"
-        />
-      </Navbar.Brand>{" "}
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-      <Nav variant="dark" className="col-6 offset-7">
-        <Nav.Link className="button">
-          <Link className="fs-5 header-link ani" to="/">
-            <FontAwesomeIcon icon={faHome} />{" "}
-          </Link>
-        </Nav.Link>
-        <Nav.Link className="button">
-          <Link className="fs-5 header-link ani" to="/login">
-            Log In
-          </Link>
-        </Nav.Link>
-        <Nav.Link className="button">
-          <Link className="fs-5 header-link ani" to="/signup">
-            Sign Up
-          </Link>
-        </Nav.Link>
-        <Nav.Link className="button">
-          <Link className="fs-5 header-link ani" to="/reservation">
-            Reservation
-          </Link>
-        </Nav.Link>
-        {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
-      </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <>
+      <Navbar fixed="top" expand="lg" className={head ? "head scroll" : "head"}>
+        <Navbar.Brand className="col-3" href="/">
+          <img
+            src={logo}
+            width="200"
+            height="90"
+            className="d-inline-block align-top"
+            alt="Department logo"
+          />
+        </Navbar.Brand>{" "}
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav variant="dark" className="col-6 offset-7">
+          <Nav.Link className="button">
+            <Link className="fs-5 header-link ani" to="/">
+              <FontAwesomeIcon icon={faHome} />{" "}
+            </Link>
+          </Nav.Link>
+          {/* <Nav.Link className="button">
+            <Link className="fs-5 header-link ani" to="/login">
+              Log In
+            </Link>
+          </Nav.Link>
+          <Nav.Link className="button">
+            <Link className="fs-5 header-link ani" to="/signup">
+              Sign Up
+            </Link>
+          </Nav.Link> */}
+            {isAuthenticated ? authLinks() : guestLinks()}
+          <Nav.Link className="button">
+            <Link className="fs-5 header-link ani" to="/reservation">
+              Reservation
+            </Link>
+          </Nav.Link>
+          {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
+        </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      {redirect ? <Redirect to='/' /> : <></>}
+    </>
   );
 };
 
-export default Header;
+// export default Header;
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { logout })(Header);

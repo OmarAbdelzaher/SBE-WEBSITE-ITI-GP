@@ -1,114 +1,104 @@
 import React from "react";
-// import { useParams } from "react-router-dom";
+import {  Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+
+
 
 function CourseDetails() {
-  // const params = useParams();
+
+
+
+  const params = useParams();
   const [course, setCourse] = useState({});
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/course/${course.pk}`).then((res) => {
-      console.log(res.data);
-      setCourse(res.data);
-    });
+    axios
+      .get(`http://localhost:8000/api/course/${params.id}`)
+      .then((res) => {
+        console.log(res.data)
+        setCourse(res.data)
+
+      })
   }, []);
   return (
     <>
-      <section className="h-custom d">
-        <div className="course-d">
-          <div className="jumbotron">
-            <div className="container">
-              <h2>Course Instruction</h2>
-              <p className="col">
-                Small Description 3n elcourse
-              Small Description 3n elcourse
-              Small Description 3n elcourse
-              </p>
-              <hr className="my-4" />
-              <p className="lead">
-                <Link
-                  className="btn btn-dark btn-lg"
-                  href=""
-                  target="_blank"
-                  role="button"
-                >
-                  Course Instruction
+      <section className=" h-custom py-5">
+        <div className="container ">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
+              <div className="">
+                <div className="card-body p-4 p-md-5">
+                  <h1 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 bg-light rounded text-center nav-links border border-dark">{course.name}</h1>
+                </div>
+
+                <div className="row justify-content-center align-items-center">
+
+                <div className="row col-6  ">
+                <div className="col-12 card cards justify-content-center align-items-center ">
+                  <h2 className="col-12 card-title bg-light py-3 text-dark">Course Instructions</h2>
+                  <p className="col-12 card-text fs-4 text-dark">{course.instructions}</p>
+                </div>
+              
+                
+                <div className="btn button col-12 card cards justify-content-center align-items-center ">
+                <Link className="btn button fs-4" to="/course-history">
+               Show Course History
                 </Link>
-              </p>
+                </div>
+                </div>
+
+                <div className=" row col-4 offset-1">
+                  <div className="row card cards col-10 text-center border border-2 ">
+                    <h3 className="card-body col-12 nav-links">Materials</h3>
+                    <p className="card-text col-12 text-dark">{course.materials}</p>
+                    <button className="btn btn-lg col-12 button">
+                      <a className="button nav-links text-light" href={course.materials} download>Download</a>
+                    </button>
+                  </div>
+                  <div className="row card cards col-10 text-center border border-2 ">
+                    <h3 className="card-body col-12 nav-links">Grades</h3>
+                    <p className="card-text col-12 text-dark">Download Students Grades</p>
+                    <button className="btn btn-lg col-12 button">
+                      <a className="button nav-links text-light" href={course.stds_grades} download>Download</a>
+                    </button>
+                  </div>
+                  <div className="row card cards col-10 text-center border border-2 ">
+                    <h3 className="card-body col-12 nav-links">Schedule</h3>
+                    <p className="card-text col-12 text-dark">Download Course Schedule</p>
+                    <button className="btn btn-lg col-12 button">
+                      <a className="button nav-links text-light" href={course.schedule} download>Download</a>
+                    </button>
+                  </div>
+
+                </div>
+                </div>
+               
+                {/* <div className="row justify-content-center align-items-center ">
+                  <h2 className="bg-light py-3 nav-links">Course Materials</h2>
+                  <p className="col-4">{course.materials}</p>
+                  <button className="btn btn-lg col-6 button">
+                      <a className="button nav-links text-light" href={course.materials} download>Download</a>
+                    </button>
+                </div>
+                <div className="row justify-content-center align-items-center ">
+                  <h2 className="bg-light py-3 nav-links">Students Grades</h2>
+                  <p className="col-4">Download Students Grades</p>
+                  <button className="btn btn-lg col-6 button">
+                      <a className="button nav-links text-light" href={course.stds_grades} download>Download</a>
+                    </button>
+                </div>
+                <div className="row justify-content-center align-items-center ">
+                  <h2 className="bg-light py-3 nav-links">Students Grades</h2>
+                  <p className="col-4">Download Course Schedule</p>
+                  <button className="btn btn-lg col-6 button">
+                      <a className="button nav-links text-light" href={course.schedule} download>Download</a>
+                    </button>
+                </div> */}
+               
+
+              </div>
             </div>
           </div>
-          <div className="container">
-            {/* Example row of columns */}
-            <div className="row">
-              <div className="col-md-6">
-                <div className="col">
-                  <h2>Course Grades</h2>
-                  <p>
-                    Small Description 3n elcourse
-                    Small Description 3n elcourse
-                    Small Description 3n elcourse
-                    Small Description 3n elcourse
-                    <span className="fa-stack fa-lg">
-                      <i className="fa fa-dollar fa-stack-1x text-success" />
-                      <i className="fa fa-ban fa-stack-2x text-danger" />
-                    </span>
-                  </p>
-                  <p>
-                    <Link
-                      className="btn btn-dark"
-                      to="/coursesMenu"
-                      target="_blank"
-                      role="button"
-                    >
-                      View Grades{" "}
-                      <i className="fa fa-chevron-right" aria-hidden="true" />
-                    </Link>
-                  </p>
-                </div>{" "}
-                {/* /.col */}
-                <div className="col">
-                  <h2>Course Materials</h2>
-                  <p>Small Description 3n elcourse</p>
-                  <p>
-                    <Link
-                      className="btn btn-dark"
-                      href=""
-                      target="_blank"
-                      role="button"
-                    >
-                      View Materials{" "}
-                      <i className="fa fa-chevron-right" aria-hidden="true" />
-                    </Link>
-                  </p>
-                </div>{" "}
-                {/* /.col */}
-                <div className="col-md-6">
-                  <div className="col">
-                    <h2>Course History</h2>
-                    <p>Small Description 3n elcourse</p>
-                    <p>
-                      <Link
-                        className="btn btn-dark"
-                        href=""
-                        target="_blank"
-                        role="button"
-                      >
-                        View History{" "}
-                        <i className="fa fa-chevron-right" aria-hidden="true" />
-                      </Link>
-                    </p>
-                  </div>{" "}
-                </div>{" "}
-                {/* /.col-md-6 */}
-                {/* /.col */}
-              </div>{" "}
-              {/* /.col-md-6 */}
-            </div>{" "}
-            {/* /.row */}
-            <hr />
-          </div>{" "}
-          {/* /.container */}
         </div>
       </section>
     </>

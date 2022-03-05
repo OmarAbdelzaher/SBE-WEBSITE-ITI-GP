@@ -9,14 +9,13 @@ function CoursesMenu() {
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="col-lg-8 col-xl-6">
               <div className=" rounded-3 form">
-                <div className=" p-4 p-md-5 courses-b" >
+                <div className=" p-4 p-md-5 courses-b border border-2 border-light" >
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 ">Students Courses</h3>
                   <form className="px-md-2">
                   <div className="row">
                       <div className="col-12">
                       <label className="form-label select-label col-12 fs-5 ">Study Year</label>{" "}
                         <select className="select form-control-lg col-12 ">
-                        <option value={4}>Preparatory</option>
                           <option  value={2}>First Year</option>
                           <option  value={3}>Second Year</option>
                           <option  value={4}>Third Year</option>

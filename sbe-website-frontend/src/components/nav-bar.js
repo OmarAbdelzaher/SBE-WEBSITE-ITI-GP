@@ -49,10 +49,11 @@ const NavBar = () => {
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link className="nav-links" to="/coursesMenu">
+            <Link className="nav-links" to="/coursesMenu">
                 Courses
-              </Link>
+                </Link>
             </Nav.Link>
+            
             <Nav.Link>
               <Link
                 className="nav-links"
