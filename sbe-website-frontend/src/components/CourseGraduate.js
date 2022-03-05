@@ -5,26 +5,18 @@ import { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import image from '../assets/image/new.jpg'
 
-export default function GraduatePage(){
+export default function CourseGraduate(){
 
-    const [AllNews, setAllNews] = useState([]);
+    const [graduatecourse, setGraduateCourse] = useState([]);
 
     useEffect(() => {
         axios
           .get(
-            "http://localhost:8000/api/newsgraduate/"
+            "http://localhost:8000/api/coursegraduate/"
           )
-          .then((res) => setAllNews(res.data));
+          .then((res) => setGraduateCourse(res.data));
       }, []);
-      function orderByOrderValue( a, b ) {
-        if ( a.id > b.id ){
-          return -1;
-        }
-        if ( a.id <b.id ){
-          return 1;
-        }
-        return 0;
-      }
+
 
         const imgEvent={
             height:'250px',
@@ -49,50 +41,38 @@ export default function GraduatePage(){
     return(
 
         <>
-         <br className="mt-5"></br>
-         <br className="mt-5"></br>
+         {/* <Header/> */}
 
-<ul className="nav nav-tabs" style={start}>
-        <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="/graduatepage">News</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="/coursegraduate">Courses</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Office Hours </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link disabled" href="#" tabIndex={-1} aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-
-
-{/* <div style={start} > */}
+<div style={start} >
         {/* <h1> Hello graduate page</h1> */}
-<div>
+
 
         <div className="container-fluid mt-2">
                 <div className="row">
-                    {AllNews.sort(orderByOrderValue).map((item) => {
+                    {graduatecourse.map((item) => {
                         return (
 
                             <div className="col-md-9 col-sm-12">
                             <div  class="card " key={item.id}  >
                               <div class="card-body">
-                                <h5 class="card-title">{item.title}</h5>
-                                <p class="card-text">{item.description}</p>
+                                <h5 class="card-title">{item.name}</h5>
+                                <p class="card-text">Category:{item.category}</p>
+                                <p class="card-text">Staff ID:{item.staff_id}</p>
+                                <p class="card-text">instructions:{item.instructions}</p>
+
+
+
                                 {/* <h3>{item.category}</h3> */}
                                 {/* <p class="card-text">
                                   <small class="text-muted">Last updated 3 mins ago</small>
                                 </p> */}
                               </div>
-                              <img
+                              {/* <img
                                 class="card-img-bottom"
                                 src={image}
                                 alt="Card image cap"
                                 style={imgEvent}
-                              />
+                              /> */}
                             </div>
                           </div>
                         );
@@ -101,12 +81,9 @@ export default function GraduatePage(){
                     })}
 
                 </div>
-                <Link to='/' className="nav-link">
-                    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >Return Home            </button>
+                <Link to='/graduatepage' className="nav-link">
+                    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >Return Graduated Page            </button>
                 </Link>
-                {/* <Link to='/coursegraduate' className="nav-link">
-                    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} > Courses            </button>
-                </Link> */}
             </div>
 
         </div>

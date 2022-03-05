@@ -187,6 +187,12 @@ class Course(models.Model):
     instructions = models.TextField(max_length=255)
     materials = models.CharField(max_length=100)
     staff_id = models.ManyToManyField(Staff)
+    CATEGORY_CHOICES = (
+        ('graduate', 'Graduate'),
+        ('undergraduate', 'Undergraduate'),
+    )
+
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     
     def __str__(self):
         return self.name

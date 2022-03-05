@@ -39,12 +39,12 @@ const NavBar = () => {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0 fs-3">
             <Nav.Link>
-              <Link className="nav-links" to="">
+              <Link className="nav-links" to="/allnews">
                 News
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link className="nav-links" to="">
+              <Link className="nav-links" to="/allevents">
                 Events
               </Link>
             </Nav.Link>
@@ -73,11 +73,26 @@ const NavBar = () => {
             <div className="dropdown">
               <NavDropdown
                 className="dropdown"
-                title="Students"
+                title="Graduates"
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="">Graduate</NavDropdown.Item>
-                <NavDropdown.Item href="">Undergraduate</NavDropdown.Item>
+                <NavDropdown.Item href="/coursegraduate">Courses</NavDropdown.Item>
+                <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
+                <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
+
+                <NavDropdown.Divider />
+              </NavDropdown>
+            </div>
+            <div className="dropdown">
+              <NavDropdown
+                className="dropdown"
+                title="Under-Graduates"
+                id="navbarScrollingDropdown"
+              >
+                <NavDropdown.Item href="/courseungraduate">Courses</NavDropdown.Item>
+                <NavDropdown.Item href="/undergraduatepage">News</NavDropdown.Item>
+                <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
+
                 <NavDropdown.Divider />
               </NavDropdown>
             </div>

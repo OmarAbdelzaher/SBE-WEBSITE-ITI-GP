@@ -22,7 +22,8 @@ import CourseHistory from "./pages/CourseHistory";
 import AllEvents from "./components/AllEvents";
 import GraduatePage from "./components/GraduatePage";
 import UnderGraduate from "./components/UnderGraduate";
-
+import CourseGraduate from "./components/CourseGraduate";
+import CourseUnderGraduate from "./components/CourseUndergraduate";
 
 function App() {
   return (
@@ -45,6 +46,10 @@ function App() {
             <Route path={"/allevents"} exact component={AllEvents} />
             <Route path={"/graduatepage"} exact component={GraduatePage} />
             <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
+            <Route path={"/coursegraduate"} exact component={CourseGraduate} />
+            <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} />
+
+
 
 
             <Route
