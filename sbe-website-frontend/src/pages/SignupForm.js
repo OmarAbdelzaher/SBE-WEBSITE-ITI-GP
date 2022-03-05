@@ -307,7 +307,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                           className="select form-control-lg"
                           value={formData.role}
                           onChange={(e) => onChange(e)}
-                          name="role"
+                          name="role"nnn
                         >
                           <option value="student">Student</option>
                           <option value="dr">Dr</option>

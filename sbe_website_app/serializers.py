@@ -91,7 +91,7 @@ class ReserveDeviceSerializer(serializers.ModelSerializer):
 class NewsSerializer(serializers.ModelSerializer):
      class Meta :
         model = New
-        fields = ['id','name','description','picture']
+        fields = ['id','title','description','picture','category']
 
 class EventSerializer(serializers.ModelSerializer):
      class Meta :

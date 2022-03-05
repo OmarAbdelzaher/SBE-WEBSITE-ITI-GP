@@ -20,6 +20,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import AllEvents from "./components/AllEvents";
 import GraduatePage from "./components/GraduatePage";
+import UnderGraduate from "./components/UnderGraduate";
 
 
 function App() {
@@ -41,6 +42,8 @@ function App() {
             <Route path={"/allnews"} exact component={AllNews} />
             <Route path={"/allevents"} exact component={AllEvents} />
             <Route path={"/graduatepage"} exact component={GraduatePage} />
+            <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
+
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}

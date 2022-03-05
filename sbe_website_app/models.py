@@ -48,6 +48,7 @@ class UserAccountManager(BaseUserManager):
             password=password,
             **extra_fields
         )
+        user.is_active=True
         user.is_staff = True
         user.is_admin = True
         user.is_superuser = True 
@@ -197,14 +198,21 @@ class Hall(models.Model):
         return self.name
 
 class New(models.Model):
-    name = models.CharField(max_length=20)
+    title = models.CharField(max_length=20)
     
     description = models.CharField(max_length=100)
 
     picture = models.ImageField(null=True,upload_to='images/') 
+    CATEGORY_CHOICES = (
+        ('graduate', 'Graduate'),
+        ('undergraduate', 'Undergraduate'),
+    )
+
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+
        
     def __str__(self):
-        return self.name
+        return self.title
     
 
     
