@@ -20,7 +20,10 @@ const initialState = {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: null,
-    user: null
+    user: null,
+    data: null,
+    error:null,
+    emailerror:null,
     };
 
 export default function(state = initialState, action) {
@@ -44,15 +47,50 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: false,
-                error: null,
+                data : payload,
             }
         case USER_LOADED_FAIL :
             return {
                 ...state,
                 user : null
             }
+       
+            // localStorage.removeItem('access');
+            // localStorage.removeItem('refresh');
+            // return{
+            //     ...state,
+            //     access:null,
+            //     refresh:null,
+            //     isAuthenticated : false,
+            //     user:null,
+            //     error:action.error,               
+
+            // }
         case LOGIN_FAIL:
+            localStorage.removeItem('access');
+            localStorage.removeItem('refresh');
+            return{
+                ...state,
+                access:null,
+                refresh:null,
+                isAuthenticated : false,
+                user:null,
+                error:payload,
+                               
+
+            }
         case SIGNUP_FAIL:
+            localStorage.removeItem('access');
+            localStorage.removeItem('refresh');
+            return{
+                ...state,
+                access:null,
+                refresh:null,
+                isAuthenticated : false,
+                user:null,
+                emailerror:payload,                               
+
+            }
         case LOGOUT:
             localStorage.removeItem('access');
             localStorage.removeItem('refresh');
@@ -61,7 +99,8 @@ export default function(state = initialState, action) {
                 access:null,
                 refresh:null,
                 isAuthenticated : false,
-                user:null
+                user:null,
+                               
 
             }
         case AUTHENTICATED_SUCCESS:

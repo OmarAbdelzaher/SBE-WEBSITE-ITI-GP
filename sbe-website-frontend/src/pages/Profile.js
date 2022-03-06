@@ -6,7 +6,7 @@ function Profile() {
   const [student, setStudent] = useState({});
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/student/4`)
+      .get(`http://localhost:8000/api/student/2`)
       .then((res) => {
         console.log(res.data)
         setStudent(res.data)
@@ -28,6 +28,7 @@ function Profile() {
                         <div className="d-flex justify-content-center align-items-center rounded" style={{height: '140px', backgroundColor: 'rgb(233, 236, 239)'}}>
                           <span style={{color: 'rgb(166, 168, 170)', font: 'bold 8pt Arial'}}>140x140</span>
                         </div>
+                        <div className="text-muted"><small>Last login 2 hours ago</small></div>
                       </div>
                     </div>
                     <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
@@ -40,7 +41,6 @@ function Profile() {
                             <i className="fa fa-fw fa-camera" />
                             <span>Change Photo</span>
                           </button>
-                          <div className="text-muted"><small>Last login 2 hours ago</small></div>
                         </div>
                       </div>
                     </div>
@@ -57,13 +57,13 @@ function Profile() {
                               <div className="col">
                                 <div className="form-group">
                                   <label>First Name</label>
-                                  <input className="form-control input-lg" type="text" name="" placeholder="First Name" defaultValue="" />
+                                  <input className="form-control input-lg" type="text" name="" placeholder="First Name" defaultValue={student.fname} />
                                 </div>
                               </div>
                               <div className="col">
                                 <div className="form-group">
                                   <label>Last Name</label>
-                                  <input className="form-control input-lg" type="text" name="" placeholder="Last Name" defaultValue="" />
+                                  <input className="form-control input-lg" type="text" name="" placeholder="Last Name" defaultValue={student.lname} />
                                 </div>
                               </div>
                             </div>
@@ -72,7 +72,7 @@ function Profile() {
                               <div className="col">
                                 <div className="form-group">
                                   <label>Email</label>
-                                  <input className="form-control" type="text" placeholder="user@example.com" />
+                                  <input className="form-control" type="text" placeholder="user@example.com" defaultValue={student.email} />
                                 </div>
                               </div>
                             </div>
@@ -81,7 +81,7 @@ function Profile() {
                               <div className="col">
                                 <div className="form-group">
                                   <label>Phone Number</label>
-                                  <input className="form-control" type="number" name="" placeholder="01120796294" defaultValue="" />
+                                  <input className="form-control" type="number" name="" placeholder="01120796294" defaultValue={student.phone_number} />
                                 </div>
                               </div>
                             </div>
@@ -90,7 +90,7 @@ function Profile() {
                               <div className="col">
                                 <div className="form-group">
                                   <label>Address</label>
-                                  <input className="form-control" type="text" placeholder="Nasr city, Cairo" />
+                                  <input className="form-control" type="text" placeholder="Nasr city, Cairo" defaultValue={student.address}  />
                                 </div>
                               </div>
                             </div>
@@ -99,13 +99,13 @@ function Profile() {
                               <div className="col">
                                 <div className="form-group">
                                   <label>Birthdate</label>
-                                  <input className="form-control" type="date" name="" placeholder="" defaultValue="" />
+                                  <input className="form-control" type="date" name="" placeholder="" defaultValue={student.birthdate} />
                                 </div>
                               </div>
                             </div>
                             <br></br>
                         <div className="row">
-          <div className="col-12 col-sm-6 mb-3">
+          {/* <div className="col-12 col-sm-6 mb-3">
             <div className="mb-2"><b>Change Password</b></div>
             <div className="row">
               <div className="col">
@@ -132,23 +132,8 @@ function Profile() {
                   <input className="form-control" type="password" placeholder="••••••" /></div>
               </div>
             </div>
-          </div>
+          </div> */}
           <br></br>
-          <div className="col-12 col-sm-5 offset-sm-1 mb-3">
-            <div className="mb-2"><b>Gender</b></div>
-            <div className="row">
-                <div className="custom-controls-stacked px-2">
-                  <div className="custom-control custom-checkbox">
-                    <input type="checkbox" className="custom-control-input" id="notifications-blog" defaultChecked />
-                    <label className="custom-control-label" htmlFor="notifications-blog">Male</label>
-                  </div>
-                  <div className="custom-control custom-checkbox">
-                    <input type="checkbox" className="custom-control-input" id=""/>
-                    <label className="custom-control-label">Female</label>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div className="row">
           <div className="col d-flex justify-content-end">

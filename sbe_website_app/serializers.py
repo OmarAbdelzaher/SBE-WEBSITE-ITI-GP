@@ -9,13 +9,13 @@ User = get_user_model()
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password']
+        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password' ,'role']
 
         
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','password']
+        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','password','role']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(PersonSerializer, self).create(validated_data)
@@ -23,20 +23,15 @@ class PersonSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','password','graduate','year_of_graduation']
+        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','password','graduate','year_of_graduation','is_active','role']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StudentSerializer, self).create(validated_data)
 
-
-    def create(self, validated_data):
-        validated_data['password'] = make_password(validated_data['password'])
-        return super(StudentSerializer, self).create(validated_data) 
-    
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','position','office_hours']
+        fields = ['id','fname','lname','email','password','role','gender','birthdate','address','phone_number','role']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StaffSerializer, self).create(validated_data)
@@ -44,7 +39,7 @@ class StaffSerializer(serializers.ModelSerializer):
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
         model = FacultyEmp
-        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','title','password']
+        fields = ['id','fname','lname','email','password','gender','birthdate','address','phone_number','title','password','role']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -53,8 +48,13 @@ class FacultyEmpSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta :
         model = Course
-        fields = ['id','name','total_grade','stds_grades','schedule','instructions','materials','staff_id','category']
+        fields = ['id','name','total_grade','stds_grades','instructions','materials','staff_id','category']
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        for i in range(len(ret['staff_id'])): 
+            ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
+        return ret
 
 class HallSerializer(serializers.ModelSerializer):
     class Meta :

@@ -1,22 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { connect , useSelector } from "react-redux";
 import { login } from "../actions/auth"
 
 function LoginForm({login , isAuthenticated}) {
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const { email, password } = formData;
+  const errorMessage = useSelector(state => state.auth.error)
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
         e.preventDefault();
         login(email, password);
+
     };
+
 
   if (isAuthenticated) {
     return <Redirect to='/' />
@@ -82,6 +86,9 @@ function LoginForm({login , isAuthenticated}) {
                     >
                       Login
                     </button>
+                    <div>
+                    {errorMessage === "No active account found with the given credentials" ? <p className="text-danger">No active account found with this email</p> :null}
+                    </div>
                   </form>
                   <p className="mt-3">
                     Don't have an account? <Link to="/signup">Sign Up</Link>
