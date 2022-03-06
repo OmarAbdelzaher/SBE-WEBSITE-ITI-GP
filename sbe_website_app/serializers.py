@@ -1,29 +1,33 @@
 from rest_framework import serializers
 from .models import * 
-
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
+
 User = get_user_model()
 
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
         fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password']
+
         
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = ['fname','lname','email','gender','birthdate','address','phone_number','password']
-    
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
-        return super(PersonSerializer, self).create(validated_data) 
-    
-    
+        return super(PersonSerializer, self).create(validated_data)
+
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','graduate','year_of_graduation','password','is_active']
+        fields = ['fname','lname','email','gender','birthdate','address','phone_number','password','graduate','year_of_graduation']
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super(StudentSerializer, self).create(validated_data)
+
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -32,12 +36,11 @@ class StudentSerializer(serializers.ModelSerializer):
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','password']
-    
+        fields = ['fname','lname','email','gender','birthdate','address','phone_number','position','office_hours']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
-        return super(StaffSerializer, self).create(validated_data) 
-    
+        return super(StaffSerializer, self).create(validated_data)
+
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
         model = FacultyEmp
@@ -91,7 +94,7 @@ class ReserveDeviceSerializer(serializers.ModelSerializer):
 class NewsSerializer(serializers.ModelSerializer):
      class Meta :
         model = New
-        fields = ['id','name','description','picture']
+        fields = ['id','title','description','picture','category']
 
 class EventSerializer(serializers.ModelSerializer):
      class Meta :

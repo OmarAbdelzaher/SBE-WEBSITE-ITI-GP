@@ -1,35 +1,114 @@
-@media (min-width: 1025px) {
-  .h-custom {
-	  margin-top: 10%;
-      height: 150vh !important;
-  }
-}
-.floating-label-group {
-	position: relative;
-	margin-top: 15px;
-	margin-bottom: 25px;
-}
-	.floating-label {
-		font-size: 13px;
-		color: #cccccc;
-		position: absolute;
-		pointer-events: none;
-		top: 9px;
-		left: 12px;
-		transition: all 0.1s ease;
-	}
+.h-custom {
+  /* margin-top: 10%; */
+  /* height: 150vh !important; */
+  /* background-color: #001233; */
+  background-image: url(../src/assets/image/Fac_eng.jpg);
+  height: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 
-	input:focus ~ .floating-label,
-	input:not(:focus):valid ~ .floating-label {
-		top: -15px;
-		bottom: 0px;
-		left: 0px;
-		font-size: 11px;
-		opacity: 1;
-		color: #404040;
-	}
+}
+.background{
+  background-color: #001233;
+    /* background-image: linear-gradient(to right, #8ecae6, #0096c7);
+	  background-image: -o-linear-gradient(right, #457b9d, #0096c7);
+	  background-image: -moz-linear-gradient(right, #8ecae6, #0096c7);
+	  background-image: -webkit-linear-gradient(left, #8ecae6, #003049); */
+}
+
+@media only screen and (max-width: 425px) {
+  .h-custom{
+    background-image: url(../src/assets/image/Fac_eng.jpg);
+    height:350vh !important;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .margin{
+    margin-top: 10% !important;
+  } 
+}
+
+.d {
+  height: 150vh !important;
+}
+.form {
+  margin-top: 34% !important;
+}
+
+.courses-b {
+  background: rgb(0, 0, 0) !important;
+  /* background: rgba(0, 0, 0, 0.5); */
+  background: rgba(2, 13, 22, 0.5) !important;
+  color: #f1f1f1;
+  height: auto;
+  overflow-x: auto;
+  margin-top: 14% !important;
+}
+
+.course-d {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 98%;
+  padding: 2%;
+  background: rgb(0, 0, 0);
+  background: rgba(3, 29, 53, 0.5);
+  color: #f1f1f1;
+}
+
+.table-b {
+  color: #f1f1f1 !important;
+  text-decoration: none !important;
+  padding: 2% !important;
+}
+.table-b:hover {
+  color: #9b2226 !important;
+}
+
+.tr:hover{
+  color: black;
+  background-color:#001233;
+
+}
+.cards{
+  box-shadow: 0 4px 8px 0 rgba(187, 177, 177, 0.2) !important;
+  transition: 0.3s !important;
+  margin: 1% !important;
+}
+.cards:hover{
+  box-shadow: 7px 8px 5px 0px rgba(247, 233, 233, 0.2) !important;
+}
+
+.floating-label-group {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.floating-label {
+  font-size: 13px;
+  color: #cccccc;
+  position: absolute;
+  pointer-events: none;
+  top: 9px;
+  left: 12px;
+  transition: all 0.1s ease;
+}
+
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label {
+  top: -15px;
+  bottom: 0px;
+  left: 0px;
+  font-size: 11px;
+  opacity: 1;
+  color: #404040;
+}
 
 .row {
-	margin-top: 50px;
+  margin-top: 50px;
 }
-

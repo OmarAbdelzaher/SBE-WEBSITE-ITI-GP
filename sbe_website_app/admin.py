@@ -33,6 +33,8 @@ admin.site.register(ReserveDevice)
 admin.site.register(New)
 admin.site.register(Event)
 admin.site.register(TimeSlot)
+admin.site.register(Schedule)
+
 
 
 

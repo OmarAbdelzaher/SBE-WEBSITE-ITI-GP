@@ -60,11 +60,15 @@ export default function AllNews(){
                         return (
                             <div className="col-md-4 ">
                                 <div className="card mb-4 cardItem" key={item.id}>
-                                    <p>{item.id}</p>
-                                    <h2>{item.name}</h2>
-                                    <h1>{item.picture}</h1>
-                                    <img src={"static/media/PyQt-Poster.png"}  className="card--image" />
+                                    {/* <p>{item.id}</p> */}
+
+                                    <h2>{item.title}</h2>
+                                    {item.picture}
+                                    {/* <img src={img}  className="card--image" /> */}
                                     <p>{item.description}</p>
+                                    <p>Category:{item.category}</p>
+
+
                                 </div>
                             </div>
                         );

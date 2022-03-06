@@ -63,7 +63,8 @@ export const login = (email, password) => async dispatch => {
     const body = JSON.stringify({ email, password });
 
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/create/`, body, config);
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/create/`, body, config)
+      
         
         dispatch({
             type: LOGIN_SUCCESS,
@@ -104,18 +105,20 @@ export const signup = (fname, lname, email, password, confirm_password ,birthdat
       }
 
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}${url}`, body, config);
-
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}${url}`, body, config)
+        console.log(res)
         dispatch({
             type: SIGNUP_SUCCESS,
-            payload: res.data
+            payload: res.data,
         });
-    } catch (err) {
+    } catch (error) {   
         dispatch({
-            type: SIGNUP_FAIL
+            type: SIGNUP_FAIL,
         })
     }
-};
+
+}
+
 
 export const verify = (uid, token) => async dispatch => {
     const config = {

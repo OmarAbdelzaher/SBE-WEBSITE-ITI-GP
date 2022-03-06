@@ -18,32 +18,32 @@ class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('Users must have an email address')
-
         email = self.normalize_email(email)
         user = self.model(email=email,**extra_fields)
-        
         user.set_password(password)
         user.save()
         return user
-    
-    def create_staffuser(self, email, password,**extra_fields):
+
+    def create_staffuser(self, email, password=None,**extra_fields):
         """
         Creates and saves a staff user with the given email and password.
         """
+
         user = self.create_user(
             email,
-            password=password,
+            password=password,  
             **extra_fields
         )
         user.is_staff = True
         user.save()
         return user
     
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email, password=None, **extra_fields):
         """
         Creates and saves a superuser with the given email and password.
         """
         user = self.create_user(
+
             email,
             password=password,
             **extra_fields
@@ -54,7 +54,7 @@ class UserAccountManager(BaseUserManager):
         user.is_superuser = True 
         user.save()
         return user
-    
+
 # Create your models here.
 class Person(AbstractBaseUser,PermissionsMixin):
     GENDER_CHOICES = (
@@ -117,7 +117,7 @@ def send_activation_email(sender, instance, created, **kwargs):
         if instance.is_active:
             try:
                 send_mail("Activation Done",
-                        "hello" +instance.fname+ " , Your account has been activated",
+                        "hello " +instance.fname+ " , Your account has been activated",
                         'settings.EMAIL_HOST_USER',[instance.email] ,fail_silently=False,)
                 
                 instance.is_activated = True
@@ -181,13 +181,30 @@ class Course(models.Model):
     name = models.CharField(max_length=20)
     total_grade = models.IntegerField()
     stds_grades = models.FileField(upload_to='student_grades/')
-    schedule = models.FileField(upload_to='courses_schedules/')
-    instructions = models.TextField(max_length=255)
-    materials = models.CharField(max_length=100)
+    instructions = models.TextField(max_length=500)
+    materials = models.CharField(max_length=500)
+    year = models.IntegerField()
+    semester = models.IntegerField()
+    
     staff_id = models.ManyToManyField(Staff)
     
     def __str__(self):
         return self.name
+
+class CourseHistory(models.Model):
+    year = models.IntegerField()
+    materials = models.CharField(max_length=500)
+    
+    staff_id = models.ManyToManyField(Staff)
+    course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.course_id
+
+class Schedule(models.Model):
+    year = models.IntegerField()
+    semester = models.IntegerField()
+    schedule = models.FileField(upload_to='Schedules/')
     
 class Hall(models.Model):
     name = models.CharField(max_length=20)
@@ -196,12 +213,21 @@ class Hall(models.Model):
         return self.name
 
 class New(models.Model):
-    name = models.CharField(max_length=20)
+    title = models.CharField(max_length=20)
+    
     description = models.CharField(max_length=100)
-    picture = models.ImageField(null=True,upload_to='sbe-website-frontend/build/static/media/') 
+
+    picture = models.ImageField(null=True,upload_to='images/') 
+    CATEGORY_CHOICES = (
+        ('graduate', 'Graduate'),
+        ('undergraduate', 'Undergraduate'),
+    )
+
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+
        
     def __str__(self):
-        return self.name
+        return self.title
     
 
     

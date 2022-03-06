@@ -5,14 +5,14 @@ import { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import image from '../assets/image/new.jpg'
 
-export default function GraduatePage(){
+export default function UnderGraduate(){
 
     const [AllNews, setAllNews] = useState([]);
 
     useEffect(() => {
         axios
           .get(
-            "http://localhost:8000/api/newsgraduate/"
+            "http://localhost:8000/api/newsundergraduate/"
           )
           .then((res) => setAllNews(res.data));
       }, []);
