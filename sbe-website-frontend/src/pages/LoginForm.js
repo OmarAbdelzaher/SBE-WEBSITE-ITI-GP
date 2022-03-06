@@ -11,7 +11,6 @@ function LoginForm({login , isAuthenticated}) {
   });
   const { email, password } = formData;
   const errorMessage = useSelector(state => state.auth.error)
-  
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -85,7 +84,7 @@ function LoginForm({login , isAuthenticated}) {
                       Login
                     </button>
                     <div>
-                    {errorMessage === "No active account found with the given credentials" ? <p className="text-danger">No active account found with this email </p> :null}
+                    {errorMessage === "No active account found with the given credentials" ? <p className="text-danger">No active account found with this email <br/> Please Check Your Email Or Contact the Admin </p> :null}
                     </div>
                   </form>
                   <p className="mt-3">

@@ -33,10 +33,11 @@ urlpatterns = [
     path('newsundergraduate/', views.NewsUnderGraduateView.as_view()),
     path('coursegraduate/', views.CourseGraduateView.as_view()),
     path('courseungraduate/', views.CourseUngraduateView.as_view()),
+    path('courseungraduateyearone/', views.CourseUngraduateYearOne.as_view()),
 
+    path('courseungraduateyeartwo/', views.CourseUngraduateYearTwo.as_view()),
 
-    
-
+    path('coursehistory/<int:pk>', views.CourseHistoryView.as_view()),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

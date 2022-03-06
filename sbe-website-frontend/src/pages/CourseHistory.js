@@ -1,15 +1,20 @@
 import React from 'react'
-
+import {  Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios"
 
 const CourseHistory = () => {
-    // const [courses, setCourses] = useState([]);
-    // useEffect(() => {
-    //     axios
-    //         .get(`http://localhost:8000/api/course/${params.id}`)
-    //         .then((res) => {
-    //             setCourses(res.data)
-    //         })
-    // }, []);
+
+    const [courses, setCourses] = useState([]);
+    const params = useParams();
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8000/api/coursehistory/${params.course_id}`)
+            .then((res) => {
+                setCourses(res.data)
+            })
+    }, []);
     return (
         <>
             <section className=" h-custom py-5">
@@ -22,45 +27,32 @@ const CourseHistory = () => {
                                 </div>
                                 {/* {courses.map((course) => {
                                     return ( */}
+                                    {/* {courses.map((item) => {
+                        return (<> */}
+                        
                                         <div className="row justify-content-center align-items-center ">
+                                            <h2 className="bg-light py-3 nav-links">Year</h2> <p>{courses.year}</p>
+                                            <h3 className='col-12'>Doctor Name {courses.staff_id}</h3> 
+                                            <p className="col-4">Download Materials {courses.material} </p>
+                                            <button className="btn btn-lg col-6 button">
+                                                Download
+                                            </button>
+
+                                        </div>
+                                        {/* </>
+                                    )})} */}
+
+                                        {/* <div className="row justify-content-center align-items-center ">
                                             <h2 className="bg-light py-3 nav-links">Year</h2>
                                             <h3 className='col-12'>Doctor Name</h3>
                                             <p className="col-4">Download Materials</p>
                                             <button className="btn btn-lg col-6 button">
                                                 Download
-                                                {/* <a className="button nav-links text-light" href={course.history} download>Download</a> */}
                                             </button>
 
-                                            {/* <h2 className="bg-light py-3 nav-links">Course History</h2>
-                                            <p className="fs-4">{course.history}</p> */}
-                                        </div>
+                                        </div> */}
 
-
-                                        <div className="row justify-content-center align-items-center ">
-                                            <h2 className="bg-light py-3 nav-links">Year</h2>
-                                            <h3 className='col-12'>Doctor Name</h3>
-                                            <p className="col-4">Download Materials</p>
-                                            <button className="btn btn-lg col-6 button">
-                                                Download
-                                                {/* <a className="button nav-links text-light" href={course.history} download>Download</a> */}
-                                            </button>
-
-                                            {/* <h2 className="bg-light py-3 nav-links">Course History</h2>
-                                            <p className="fs-4">{course.history}</p> */}
-                                        </div>
-
-                                        <div className="row justify-content-center align-items-center ">
-                                            <h2 className="bg-light py-3 nav-links">Year</h2>
-                                            <h3 className='col-12'>Doctor Name</h3>
-                                            <p className="col-4">Download Materials</p>
-                                            <button className="btn btn-lg col-6 button">
-                                                Download
-                                                {/* <a className="button nav-links text-light" href={course.history} download>Download</a> */}
-                                            </button>
-
-                                            {/* <h2 className="bg-light py-3 nav-links">Course History</h2>
-                                            <p className="fs-4">{course.history}</p> */}
-                                        </div>
+                       
 
 
 

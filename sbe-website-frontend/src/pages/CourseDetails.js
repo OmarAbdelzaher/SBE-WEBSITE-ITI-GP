@@ -41,7 +41,7 @@ function CourseDetails() {
               
                 
                 <div className="btn button col-12 card cards justify-content-center align-items-center ">
-                <Link className="btn button fs-4" to="/course-history">
+                <Link className="btn button fs-4" to={`/course-history/${course.course_id}`}>
                Show Course History
                 </Link>
                 </div>
@@ -62,13 +62,13 @@ function CourseDetails() {
                       <a className="button nav-links text-light" href={course.stds_grades} download>Download</a>
                     </button>
                   </div>
-                  <div className="row card cards col-10 text-center border border-2 ">
+                  {/* <div className="row card cards col-10 text-center border border-2 ">
                     <h3 className="card-body col-12 nav-links">Schedule</h3>
                     <p className="card-text col-12 text-dark">Download Course Schedule</p>
                     <button className="btn btn-lg col-12 button">
                       <a className="button nav-links text-light" href={course.schedule} download>Download</a>
                     </button>
-                  </div>
+                  </div> */}
 
                 </div>
                 </div>

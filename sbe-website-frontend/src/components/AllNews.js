@@ -58,7 +58,6 @@ export default function AllNews(){
                 <div className="row">
                     {AllNews.sort(orderByOrderValue).map((item) => {
                         return (
-
                             <div className="col-md-4 ">
                                 <div className="card mb-4 cardItem" key={item.id}>
                                     {/* <p>{item.id}</p> */}

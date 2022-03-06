@@ -23,6 +23,7 @@ const initialState = {
     user: null,
     data: null,
     error:null,
+    emailerror:null,
     };
 
 export default function(state = initialState, action) {
@@ -79,6 +80,17 @@ export default function(state = initialState, action) {
 
             }
         case SIGNUP_FAIL:
+            localStorage.removeItem('access');
+            localStorage.removeItem('refresh');
+            return{
+                ...state,
+                access:null,
+                refresh:null,
+                isAuthenticated : false,
+                user:null,
+                emailerror:payload,                               
+
+            }
         case LOGOUT:
             localStorage.removeItem('access');
             localStorage.removeItem('refresh');
