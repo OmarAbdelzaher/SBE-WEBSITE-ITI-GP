@@ -23,7 +23,7 @@ class PersonSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','password','graduate','year_of_graduation','is_active']
+        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','password','graduate','year_of_graduation','is_active']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StudentSerializer, self).create(validated_data)

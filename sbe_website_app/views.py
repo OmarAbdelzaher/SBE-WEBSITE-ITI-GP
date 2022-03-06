@@ -579,7 +579,6 @@ class TimeSlotsView(APIView):
     def get(self,request):
         timeslots = TimeSlot.objects.all()
         serializer = TimeslotSerializer(timeslots,many=True)
-        print(timeslots[0])
         return Response(serializer.data)
 
 
