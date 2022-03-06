@@ -182,7 +182,7 @@ const Signup = ({ signup, isAuthenticated }) => {
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
-              <div className="card rounded-3">
+              <div className="card rounded-3 form">
                 <img
                   src="http://ihd.eng.cu.edu.eg/wp-content/uploads/sites/13/2014/12/Fac_eng_minified-620x279.jpg"
                   className="w-100"
@@ -362,7 +362,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                           className="select form-control-lg"
                           value={formData.role}
                           onChange={(e) => onChange(e)}
-                          name="role"
+                          name="role"nnn
                         >
                           <option value="student">Student</option>
                           <option value="dr">Dr</option>

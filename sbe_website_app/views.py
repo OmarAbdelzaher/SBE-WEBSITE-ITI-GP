@@ -581,3 +581,64 @@ class TimeSlotsView(APIView):
         serializer = TimeslotSerializer(timeslots,many=True)
         print(timeslots[0])
         return Response(serializer.data)
+
+
+
+class NewsGraduateView(APIView):
+    def get(self,request):
+        news = New.objects.filter(category='graduate')
+
+        # news = New.objects.all()
+        serializer = NewsSerializer(news,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = NewsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class NewsUnderGraduateView(APIView):
+    def get(self,request):
+        news = New.objects.filter(category='undergraduate')
+
+        # news = New.objects.all()
+        serializer = NewsSerializer(news,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = NewsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CourseGraduateView(APIView):
+    def get(self,request):
+        course = Course.objects.filter(category='graduate')
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CourseUngraduateView(APIView):
+    def get(self,request):
+        course = Course.objects.filter(category='undergraduate')
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
