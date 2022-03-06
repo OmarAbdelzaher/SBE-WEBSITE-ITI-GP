@@ -48,6 +48,7 @@ class UserAccountManager(BaseUserManager):
             password=password,
             **extra_fields
         )
+        user.is_active = True
         user.is_staff = True
         user.is_admin = True
         user.is_superuser = True 
@@ -138,7 +139,7 @@ class Student(Person,models.Model):
     
     graduate = models.CharField(max_length=20, choices=GRADE_CHOICES)
     year_of_graduation = models.IntegerField()
-    
+
 class OfficeHours(models.Model):
     WEEKDAYS = [
         ('Monday', "Monday"),

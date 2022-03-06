@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect,useHistory } from 'react-router-dom';
 import { connect , useDispatch , useSelector} from 'react-redux';
 import { signup } from '../actions/auth';
 import { useState, useEffect } from "react";
@@ -10,8 +10,14 @@ import axios from "axios";
 // const FacultyEmpUrl = "http://localhost:8000/api/facultyemps/"
 // let url = ""
 const Signup = ({ signup, isAuthenticated }) => {
-  const [accountCreated, setAccountCreated] = useState(false);
-  // const errorMessage = useSelector(state => state.error)
+  // const [accountCreated, setAccountCreated] = useState(false);
+  const errorMessage = useSelector(state => state.auth.data)
+  const history = useHistory() 
+  // const errorMessages = useSelector(state => state.auth)  
+
+  console.log(errorMessage)
+  // console.log(errorMessages)
+
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -26,6 +32,7 @@ const Signup = ({ signup, isAuthenticated }) => {
     graduate: "graduate",
     year_of_graduation: "",
     title: "",
+    is_active:false
   });
   const [FormErrors,setFormErrors] = useState({})
   // const [isSubmit,setIsSubmit] = useState(false)
@@ -43,6 +50,7 @@ const Signup = ({ signup, isAuthenticated }) => {
     graduate,
     year_of_graduation,
     title,
+    is_active
   } = formData;
 
   // const handleChange = (event)=>{
@@ -151,24 +159,23 @@ const Signup = ({ signup, isAuthenticated }) => {
 
       signup(
             fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title
-          );
-          // console.log( signup(
-          //   fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title
-          // ))
-          setAccountCreated(true);
-            
+          )
       
     }
-
-   
+    
   };
 
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
-  if (accountCreated) {
-    return <Redirect to="/login" />;
-  }
+
+  if (errorMessage != null && errorMessage != "this email is already exist" ) {
+    // return <Redirect to="/login" />;  
+    history.push("/login")
+    }
+  
+ 
+  
   return (
     <>
       <section className="h-150 h-custom">
@@ -240,9 +247,9 @@ const Signup = ({ signup, isAuthenticated }) => {
                             value={formData.email}
                           />
                           <p className="text-danger">{FormErrors.email}</p>
-                          {/* <div>
-                          {errorMessage && <p>There was an error: {errorMessage}</p>}
-                          </div> */}
+                          <div>
+                          {errorMessage === "this email is already exist" ? <p className="text-danger">{errorMessage}</p> :null}
+                          </div>
                         </div>
                       </div>
                     </div>
