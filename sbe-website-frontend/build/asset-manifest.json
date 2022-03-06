@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.379e695e.css",
-    "main.js": "/static/js/main.c110f4af.js",
+    "main.css": "/static/css/main.72588a6e.css",
+    "main.js": "/static/js/main.9eba5eb5.js",
     "static/js/787.067f0637.chunk.js": "/static/js/787.067f0637.chunk.js",
     "static/media/Fac_eng.jpg": "/static/media/Fac_eng.41c947b7ecb274d9c4e6.jpg",
     "static/media/new.jpg": "/static/media/new.adb65460ea5c1c85f62e.jpg",
     "static/media/cardimg.jpg": "/static/media/cardimg.0d5fad0877b3e53becae.jpg",
     "static/media/departmentLogo.png": "/static/media/departmentLogo.fa309d9060c64454d36e.png",
     "index.html": "/index.html",
-    "main.379e695e.css.map": "/static/css/main.379e695e.css.map",
-    "main.c110f4af.js.map": "/static/js/main.c110f4af.js.map",
+    "main.72588a6e.css.map": "/static/css/main.72588a6e.css.map",
+    "main.9eba5eb5.js.map": "/static/js/main.9eba5eb5.js.map",
     "787.067f0637.chunk.js.map": "/static/js/787.067f0637.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.379e695e.css",
-    "static/js/main.c110f4af.js"
+    "static/css/main.72588a6e.css",
+    "static/js/main.9eba5eb5.js"
   ]
 }

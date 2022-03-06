@@ -151,6 +151,7 @@ export const signup =
     } catch (error) {
       dispatch({
         type: SIGNUP_FAIL,
+        payload:error.response.data.email[0],
       });
     }
   };
