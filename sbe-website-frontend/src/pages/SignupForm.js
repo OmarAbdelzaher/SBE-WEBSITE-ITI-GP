@@ -1,23 +1,13 @@
 import React from "react";
 import { Link, Redirect,useHistory } from 'react-router-dom';
-import { connect , useDispatch , useSelector} from 'react-redux';
+import { connect  , useSelector} from 'react-redux';
 import { signup } from '../actions/auth';
 import { useState, useEffect } from "react";
-import axios from "axios";
 
-// const studentUrl = "http://localhost:8000/api/students/"
-// const staffUrl = "http://localhost:8000/api/staff/"
-// const FacultyEmpUrl = "http://localhost:8000/api/facultyemps/"
-// let url = ""
 const Signup = ({ signup, isAuthenticated }) => {
-  // const [accountCreated, setAccountCreated] = useState(false);
   const errorMessage = useSelector(state => state.auth.data)
+  const emailMessage = useSelector(state => state.auth.emailerror)  
   const history = useHistory() 
-  // const errorMessages = useSelector(state => state.auth)  
-
-  // console.log(errorMessage)
-  // console.log(errorMessages)
-
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -35,7 +25,6 @@ const Signup = ({ signup, isAuthenticated }) => {
     is_active:false
   });
   const [FormErrors,setFormErrors] = useState({})
-  // const [isSubmit,setIsSubmit] = useState(false)
   const {
     fname,
     lname,
@@ -53,12 +42,6 @@ const Signup = ({ signup, isAuthenticated }) => {
     is_active
   } = formData;
 
-  // const handleChange = (event)=>{
-  //   setFormData({
-  //     ...formData,
-  //     [event.target.name]:event.target.value
-  //   })
-  // }
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -249,8 +232,9 @@ const Signup = ({ signup, isAuthenticated }) => {
                           <p className="text-danger">{FormErrors.email}</p>
                           <div>
                           {errorMessage === "this email is already exist" ? <p className="text-danger">{errorMessage}</p> :null}
+                          {emailMessage === "person with this email already exists." ? <p className="text-danger">this email is already exist</p> :null}
                           </div>
-                        </div>
+                        </div>  
                       </div>
                     </div>
 
@@ -348,10 +332,6 @@ const Signup = ({ signup, isAuthenticated }) => {
                           <input type="radio" value="M" name="gender" /> Male
                           <input type="radio" value="F" name="gender" /> Female
                         </div>
-                        {/* <select className="select form-control-lg" value={formData.gender} onChange={handleChange}  name="gender">
-                          <option value="M">Male</option>
-                          <option value="F">Female</option>  
-                        </select> */}
                       </div>
                     </div>
                     <div className="row">
