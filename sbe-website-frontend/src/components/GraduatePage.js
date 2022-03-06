@@ -12,7 +12,7 @@ export default function GraduatePage(){
     useEffect(() => {
         axios
           .get(
-            "http://localhost:8000/api/news"
+            "http://localhost:8000/api/newsgraduate/"
           )
           .then((res) => setAllNews(res.data));
       }, []);
@@ -49,12 +49,28 @@ export default function GraduatePage(){
     return(
 
         <>
-         {/* <Header/> */}
+         <br className="mt-5"></br>
          <br className="mt-5"></br>
 
-<div style={start} >
-        <h1> Hello graduate page</h1>
+<ul className="nav nav-tabs" style={start}>
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" href="/graduatepage">News</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/coursegraduate">Courses</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="#">Office Hours </a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link disabled" href="#" tabIndex={-1} aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
 
+
+{/* <div style={start} > */}
+        {/* <h1> Hello graduate page</h1> */}
+<div>
 
         <div className="container-fluid mt-2">
                 <div className="row">
@@ -64,8 +80,9 @@ export default function GraduatePage(){
                             <div className="col-md-9 col-sm-12">
                             <div  class="card " key={item.id}  >
                               <div class="card-body">
-                                <h5 class="card-title">{item.name}</h5>
+                                <h5 class="card-title">{item.title}</h5>
                                 <p class="card-text">{item.description}</p>
+                                {/* <h3>{item.category}</h3> */}
                                 {/* <p class="card-text">
                                   <small class="text-muted">Last updated 3 mins ago</small>
                                 </p> */}
@@ -87,6 +104,9 @@ export default function GraduatePage(){
                 <Link to='/' className="nav-link">
                     <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >Return Home            </button>
                 </Link>
+                {/* <Link to='/coursegraduate' className="nav-link">
+                    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} > Courses            </button>
+                </Link> */}
             </div>
 
         </div>

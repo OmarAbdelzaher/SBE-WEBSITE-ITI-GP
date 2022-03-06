@@ -12,7 +12,7 @@ export default function AllNews(){
     useEffect(() => {
         axios
           .get(
-            "http://localhost:8000/api/news"
+            "http://localhost:8000/api/news/"
           )
           .then((res) => setAllNews(res.data));
       }, []);
@@ -58,15 +58,15 @@ export default function AllNews(){
                 <div className="row">
                     {AllNews.sort(orderByOrderValue).map((item) => {
                         return (
-
                             <div className="col-md-4 ">
                                 <div className="card mb-4 cardItem" key={item.id}>
-                                    <p>{item.id}</p>
+                                    {/* <p>{item.id}</p> */}
 
-                                    <h2>{item.name}</h2>
+                                    <h2>{item.title}</h2>
                                     {item.picture}
                                     {/* <img src={img}  className="card--image" /> */}
                                     <p>{item.description}</p>
+                                    <p>Category:{item.category}</p>
 
 
                                 </div>

@@ -1,17 +1,13 @@
 import React from "react";
-import { Link, Redirect } from 'react-router-dom';
-import { connect , useDispatch , useSelector} from 'react-redux';
+import { Link, Redirect,useHistory } from 'react-router-dom';
+import { connect  , useSelector} from 'react-redux';
 import { signup } from '../actions/auth';
 import { useState, useEffect } from "react";
-import axios from "axios";
 
-// const studentUrl = "http://localhost:8000/api/students/"
-// const staffUrl = "http://localhost:8000/api/staff/"
-// const FacultyEmpUrl = "http://localhost:8000/api/facultyemps/"
-// let url = ""
 const Signup = ({ signup, isAuthenticated }) => {
-  const [accountCreated, setAccountCreated] = useState(false);
-  // const errorMessage = useSelector(state => state.error)
+  const errorMessage = useSelector(state => state.auth.data)
+  const emailMessage = useSelector(state => state.auth.emailerror)  
+  const history = useHistory() 
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -26,9 +22,9 @@ const Signup = ({ signup, isAuthenticated }) => {
     graduate: "graduate",
     year_of_graduation: "",
     title: "",
+    is_active:false
   });
   const [FormErrors,setFormErrors] = useState({})
-  // const [isSubmit,setIsSubmit] = useState(false)
   const {
     fname,
     lname,
@@ -43,14 +39,9 @@ const Signup = ({ signup, isAuthenticated }) => {
     graduate,
     year_of_graduation,
     title,
+    is_active
   } = formData;
 
-  // const handleChange = (event)=>{
-  //   setFormData({
-  //     ...formData,
-  //     [event.target.name]:event.target.value
-  //   })
-  // }
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -93,7 +84,7 @@ const Signup = ({ signup, isAuthenticated }) => {
       flag = false
 
     } else if (!pattern_pass.test(values.password)) {
-      password =
+      errors.password =
         "Password must contains at least one lowercase,one uppercase and one special character ";
         flag = false
 
@@ -151,24 +142,23 @@ const Signup = ({ signup, isAuthenticated }) => {
 
       signup(
             fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title
-          );
-          // console.log( signup(
-          //   fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title
-          // ))
-          setAccountCreated(true);
-            
+          )
       
     }
-
-   
+    
   };
 
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
-  if (accountCreated) {
-    return <Redirect to="/login" />;
-  }
+
+  if (errorMessage != null && errorMessage != "this email is already exist" ) {
+    // return <Redirect to="/login" />;  
+    history.push("/login")
+    }
+  
+ 
+  
   return (
     <>
       <section className="h-150 h-custom">
@@ -240,10 +230,11 @@ const Signup = ({ signup, isAuthenticated }) => {
                             value={formData.email}
                           />
                           <p className="text-danger">{FormErrors.email}</p>
-                          {/* <div>
-                          {errorMessage && <p>There was an error: {errorMessage}</p>}
-                          </div> */}
-                        </div>
+                          <div>
+                          {errorMessage === "this email is already exist" ? <p className="text-danger">{errorMessage}</p> :null}
+                          {emailMessage === "person with this email already exists." ? <p className="text-danger">this email is already exist</p> :null}
+                          </div>
+                        </div>  
                       </div>
                     </div>
 
@@ -341,10 +332,6 @@ const Signup = ({ signup, isAuthenticated }) => {
                           <input type="radio" value="M" name="gender" /> Male
                           <input type="radio" value="F" name="gender" /> Female
                         </div>
-                        {/* <select className="select form-control-lg" value={formData.gender} onChange={handleChange}  name="gender">
-                          <option value="M">Male</option>
-                          <option value="F">Female</option>  
-                        </select> */}
                       </div>
                     </div>
                     <div className="row">
@@ -355,7 +342,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                           className="select form-control-lg "
                           value={formData.role}
                           onChange={(e) => onChange(e)}
-                          name="role"
+                          name="role"nnn
                         >
                           <option value="student">Student</option>
                           <option value="dr">Dr</option>

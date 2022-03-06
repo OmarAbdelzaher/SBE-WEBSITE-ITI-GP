@@ -16,7 +16,7 @@ export default function News() {
     useEffect(() => {
         axios
           .get(
-            "http://localhost:8000/api/news"
+            "http://localhost:8000/api/news/"
           )
           .then((res) => setNews(res.data));
       }, []);
@@ -52,13 +52,15 @@ export default function News() {
 
                             <div className="col-md-4 ">
                                 <div className="card mb-4 cardItem" key={item.id}>
-                                    <p>{item.id}</p>
+                                    {/* <p>{item.id}</p> */}
 
-                                    <h2>{item.name}</h2>
+                                    <h2>{item.title}</h2>
                                    {/* <img src={`${item.picture}`}/> */}
                                    {/* {item.picture.url}  */}
                                     {/* <img src={img}  className="card--image" /> */}
                                     <p>{item.description}</p>
+                                    {/* <p>{item.category}</p> */}
+
 
 
                                 </div>

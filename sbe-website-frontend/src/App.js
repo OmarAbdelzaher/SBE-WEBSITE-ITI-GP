@@ -19,7 +19,10 @@ import { Provider } from "react-redux";
 import store from "./store";
 import AllEvents from "./components/AllEvents";
 import GraduatePage from "./components/GraduatePage";
-
+import UnderGraduate from "./components/UnderGraduate";
+import CourseGraduate from "./components/CourseGraduate";
+import CourseUnderGraduate from "./components/CourseUndergraduate";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -41,6 +44,10 @@ function App() {
             <Route path={"/allnews"} exact component={AllNews} />
             <Route path={"/allevents"} exact component={AllEvents} />
             <Route path={"/graduatepage"} exact component={GraduatePage} />
+            <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
+            <Route path={"/coursegraduate"} exact component={CourseGraduate} />
+            <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} />
+            <Route path={"/profilepage"} exact component={Profile} />
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}
@@ -48,6 +55,7 @@ function App() {
               component={ResetPasswordConfirm}
             />
             <Route path={"/activate/:uid/:token"} exact component={Activate} />
+            
           </Switch>
         </BrowserRouter>
       </Provider>

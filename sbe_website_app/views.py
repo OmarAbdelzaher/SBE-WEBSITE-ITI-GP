@@ -1,3 +1,5 @@
+from asyncio import constants
+from urllib import response
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .serializers import *
@@ -10,7 +12,7 @@ from django.utils.decorators import method_decorator
 from braces.views import CsrfExemptMixin
 from django.http import HttpResponse
 from django.core.exceptions import ValidationError
-
+import re
 # import email confirmation stuff
 from django.core.mail import send_mail
 from django.conf import settings
@@ -30,7 +32,16 @@ class StudentList(APIView):
     # @csrf_exempt
     def post(self,request):
         user = Student.objects.filter(email=request.data['email'])
-        if not user.exists():
+        email_uni1 = re.search("@eng1.cu.edu.eg",request.data['email'])
+        email_uni = re.search("@eng.cu.edu.eg" , request.data['email'])
+        if email_uni or email_uni1 :
+            request.data["is_active"] = True
+            serializer = StudentSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif not user.exists():
             serializer = StudentSerializer(data=request.data)
             if serializer.is_valid():
                 sendActivationRequest(request)
@@ -83,16 +94,31 @@ class StudentDetails(APIView):
 
 
 class StaffList(APIView):
-    def get(self,request):
-        all_staff = Staff.objects.all()
-        serializer = StaffSerializer(all_staff,many=True)
-        return Response(serializer.data)
-    def post(self,request):
-        serializer = StaffSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        def get(self,request):
+            all_staff = Staff.objects.all()
+            serializer = StaffSerializer(all_staff,many=True)
+            return Response(serializer.data)
+        def post(self,request):
+            user = Staff.objects.filter(email=request.data['email'])
+            email_uni1 = re.search("@eng1.cu.edu.eg",request.data['email'])
+            email_uni = re.search("@eng.cu.edu.eg" , request.data['email'])
+            if email_uni or email_uni1 :
+                request.data["is_active"] = True
+                serializer = StudentSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            elif not user.exists():
+                serializer = StaffSerializer(data=request.data)
+                if serializer.is_valid():
+                    sendActivationRequest(request)
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response("this email is already exist")
+
 
 # Get , Put and delete HTTP Methods using API For a specific staff member  
 
@@ -131,11 +157,25 @@ class FacultyEmpList(APIView):
         serializer = FacultyEmpSerializer(faculty_emps,many=True)
         return Response(serializer.data)
     def post(self,request):
-        serializer = FacultyEmpSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user = FacultyEmp.objects.filter(email=request.data['email'])
+        email_uni1 = re.search("@eng1.cu.edu.eg",request.data['email'])
+        email_uni = re.search("@eng.cu.edu.eg" , request.data['email'])
+        if email_uni or email_uni1 :
+            request.data["is_active"] = True
+            serializer = StudentSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif not user.exists():      
+            serializer = FacultyEmpSerializer(data=request.data)
+            if serializer.is_valid():
+                sendActivationRequest(request)
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response("this email is already exist")
 
 # Get , Put and delete HTTP Methods using API For a specific Faculty Employee  
 
@@ -539,5 +579,65 @@ class TimeSlotsView(APIView):
     def get(self,request):
         timeslots = TimeSlot.objects.all()
         serializer = TimeslotSerializer(timeslots,many=True)
-        print(timeslots[0])
         return Response(serializer.data)
+
+
+
+class NewsGraduateView(APIView):
+    def get(self,request):
+        news = New.objects.filter(category='graduate')
+
+        # news = New.objects.all()
+        serializer = NewsSerializer(news,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = NewsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class NewsUnderGraduateView(APIView):
+    def get(self,request):
+        news = New.objects.filter(category='undergraduate')
+
+        # news = New.objects.all()
+        serializer = NewsSerializer(news,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = NewsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CourseGraduateView(APIView):
+    def get(self,request):
+        course = Course.objects.filter(category='graduate')
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CourseUngraduateView(APIView):
+    def get(self,request):
+        course = Course.objects.filter(category='undergraduate')
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
