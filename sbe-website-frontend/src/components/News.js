@@ -16,7 +16,7 @@ export default function News() {
     useEffect(() => {
         axios
           .get(
-            "http://localhost:8000/api/news"
+            "http://localhost:8000/api/news/"
           )
           .then((res) => setNews(res.data));
       }, []);
@@ -28,6 +28,16 @@ export default function News() {
         // background:'blue',
         
     };
+    function orderByOrderValue( a, b ) {
+        if ( a.id > b.id ){
+          return -1;
+        }
+        if ( a.id <b.id ){
+          return 1;
+        }
+        return 0;
+      }
+
 
 
     return (
@@ -37,18 +47,20 @@ export default function News() {
 
             <div className="container mt-2">
                 <div className="row">
-                    {News.slice(0,3).map((item) => {
+                    {News.sort(orderByOrderValue).slice(0,3).map((item) => {
                         return (
 
                             <div className="col-md-4 ">
                                 <div className="card mb-4 cardItem" key={item.id}>
-                                    <p>{item.id}</p>
+                                    {/* <p>{item.id}</p> */}
 
-                                    <h2>{item.name}</h2>
+                                    <h2>{item.title}</h2>
                                    {/* <img src={`${item.picture}`}/> */}
                                    {/* {item.picture.url}  */}
                                     {/* <img src={img}  className="card--image" /> */}
                                     <p>{item.description}</p>
+                                    {/* <p>{item.category}</p> */}
+
 
 
                                 </div>

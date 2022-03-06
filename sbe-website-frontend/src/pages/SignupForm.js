@@ -1,7 +1,6 @@
 import React from "react";
-import Header from "../components/header";
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect , useDispatch , useSelector} from 'react-redux';
 import { signup } from '../actions/auth';
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -10,9 +9,9 @@ import axios from "axios";
 // const staffUrl = "http://localhost:8000/api/staff/"
 // const FacultyEmpUrl = "http://localhost:8000/api/facultyemps/"
 // let url = ""
-
 const Signup = ({ signup, isAuthenticated }) => {
   const [accountCreated, setAccountCreated] = useState(false);
+  // const errorMessage = useSelector(state => state.error)
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -28,7 +27,7 @@ const Signup = ({ signup, isAuthenticated }) => {
     year_of_graduation: "",
     title: "",
   });
-  // const [formErrors,setFormErrors] = useState({})
+  const [FormErrors,setFormErrors] = useState({})
   // const [isSubmit,setIsSubmit] = useState(false)
   const {
     fname,
@@ -56,74 +55,114 @@ const Signup = ({ signup, isAuthenticated }) => {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    const pattern_email = new RegExp(
+      /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+    );
+    const pattern_pass = new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])"
+    );
+
+
+  const validate = (values) =>{
+    const errors = {}
+    let flag = true;
+    if (!values.fname) {
+      errors.fname = "First Name is Required";
+      flag = false
+    }
+    if (!values.lname) {
+      errors.lname = "Last Name is Required";
+      flag = false
+
+    }
+    if (!values.email) {
+      errors.email = "Email is required !";
+      flag = false
+
+    } else if (!pattern_email.test(email)) {
+      errors.email = "Email is invalid !";
+      flag = false
+
+    }
+    if (!values.password){
+      errors.password = "Password is Required"
+      flag = false
+
+    }else if (values.password.length < 8) {
+      errors.password = "Password must be more than 8 charachters ";
+      flag = false
+
+    } else if (!pattern_pass.test(values.password)) {
+      password =
+        "Password must contains at least one lowercase,one uppercase and one special character ";
+        flag = false
+
+    } if (!values.confirm_password) {
+      errors.confirm_password = "Confirm Password is required";
+      flag = false
+
+    } else if (values.confirm_password != values.password) {
+      errors.confirm_password = "Unmatched Password";
+      flag = false
+
+    }
+    if (!values.phone_number){
+      errors.phone_number = "Phone Number is required";
+      flag = false
+
+    } else if (phone_number.length != 11 )
+    {
+      errors.phone_number = "Phone Number must be 11 digits"  
+      flag = false
+
+    }
+    if (!values.address)
+    {
+      errors.address = " Address is required "
+      flag = false
+
+    }
+    var now = new Date();
+    var birthdate = new Date(values.birthdate)
+    if(!values.birthdate)
+    {
+      errors.birthdate = "BirthDate is required"
+      flag = false
+
+
+    }
+    else if(birthdate.getTime() > now.getTime() )
+    {
+      errors.birthdate = "Enter a valid birth date which is a past date "
+      flag = false
+
+      
+    } 
+    return errors
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
+    let errors_form = validate(formData)
+    setFormErrors(errors_form)
 
-    if (password === confirm_password) {
+    if ( Object.keys(errors_form).length === 0  )
+    {
+
       signup(
-        fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title
-      );
-      setAccountCreated(true);
+            fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title
+          );
+          // console.log( signup(
+          //   fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title
+          // ))
+          setAccountCreated(true);
+            
+      
     }
+
+   
   };
 
-  // const submitForm = (e)=>{
-  //   e.preventDefault();
-  //   console.log(formData)
-  //   setFormErrors(validate(formData))
-  //   console.log(setFormErrors(validate(formData)))
-  //   console.log(formErrors)
-  //   console.log(Object.keys(formErrors).length)
-  //   if (Object.keys(formErrors).length != 0)
-  //   {
-  //     return false
-  //   }
-
-  //   const userFormData = new FormData();
-  //   userFormData.append("fname", formData.fname)
-  //   userFormData.append("lname", formData.lname)
-  //   userFormData.append("email", formData.email)
-  //   userFormData.append("birthdate", formData.birthdate)
-  //   userFormData.append("address", formData.address)
-  //   userFormData.append("password", formData.password)
-  //   userFormData.append("gender", formData.gender)
-  //   userFormData.append("phone_number", formData.phone_number)
-  //   if (formData.role == "student")
-  //   {
-  //     userFormData.append("graduate",formData.graduate)
-  //     userFormData.append("year_of_graduation",formData.year_of_graduation)
-  //   }
-  //   // else if (formData.role == "dr" || formData.role == "ta")
-  //   // {
-  //   //   userFormData.append("office_hours",formData.office_hours)
-  //   // }
-  //   else if (formData.role == "employee")
-  //   {
-  //     userFormData.append("title",formData.title)
-  //   }
-
-  // try{
-  //   if(formData.role == "student"){
-  //     url = studentUrl
-  //   }
-  //   else if(formData.role == "dr" || formData.role == "ta"){
-  //     url = staffUrl
-  //   }
-  //   else if(formData.role == "employee"){
-  //     url = FacultyEmpUrl
-  //   }
-  //   console.log(url)
-
-  //   axios.post(url,userFormData,
-
-  //   ).then((response)=>{
-  //     console.log(response.data)
-  //   });
-  // }
-  // catch(error){
-  //   console.log(error)
-  // }
-  // }
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
@@ -136,7 +175,7 @@ const Signup = ({ signup, isAuthenticated }) => {
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
-              <div className="card rounded-3">
+              <div className="card rounded-3 form">
                 <img
                   src="http://ihd.eng.cu.edu.eg/wp-content/uploads/sites/13/2014/12/Fac_eng_minified-620x279.jpg"
                   className="w-100"
@@ -166,6 +205,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             value={formData.fname}
                           />
                         </div>
+                        <p className="text-danger">{ FormErrors.fname }</p>
                       </div>
                       <div className="col-md-6 mb-4">
                         <div className="form-outline">
@@ -180,6 +220,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.lname}
                           />
+                          <p className="text-danger">{ FormErrors.lname }</p>
                         </div>
                       </div>
                     </div>
@@ -198,6 +239,10 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.email}
                           />
+                          <p className="text-danger">{FormErrors.email}</p>
+                          {/* <div>
+                          {errorMessage && <p>There was an error: {errorMessage}</p>}
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -216,6 +261,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.password}
                           />
+                          <p className="text-danger">{ FormErrors.password}</p>
                         </div>
                       </div>
                     </div>
@@ -236,7 +282,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.confirm_password}
                           />
-                          
+                          <p className="text-danger">{FormErrors.confirm_password}</p>
                         </div>
                       </div>
                     </div>
@@ -254,6 +300,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.birthdate}
                           />
+                          <p className="text-danger">{FormErrors.birthdate}</p>
                         </div>
                       </div>
                       <div className="col-md-12 mb-4 pb-2">
@@ -269,7 +316,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.phone_number}
                           />
-    
+                          <p className="text-danger">{FormErrors.phone_number}</p>
                         </div>
                       </div>
                       <div className="col-md-12 mb-4 pb-2">
@@ -285,6 +332,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.address}
                           />
+                          <p className="text-danger">{FormErrors.address}</p>
                         </div>
                       </div>
                       <div className="col-md-6 mb-4">
@@ -307,7 +355,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                           className="select form-control-lg"
                           value={formData.role}
                           onChange={(e) => onChange(e)}
-                          name="role"
+                          name="role"nnn
                         >
                           <option value="student">Student</option>
                           <option value="dr">Dr</option>
@@ -352,7 +400,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                           </div>
                         </div>
                       </>
-                    ) : null}
+                    ) : null }
                     {formData.role == "employee" ? (
                       <>
                         <br />

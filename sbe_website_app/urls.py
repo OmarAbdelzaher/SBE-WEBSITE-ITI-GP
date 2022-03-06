@@ -24,8 +24,16 @@ urlpatterns = [
     path('reservedhall/<int:id>', views.ReserveHallDetails.as_view()),
     path('reserveddevice/<int:id>', views.ReserveDeviceDetails.as_view()),
     path('reservedlab/<int:id>', views.ReserveLabDetails.as_view()),
-    path('news', views.News.as_view()),
+    path('news/', views.News.as_view()),
     path('news/<int:pk>', views.NewDetails.as_view()),
+    path('events/', views.Events.as_view()),
+    path('event/<int:pk>', views.EventsDetails.as_view()),
+    path('timeslots/', views.TimeSlotsView.as_view()),
+    path('newsgraduate/', views.NewsGraduateView.as_view()),
+    path('newsundergraduate/', views.NewsUnderGraduateView.as_view()),
+    path('coursegraduate/', views.CourseGraduateView.as_view()),
+    path('courseungraduate/', views.CourseUngraduateView.as_view()),
+
 
     
 
