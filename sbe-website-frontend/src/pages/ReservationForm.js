@@ -9,21 +9,10 @@ const ReservationForm = () => {
   const [halls, setHalls] = useState([]);
   const [devices, setDevices] = useState([]);
   
-  // let EndPoints = [
-  //   "http://localhost:8000/api/timeslots/",
-  //   "http://localhost:8000/api/labs/",
-  //   "http://localhost:8000/api/halls/",
-  //   "http://localhost:8000/api/devices/"
-  // ]
-  
-  // axios.all(EndPoints.map((endpoint) => axios.get(endpoint))).then(
-  //   (data) =>{
-  //     setTimeSlot(data[0]["data"])
-  //     setLabs(data[1]["data"])
-  //     setHalls(data[2]["data"])
-  //     setDevices(data[3]["data"])
-  //   }
-  // );
+  let ReserveHallUrl = "http://localhost:8000/api/reservedhalls/"
+  let ReserveLabUrl = "http://localhost:8000/api/reservedlabs/"
+  let ReserveDeviceUrl = "http://localhost:8000/api/reserveddevices/"
+  let ReserveUrl = ""
 
   useEffect(() => {
     axios
@@ -53,17 +42,69 @@ const ReservationForm = () => {
     ReserveDate: "",
     ReserveTime: "",
     ReserveType: "hall",
-    reserveHalls:"",
-    reserveLabs:"",
-    reserveDevices:""
+    toBeReserved:""
   });
+
+  const [formErrors,setFormErrors] = useState({}) 
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const validate = (values) =>{
+    const errors = {}
+    
+    var now = new Date();
+    var reserveDate = new Date(values.ReserveDate)
+
+    if (reserveDate.getTime() < now.getTime() || values.ReserveDate === ''){
+      errors.ReserveDate = "Enter an upcoming or a valid date"
+    }
+    if(values.ReserveTime === "Available Slots" || values.ReserveTime === ''){
+      errors.ReserveTime = "Enter a valid Reservation Time"
+    }
+    if(values.toBeReserved === "Available Halls" || values.toBeReserved === ''){
+      errors.toBeReserved = "Enter a valid Hall"
+    }
+    else if(values.toBeReserved === "Available Labs" || values.toBeReserved === ''){
+      errors.toBeReserved = "Enter a valid Lab"
+    }
+    else if(values.toBeReserved === "Available Devices" || values.toBeReserved === ''){
+      errors.toBeReserved = "Enter a valid Device"
+    }
+    return errors
+  }
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    
+    let errors_form = validate(formData)
+    setFormErrors(errors_form)
+    let reserved = ""
+
+    if ( Object.keys(errors_form).length === 0  )
+    {
+      if (formData.ReserveType === "hall"){
+        ReserveUrl = ReserveHallUrl
+        reserved = "hall_id"
+      }
+      else if (formData.ReserveType === "lab"){
+        ReserveUrl = ReserveLabUrl
+        reserved = "lab_id"
+      }
+      else if (formData.ReserveType === "device"){
+        ReserveUrl = ReserveDeviceUrl
+        reserved = "device_id"
+      }
+      const Data = new FormData();
+      Data.append('date',formData.ReserveDate)
+      Data.append('timeslot',formData.ReserveTime)
+      Data.append(reserved,formData.toBeReserved)
+      // Data.append('staff_id',formData.staff_id)
+      Data.append('staff_id',2)
+      
+      console.log(formData.ReserveTime)
+      axios.post(ReserveUrl,Data)
+    }
   };
 
   return (
@@ -90,6 +131,12 @@ const ReservationForm = () => {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
+                          <label
+                            htmlFor="ReservationDate"
+                            className="form-label"
+                          >
+                            Reservation Date
+                          </label><br/>
                           <input
                             type="date"
                             className="form-control form-control-lg"
@@ -98,12 +145,7 @@ const ReservationForm = () => {
                             name="ReserveDate"
                             value={formData.ReserveDate}
                           />
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
-                            Reservation Date
-                          </label>
+                          <p className="text-danger">{ formErrors.ReserveDate }</p>
                         </div>
                       </div>
                     </div>
@@ -117,21 +159,23 @@ const ReservationForm = () => {
                             className="form-label"
                           >
                             Reservation Time
-                          </label>
+                          </label><br/>
                           <select
                             className="select form-control-lg"
                             onChange={(e) => onChange(e)}
                             name="ReserveTime"
                             value={formData.ReserveTime}
                           >
-                            {timeslot.map((item) => {
+                            <option selected value="Available Slots">Available Slots</option>
+                            {timeslot.map((item,index) => {
                               return (
-                                <option value={item.timeslot}>
+                                <option value={index+1}>
                                   {item.timeslot}
                                 </option>
                               );
                             })}
                           </select>
+                          <p className="text-danger">{ formErrors.ReserveTime }</p>
                         </div>
                       </div>
                     </div>
@@ -140,7 +184,7 @@ const ReservationForm = () => {
                       <div className="col-12">
                         <label className="form-label select-label">
                           Reservation Type
-                        </label>
+                        </label><br/>
                         
                         <select
                           className="select form-control-lg"
@@ -158,14 +202,14 @@ const ReservationForm = () => {
                             <br/>
                             <div >
                               <div >
-                                <label htmlFor="hall">Pick a Hall</label>
+                                <label htmlFor="hall">Pick a Hall</label><br/>
                                 <select
                                   className="select form-control-lg"
-                                  value={formData.reserveHalls}
+                                  value={formData.toBeReserved}
                                   onChange={(e) => onChange(e)}
-                                  name="reserveHalls"
+                                  name="toBeReserved"
                                 >
-                                  <option disabled>Available Halls</option>
+                                  <option selected value="Available Halls">Available Halls</option>
                                   {halls.map((item) => {
                                   return(
                                   <option value={item.name}>{item.name}</option>
@@ -181,13 +225,14 @@ const ReservationForm = () => {
                           {formData.ReserveType == "lab" ? (
                             <div className="row">
                               <div className="col-12">
-                                <label htmlFor="lab">Pick a Lab</label>
+                                <label htmlFor="lab">Pick a Lab</label><br/>
                                 <select
                                   className="select form-control-lg"
-                                  value={formData.reserveLabs}
+                                  value={formData.toBeReserved}
                                   onChange={(e) => onChange(e)}
-                                  name="reserveLabs"
+                                  name="toBeReserved"
                                 >
+                                <option selected value="Available Labs">Available Labs</option>
                                 {labs.map((item) => {
                                 return(
                                   <option value={item.name}>{item.name}</option>
@@ -201,13 +246,14 @@ const ReservationForm = () => {
                           {formData.ReserveType == "device" ? (
                             <div className="row">
                               <div className="col-12">
-                                <label htmlFor="device">Pick a Device</label>
+                                <label htmlFor="device">Pick a Device</label><br/>
                                 <select
                                   className="select form-control-lg"
-                                  value={formData.reserveDevices}
+                                  value={formData.toBeReserved}
                                   onChange={(e) => onChange(e)}
-                                  name="reserveDevices"
+                                  name="toBeReserved"
                                 >
+                                <option selected value="Available Devices">Available Devices</option>
                                 {devices.map((item) => {
                                 return(
                                   <option value={item.name}>{item.name}</option>
@@ -217,6 +263,7 @@ const ReservationForm = () => {
                               </div>
                           </div>
                           ):null}
+                          <p className="text-danger">{ formErrors.toBeReserved }</p>
                       </div>
                     </div>
                     <br></br>

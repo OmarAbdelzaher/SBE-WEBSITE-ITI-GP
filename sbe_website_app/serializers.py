@@ -31,7 +31,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','position','office_hours']
+        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','position','office_hours']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StaffSerializer, self).create(validated_data)
@@ -39,7 +39,7 @@ class StaffSerializer(serializers.ModelSerializer):
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
         model = FacultyEmp
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','title','password']
+        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','title','password']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -77,27 +77,42 @@ class DeviceSerializer(serializers.ModelSerializer):
         fields = ['name']
 
 class ReserveHallSerializer(serializers.ModelSerializer):
-     class Meta :
+    class Meta :
         model = ReserveHall
-        fields = ['hall_id','staff_id','timeslot']
+        fields = ['id','hall_id','staff_id','date','timeslot','is_confirmed']
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['timeslot'] = str(instance.timeslot)
+        return ret
+    
 class ReserveLabSerializer(serializers.ModelSerializer):
-     class Meta :
+    class Meta :
         model = ReserveLab
-        fields = ['hall_id','staff_id','start','end','cancelled']
-
+        fields = ['id','lab_id','staff_id','timeslot']
+    
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['timeslot'] = str(instance.timeslot)
+        return ret
+    
 class ReserveDeviceSerializer(serializers.ModelSerializer):
-     class Meta :
+    class Meta :
         model = ReserveDevice
-        fields = ['hall_id','staff_id','start','end','cancelled']
+        fields = ['id','device_id','staff_id','timeslot']
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['timeslot'] = str(instance.timeslot)
+        return ret
+    
 class NewsSerializer(serializers.ModelSerializer):
-     class Meta :
+    class Meta :
         model = New
         fields = ['id','title','description','picture','category']
 
 class EventSerializer(serializers.ModelSerializer):
-     class Meta :
+    class Meta :
         model = Event
         fields = ['id','name','details','picture']
 
