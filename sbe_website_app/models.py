@@ -137,7 +137,7 @@ class Student(Person,models.Model):
     
     graduate = models.CharField(max_length=20, choices=GRADE_CHOICES)
     year_of_graduation = models.IntegerField()
-    
+
 class OfficeHours(models.Model):
     WEEKDAYS = [
         ('Monday', "Monday"),
@@ -205,7 +205,7 @@ class CourseHistory(models.Model):
     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.course_id
+        return str(self.course_id)
 
 class Schedule(models.Model):
     year = models.IntegerField()

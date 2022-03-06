@@ -34,6 +34,8 @@ admin.site.register(New)
 admin.site.register(Event)
 admin.site.register(TimeSlot)
 admin.site.register(Schedule)
+admin.site.register(CourseHistory)
+
 
 
 
