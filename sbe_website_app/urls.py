@@ -27,6 +27,8 @@ urlpatterns = [
     path('news', views.News.as_view()),
     path('news/<int:pk>', views.NewDetails.as_view()),
 
+    
+
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

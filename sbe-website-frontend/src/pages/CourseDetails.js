@@ -26,7 +26,10 @@ function CourseDetails() {
             <p className="lead">Course Description</p>
             <hr className="my-4" />
             <p className="lead">
-              <a className="btn btn-dark btn-lg" href="" target="_blank" role="button">Course Instruction</a>
+              <a className="btn btn-dark btn-lg" href="" target="_blank" role="button">Course Grades</a>
+              <h1 className="lead">{course.stds_grades}</h1>
+              <a className="btn btn-dark btn-lg" href="" target="_blank" role="button">Course Schedule</a>
+              <h1 className="lead">{course.schedule}</h1>
             </p>
           </div>
         </div>

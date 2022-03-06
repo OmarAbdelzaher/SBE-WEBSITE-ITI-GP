@@ -19,6 +19,7 @@ import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
 import { Provider } from "react-redux";
 import store from "./store";
 
+
 function App() {
   return (
     <>
@@ -43,6 +44,7 @@ function App() {
               component={ResetPasswordConfirm}
             />
             <Route path={"/activate/:uid/:token"} exact component={Activate} />
+            
           </Switch>
         </BrowserRouter>
       </Provider>
