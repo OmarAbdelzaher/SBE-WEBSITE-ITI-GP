@@ -36,6 +36,7 @@ export const load_user = () => async (dispatch) => {
         `${process.env.REACT_APP_API_URL}/auth/users/me/`,
         config
       );
+      console.log(res.data) 
 
       dispatch({
         type: USER_LOADED_SUCCESS,
@@ -76,7 +77,7 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch(load_user());
   } catch (err) {
-    console.log(err.response.data.detail)
+    // console.log(err.response.data.detail)
     dispatch({
       type: LOGIN_FAIL,
       payload : err.response.data.detail,
@@ -120,7 +121,8 @@ export const signup =
       gender,
       year_of_graduation,
       title,
-      is_active
+      role,
+      is_active,  
     });
 
     const studentUrl = "/api/students/";
@@ -155,17 +157,6 @@ export const signup =
       });
     }
   };
-//   return  await axios.post(`${process.env.REACT_APP_API_URL}${url}`, body, config).then(data =>{
-//     //   console.log(data)
-//     dispatch({
-//                 type: SIGNUP_SUCCESS,
-//                 payload: data,
-//             })}
-//   )
-//   .catch(error => {
-//       console.log(error)
-//     dispatch({ type: SIGNUP_FAIL, error })
-//   })
 
 export const verify = (uid, token) => async (dispatch) => {
   const config = {

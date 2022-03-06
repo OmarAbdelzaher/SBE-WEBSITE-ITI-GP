@@ -41,7 +41,7 @@ function CourseDetails() {
               
                 
                 <div className="btn button col-12 card cards justify-content-center align-items-center ">
-                <Link className="btn button fs-4" to={`/course-history/${course.course_id}`}>
+                <Link className="btn button fs-4" to={`/course-history/${course.id}`}>
                Show Course History
                 </Link>
                 </div>
