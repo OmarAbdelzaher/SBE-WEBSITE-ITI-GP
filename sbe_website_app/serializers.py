@@ -48,8 +48,13 @@ class FacultyEmpSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta :
         model = Course
-        fields = ['id','name','total_grade','stds_grades','schedule','instructions','materials','staff_id','category']
+        fields = ['id','name','total_grade','stds_grades','instructions','materials','staff_id','category']
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        for i in range(len(ret['staff_id'])): 
+            ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
+        return ret
 
 class HallSerializer(serializers.ModelSerializer):
     class Meta :

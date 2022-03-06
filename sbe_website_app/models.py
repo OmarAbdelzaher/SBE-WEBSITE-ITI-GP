@@ -167,6 +167,7 @@ class Staff(Person,models.Model):
     )
     position = models.CharField(max_length=10, choices=POS_CHOICES)
     office_hours = models.ManyToManyField(OfficeHours)
+    
     def __str__(self):
         return self.fname + ' ' + self.lname
     
