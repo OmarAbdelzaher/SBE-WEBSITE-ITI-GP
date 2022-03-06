@@ -31,7 +31,11 @@ urlpatterns = [
     path('timeslots/', views.TimeSlotsView.as_view()),
     path('newsgraduate/', views.NewsGraduateView.as_view()),
     path('newsundergraduate/', views.NewsUnderGraduateView.as_view()),
+    path('coursegraduate/', views.CourseGraduateView.as_view()),
+    path('courseungraduate/', views.CourseUngraduateView.as_view()),
 
+
+    
 
 
 
