@@ -27,8 +27,8 @@ function LoginForm({login , isAuthenticated}) {
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
-              <div className="card rounded-3 form">
-                <img
+              <div className="card rounded-3 courses-b form">
+                {/* <img
                   src="http://ihd.eng.cu.edu.eg/wp-content/uploads/sites/13/2014/12/Fac_eng_minified-620x279.jpg"
                   className="w-100"
                   style={{
@@ -36,7 +36,7 @@ function LoginForm({login , isAuthenticated}) {
                     borderTopRightRadius: ".3rem",
                   }}
                   alt="Sample photo"
-                />
+                /> */}
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Login Form
@@ -78,17 +78,17 @@ function LoginForm({login , isAuthenticated}) {
                     </div>
                     <button
                       type="submit"
-                      className="btn btn-success btn-lg mb-1"
+                      className="btn button btn-lg mb-1"
                     >
                       Login
                     </button>
                   </form>
                   <p className="mt-3">
-                    Don't have an account? <Link to="/signup">Sign Up</Link>
+                    Don't have an account? <Link className="nav-links" to="/signup">Sign Up</Link>
                   </p>
                   <p className="mt-3">
                     Forgot your Password?{" "}
-                    <Link to="/reset-password">Reset Password</Link>
+                    <Link className="nav-links" to="/reset-password">Reset Password</Link>
                   </p>
                 </div>
               </div>

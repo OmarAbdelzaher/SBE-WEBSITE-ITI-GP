@@ -48,7 +48,9 @@
   right: -20px;
   transition: 0.5s;
 }
-
+.button:hover{
+  color: #9b2226;
+}
 .button:hover .ani {
   padding-right: 25px;
   color: #9b2226;

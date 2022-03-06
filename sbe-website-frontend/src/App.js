@@ -1,6 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Header from "./components/header";
 import Home from "./pages/home";
 import Signup from "./pages/SignupForm";
 import LoginForm from "./pages/LoginForm";
@@ -8,17 +9,14 @@ import ReservationForm from "./pages/ReservationForm";
 import CoursesMenu from "./pages/CoursesMenu";
 import CoursesPage from "./pages/CoursesPage";
 import CourseDetails from "./pages/CourseDetails";
-// import About from "./components/about";
-import Header from "./components/header";
+import CourseHistory from "./pages/CourseHistory";
 import About from "./components/about";
 import AllNews from "./components/AllNews";
-
 import Activate from "./pages/Activate";
 import ResetPassword from "./pages/ResetPassword";
 import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
 import { Provider } from "react-redux";
 import store from "./store";
-import CourseHistory from "./pages/CourseHistory";
 import AllEvents from "./components/AllEvents";
 import GraduatePage from "./components/GraduatePage";
 
