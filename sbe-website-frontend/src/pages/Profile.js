@@ -1,6 +1,18 @@
 import React from 'react'
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Profile() {
+  const [student, setStudent] = useState({});
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/student/4`)
+      .then((res) => {
+        console.log(res.data)
+        setStudent(res.data)
+
+      })
+  }, []);
   return (
     <section className="h-150 h-custom">
     <div className="container">
@@ -20,14 +32,15 @@ function Profile() {
                     </div>
                     <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                       <div className="text-center text-sm-left mb-2 mb-sm-0">
-                        <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">FirstName SurName</h4>
-                        <p className="mb-0">FirstName@gmail.com</p>
-                        <p className="mb-2">Student</p>
+                        <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{student.fname}  {student.lname}</h4>
+                        <p className="mb-0">{student.email}</p>
+                        <p className="mb-2">{student.graduate}</p>
                         <div className="mt-2">
                           <button className="btn btn-dark" type="button">
                             <i className="fa fa-fw fa-camera" />
                             <span>Change Photo</span>
                           </button>
+                          <div className="text-muted"><small>Last login 2 hours ago</small></div>
                         </div>
                       </div>
                     </div>

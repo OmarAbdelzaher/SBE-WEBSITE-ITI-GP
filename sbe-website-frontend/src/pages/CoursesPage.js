@@ -7,7 +7,7 @@ function CoursesPage() {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/courses/")
+      .get("http://localhost:8000/api/courses/1")
       .then((res) => {
         setCourses(res.data)
 
