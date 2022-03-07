@@ -2,24 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function CoursesMenu() {
+export default function CoursesMenu() {
   const [formData, setFormData] = useState({
-    // ReserveDate: "",
-    // ReserveTime: "",
+
     Year: "year",
     Semester: "semester",
-    // reserveHalls:"",
-    // reserveLabs:"",
-    // reserveDevices:""
+
   });
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
+
 
   return (
     <>
@@ -44,12 +38,16 @@ function CoursesMenu() {
                           name="Year"
                           value={formData.Year}
                         >
+                          {/* Default Value */}
                           <option value="0">Please select Your Year</option>
+                          {/* Selections values */}
                           <option value="1">First Year</option>
                           <option value="2">Second Year</option>
                           <option value="3">Third Year</option>
                           <option value="4">Fourth Year</option>
                         </select>
+
+                        {/* Year One Selection  */}
                         {formData.Year == "1" ? (
                           <>
                             <br />
@@ -74,6 +72,8 @@ function CoursesMenu() {
                                       <option value="first">First Term</option>
                                       <option value="second">Second Term</option>
                                     </select>
+
+                                    {/* Year One Selection Semester One */}
                                     {formData.Semester == "first" ? (
                                       <>
                                         <label htmlFor="first">
@@ -92,6 +92,8 @@ function CoursesMenu() {
                                         </Link>
                                       </>
                                     ) : null}
+
+                                    {/* Year One Selection Semester Two */}
                                     {formData.Semester == "second" ? (
                                       <>
                                         <label htmlFor="second">
@@ -146,6 +148,8 @@ function CoursesMenu() {
                                        Second Term
                                      </option>
                                    </select>
+
+                                   {/* Year two Selection Semester One */}
                                    {formData.Semester == "first" ? (
                                      <>
                                        <label htmlFor="first">
@@ -164,6 +168,8 @@ function CoursesMenu() {
                                        </Link>
                                      </>
                                    ) : null}
+
+                                   {/* Year two Selection Semester Two */}
                                    {formData.Semester == "second" ? (
                                      <>
                                        <label htmlFor="second">
@@ -190,6 +196,8 @@ function CoursesMenu() {
                            </div>
                          </>
                         ) : null}
+
+                        {/* Year Three Selection */}
                         {formData.Year == "3" ? (
                           <>
                           <br />
@@ -215,6 +223,8 @@ function CoursesMenu() {
                                       Second Term
                                     </option>
                                   </select>
+
+                                   {/* Year Three Selection Smester One*/}
                                   {formData.Semester == "first" ? (
                                     <>
                                       <label htmlFor="1">
@@ -233,6 +243,8 @@ function CoursesMenu() {
                                       </Link>
                                     </>
                                   ) : null}
+
+                                   {/* Year Three Selection Semester Two  */}
                                   {formData.Semester == "second" ? (
                                     <>
                                       <label htmlFor="1">
@@ -262,7 +274,8 @@ function CoursesMenu() {
                         </>
                         ) : null}
 
-{formData.Year == "4" ? (
+                          {/* Year Four Selection */}
+                          {formData.Year == "4" ? (
                            <>
                            <br />
                            <div>
@@ -287,6 +300,7 @@ function CoursesMenu() {
                                        Second Term
                                      </option>
                                    </select>
+                                   {/* Year Four Selection Semester One */}
                                    {formData.Semester == "first" ? (
                                      <>
                                        <label htmlFor="1">
@@ -294,7 +308,7 @@ function CoursesMenu() {
                                        </label>
                                        <Link
                                          className="button btn btn-lg col-12"
-                                         to="/one-smesterone"
+                                         to="/four-smesterone"
                                        >
                                          <button
                                            type="submit"
@@ -305,6 +319,8 @@ function CoursesMenu() {
                                        </Link>
                                      </>
                                    ) : null}
+
+                                   {/* Year Four Selection Semester Two */}
                                    {formData.Semester == "second" ? (
                                      <>
                                        <label htmlFor="1">
@@ -312,7 +328,7 @@ function CoursesMenu() {
                                        </label>
                                        <Link
                                          className="button btn btn-lg col-12"
-                                         to="/one-smestertwo"
+                                         to="/four-smestertwo"
                                        >
                                          <button
                                          
@@ -333,21 +349,9 @@ function CoursesMenu() {
                         ) : null}
                       </div>
                     </div>
-                    {/* <br></br>
+    
                     <div className="row">
-                      <div className="col-12">
-                      <label className="form-label select-label col-12 fs-5">Semester</label>
-                        <select className="select form-control-lg col-12">
-                          <option value={2}>First Term</option>
-                          <option value={3}>Second Term</option>
-                        </select>
-                      </div>
-                    </div>
-                    <br></br> */}
-                    <div className="row">
-                      {/* <Link className='button btn btn-lg col-12' to="/coursesPage">
-                    <button type="submit" className="button ani  mb-1">Show Courses</button>
-                    </Link> */}
+   
                       <Link className="button btn btn-lg col-12">
                         <button type="submit" className="button ani mb-1">
                           Show Schedule
@@ -365,4 +369,4 @@ function CoursesMenu() {
   );
 }
 
-export default CoursesMenu;
+
