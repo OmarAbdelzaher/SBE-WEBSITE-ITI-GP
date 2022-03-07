@@ -1,18 +1,67 @@
 import React from 'react'
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory, useParams } from 'react-router-dom';
 
 function Profile() {
-  const [student, setStudent] = useState({});
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/student/2`)
-      .then((res) => {
-        console.log(res.data)
-        setStudent(res.data)
+  let history = useHistory();
+  // const { id } = useParams();
 
-      })
-  }, []);
+  const [fname, setFname] = useState({});
+  const [lname, setLname] = useState({});
+  const [email, setEmail] = useState({});
+  const [address, setAddress] = useState({});
+  const [phone, setPhone] = useState({});
+  const [graduate, setGraduate] = useState({});
+  const [student, setStudent] = useState({});
+
+  //  useEffect(() => {
+  //    axios
+  //      .get(`http://localhost:8000/api/student/2`)
+  //      .then((res) => {
+  //        console.log(res.data)
+  //        setStudent(res.data)
+  //       //  const { id } = useParams();
+  //      })
+  //  }, []);
+
+  useEffect(() => {
+    loadStudents();
+  }, [])
+ let loadStudents = async () => {
+  const result = await axios.get(`http://localhost:8000/api/student/2`);
+  console.log(result.data.fname);
+
+    setFname(result.data.fname);
+    setLname(result.data.lname);
+    setEmail(result.data.email);
+    setPhone(result.data.phone);
+    setAddress(result.data.address);
+    setGraduate(result.data.graduate);
+  }
+  const updateSingleStudent = async () => {
+   let formField = new FormData()
+
+   formField.append('fname',fname)
+   formField.append('lname',lname)
+   formField.append('email',email)
+   formField.append('address',address)
+   formField.append('phone',phone)
+   formField.append('graduate',graduate)
+
+
+   await axios({
+       method: 'PUT',
+       url: `http://localhost:8000/api/student/2/`,
+       data: formField
+   }).then(response => {
+     
+       console.log(response.data);
+       history.push("/");
+   })
+   console.log(formField);
+
+ }
   return (
     <section className="h-150 h-custom">
     <div className="container">
@@ -33,7 +82,7 @@ function Profile() {
                     </div>
                     <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                       <div className="text-center text-sm-left mb-2 mb-sm-0">
-                        <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{student.fname}  {student.lname}</h4>
+                        <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{fname}  {lname}</h4>
                         <p className="mb-0">{student.email}</p>
                         <p className="mb-2">{student.graduate}</p>
                         <div className="mt-2">
@@ -57,13 +106,13 @@ function Profile() {
                               <div className="col">
                                 <div className="form-group">
                                   <label>First Name</label>
-                                  <input className="form-control input-lg" type="text" name="" placeholder="First Name" defaultValue={student.fname} />
+                                  <input className="form-control input-lg" type="text" name="fname" placeholder="First Name" defaultValue={student.fname} />
                                 </div>
                               </div>
                               <div className="col">
                                 <div className="form-group">
                                   <label>Last Name</label>
-                                  <input className="form-control input-lg" type="text" name="" placeholder="Last Name" defaultValue={student.lname} />
+                                  <input className="form-control input-lg" type="text" name="lname" placeholder="Last Name" defaultValue={student.lname} />
                                 </div>
                               </div>
                             </div>
@@ -137,7 +186,7 @@ function Profile() {
         </div>
         <div className="row">
           <div className="col d-flex justify-content-end">
-            <button className="btn btn-dark btn-lg" type="submit">Save Changes</button>
+            <button className="btn btn-dark btn-lg" type="submit" onClick={updateSingleStudent} >Save Changes</button>
           </div>
         </div>
         </form>
