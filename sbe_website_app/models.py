@@ -254,7 +254,7 @@ class ReserveHall(models.Model):
         return self.TIMESLOT_LIST[self.timeslot][1]
   
     def __str__(self):
-        return str(self.hall_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
+        return f'{ str(self.hall_id) } reserved by {str(self.staff_id)}'
     
 class Lab(models.Model):
     name = models.CharField(max_length=20,primary_key=True)

@@ -1,18 +1,71 @@
 import React from 'react'
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function Profile() {
-  const [student, setStudent] = useState({});
+function Profile(isAuthenticated) {
+  const who = useSelector((state) => state.auth);
+
+  const [user, setUser] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    gender: "",
+    address:"",
+    birthdate:"",
+    phone_number:"",
+    password:"",
+
+    graduate:"",
+    year_of_graduation:"",
+    
+    title:"",
+
+    role:""
+  });
+  
+  let StudentUrl = "http://localhost:8000/api/student/14"
+  let StaffUrl = "http://localhost:8000/api/onestaff/14"
+  let EmpUrl = "http://localhost:8000/api/facultyemp/14"
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/student/2`)
-      .then((res) => {
-        console.log(res.data)
-        setStudent(res.data)
-
-      })
+    setUser(who.user)
   }, []);
+ 
+  // useEffect(() => {
+  //   axios
+  //     .get(StudentUrl)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setUser(res.data)});
+  // }, []);
+
+
+  const onChange = (e) =>
+    setUser({ ...user, [e.target.name]: e.target.value });
+
+    const onSubmit = (e) => {
+      e.preventDefault();
+      console.log(user);
+
+      const Data = new FormData();
+      Data.append('fname',user.fname)
+      Data.append('lname',user.lname)
+      Data.append('email',user.email)
+      Data.append('address',user.address)
+      Data.append('gender',user.gender)
+      Data.append('graduate',user.graduate)
+      Data.append('birthdate',user.birthdate)
+      Data.append('phone_number',user.phone_number)
+      Data.append('password',user.password)
+      Data.append('year_of_graduation',user.year_of_graduation)
+
+      axios.put(StudentUrl,Data)
+    }
+
+
+ 
   return (
     <section className="h-150 h-custom">
     <div className="container">
@@ -33,9 +86,9 @@ function Profile() {
                     </div>
                     <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                       <div className="text-center text-sm-left mb-2 mb-sm-0">
-                        <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{student.fname}  {student.lname}</h4>
-                        <p className="mb-0">{student.email}</p>
-                        <p className="mb-2">{student.graduate}</p>
+                        <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{user.fname}  {user.lname}</h4>
+                        <p className="mb-0">{user.email}</p>
+                        <p className="mb-2">{user.graduate}</p>
                         <div className="mt-2">
                           <button className="btn btn-dark" type="button">
                             <i className="fa fa-fw fa-camera" />
@@ -52,18 +105,18 @@ function Profile() {
                   <br></br>
                   <div className="tab-content pt-3">
                     <div className="tab-pane active">
-                      <form className="form-group-lg" noValidate>
+                      <form className="form-group-lg" onSubmit={(e) => onSubmit(e)} noValidate>
                             <div className="row">
                               <div className="col">
                                 <div className="form-group">
                                   <label>First Name</label>
-                                  <input className="form-control input-lg" type="text" name="" placeholder="First Name" defaultValue={student.fname} />
+                                  <input className="form-control input-lg" type="text" name="fname" placeholder="First Name" value={user.fname} onChange={(e) => onChange(e)} />
                                 </div>
                               </div>
                               <div className="col">
                                 <div className="form-group">
                                   <label>Last Name</label>
-                                  <input className="form-control input-lg" type="text" name="" placeholder="Last Name" defaultValue={student.lname} />
+                                  <input className="form-control input-lg" type="text" name="lname" placeholder="Last Name" value={user.lname} onChange={(e) => onChange(e)}/>
                                 </div>
                               </div>
                             </div>
@@ -72,16 +125,25 @@ function Profile() {
                               <div className="col">
                                 <div className="form-group">
                                   <label>Email</label>
-                                  <input className="form-control" type="text" placeholder="user@example.com" defaultValue={student.email} />
+                                  <input className="form-control" type="text" name="email" placeholder="user@example.com" value={user.email} onChange={(e) => onChange(e)}/>
                                 </div>
                               </div>
                             </div>
                             <br></br>
+
+                            <div className="col-md-6 mb-4">
+                              <h6 className="mb-2 pb-1">Gender: </h6>
+                              <div onChange={(e) => onChange(e)}>
+                                <input type="radio" value="M" name="gender" checked={user.gender==="M"}/> Male
+                                <input type="radio" value="F" name="gender" checked={user.gender==="F"}/> Female
+                              </div>
+                            </div>
+
                             <div className="row">
                               <div className="col">
                                 <div className="form-group">
                                   <label>Phone Number</label>
-                                  <input className="form-control" type="number" name="" placeholder="01120796294" defaultValue={student.phone_number} />
+                                  <input className="form-control" type="number" name="phone_number" placeholder="01120796294" value={user.phone_number} onChange={(e) => onChange(e)}/>
                                 </div>
                               </div>
                             </div>
@@ -90,7 +152,7 @@ function Profile() {
                               <div className="col">
                                 <div className="form-group">
                                   <label>Address</label>
-                                  <input className="form-control" type="text" placeholder="Nasr city, Cairo" defaultValue={student.address}  />
+                                  <input className="form-control" type="text" name="address" placeholder="Nasr city, Cairo" value={user.address} onChange={(e) => onChange(e)} />
                                 </div>
                               </div>
                             </div>
@@ -99,7 +161,7 @@ function Profile() {
                               <div className="col">
                                 <div className="form-group">
                                   <label>Birthdate</label>
-                                  <input className="form-control" type="date" name="" placeholder="" defaultValue={student.birthdate} />
+                                  <input className="form-control" type="date" name="birthdate" placeholder="" value={user.birthdate} onChange={(e) => onChange(e)}/>
                                 </div>
                               </div>
                             </div>
@@ -137,7 +199,7 @@ function Profile() {
         </div>
         <div className="row">
           <div className="col d-flex justify-content-end">
-            <button className="btn btn-dark btn-lg" type="submit">Save Changes</button>
+            <button className="btn btn-dark btn-lg" type="submit" >Save Changes</button>
           </div>
         </div>
         </form>
