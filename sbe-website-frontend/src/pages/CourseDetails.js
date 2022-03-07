@@ -2,7 +2,8 @@ import React from "react";
 import {  Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+// import { Linking } from 'react-native';
+import {Linking,Text,StyleSheet,TouchableOpacity} from 'react-native';
 
 
 function CourseDetails() {
@@ -50,7 +51,15 @@ function CourseDetails() {
                 <div className=" row col-4 offset-1">
                   <div className="row card cards col-10 text-center border border-2 ">
                     <h3 className="card-body col-12 nav-links">Materials</h3>
-                    <p className="card-text col-12 text-dark">{course.materials}</p>
+                    <TouchableOpacity><Text className="card-text col-12 " 
+                    style={{color: 'blue'}}
+                    onPress={() => Linking.openURL(course.materials)}
+                    >{course.materials}</Text></TouchableOpacity>
+                    
+                    {/* <Text style={{color: 'blue'}}
+      onPress={() => Linking.openURL('http://google.com')}>
+  Google
+</Text> */}
                     <button className="btn btn-lg col-12 button">
                       <a className="button nav-links text-light" href={course.materials} download>Download</a>
                     </button>
