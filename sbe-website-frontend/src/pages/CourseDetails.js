@@ -15,7 +15,6 @@ function CourseDetails() {
     axios
       .get(`http://localhost:8000/api/course/${params.id}`)
       .then((res) => {
-        console.log(res.data)
         setCourse(res.data)
 
       })
@@ -41,7 +40,7 @@ function CourseDetails() {
               
                 
                 <div className="btn button col-12 card cards justify-content-center align-items-center ">
-                <Link className="btn button fs-4" to="/course-history">
+                <Link className="btn button fs-4" to={`/course-history/${course.id}`}>
                Show Course History
                 </Link>
                 </div>

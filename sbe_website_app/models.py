@@ -97,11 +97,6 @@ class Person(AbstractBaseUser,PermissionsMixin):
 
 
 class TimeSlot(models.Model):
-    # device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
-    # staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    # hall_id = models.ForeignKey(Hall, on_delete=models.CASCADE)
-    # lab_id = models.ForeignKey(Lab, on_delete=models.CASCADE)
-
     TIMESLOT_LIST = (
         (0, '08:30 - 10:00 AM'),
         (1, '10:15 - 11:45 AM'),
@@ -131,9 +126,7 @@ def send_activation_email(sender, instance, created, **kwargs):
                 instance.is_activated = True
                 instance.save()
             except Exception :
-                raise ValidationError("Couldn't send the message to the email ! ")    
-        else:
-            print("no change")
+                raise ValidationError("Couldn't send the message to the email ! ")
     else:
         print("already activated")
     
@@ -222,7 +215,7 @@ class Schedule(models.Model):
     schedule = models.FileField(upload_to='Schedules/')
     
 class Hall(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20,primary_key=True)
 
     def __str__(self):
         return self.name
@@ -246,21 +239,15 @@ class New(models.Model):
     
 
 class ReserveHall(models.Model):
-    hall_id = models.ForeignKey(Hall, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
-
-
-    TIMESLOT_LIST = (
-        (0, '08:30 - 10:00 AM'),
-        (1, '10:15 - 11:45 AM'),
-        (2, '12:15 - 01:45 PM'),
-        (3, '02:00 - 03:30 PM'),
-        (4, '03:45 - 05:45 PM'),
-        (5, '06:00 - 07:30 PM'),
+    hall_id = models.ForeignKey(Hall, on_delete=models.CASCADE)
+    date = models.DateField(null=True)
+    timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
+    is_confirmed = models.BooleanField(default=False,null=True)
     
-    )
-    timeslot = models.IntegerField(choices=TIMESLOT_LIST)
-
+    class Meta:
+        unique_together = ('hall_id','date','timeslot')
+        
     def __str__(self):
         return '{}'.format( self.time)
 
@@ -272,7 +259,7 @@ class ReserveHall(models.Model):
         return str(self.hall_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
     
 class Lab(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20,primary_key=True)
     
     def __str__(self):
         return self.name
@@ -280,13 +267,15 @@ class Lab(models.Model):
 class ReserveLab(models.Model):
     lab_id = models.ForeignKey(Lab, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    date = models.DateField(null=True)
     timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
+    is_confirmed = models.BooleanField(default=False,null=True)
 
     def __str__(self):
         return str(self.lab_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
     
 class Device(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20,primary_key=True)
     
     def __str__(self):
         return self.name
@@ -294,7 +283,9 @@ class Device(models.Model):
 class ReserveDevice(models.Model):
     device_id = models.ForeignKey(Device, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    date = models.DateField(null=True)
     timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
+    is_confirmed = models.BooleanField(default=False,null=True)
     
     def __str__(self):
         return str(self.device_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)

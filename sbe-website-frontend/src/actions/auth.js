@@ -36,8 +36,7 @@ export const load_user = () => async (dispatch) => {
         `${process.env.REACT_APP_API_URL}/auth/users/me/`,
         config
       );
-      console.log(res.data) 
-
+      
       dispatch({
         type: USER_LOADED_SUCCESS,
         payload: res.data,
@@ -69,7 +68,6 @@ export const login = (email, password) => async (dispatch) => {
       body,
       config
     );
-    console.log(res.data)
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
