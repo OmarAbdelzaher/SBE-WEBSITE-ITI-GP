@@ -377,6 +377,8 @@ class DeviceDetails(APIView):
 class ReserveHallList(APIView):
     def get(self,request):
         reserved_halls = ReserveHall.objects.all()
+        # reserved_slot = reserved_halls.filter(timeslot=1)
+        # print(reserved_slot[0].timeslot)
         serializer = ReserveHallSerializer(reserved_halls,many=True)
         return Response(serializer.data)
     
@@ -390,7 +392,6 @@ class ReserveHallList(APIView):
 
 def sendReservationRequest(request):
     try:
-        # print(request.data["staff_id"])
         staff_name = Person.objects.get(id=request.data["staff_id"])
         
         send_mail("Reservation Request",

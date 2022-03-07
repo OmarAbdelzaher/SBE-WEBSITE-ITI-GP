@@ -89,7 +89,7 @@ class ReserveHallSerializer(serializers.ModelSerializer):
 class ReserveLabSerializer(serializers.ModelSerializer):
     class Meta :
         model = ReserveLab
-        fields = ['id','lab_id','staff_id','timeslot']
+        fields = ['id','lab_id','staff_id','date','timeslot','is_confirmed']
     
     def to_representation(self, instance):
         ret = super().to_representation(instance)
@@ -99,7 +99,7 @@ class ReserveLabSerializer(serializers.ModelSerializer):
 class ReserveDeviceSerializer(serializers.ModelSerializer):
     class Meta :
         model = ReserveDevice
-        fields = ['id','device_id','staff_id','timeslot']
+        fields = ['id','device_id','staff_id','date','timeslot','is_confirmed']
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)

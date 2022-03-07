@@ -2,8 +2,19 @@ import React from "react";
 import Header from "../components/header";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const ReservationForm = () => {
+const ReservationForm = (isAuthenticated) => {
+
+  const staff = useSelector(state=>state.auth)
+  
+  let staff_id = null
+
+  if( isAuthenticated && staff.user != null)
+  {
+    staff_id = staff.user.id
+  }
+
   const [timeslot, setTimeSlot] = useState([]);
   const [labs, setLabs] = useState([]);
   const [halls, setHalls] = useState([]);
@@ -75,8 +86,6 @@ const ReservationForm = () => {
   }
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    
     let errors_form = validate(formData)
     setFormErrors(errors_form)
     let reserved = ""
@@ -99,10 +108,8 @@ const ReservationForm = () => {
       Data.append('date',formData.ReserveDate)
       Data.append('timeslot',formData.ReserveTime)
       Data.append(reserved,formData.toBeReserved)
-      // Data.append('staff_id',formData.staff_id)
-      Data.append('staff_id',2)
+      Data.append('staff_id',staff_id)
       
-      console.log(formData.ReserveTime)
       axios.post(ReserveUrl,Data)
     }
   };
