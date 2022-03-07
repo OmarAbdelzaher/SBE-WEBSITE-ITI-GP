@@ -222,7 +222,7 @@ function CoursesMenu() {
                                       </label>
                                       <Link
                                         className="button btn btn-lg col-12"
-                                        to="/one-smesterone"
+                                        to="/three-smesterone"
                                       >
                                         <button
                                           type="submit"
@@ -240,7 +240,7 @@ function CoursesMenu() {
                                       </label>
                                       <Link
                                         className="button btn btn-lg col-12"
-                                        to="/one-smestertwo"
+                                        to="/three-smestertwo"
                                       >
                                         <button
                                           type="submit"

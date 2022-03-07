@@ -36,6 +36,9 @@ urlpatterns = [
     path('courseungraduateyearone/', views.CourseUngraduateYearOne.as_view()),
 
     path('courseungraduateyeartwo/', views.CourseUngraduateYearTwo.as_view()),
+    path('courseungraduateyearthree/', views.CourseUngraduateYearThree.as_view()),
+    path('courseungraduateyearfour/', views.CourseUngraduateYearFour.as_view()),
+
 
     path('coursehistory/', views.CourseHistoryView.as_view()),
     path('coursehistory/<int:pk>', views.CourseHistoryDetailsView.as_view()),
