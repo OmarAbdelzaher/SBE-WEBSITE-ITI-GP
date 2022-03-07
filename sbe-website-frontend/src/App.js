@@ -22,7 +22,6 @@ import UnderGraduate from "./components/UnderGraduate";
 import CourseGraduate from "./components/CourseGraduate";
 import CourseUnderGraduate from "./components/CourseUndergraduate";
 import Profile from "./pages/Profile";
-import Moderator from "./pages/Moderator";
 import YoneSone from "./pages/Y1S1";
 import YoneStwo from "./pages/Y1S2";
 // import YearTwo from "./pages/Y2S1";
@@ -32,6 +31,10 @@ import YthreeSone from "./pages/Y3S1";
 import YthreeStwo from "./pages/Y3S2";
 import YfourSone from "./pages/Y4S1";
 import YfourStwo from "./pages/Y4S2";
+import Moderator from "./pages/Moderator";
+import ReservationApprov from "./pages/ReservationApprov";
+import RegistrationApprove from "./pages/RegistrationApprove";
+import Users from "./pages/Users";
 
 
 function App() {
@@ -71,11 +74,13 @@ function App() {
             <Route path={"/three-smestertwo"} exact component={YthreeStwo} />
             <Route path={"/four-smesterone"} exact component={YfourSone} />
             <Route path={"/four-smestertwo"} exact component={YfourStwo} />
-
-
-
-
             <Route path={"/moderator"} exact component={Moderator} />
+            <Route path={"/reservation-approv"} exact component={ReservationApprov} />
+            <Route path={"/registration-approv"} exact component={RegistrationApprove} />
+            <Route path={"/users"} exact component={Users} />
+
+
+
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}
