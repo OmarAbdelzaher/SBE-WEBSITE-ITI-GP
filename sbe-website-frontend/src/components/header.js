@@ -27,6 +27,7 @@ const Header = ({ logout, isAuthenticated }) => {
   }
   
   const logout_user = () => {
+    setIs_staff(false)
     logout();
     setRedirect(true);
   };
@@ -58,7 +59,7 @@ const Header = ({ logout, isAuthenticated }) => {
 
   const authLinks = () => (
     <Nav.Link className="button">
-      <Link className="fs-5 header-link ani"  onClick={logout_user}>
+      <Link className="fs-5 header-link ani" to="#"  onClick={logout_user}>
        Logout
       </Link>
     </Nav.Link>

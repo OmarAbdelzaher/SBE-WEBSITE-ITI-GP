@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Switch, Route , useLocation} from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "./components/header";
 import Home from "./pages/home";
 import Signup from "./pages/SignupForm";
@@ -35,7 +35,8 @@ import Moderator from "./pages/Moderator";
 import ReservationApprov from "./pages/ReservationApprov";
 import RegistrationApprove from "./pages/RegistrationApprove";
 import Users from "./pages/Users";
-
+import Layout from './hocs/Layout'; 
+import ReservationSchedule from "./components/ReservationSchedule";
 
 function App() {
 
@@ -48,7 +49,8 @@ function App() {
 
         <BrowserRouter>
 
-          <Header />
+        <Layout>
+          <Header/>
           <Switch>
             <Route path={"/"} exact component={Home} />
             <Route path={"/signup"} exact component={Signup} />
@@ -80,16 +82,17 @@ function App() {
             <Route path={"/users"} exact component={Users} />
 
 
-
+            <Route path={"/reservationsShedule"} exact component={ReservationSchedule} />
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}
               exact
               component={ResetPasswordConfirm}
-            />
+              />
             <Route path={"/activate/:uid/:token"} exact component={Activate} />
             
           </Switch>
+          </Layout>
         </BrowserRouter>
       </Provider>
     </>
