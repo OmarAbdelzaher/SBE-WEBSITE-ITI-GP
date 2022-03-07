@@ -8,12 +8,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { logout } from "../actions/auth";
+import { useSelector } from "react-redux";
+
+let flag = false
 
 const Header = ({ logout, isAuthenticated }) => {
   const [head, setHeader] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [is_staff, setIs_staff] = useState(false);
+  const staff = useSelector(state=>state.auth)
 
+  if( isAuthenticated && staff.user != null && flag == false)
+  {
+    if (staff.user.role == 'dr' || staff.user.role == 'ta'){
+      setIs_staff(true)
+      flag = true
+    }
+  }
+  
   const logout_user = () => {
+    setIs_staff(false)
     logout();
     setRedirect(true);
   };
@@ -32,12 +46,20 @@ const Header = ({ logout, isAuthenticated }) => {
       </Nav.Link>
     </>
   );
-  const authLinks = () => (
-    // <li className='nav-item'>
-    //     <a className='nav-link' href='#!' onClick={logout_user}>Logout</a>
-    // </li>
+
+  const staffLinks = () =>(
+    <>
     <Nav.Link className="button">
-      <Link className="fs-5 header-link ani" to="/"  onClick={logout_user}>
+      <Link className="fs-5 header-link ani"  to="/reservation">
+       Reservation
+      </Link>
+    </Nav.Link>
+    </>
+  )
+
+  const authLinks = () => (
+    <Nav.Link className="button">
+      <Link className="fs-5 header-link ani" to="#"  onClick={logout_user}>
        Logout
       </Link>
     </Nav.Link>
@@ -78,23 +100,8 @@ const Header = ({ logout, isAuthenticated }) => {
                 <FontAwesomeIcon icon={faHome} />{" "}
               </Link>
             </Nav.Link>
-            {/* <Nav.Link className="button">
-            <Link className="fs-5 header-link ani" to="/login">
-              Log In
-            </Link>
-          </Nav.Link>
-          <Nav.Link className="button">
-            <Link className="fs-5 header-link ani" to="/signup">
-              Sign Up
-            </Link>
-          </Nav.Link> */}
             {isAuthenticated ? authLinks() : guestLinks()}
-            <Nav.Link className="button">
-              <Link className="fs-5 header-link ani" to="/reservation">
-                Reservation
-              </Link>
-            </Nav.Link>
-            {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
+            {is_staff ? staffLinks() : null}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

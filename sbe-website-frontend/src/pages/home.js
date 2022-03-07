@@ -5,18 +5,19 @@ import NavBar from "../components/nav-bar";
 import News from "../components/News";
 import Events from "../components/Events";
 import Academics from "../components/Academics";
+// import OfficeHours from "../components/OfficeHours";
 import { connect , useSelector } from "react-redux";
 
 import "./style.css";
 
 const Home = () => {
-
+  
   return (
     <>
-
       <div className="home">
         <NavBar />
         <section className="s-one"><div className="img"></div></section>
+        {/* <OfficeHours /> */}
         <News />
         <Events />
         <Academics />

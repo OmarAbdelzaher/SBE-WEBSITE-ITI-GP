@@ -6,7 +6,6 @@ import Signup from "./pages/SignupForm";
 import LoginForm from "./pages/LoginForm";
 import ReservationForm from "./pages/ReservationForm";
 import CoursesMenu from "./pages/CoursesMenu";
-import CoursesPage from "./pages/CoursesPage";
 import CourseDetails from "./pages/CourseDetails";
 // import About from "./components/about";
 import Header from "./components/header";
@@ -25,8 +24,17 @@ import UnderGraduate from "./components/UnderGraduate";
 import CourseGraduate from "./components/CourseGraduate";
 import CourseUnderGraduate from "./components/CourseUndergraduate";
 import Profile from "./pages/Profile";
-import Layout from './hocs/Layout';
-
+import YoneSone from "./pages/Y1S1";
+import YoneStwo from "./pages/Y1S2";
+// import YearTwo from "./pages/Y2S1";
+import YtwoSone from "./pages/Y2S1";
+import YtwoStwo from "./pages/Y2S2";
+import YthreeSone from "./pages/Y3S1";
+import YthreeStwo from "./pages/Y3S2";
+import YfourSone from "./pages/Y4S1";
+import YfourStwo from "./pages/Y4S2";
+import Layout from './hocs/Layout'; 
+import ReservationSchedule from "./components/ReservationSchedule";
 
 function App() {
   return (
@@ -34,15 +42,14 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
         <Layout>
-          <Header />
+          <Header/>
           <Switch>
             <Route path={"/"} exact component={Home} />
             <Route path={"/signup"} exact component={Signup} />
             <Route path={"/login"} exact component={LoginForm} />
             <Route path={"/reservation"} exact component={ReservationForm} />
             <Route path={"/coursesMenu"} exact component={CoursesMenu} />
-            <Route path={"/coursesPage"} exact component={CoursesPage} />
-            <Route path={"/course-history"} exact component={CourseHistory} />
+            <Route path={"/course-history/:id"} exact component={CourseHistory} />
             <Route path={"/courseDetails/:id"} exact component={CourseDetails} />
             <Route path={"/about"} exact component={About} />
             <Route path={"/reset-password"} exact component={ResetPassword} />
@@ -53,12 +60,23 @@ function App() {
             <Route path={"/coursegraduate"} exact component={CourseGraduate} />
             <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} />
             <Route path={"/profilepage"} exact component={Profile} />
+            <Route path={"/one-smesterone"} exact component={YoneSone} />
+            <Route path={"/one-smestertwo"} exact component={YoneStwo} />
+            <Route path={"/two-smesterone"} exact component={YtwoSone} />
+            <Route path={"/two-smestertwo"} exact component={YtwoStwo} />
+            <Route path={"/three-smesterone"} exact component={YthreeSone} />
+            <Route path={"/three-smestertwo"} exact component={YthreeStwo} />
+            <Route path={"/four-smesterone"} exact component={YfourSone} />
+            <Route path={"/four-smestertwo"} exact component={YfourStwo} />
+
+
+            <Route path={"/reservationsShedule"} exact component={ReservationSchedule} />
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}
               exact
               component={ResetPasswordConfirm}
-            />
+              />
             <Route path={"/activate/:uid/:token"} exact component={Activate} />
             
           </Switch>

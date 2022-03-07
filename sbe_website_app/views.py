@@ -63,7 +63,7 @@ def sendActivationRequest(request):
             'settings.EMAIL_HOST_USER', [request.data["email"]],fail_silently=False,)
         
     except Exception :
-                raise ValidationError("Couldn't send the message to the email ! ") 
+        raise ValidationError("Couldn't send the message to the email ! ") 
     
 class StudentDetails(APIView):
     def get_object(self, pk):
@@ -377,15 +377,35 @@ class DeviceDetails(APIView):
 class ReserveHallList(APIView):
     def get(self,request):
         reserved_halls = ReserveHall.objects.all()
+        # reserved_halls = ReserveHall.objects.filter(is_confirmed = True)
         serializer = ReserveHallSerializer(reserved_halls,many=True)
-        # print(serializer.data[0]['timeslot'])
         return Response(serializer.data)
+    
     def post(self,request):
         serializer = ReserveHallSerializer(data=request.data)
         if serializer.is_valid():
+            sendReservationRequest(request)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def sendReservationRequest(request):
+    try:
+        staff_name = Person.objects.get(id=request.data["staff_id"])
+        
+        send_mail("Reservation Request",
+            str(staff_name) + " has requested a reservation, confirm or decline his request",
+            'settings.EMAIL_HOST_USER', ["omarzaher787@gmail.com"],fail_silently=False,)
+        
+        send_mail("Reservation Pending",
+            "hello "+ staff_name.fname +" , please wait for a confirmation for your reservation. \nThank you for your patience \nSBME Website Managers",
+            'settings.EMAIL_HOST_USER', [staff_name.email],fail_silently=False,)
+        
+    except Exception :
+        raise ValidationError("Couldn't send the message to the email ! ") 
+    
+
+
         
 # Get , Put and delete HTTP Methods using API For a specific reserved Hall
 
@@ -641,3 +661,97 @@ class CourseUngraduateView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class CourseUngraduateYearOne(APIView):
+    def get(self,request):
+        course = Course.objects.filter(year=1)
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CourseUngraduateYearTwo(APIView):
+    def get(self,request):
+        course = Course.objects.filter(year=2)
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CourseUngraduateYearThree(APIView):
+    def get(self,request):
+        course = Course.objects.filter(year=3)
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CourseUngraduateYearFour(APIView):
+    def get(self,request):
+        course = Course.objects.filter(year=4)
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CourseHistoryView(APIView):
+    def get(self,request):
+        courses = CourseHistory.objects.all()
+        serializer = CourseHistorySerializer(courses,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseHistorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CourseHistoryDetailsView(APIView):
+    def get_object(self, pk):
+        try:
+            return CourseHistory.objects.get(pk=pk)
+        except CourseHistory.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        course = self.get_object(pk)
+        serializer = CourseHistorySerializer(course)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        course = self.get_object(pk)
+        serializer = CourseHistorySerializer(course, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        course = self.get_object(pk)
+        course.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
