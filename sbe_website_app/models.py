@@ -1,8 +1,5 @@
-from django.db import models, IntegrityError
+from django.db import models
 from django.core.validators import RegexValidator
-from django.db.models import Q, Func
-from django.contrib.postgres.constraints import ExclusionConstraint
-from django.contrib.postgres.fields import DateTimeRangeField, RangeOperators, RangeBoundary
 from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
 from django.contrib.auth.hashers import make_password
 from django.db.models.signals import post_save
@@ -63,6 +60,13 @@ class Person(AbstractBaseUser,PermissionsMixin):
         ('M', 'Male'),
         ('F', 'Female'),
     )
+    ROLES_CHOICES = (
+        ('student', 'student'),
+        ('dr', 'dr'),
+        ('ta', 'ta'),
+        ('employee','employee')
+    )
+
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     email = models.EmailField(max_length=255, unique=True)
@@ -70,6 +74,8 @@ class Person(AbstractBaseUser,PermissionsMixin):
     birthdate = models.DateField(null=True)
     address = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    role = models.CharField(max_length=100,blank=True, choices=ROLES_CHOICES)
+
 
     phone_regex = RegexValidator(regex=r'^01[0125][0-9]{8}$', message="Phone number must be 11 digits")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
@@ -133,8 +139,8 @@ def send_activation_email(sender, instance, created, **kwargs):
     
 class Student(Person,models.Model):
     GRADE_CHOICES = (
-        ('graduate', 'Graduate'),
-        ('undergraduate', 'Undergraduate'),
+        ('graduate', 'graduate'),
+        ('undergraduate', 'undergraduate'),
     )
     
     graduate = models.CharField(max_length=20, choices=GRADE_CHOICES)
@@ -239,30 +245,11 @@ class New(models.Model):
         return self.title
     
 
-    
-# class TsTzRange(Func):
-#     function = 'TSTZRANGE'
-#     output_field = DateTimeRangeField()
-    
 class ReserveHall(models.Model):
     hall_id = models.ForeignKey(Hall, on_delete=models.CASCADE)
     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
 
-    # start = models.DateTimeField()
-    # end = models.DateTimeField()
-    # cancelled = models.BooleanField(default=False)
 
-    # class Meta:
-    #     constraints = [
-    #         ExclusionConstraint(
-    #             name='exclude_overlapping_reservations_hall',
-    #             expressions=(
-    #                 (TsTzRange('start', 'end', RangeBoundary()), RangeOperators.OVERLAPS),
-    #                 ('hall_id', RangeOperators.EQUAL),
-    #             ),
-    #             condition=Q(cancelled=False),
-    #         )
-    #     ]
     TIMESLOT_LIST = (
         (0, '08:30 - 10:00 AM'),
         (1, '10:15 - 11:45 AM'),

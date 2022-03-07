@@ -60,7 +60,7 @@ const Header = ({ logout, isAuthenticated }) => {
 
   return (
     <>
-      <Navbar fixed="top" expand="lg" className={head ? "head scroll" : "head"}>
+      <Navbar fixed="top" fixed="top" className={head ? "head scroll" : "head"}>
         <Navbar.Brand className="col-3" href="/">
           <img
             src={logo}
@@ -72,7 +72,7 @@ const Header = ({ logout, isAuthenticated }) => {
         </Navbar.Brand>{" "}
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav variant="dark" className="col-6 offset-7">
+          <Nav variant="dark" className="col-7 offset-6">
             <Nav.Link className="button">
               <Link className="fs-5 header-link ani" to="/">
                 <FontAwesomeIcon icon={faHome} />{" "}
@@ -95,6 +95,11 @@ const Header = ({ logout, isAuthenticated }) => {
               </Link>
             </Nav.Link>
             {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
+            <Nav.Link className="button">
+              <Link className="fs-5 header-link ani" to="/moderator">
+              Moderator
+              </Link>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -5,6 +5,7 @@ import { connect , useSelector } from "react-redux";
 import { login } from "../actions/auth"
 
 function LoginForm({login , isAuthenticated}) {
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,7 +18,9 @@ function LoginForm({login , isAuthenticated}) {
     const onSubmit = e => {
         e.preventDefault();
         login(email, password);
+
     };
+
 
   if (isAuthenticated) {
     return <Redirect to='/' />
@@ -84,7 +87,7 @@ function LoginForm({login , isAuthenticated}) {
                       Login
                     </button>
                     <div>
-                    {errorMessage === "No active account found with the given credentials" ? <p className="text-danger">No active account found with this email <br/> Please Check Your Email Or Contact the Admin </p> :null}
+                    {errorMessage === "No active account found with the given credentials" ? <p className="text-danger">No active account found with this email</p> :null}
                     </div>
                   </form>
                   <p className="mt-3">

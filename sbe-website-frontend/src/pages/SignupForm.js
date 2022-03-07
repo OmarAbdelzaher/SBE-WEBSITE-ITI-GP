@@ -20,7 +20,7 @@ const Signup = ({ signup, isAuthenticated }) => {
     password: "",
     confirm_password: "",
     graduate: "graduate",
-    year_of_graduation: "",
+    year_of_graduation: "2021",
     title: "",
     is_active:false
   });
@@ -153,8 +153,8 @@ const Signup = ({ signup, isAuthenticated }) => {
   }
 
   if (errorMessage != null && errorMessage != "this email is already exist" ) {
-    // return <Redirect to="/login" />;  
-    history.push("/login")
+    return <Redirect to="/login" />;  
+    // history.push("/login")
     }
   
  
@@ -336,13 +336,13 @@ const Signup = ({ signup, isAuthenticated }) => {
                     </div>
                     <div className="row">
                       <div className="col-12">
-                        <label className="form-label select-label">Role</label>
+                        <label className="form-label select-label" htmlFor="role">Role</label>
                         <br />
                         <select
                           className="select form-control-lg "
                           value={formData.role}
                           onChange={(e) => onChange(e)}
-                          name="role"nnn
+                          name="role"
                         >
                           <option value="student">Student</option>
                           <option value="dr">Dr</option>
@@ -363,8 +363,8 @@ const Signup = ({ signup, isAuthenticated }) => {
                               onChange={(e) => onChange(e)}
                               name="graduate"
                             >
-                              <option value="gradstd">Graduate</option>
-                              <option value="undergradstd">
+                              <option value="graduate">Graduate</option>
+                              <option value="undergraduate">
                                 Undergraduate
                               </option>
                             </select>

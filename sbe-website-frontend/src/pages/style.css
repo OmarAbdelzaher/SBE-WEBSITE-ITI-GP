@@ -205,3 +205,57 @@
 .courses-menu{
   background-color: #001233;
 }
+
+.sidebar {
+  position: fixed;
+  z-index: 1;
+  top: 20%;
+  left: 2%;
+  /* height: 30%; */
+  /* background-color: transparent; */
+  overflow-x: hidden;
+  /* padding-top: 9%; */
+}
+
+.m-button{
+  border-radius: 4px;
+  background-color: #003049;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  
+}
+
+.sbar-links{
+  text-decoration: none;
+  color: #001233;
+  font-weight:lighter;
+}
+.sbar-links:hover{
+  color: #9b2226;
+}
+.menu{
+  width: auto;
+}
+
+.sidebar a {
+  padding: 4%;
+  text-decoration: none;
+  font-size: 23px;
+  color: #003049;
+  display: block;
+}
+
+.sidebar a:hover {
+  color: #9b2226;
+}
+
+.main {
+  margin-left: 25%;
+  margin-top: 7%;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}

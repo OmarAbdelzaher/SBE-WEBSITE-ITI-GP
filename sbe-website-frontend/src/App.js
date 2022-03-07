@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route , useLocation} from "react-router-dom";
 import Header from "./components/header";
 import Home from "./pages/home";
 import Signup from "./pages/SignupForm";
@@ -23,12 +23,19 @@ import UnderGraduate from "./components/UnderGraduate";
 import CourseGraduate from "./components/CourseGraduate";
 import CourseUnderGraduate from "./components/CourseUndergraduate";
 import Profile from "./pages/Profile";
+import Moderator from "./pages/Moderator";
 
 function App() {
+
+
   return (
     <>
+
+       
       <Provider store={store}>
+
         <BrowserRouter>
+
           <Header />
           <Switch>
             <Route path={"/"} exact component={Home} />
@@ -48,6 +55,8 @@ function App() {
             <Route path={"/coursegraduate"} exact component={CourseGraduate} />
             <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} />
             <Route path={"/profilepage"} exact component={Profile} />
+
+            <Route path={"/moderator"} exact component={Moderator} />
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}
