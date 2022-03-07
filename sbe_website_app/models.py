@@ -269,6 +269,9 @@ class ReserveLab(models.Model):
     timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
     is_confirmed = models.BooleanField(default=False,null=True)
 
+    class Meta:
+        unique_together = ('lab_id','date','timeslot')
+        
     def __str__(self):
         return str(self.lab_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
     
@@ -285,6 +288,9 @@ class ReserveDevice(models.Model):
     timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
     is_confirmed = models.BooleanField(default=False,null=True)
     
+    class Meta:
+        unique_together = ('device_id','date','timeslot')
+        
     def __str__(self):
         return str(self.device_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
 

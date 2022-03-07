@@ -33,14 +33,16 @@ import YthreeSone from "./pages/Y3S1";
 import YthreeStwo from "./pages/Y3S2";
 import YfourSone from "./pages/Y4S1";
 import YfourStwo from "./pages/Y4S2";
-
+import Layout from './hocs/Layout'; 
+import ReservationSchedule from "./components/ReservationSchedule";
 
 function App() {
   return (
     <>
       <Provider store={store}>
         <BrowserRouter>
-          <Header />
+        <Layout>
+          <Header/>
           <Switch>
             <Route path={"/"} exact component={Home} />
             <Route path={"/signup"} exact component={Signup} />
@@ -68,16 +70,17 @@ function App() {
             <Route path={"/four-smestertwo"} exact component={YfourStwo} />
 
 
-
+            <Route path={"/reservationsShedule"} exact component={ReservationSchedule} />
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}
               exact
               component={ResetPasswordConfirm}
-            />
+              />
             <Route path={"/activate/:uid/:token"} exact component={Activate} />
             
           </Switch>
+          </Layout>
         </BrowserRouter>
       </Provider>
     </>
