@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-export default function YoneStwo() {
+export default function YfourStwo() {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/courseungraduateyearone/")
+      .get("http://localhost:8000/api/courseungraduateyearfour/")
       .then((res) => {
         setCourses(res.data)
 
@@ -21,7 +21,7 @@ export default function YoneStwo() {
             <div className="col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="margin">
                 <div className="card-body p-4 p-md-5">
-                    <h1 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Students Courses Year One</h1>
+                    <h1 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Students Courses Year Four</h1>
                 </div>
                 <div className="row table-b">
                   <table className="text-light table table-hover fs-4">
@@ -34,6 +34,7 @@ export default function YoneStwo() {
                   
                   {courses
                   .filter(course => course.semester === 2)
+
                   .map((course) => {
                     return (
                         <tbody className="mb-3" key={course.id}>

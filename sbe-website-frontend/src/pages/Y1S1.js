@@ -21,7 +21,7 @@ function YoneSone() {
             <div className="col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="margin">
                 <div className="card-body p-4 p-md-5">
-                    <h1 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Students Courses</h1>
+                    <h1 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Students Courses Year One</h1>
                 </div>
                 <div className="row table-b">
                   <table className="text-light table table-hover fs-4">

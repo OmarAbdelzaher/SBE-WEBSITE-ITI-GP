@@ -690,6 +690,35 @@ class CourseUngraduateYearTwo(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class CourseUngraduateYearThree(APIView):
+    def get(self,request):
+        course = Course.objects.filter(year=3)
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CourseUngraduateYearFour(APIView):
+    def get(self,request):
+        course = Course.objects.filter(year=4)
+
+        # news = New.objects.all()
+        serializer = CourseSerializer(course,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class CourseHistoryView(APIView):
     def get(self,request):
         courses = CourseHistory.objects.all()

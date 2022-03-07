@@ -29,6 +29,10 @@ import YoneStwo from "./pages/Y1S2";
 // import YearTwo from "./pages/Y2S1";
 import YtwoSone from "./pages/Y2S1";
 import YtwoStwo from "./pages/Y2S2";
+import YthreeSone from "./pages/Y3S1";
+import YthreeStwo from "./pages/Y3S2";
+import YfourSone from "./pages/Y4S1";
+import YfourStwo from "./pages/Y4S2";
 
 
 function App() {
@@ -58,7 +62,10 @@ function App() {
             <Route path={"/one-smestertwo"} exact component={YoneStwo} />
             <Route path={"/two-smesterone"} exact component={YtwoSone} />
             <Route path={"/two-smestertwo"} exact component={YtwoStwo} />
-
+            <Route path={"/three-smesterone"} exact component={YthreeSone} />
+            <Route path={"/three-smestertwo"} exact component={YthreeStwo} />
+            <Route path={"/four-smesterone"} exact component={YfourSone} />
+            <Route path={"/four-smestertwo"} exact component={YfourStwo} />
 
 
 
