@@ -15,7 +15,7 @@ class UserCreateSerializer(UserCreateSerializer):
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['fname','lname','email','gender','birthdate','address','phone_number','password','role']
+        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','password','role']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(PersonSerializer, self).create(validated_data)
@@ -48,7 +48,7 @@ class FacultyEmpSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta :
         model = Course
-        fields = ['id','name','total_grade','stds_grades','instructions','materials','staff_id','category']
+        fields = ['id','name','total_grade','stds_grades','instructions','materials','staff_id','category','year','semester']
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
@@ -56,6 +56,17 @@ class CourseSerializer(serializers.ModelSerializer):
             ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
         return ret
 
+class CourseHistorySerializer(serializers.ModelSerializer):
+    class Meta :
+        model = CourseHistory
+        fields = ['id','year','materials','staff_id','course_id']
+    
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        for i in range(len(ret['staff_id'])): 
+            ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
+        return ret
+    
 class HallSerializer(serializers.ModelSerializer):
     class Meta :
         model = Hall

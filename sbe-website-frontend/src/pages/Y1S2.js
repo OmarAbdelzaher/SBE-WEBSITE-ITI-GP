@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function CoursesPage() {
+export default function YoneStwo() {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/courses/")
+      .get("http://localhost:8000/api/courseungraduateyearone/")
       .then((res) => {
         setCourses(res.data)
 
@@ -32,7 +32,9 @@ function CoursesPage() {
                       </tr>
                     </thead>
                   
-                  {courses.map((course) => {
+                  {courses
+                  .filter(course => course.semester === 2)
+                  .map((course) => {
                     return (
                         <tbody className="mb-3" key={course.id}>
                           <tr className='tr'>
@@ -53,14 +55,3 @@ function CoursesPage() {
   )
 }
 
-export default CoursesPage
-
-//  {/* <tbody>
-//                     <tr>
-//                     <Link className="nav-links btn-lg mb-1" to={`/courseDetails/${course.id}`}>
-//                     <h1>{course.id}</h1>
-//                   <h2 className="pt-3 text-170 text-600 text-primary-d1 letter-spacing">
-//                   {course.name}
-//                   </h2></Link>
-//                     </tr>
-//                   </tbody> */}
