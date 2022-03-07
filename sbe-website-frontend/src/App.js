@@ -25,12 +25,15 @@ import UnderGraduate from "./components/UnderGraduate";
 import CourseGraduate from "./components/CourseGraduate";
 import CourseUnderGraduate from "./components/CourseUndergraduate";
 import Profile from "./pages/Profile";
+import Layout from './hocs/Layout';
+
 
 function App() {
   return (
     <>
       <Provider store={store}>
         <BrowserRouter>
+        <Layout>
           <Header />
           <Switch>
             <Route path={"/"} exact component={Home} />
@@ -59,6 +62,7 @@ function App() {
             <Route path={"/activate/:uid/:token"} exact component={Activate} />
             
           </Switch>
+          </Layout>
         </BrowserRouter>
       </Provider>
     </>

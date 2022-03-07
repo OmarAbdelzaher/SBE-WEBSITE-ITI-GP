@@ -37,7 +37,7 @@ const Header = ({ logout, isAuthenticated }) => {
     //     <a className='nav-link' href='#!' onClick={logout_user}>Logout</a>
     // </li>
     <Nav.Link className="button">
-      <Link className="fs-5 header-link ani"  onClick={logout_user}>
+      <Link className="fs-5 header-link ani" to="/"  onClick={logout_user}>
        Logout
       </Link>
     </Nav.Link>

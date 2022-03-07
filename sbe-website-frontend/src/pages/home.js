@@ -9,14 +9,7 @@ import { connect , useSelector } from "react-redux";
 
 import "./style.css";
 
-const Home = (isAuthenticated) => {
-  const ur_role = useSelector(state => state.auth)
-
-  if( isAuthenticated && ur_role.user != null)
-  {
-    console.log(ur_role.user.role)
-  }
-
+const Home = () => {
 
   return (
     <>

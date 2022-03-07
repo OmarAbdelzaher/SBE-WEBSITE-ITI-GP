@@ -31,7 +31,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['fname','lname','email','password','role','gender','birthdate','address','phone_number','role']
+        fields = ['fname','lname','email','password','gender','birthdate','address','phone_number','role']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StaffSerializer, self).create(validated_data)
@@ -39,7 +39,7 @@ class StaffSerializer(serializers.ModelSerializer):
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
         model = FacultyEmp
-        fields = ['fname','lname','email','password','gender','birthdate','address','phone_number','title','password','role']
+        fields = ['fname','lname','email','password','gender','birthdate','address','phone_number','title','role']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
