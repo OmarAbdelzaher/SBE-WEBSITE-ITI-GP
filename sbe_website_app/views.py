@@ -63,7 +63,7 @@ def sendActivationRequest(request):
             'settings.EMAIL_HOST_USER', [request.data["email"]],fail_silently=False,)
         
     except Exception :
-                raise ValidationError("Couldn't send the message to the email ! ") 
+        raise ValidationError("Couldn't send the message to the email ! ") 
     
 class StudentDetails(APIView):
     def get_object(self, pk):
@@ -377,15 +377,36 @@ class DeviceDetails(APIView):
 class ReserveHallList(APIView):
     def get(self,request):
         reserved_halls = ReserveHall.objects.all()
+        # reserved_slot = reserved_halls.filter(timeslot=1)
+        # print(reserved_slot[0].timeslot)
         serializer = ReserveHallSerializer(reserved_halls,many=True)
-        # print(serializer.data[0]['timeslot'])
         return Response(serializer.data)
+    
     def post(self,request):
         serializer = ReserveHallSerializer(data=request.data)
         if serializer.is_valid():
+            sendReservationRequest(request)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def sendReservationRequest(request):
+    try:
+        staff_name = Person.objects.get(id=request.data["staff_id"])
+        
+        send_mail("Reservation Request",
+            str(staff_name) + " has requested a reservation, confirm or decline his request",
+            'settings.EMAIL_HOST_USER', ["omarzaher787@gmail.com"],fail_silently=False,)
+        
+        send_mail("Reservation Pending",
+            "hello "+ staff_name.fname +" , please wait for a confirmation for your reservation. \nThank you for your patience \nSBME Website Managers",
+            'settings.EMAIL_HOST_USER', [staff_name.email],fail_silently=False,)
+        
+    except Exception :
+        raise ValidationError("Couldn't send the message to the email ! ") 
+    
+
+
         
 # Get , Put and delete HTTP Methods using API For a specific reserved Hall
 

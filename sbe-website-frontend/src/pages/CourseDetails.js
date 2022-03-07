@@ -16,7 +16,6 @@ function CourseDetails() {
     axios
       .get(`http://localhost:8000/api/course/${params.id}`)
       .then((res) => {
-        console.log(res.data)
         setCourse(res.data)
 
       })
