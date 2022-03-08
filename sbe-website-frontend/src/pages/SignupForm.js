@@ -56,78 +56,62 @@ const Signup = ({ signup, isAuthenticated }) => {
 
   const validate = (values) =>{
     const errors = {}
-    let flag = true;
+
     if (!values.fname) {
       errors.fname = "First Name is Required";
-      flag = false
+
     }
     if (!values.lname) {
       errors.lname = "Last Name is Required";
-      flag = false
+      
 
     }
     if (!values.email) {
       errors.email = "Email is required !";
-      flag = false
+      
 
-    } else if (!pattern_email.test(email)) {
+    } else if (!pattern_email.test(values.email)) {
       errors.email = "Email is invalid !";
-      flag = false
 
     }
     if (!values.password){
       errors.password = "Password is Required"
-      flag = false
 
     }else if (values.password.length < 8) {
       errors.password = "Password must be more than 8 charachters ";
-      flag = false
 
     } else if (!pattern_pass.test(values.password)) {
       errors.password =
         "Password must contains at least one lowercase,one uppercase and one special character ";
-        flag = false
 
     } if (!values.confirm_password) {
       errors.confirm_password = "Confirm Password is required";
-      flag = false
 
     } else if (values.confirm_password != values.password) {
       errors.confirm_password = "Unmatched Password";
-      flag = false
 
     }
     if (!values.phone_number){
       errors.phone_number = "Phone Number is required";
-      flag = false
 
-    } else if (phone_number.length != 11 )
+    } else if (values.phone_number.length != 11 )
     {
       errors.phone_number = "Phone Number must be 11 digits"  
-      flag = false
-
+    
     }
     if (!values.address)
     {
       errors.address = " Address is required "
-      flag = false
-
     }
     var now = new Date();
     var birthdate = new Date(values.birthdate)
     if(!values.birthdate)
     {
       errors.birthdate = "BirthDate is required"
-      flag = false
-
-
     }
     else if(birthdate.getTime() > now.getTime() )
     {
       errors.birthdate = "Enter a valid birth date which is a past date "
-      flag = false
-
-      
     } 
     return errors
   }
