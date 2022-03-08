@@ -35,7 +35,7 @@ import YfourSone from "./pages/Y4S1";
 import YfourStwo from "./pages/Y4S2";
 import Layout from './hocs/Layout'; 
 import ReservationSchedule from "./components/ReservationSchedule";
-
+import OfficeHours from "./components/OfficeHours";
 function App() {
   return (
     <>
@@ -71,6 +71,8 @@ function App() {
 
 
             <Route path={"/reservationsShedule"} exact component={ReservationSchedule} />
+            <Route path={"/officehours"} exact component={OfficeHours} />
+
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}

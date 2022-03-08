@@ -70,7 +70,7 @@ const Signup = ({ signup, isAuthenticated }) => {
       errors.email = "Email is required !";
       flag = false
 
-    } else if (!pattern_email.test(email)) {
+    } else if (!pattern_email.test(values.email)) {
       errors.email = "Email is invalid !";
       flag = false
 
@@ -101,7 +101,7 @@ const Signup = ({ signup, isAuthenticated }) => {
       errors.phone_number = "Phone Number is required";
       flag = false
 
-    } else if (phone_number.length != 11 )
+    } else if (values.phone_number.length != 11 )
     {
       errors.phone_number = "Phone Number must be 11 digits"  
       flag = false

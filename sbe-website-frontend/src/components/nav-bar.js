@@ -78,7 +78,7 @@ const NavBar = () => {
               >
                 <NavDropdown.Item href="/coursegraduate">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
-                <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
+                <NavDropdown.Item href="/officehours">Office Hours</NavDropdown.Item>
 
                 <NavDropdown.Divider />
               </NavDropdown>
