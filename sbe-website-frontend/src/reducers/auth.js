@@ -55,17 +55,6 @@ export default function(state = initialState, action) {
                 user : null
             }
        
-            // localStorage.removeItem('access');
-            // localStorage.removeItem('refresh');
-            // return{
-            //     ...state,
-            //     access:null,
-            //     refresh:null,
-            //     isAuthenticated : false,
-            //     user:null,
-            //     error:action.error,               
-
-            // }
         case LOGIN_FAIL:
             localStorage.removeItem('access');
             localStorage.removeItem('refresh');
@@ -76,8 +65,6 @@ export default function(state = initialState, action) {
                 isAuthenticated : false,
                 user:null,
                 error:payload,
-                               
-
             }
         case SIGNUP_FAIL:
             localStorage.removeItem('access');
@@ -100,8 +87,6 @@ export default function(state = initialState, action) {
                 refresh:null,
                 isAuthenticated : false,
                 user:null,
-                               
-
             }
         case AUTHENTICATED_SUCCESS:
             return {

@@ -47,7 +47,7 @@ const NavBar = () => {
               onClick={() => scroller.scrollTo('allnews', {
                 spy:true,
                 smooth: true,
-                offset: -170,
+                offset: -120,
                 duration: 100,
             })} >
                 News
@@ -66,11 +66,6 @@ const NavBar = () => {
                 Events
               
             </Nav.Link>
-            <Nav.Link>
-            <Link className="nav-links" to="/coursesMenu">
-                Courses
-                </Link>
-            </Nav.Link>
             
             <Nav.Link>
               <Link
@@ -87,7 +82,16 @@ const NavBar = () => {
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link className="nav-links" to="profilepage">
+              <Link 
+                className="nav-links  text-dark" 
+                onClick={() => scroller.scrollTo('profilepage', {
+                  spy:true,
+                  smooth: true,
+                  offset: 0,
+                  duration: 100,
+              })}
+              
+              >
                 Contact us
               </Link>
             </Nav.Link>
@@ -101,7 +105,6 @@ const NavBar = () => {
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
 
-                <NavDropdown.Divider />
               </NavDropdown>
             </div>
             <div className="dropdown">
@@ -110,11 +113,10 @@ const NavBar = () => {
                 title="Under-Graduates"
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="/courseungraduate">Courses</NavDropdown.Item>
+                <NavDropdown.Item href="/coursesMenu">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/undergraduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
-
-                <NavDropdown.Divider />
+                <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
               </NavDropdown>
             </div>
           </Nav>

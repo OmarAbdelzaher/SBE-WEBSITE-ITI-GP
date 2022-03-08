@@ -143,7 +143,6 @@ export const signup =
         body,
         config
       );
-      // console.log(res.data)
       dispatch({
         type: SIGNUP_SUCCESS,
         payload: res.data,

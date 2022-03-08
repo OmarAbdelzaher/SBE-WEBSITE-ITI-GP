@@ -384,8 +384,7 @@ class DeviceDetails(APIView):
 class ReserveHallList(APIView):
     def get(self,request):
         reserved_halls = ReserveHall.objects.all()
-        # reserved_slot = reserved_halls.filter(timeslot=1)
-        # print(reserved_slot[0].timeslot)
+        # reserved_halls = ReserveHall.objects.filter(is_confirmed = True)
         serializer = ReserveHallSerializer(reserved_halls,many=True)
         return Response(serializer.data)
     

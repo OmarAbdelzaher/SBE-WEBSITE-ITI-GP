@@ -27,6 +27,7 @@ const Header = ({ logout, isAuthenticated }) => {
   }
   
   const logout_user = () => {
+    setIs_staff(false)
     logout();
     setRedirect(true);
   };
@@ -58,10 +59,20 @@ const Header = ({ logout, isAuthenticated }) => {
 
   const authLinks = () => (
     <Nav.Link className="button">
-      <Link className="fs-5 header-link ani"  onClick={logout_user}>
+      <Link className="fs-5 header-link ani" to="/"  onClick={logout_user}>
        Logout
       </Link>
     </Nav.Link>
+    
+  );
+
+  const signedInLink = () => (
+    <Nav.Link className="button">
+      <Link className="fs-5 header-link ani" to="/profilepage" >
+       Edit Profile 
+      </Link>
+    </Nav.Link>
+    
   );
 
   //navbar scroll changeBackground function
@@ -81,7 +92,7 @@ const Header = ({ logout, isAuthenticated }) => {
 
   return (
     <>
-      <Navbar fixed="top" expand="lg" className={head ? "head scroll" : "head"}>
+      <Navbar fixed="top" fixed="top" className={head ? "head scroll" : "head"}>
         <Navbar.Brand className="col-3" href="/">
           <img
             src={logo}
@@ -93,13 +104,22 @@ const Header = ({ logout, isAuthenticated }) => {
         </Navbar.Brand>{" "}
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav variant="dark" className="col-6 offset-7">
+          <Nav variant="dark" className="col-7 offset-6">
             <Nav.Link className="button">
               <Link className="fs-5 header-link ani" to="/">
                 <FontAwesomeIcon icon={faHome} />{" "}
               </Link>
             </Nav.Link>
             {isAuthenticated ? authLinks() : guestLinks()}
+            {isAuthenticated ? signedInLink() : null}
+
+            
+            {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
+            <Nav.Link className="button">
+              <Link className="fs-5 header-link ani" to="/moderator">
+              Moderator
+              </Link>
+            </Nav.Link>
             {is_staff ? staffLinks() : null}
           </Nav>
         </Navbar.Collapse>

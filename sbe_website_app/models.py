@@ -49,6 +49,8 @@ class UserAccountManager(BaseUserManager):
         user.is_staff = True
         user.is_admin = True
         user.is_superuser = True 
+        user.is_active = True 
+
         user.save()
         return user
 
@@ -68,6 +70,8 @@ class Person(AbstractBaseUser,PermissionsMixin):
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     email = models.EmailField(max_length=255, unique=True)
+    
+    profile_img = models.ImageField(null=True, upload_to='images', blank=True) 
     
     birthdate = models.DateField(null=True)
     address = models.CharField(max_length=100)
@@ -233,7 +237,7 @@ class New(models.Model):
     
     description = models.CharField(max_length=100)
 
-    picture = models.ImageField(null=True,upload_to='images/') 
+    picture = models.ImageField(upload_to='images') 
     CATEGORY_CHOICES = (
         ('graduate', 'Graduate'),
         ('undergraduate', 'Undergraduate'),
@@ -264,7 +268,7 @@ class ReserveHall(models.Model):
         return self.TIMESLOT_LIST[self.timeslot][1]
   
     def __str__(self):
-        return str(self.hall_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
+        return f'{ str(self.hall_id) } reserved by {str(self.staff_id)}'
     
 class Lab(models.Model):
     name = models.CharField(max_length=20,primary_key=True)
@@ -279,6 +283,9 @@ class ReserveLab(models.Model):
     timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
     is_confirmed = models.BooleanField(default=False,null=True)
 
+    class Meta:
+        unique_together = ('lab_id','date','timeslot')
+        
     def __str__(self):
         return str(self.lab_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
     
@@ -295,6 +302,9 @@ class ReserveDevice(models.Model):
     timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
     is_confirmed = models.BooleanField(default=False,null=True)
     
+    class Meta:
+        unique_together = ('device_id','date','timeslot')
+        
     def __str__(self):
         return str(self.device_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
 
