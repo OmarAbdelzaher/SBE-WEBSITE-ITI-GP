@@ -37,6 +37,20 @@ function Profile(isAuthenticated) {
     role: "",
   });
 
+  const [FormErrors,setFormErrors] = useState({})
+  const {
+    fname,
+    lname,
+    email,
+    birthdate,
+    address,
+    phone_number,
+  } = User;
+
+  const pattern_email = new RegExp(
+    /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+  );
+
   if (who.user != null) {
     StudentUrl = `http://localhost:8000/api/student/${who.user.id}`;
     StaffUrl = `http://localhost:8000/api/onestaff/${who.user.id}`;
@@ -50,6 +64,63 @@ function Profile(isAuthenticated) {
   } else if ((who.user.role = "employee")) {
     Url = EmpUrl;
   }
+
+  const validate = (values) =>{
+    const errors = {}
+    let flag = true;
+    if (!values.fname) {
+      errors.fname = "First Name is Required";
+      flag = false
+    }
+    if (!values.lname) {
+      errors.lname = "Last Name is Required";
+      flag = false
+
+    }
+    if (!values.email) {
+      errors.email = "Email is required !";
+      flag = false
+
+    } else if (!pattern_email.test(email)) {
+      errors.email = "Email is invalid !";
+      flag = false
+
+    }
+    if (!values.phone_number){
+      errors.phone_number = "Phone Number is required";
+      flag = false
+
+    } else if (phone_number.length != 11 )
+    {
+      errors.phone_number = "Phone Number must be 11 digits"  
+      flag = false
+
+    }
+    if (!values.address)
+    {
+      errors.address = " Address is required "
+      flag = false
+
+    }
+    var now = new Date();
+    var birthdate = new Date(values.birthdate)
+    if(!values.birthdate)
+    {
+      errors.birthdate = "BirthDate is required"
+      flag = false
+
+
+    }
+    else if(birthdate.getTime() > now.getTime() )
+    {
+      errors.birthdate = "Enter a valid birth date which is a past date "
+      flag = false
+
+      
+    } 
+    return errors
+  }
+
 
   useEffect(() => {
     axios.get(Url).then((res)=>{
@@ -81,7 +152,11 @@ function Profile(isAuthenticated) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    let errors_form = validate(User)
+    setFormErrors(errors_form)
 
+    if ( Object.keys(errors_form).length === 0  )
+    {
     const Data = new FormData();
 
     if (who.user.role == "student") {
@@ -119,7 +194,7 @@ if(changed==true){
     } catch (e) {
       console.log(e);
     }
-  };
+  }};
 
 
   // useEffect(() => {
@@ -203,6 +278,7 @@ if(changed==true){
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
+                              <p className="text-danger">{ FormErrors.fname }</p>
                             </div>
                             <div className="col">
                               <div className="form-group">
@@ -216,6 +292,7 @@ if(changed==true){
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
+                              <p className="text-danger">{ FormErrors.lname }</p>
                             </div>
                           </div>
                           <br></br>
@@ -232,6 +309,7 @@ if(changed==true){
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
+                              <p className="text-danger">{ FormErrors.email }</p>
                             </div>
                           </div>
                           <br></br>
@@ -269,6 +347,7 @@ if(changed==true){
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
+                              <p className="text-danger">{ FormErrors.phone_number }</p>
                             </div>
                           </div>
                           <br></br>
@@ -285,6 +364,7 @@ if(changed==true){
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
+                              <p className="text-danger">{ FormErrors.address }</p>
                             </div>
                           </div>
                           <br></br>
@@ -301,6 +381,7 @@ if(changed==true){
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
+                              <p className="text-danger">{ FormErrors.birthdate }</p>
                             </div>
                           </div>
                           <br></br>
