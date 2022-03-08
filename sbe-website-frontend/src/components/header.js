@@ -59,10 +59,20 @@ const Header = ({ logout, isAuthenticated }) => {
 
   const authLinks = () => (
     <Nav.Link className="button">
-      <Link className="fs-5 header-link ani" to="#"  onClick={logout_user}>
+      <Link className="fs-5 header-link ani" to="/"  onClick={logout_user}>
        Logout
       </Link>
     </Nav.Link>
+    
+  );
+
+  const signedInLink = () => (
+    <Nav.Link className="button">
+      <Link className="fs-5 header-link ani" to="/profilepage" >
+       Edit Profile 
+      </Link>
+    </Nav.Link>
+    
   );
 
   //navbar scroll changeBackground function
@@ -101,11 +111,9 @@ const Header = ({ logout, isAuthenticated }) => {
               </Link>
             </Nav.Link>
             {isAuthenticated ? authLinks() : guestLinks()}
-            <Nav.Link className="button">
-              <Link className="fs-5 header-link ani" to="/reservation">
-                Reservation
-              </Link>
-            </Nav.Link>
+            {isAuthenticated ? signedInLink() : null}
+
+            
             {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
             <Nav.Link className="button">
               <Link className="fs-5 header-link ani" to="/moderator">

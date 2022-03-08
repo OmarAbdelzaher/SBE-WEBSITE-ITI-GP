@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarCheck,
   faCalendarXmark,
+  faGear,
+  faGears,
 } from "@fortawesome/free-solid-svg-icons";
 
 function ReservationApprov() {
@@ -66,6 +68,15 @@ function ReservationApprov() {
                               icon={faCalendarXmark}
                             />{" "}
                             Rejected
+                          </button>
+                        </Link>
+                        <Link>
+                          <button className="btn button">
+                            <FontAwesomeIcon
+                              className="fs-5"
+                              icon={faGear}
+                            />{" "}
+                            Edit
                           </button>
                         </Link>
                       </td>

@@ -71,6 +71,8 @@ class Person(AbstractBaseUser,PermissionsMixin):
     lname = models.CharField(max_length=50)
     email = models.EmailField(max_length=255, unique=True)
     
+    profile_img = models.ImageField(null=True, upload_to='images', blank=True) 
+    
     birthdate = models.DateField(null=True)
     address = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
@@ -225,7 +227,7 @@ class New(models.Model):
     
     description = models.CharField(max_length=100)
 
-    picture = models.ImageField(null=True,upload_to='images/') 
+    picture = models.ImageField(upload_to='images') 
     CATEGORY_CHOICES = (
         ('graduate', 'Graduate'),
         ('undergraduate', 'Undergraduate'),

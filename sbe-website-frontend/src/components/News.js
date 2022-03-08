@@ -55,13 +55,14 @@ export default function News() {
                                     {/* <p>{item.id}</p> */}
 
                                     <h2>{item.title}</h2>
+                                    <img src={item.picture} />
                                    {/* <img src={`${item.picture}`}/> */}
                                    {/* {item.picture.url}  */}
                                     {/* <img src={img}  className="card--image" /> */}
                                     <p>{item.description}</p>
                                     {/* <p>{item.category}</p> */}
 
-
+                                    
 
                                 </div>
                             </div>
@@ -74,22 +75,22 @@ export default function News() {
 
             </div>
        
-            <div class="container">
-  <div class="row">
-    <div class="col text-center">
+           
 
-
-    <Link to='/allnews' className="nav-link">
-    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >
-                More SBE News
+<div className="justify-content-center align-items-center d-flex">
+<Link to='/allnews' className="btn button">
+    <button className="ani button" >
+                All News
             </button>
             </Link>
+
+</div>
+  
           
                
 
-    </div>
-  </div>
-</div>
+    
+
 
         </>
     )
