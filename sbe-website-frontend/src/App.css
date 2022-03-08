@@ -39,7 +39,9 @@
 .form {
   margin-top: 34% !important;
 }
-
+.c-form{
+  margin-top: 2% !important;
+}
 .courses-b {
   background: rgb(0, 0, 0) !important;
   /* background: rgba(0, 0, 0, 0.5); */

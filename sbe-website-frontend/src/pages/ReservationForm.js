@@ -139,8 +139,8 @@ const ReservationForm = (isAuthenticated) => {
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
-              <div className="card rounded-3">
-                <img
+              <div className="card rounded-3 courses-b ">
+                {/* <img
                   src="http://ihd.eng.cu.edu.eg/wp-content/uploads/sites/13/2014/12/Fac_eng_minified-620x279.jpg"
                   className="w-100"
                   style={{
@@ -148,7 +148,7 @@ const ReservationForm = (isAuthenticated) => {
                     borderTopRightRadius: ".3rem",
                   }}
                   alt="Sample photo"
-                />
+                /> */}
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Reservation Form
@@ -317,7 +317,7 @@ const ReservationForm = (isAuthenticated) => {
                     <br />
                     <button
                       type="submit"
-                      className="btn btn-success btn-lg mb-1"
+                      className="btn button btn-lg mb-1"
                     >
                       Submit
                     </button>

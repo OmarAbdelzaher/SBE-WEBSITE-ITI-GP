@@ -149,8 +149,8 @@ const Signup = ({ signup, isAuthenticated }) => {
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
-              <div className="card rounded-3 form">
-                <img
+              <div className="card rounded-3 form courses-b">
+                {/* <img
                   src="http://ihd.eng.cu.edu.eg/wp-content/uploads/sites/13/2014/12/Fac_eng_minified-620x279.jpg"
                   className="w-100"
                   style={{
@@ -158,7 +158,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                     borderTopRightRadius: ".3rem",
                   }}
                   alt="Sample photo"
-                />
+                /> */}
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Registration Form
@@ -323,7 +323,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                         <label className="form-label select-label" htmlFor="role">Role</label>
                         <br />
                         <select
-                          className="select form-control-lg"
+                          className="select form-control-lg "
                           value={formData.role}
                           onChange={(e) => onChange(e)}
                           name="role"
@@ -340,7 +340,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                         <br />
                         <div className="row">
                           <div className="col-12">
-                            <label htmlFor="graduate">Graduate</label>
+                            <label htmlFor="graduate">Graduate</label>{" "}
                             <select
                               className="select form-control-lg"
                               value={formData.graduate}
@@ -359,8 +359,9 @@ const Signup = ({ signup, isAuthenticated }) => {
                           <div className="col-12">
                             <label htmlFor="yeargrade">
                               Year Of Graduation
-                            </label>
+                            </label> {" "}
                             <input
+                              className="rounded border"
                               type="number"
                               name="year_of_graduation"
                               id="yeargrade"
@@ -377,8 +378,9 @@ const Signup = ({ signup, isAuthenticated }) => {
                         <br />
                         <div className="row">
                           <div className="col-12">
-                            <label htmlFor="title">Title</label>
+                            <label htmlFor="title">Title</label> {" "}
                             <input
+                            className="border rounded"
                               type="text"
                               name="title"
                               onChange={(e) => onChange(e)}
@@ -402,11 +404,11 @@ const Signup = ({ signup, isAuthenticated }) => {
 
                     <br />
                     <p className="mt-3">
-                      Already have an account? <Link to="/login">Sign In</Link>
+                      Already have an account? <Link className="nav-links" to="/login">Sign In</Link>
                     </p>
                     <button
                       type="submit"
-                      className="btn btn-success btn-lg mb-1"
+                      className="btn button btn-lg mb-1"
                       // onClick={submitForm}
                     >
                       Submit

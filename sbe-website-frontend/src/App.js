@@ -1,23 +1,21 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Header from "./components/header";
 import Home from "./pages/home";
 import Signup from "./pages/SignupForm";
 import LoginForm from "./pages/LoginForm";
 import ReservationForm from "./pages/ReservationForm";
 import CoursesMenu from "./pages/CoursesMenu";
 import CourseDetails from "./pages/CourseDetails";
-// import About from "./components/about";
-import Header from "./components/header";
+import CourseHistory from "./pages/CourseHistory";
 import About from "./components/about";
 import AllNews from "./components/AllNews";
-
 import Activate from "./pages/Activate";
 import ResetPassword from "./pages/ResetPassword";
 import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
 import { Provider } from "react-redux";
 import store from "./store";
-import CourseHistory from "./pages/CourseHistory";
 import AllEvents from "./components/AllEvents";
 import GraduatePage from "./components/GraduatePage";
 import UnderGraduate from "./components/UnderGraduate";
@@ -33,14 +31,24 @@ import YthreeSone from "./pages/Y3S1";
 import YthreeStwo from "./pages/Y3S2";
 import YfourSone from "./pages/Y4S1";
 import YfourStwo from "./pages/Y4S2";
+import Moderator from "./pages/Moderator";
+import ReservationApprov from "./pages/ReservationApprov";
+import RegistrationApprove from "./pages/RegistrationApprove";
+import Users from "./pages/Users";
 import Layout from './hocs/Layout'; 
 import ReservationSchedule from "./components/ReservationSchedule";
 
 function App() {
+
+
   return (
     <>
+
+       
       <Provider store={store}>
+
         <BrowserRouter>
+
         <Layout>
           <Header/>
           <Switch>
@@ -68,6 +76,10 @@ function App() {
             <Route path={"/three-smestertwo"} exact component={YthreeStwo} />
             <Route path={"/four-smesterone"} exact component={YfourSone} />
             <Route path={"/four-smestertwo"} exact component={YfourStwo} />
+            <Route path={"/moderator"} exact component={Moderator} />
+            <Route path={"/reservation-approv"} exact component={ReservationApprov} />
+            <Route path={"/registration-approv"} exact component={RegistrationApprove} />
+            <Route path={"/users"} exact component={Users} />
 
 
             <Route path={"/reservationsShedule"} exact component={ReservationSchedule} />
