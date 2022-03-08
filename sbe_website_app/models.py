@@ -180,7 +180,11 @@ class FacultyEmp(Person,models.Model):
 class Course(models.Model):
     name = models.CharField(max_length=20)
     total_grade = models.IntegerField()
-    stds_grades = models.FileField(upload_to='student_grades/')
+
+
+    stds_grades = models.FileField(upload_to='student_grades/',)
+    # filepath= models.FileField(upload_to='files/', null=True, verbose_name="")
+
     instructions = models.TextField(max_length=500)
     materials = models.CharField(max_length=500)
     year = models.IntegerField()
@@ -196,6 +200,12 @@ class Course(models.Model):
     
     def __str__(self):
         return self.name
+
+
+# class CourseFile(models.Model):
+#     course_id = models.ForeignKey(Course,on_delete=models.CASCADE)
+#     stds_grade = models.FileField(upload_to='student_grades/')
+
 
 class CourseHistory(models.Model):
     year = models.IntegerField()

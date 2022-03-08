@@ -1,7 +1,10 @@
-from django.urls import path 
+from django.urls import path ,include
 from . import views
+
 from django.conf import settings
 from django.conf.urls.static import static
+# from rest_framework import routers
+# from sbe_dj_react_proj import views
 
 urlpatterns = [
     path('students/', views.StudentList.as_view()),
@@ -42,6 +45,11 @@ urlpatterns = [
 
     path('coursehistory/', views.CourseHistoryView.as_view()),
     path('coursehistory/<int:pk>', views.CourseHistoryDetailsView.as_view()),
+    path('download/<int:pk>', views.DownloadPDF, name='download_pdf'),
+    
+    # path('fileupload/',views.FileUploadViewSet.as_view() ),
 
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns+= static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+urlpatterns+=static(settings.STATIC_URL, document_root= settings.MEDIA_ROOT)

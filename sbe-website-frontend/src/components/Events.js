@@ -38,7 +38,7 @@ export default function Events() {
         <>
 
 
-            <h1 className="mb-5 mt-3 text-center">Events section </h1>
+            <h1 id='allevents' className="mb-5 text-center">Events section </h1>
 
             <div className="container mt-2">
                 <div className="row">

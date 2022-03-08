@@ -42,8 +42,8 @@ export default function News() {
 
     return (
         <>
-        <br></br>
-            <h1 className="mb-5 mt-5 text-center">News section </h1>
+        <br id="allnews"></br>
+            <h1  className="mb-5 mt-5 text-center">News section </h1>
 
             <div className="container mt-2">
                 <div className="row">

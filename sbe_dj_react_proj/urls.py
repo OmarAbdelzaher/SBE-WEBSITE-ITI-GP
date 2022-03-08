@@ -18,6 +18,7 @@ from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from .views import index
 
+# router.register
 urlpatterns = [
     # path('',index),
     path('admin/', admin.site.urls),
