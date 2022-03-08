@@ -17,9 +17,9 @@ export default function CoursesMenu() {
 
   return (
     <>
-      <section className="h-150 h-custom">
-        <div className="container">
-          <div className="row d-flex justify-content-center align-items-center h-100 ">
+      <section className="h-150 h-custom py-5">
+        <div className="container c-form">
+          <div className="row  d-flex justify-content-center align-items-center h-100 ">
             <div className="col-lg-8 col-xl-6">
               <div className=" rounded-3 form">
                 <div className=" p-4 p-md-5 courses-b border border-2 border-light">

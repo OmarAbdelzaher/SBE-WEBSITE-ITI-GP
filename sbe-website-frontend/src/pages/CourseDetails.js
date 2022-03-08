@@ -49,16 +49,16 @@ function CourseDetails() {
                 <div className=" row col-4 offset-1">
                   <div className="row card cards col-10 text-center border border-2 ">
                     <h3 className="card-body col-12 nav-links">Materials</h3>
-                    <p className="card-text col-12 text-dark">{course.materials}</p>
+                    <Link className="card-text col-12 text-dark" to={{ pathname: course.materials }}>{course.materials}</Link>
                     <button className="btn btn-lg col-12 button">
-                      <a className="button nav-links text-light" href={course.materials} download>Download</a>
+                      <Link className="button nav-links text-light" href={course.materials} download>Download</Link>
                     </button>
                   </div>
                   <div className="row card cards col-10 text-center border border-2 ">
                     <h3 className="card-body col-12 nav-links">Grades</h3>
                     <p className="card-text col-12 text-dark">Download Students Grades</p>
                     <button className="btn btn-lg col-12 button">
-                      <a className="button nav-links text-light" href={course.stds_grades} download>Download</a>
+                      <Link className="button nav-links text-light" href={course.stds_grades} download>Download</Link>
                     </button>
                   </div>
                   {/* <div className="row card cards col-10 text-center border border-2 ">
