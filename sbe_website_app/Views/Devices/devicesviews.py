@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from  ..serializers import *
+from  ...serializers import *
 from rest_framework.response import Response
-from ..models import *
+from ...models import *
 from rest_framework import status
 from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
@@ -15,68 +15,66 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
-#  Get and Post HTTP Methods using API For Labs 
+# Get and Post HTTP Methods using API For Devices 
 
 
-class LabList(APIView):
+class DeviceList(APIView):
     def get(self,request):
-        labs = Lab.objects.all()
-        serializer = LabSerializer(labs,many=True)
+        devices = Device.objects.all()
+        serializer = DeviceSerializer(devices,many=True)
         return Response(serializer.data)
     def post(self,request):
-        serializer = LabSerializer(data=request.data)
+        serializer = DeviceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Get , Put and delete HTTP Methods using API For a specific Lab
+# Get , Put and delete HTTP Methods using API For a specific device
 
-class LabDetails(APIView):
+class DeviceDetails(APIView):
     def get_object(self, pk):
         try:
-            return Lab.objects.get(pk=pk)
-        except Lab.DoesNotExist:
+            return Device.objects.get(pk=pk)
+        except Device.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
         lab = self.get_object(pk)
-        serializer = LabSerializer(lab)
+        serializer = DeviceSerializer(lab)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        lab = self.get_object(pk)
-        serializer = LabSerializer(lab, data=request.data)
+        device = self.get_object(pk)
+        serializer = DeviceSerializer(device, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        lab = self.get_object(pk)
-        lab.delete()
+        device = self.get_object(pk)
+        device.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+#  Get and Post HTTP Methods using API For Reserving Devices  
 
-
-# Get and Post HTTP Methods using API For Reserving Labs 
-
-class ReserveLabList(APIView):
+class ReserveDeviceList(APIView):
     def get(self,request):
-        reserved_labs = ReserveLab.objects.all()
-        serializer = ReserveLabSerializer(reserved_labs,many=True)
+        reserved_devices = ReserveDevice.objects.all()
+        serializer = ReserveDeviceSerializer(reserved_devices,many=True)
         return Response(serializer.data)
     def post(self,request):
-        serializer = ReserveLabSerializer(data=request.data)
+        serializer = ReserveDeviceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Get , Put and delete HTTP Methods using API For a specific reserved Lab
+# Get , Put and delete HTTP Methods using API For a specific reserved device
 
-class ReserveLabDetails(APIView):
+class ReserveDeviceDetails(APIView):
     def get_object(self, pk):
         try:
             return ReserveLab.objects.get(pk=pk)
@@ -84,20 +82,19 @@ class ReserveLabDetails(APIView):
             raise Http404
 
     def get(self, request, pk, format=None):
-        reserved_lab= self.get_object(pk)
-        serializer = ReserveHallSerializer(reserved_lab)
+        reserved_device= self.get_object(pk)
+        serializer = ReserveDeviceSerializer(reserved_device)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        reserved_lab = self.get_object(pk)
-        serializer = ReserveHallSerializer(reserved_lab, data=request.data)
+        reserved_device = self.get_object(pk)
+        serializer = ReserveDeviceSerializer(reserved_device, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        reserved_lab = self.get_object(pk)
-        reserved_lab.delete()
+        reserved_device = self.get_object(pk)
+        reserved_device.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
