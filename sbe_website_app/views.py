@@ -16,6 +16,13 @@ import re
 # import email confirmation stuff
 from django.core.mail import send_mail
 from django.conf import settings
+# import file staff
+from django.core.files import File
+from django.http import HttpResponse
+from rest_framework.decorators import api_view
+# from sbe_website_app.settings import BASE_DIR, MEDIA_ROOT
+from sbe_dj_react_proj.settings import BASE_DIR, MEDIA_ROOT
+from rest_framework import viewsets
 
 
 
@@ -104,7 +111,7 @@ class StaffList(APIView):
             email_uni = re.search("@eng.cu.edu.eg" , request.data['email'])
             if email_uni or email_uni1 :
                 request.data["is_active"] = True
-                serializer = StudentSerializer(data=request.data)
+                serializer = StaffSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -755,3 +762,103 @@ class CourseHistoryDetailsView(APIView):
         course = self.get_object(pk)
         course.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+def DownloadPDF(self,pk):
+
+    course=Course.objects.get(pk=pk)
+    print(course)
+    path_to_file = MEDIA_ROOT + f'/{course.stds_grades}'
+    f = open(path_to_file, 'rb')
+    pdfFile = File(f)
+    response = HttpResponse(pdfFile.read())
+    response['Content-Disposition'] = 'attachment'
+    return response
+
+
+# class UploadFile(APIView):
+#     serializer_class = FileListSerializer
+#     parser_classes = (MultiPartParser, FormParser,)
+#     queryset=CourseFile.objects.all()
+
+# class FileUploadViewSet(APIView):
+
+#     # file = serializers.FileField(upload_to='student_grades/')
+#     # file=CourseFile.objects.all()
+#     # events = Event.objects.all()
+#     # serializer = EventSerializer(events,many=True)
+#     # return Response(serializer.data)
+
+#     def get_object(self, pk):
+#         try:
+#             return FileSerializer.objects.get(pk=pk)
+#         except FileSerializer.DoesNotExist:
+#             raise Http404
+
+#     def get(self, request, pk, format=None):
+#         gradefile = self.get_object(pk)
+#         serializer = FileSerializer(gradefile)
+#         return Response(serializer.data)
+
+#     def put(self, request, pk, format=None):
+#         gradefile = self.get_object(pk)
+#         serializer = FileSerializer(gradefile, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+#     def create(self, request):
+#         serializer_class = FileSerializer(data=request.data)
+#         # request.FILES.getlist('file')
+
+#         if 'file' not in request.FILES or not serializer_class.is_valid():
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
+#         else:
+#             handle_uploaded_file(request.FILES['file'])
+#             return Response(status=status.HTTP_201_CREATED)
+
+#     def handle_uploaded_file(f):
+#         with open(f.name, 'wb+') as destination:
+#             for chunk in f.chunks():
+#                 destination.write(chunk)
+class OfficeHoursList(APIView):
+    def get(self,request):
+        office_hours = OfficeHours.objects.all()
+        serializer = OfficeHoursSerializer(office_hours,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = OfficeHoursSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OfficeHoursDetails(APIView):
+    def get_object(self, pk):
+        try:
+            return OfficeHours.objects.get(pk=pk)
+        except OfficeHours.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        office_hour = self.get_object(pk)
+        serializer = OfficeHoursSerializer(office_hour)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        office_hour = self.get_object(pk)
+        serializer = OfficeHoursSerializer(office_hour, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        office_hour = self.get_object(pk)
+        office_hour.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+

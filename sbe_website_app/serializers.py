@@ -4,6 +4,7 @@ from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 
+
 User = get_user_model()
 
 class UserCreateSerializer(UserCreateSerializer):
@@ -15,7 +16,7 @@ class UserCreateSerializer(UserCreateSerializer):
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','password','role']
+        fields = ['id','fname','lname','email','gender','profile_img','birthdate','address','phone_number','password','role']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(PersonSerializer, self).create(validated_data)
@@ -23,7 +24,7 @@ class PersonSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id','fname','lname','email','gender','birthdate','address','phone_number','password','graduate','year_of_graduation','is_active','role']
+        fields = ['id','fname','lname','email','profile_img','gender','birthdate','address','phone_number','password','graduate','year_of_graduation','is_active','role']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StudentSerializer, self).create(validated_data)
@@ -31,7 +32,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['id','fname','lname','email','password','gender','birthdate','address','phone_number','role']
+        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','role']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StaffSerializer, self).create(validated_data)
@@ -39,7 +40,7 @@ class StaffSerializer(serializers.ModelSerializer):
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
         model = FacultyEmp
-        fields = ['id','fname','lname','email','password','gender','birthdate','address','phone_number','title','role']
+        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','title','role']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -49,6 +50,8 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta :
         model = Course
         fields = ['id','name','total_grade','stds_grades','instructions','materials','staff_id','category','year','semester']
+        # file = serializers.FileField(max_length=None, allow_empty_file=False)
+
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
@@ -66,7 +69,30 @@ class CourseHistorySerializer(serializers.ModelSerializer):
         for i in range(len(ret['staff_id'])): 
             ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
         return ret
-    
+
+# class FileListSerializer ( serializers.Serializer ) :
+
+
+#     CourseFile = serializers.ListField(
+#                        child=serializers.FileField( max_length=100000,
+#                                          allow_empty_file=False,
+#                                          use_url=False )
+#                                 )
+#     def create(self, validated_data):
+#         blogs=Blogs.objects.latest('created_at')
+#         image=validated_data.pop('image')
+#         for img in image:
+#             photo=Photo.objects.create(image=img,blogs=blogs,**validated_data)
+#         return photo
+
+
+# class FileSerializer(serializers.Serializer):
+#     class Meta :
+#         model = CourseFile
+#         fields = ['course_id','stds_grade']
+    # file = serializers.FileField(max_length=None, allow_empty_file=False)
+
+
 class HallSerializer(serializers.ModelSerializer):
     class Meta :
         model = Hall
@@ -141,3 +167,8 @@ class TimeslotSerializer(serializers.ModelSerializer):
 
         return ret
         
+
+class OfficeHoursSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = OfficeHours
+        fields = ['id','weekday','from_hour','to_hour','staff_id','officehours_type']

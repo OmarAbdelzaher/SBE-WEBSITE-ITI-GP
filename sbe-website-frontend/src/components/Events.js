@@ -38,7 +38,7 @@ export default function Events() {
         <>
 
 
-            <h1 className="mb-5 mt-3 text-center">Events section </h1>
+            <h1 id='allevents' className="mb-5 text-center mt-3">Events section </h1>
 
             <div className="container mt-2">
                 <div className="row">
@@ -48,7 +48,8 @@ export default function Events() {
                             <div className="col-md-4 ">
                                 <div className="card mb-4 " key={item.id}>
                                     <h2>{item.name}</h2>
-                                    <img src={image}  />
+                                    <img src={item.picture}/>
+                                    {/* <img src={image}  /> */}
                                     <p>{item.details}</p>
                                     {/* <small>{item.date}</small> */}
 
@@ -63,16 +64,16 @@ export default function Events() {
                 </div>
 
             </div>
-            <div class="row">
-    <div class="col text-center">
-    <Link to='/allevents' className="nav-link">
-    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >
-                More SBE Events
+           
+    <div class="justify-content-center align-items-center d-flex">
+    <Link to='/allevents' className="btn button">
+    <button className="ani button" >
+                All Events
             </button>
             </Link>
 
     </div>
-  </div>
+ 
 
         </>
     );

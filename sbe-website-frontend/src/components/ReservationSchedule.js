@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import { reset_password } from '../actions/auth';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 export default function ReservationSchedule() {
     const [hallReservations, setHallReservations] = useState()
@@ -49,7 +51,7 @@ export default function ReservationSchedule() {
     <br/>
     <br/>
     <br/>
-        <select className="select form-control-lg" 
+        <select className="select form-control-lg btn button" 
             onChange={(e) => onChange(e)}
             name="ReserveType"
             value={reservations}>
@@ -61,7 +63,7 @@ export default function ReservationSchedule() {
 
         </select>
 
-        <table class="table table-hover table-dark">
+        <table class="table table-hover table-dark ">
             <thead>
                 <tr>
                 <th scope="col">#</th>
@@ -87,7 +89,7 @@ export default function ReservationSchedule() {
                                 {/* <td>{}</td> */}
                                 <td>{item.date}</td>
                                 <td>{item.timeslot}</td>
-                                <td>{item.is_confirmed ? <i class="fas fa-check"></i> : <i class="fa-solid fa-x"></i>}</td>
+                                <td>{item.is_confirmed ? <FontAwesomeIcon className="fs-2" icon={faCircleCheck} /> : <FontAwesomeIcon className="fs-2" icon={faCircleXmark} /> }</td>
                             </tr>
                         )
                     })

@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <>
-    <div className="row footer">
+    <div className="row footer" id="profilepage" >
       <section className="f-one text-center col-12">
         <Link
           className="icon fs-3"

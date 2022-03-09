@@ -39,7 +39,11 @@ import Adm_Graduates from "./pages/Adm_Graduates";
 import Users from "./pages/Users";
 import Layout from './hocs/Layout'; 
 import ReservationSchedule from "./components/ReservationSchedule";
-
+import OfficeHours from "./components/OfficeHours";
+import OfficeHoursView from "./components/OfficeHoursView";
+import OfficeHoursSchedule from "./components/OfficeHoursView";
+import OfficeHoursDetails from "./components/OfficeHoursDetails";
+import EditOfficeHours from "./components/EditOfficeHours";
 function App() {
 
 
@@ -87,6 +91,14 @@ function App() {
 
 
             <Route path={"/reservationsShedule"} exact component={ReservationSchedule} />
+            <Route path={"/officehours"} exact component={OfficeHours} />
+            <Route path={"/officehourschedule"} exact component={OfficeHoursSchedule} />
+            <Route path={"/officehoursDetails"} exact component={OfficeHoursDetails} />
+            <Route path={"/officehoursEdit/:id"} exact component={EditOfficeHours} />
+
+
+
+
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}
