@@ -48,7 +48,9 @@ urlpatterns = [
     path('courseungraduateyeartwo/', CourseUngraduateYearTwo.as_view()),
     path('courseungraduateyearthree/', CourseUngraduateYearThree.as_view()),
     path('courseungraduateyearfour/', CourseUngraduateYearFour.as_view()),
-
+    
+    path('officehours/',OfficeHoursList.as_view()),
+    path('officehourdetails/<int:pk>',OfficeHoursDetails.as_view()),
 
     path('coursehistory/',CourseHistoryView.as_view()),
     path('coursehistory/<int:pk>',CourseHistoryDetailsView.as_view()),

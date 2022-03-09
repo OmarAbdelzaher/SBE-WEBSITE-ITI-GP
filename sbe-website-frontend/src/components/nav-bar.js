@@ -97,7 +97,17 @@ const NavBar = () => {
                 About
             </Nav.Link>
             <Nav.Link>
-              <Link className="nav-links" to="profilepage">
+              <Link 
+                            className="nav-links text-dark"
+            
+                            onClick={() => scroller.scrollTo('contact', {
+                              spy:true,
+                              smooth: true,
+                              offset: 0,
+                              duration: 100,
+                          })}
+              
+              >
                 Contact us
               </Link>
             </Nav.Link>
