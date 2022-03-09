@@ -5,6 +5,9 @@ import "../pages/style.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // import { Link, animateScroll as scroll } from "react-scroll";
+// import { Link } from "react-scroll";
+import { scroller } from "react-scroll";
+
 
 import "../pages/style.css";
 
@@ -38,17 +41,60 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0 fs-3">
-            <Nav.Link>
-              <Link className="nav-links" to="/allnews">
+            <Nav.Link
+             className="nav-links text-dark"
+            
+              onClick={() => scroller.scrollTo('allnews', {
+                spy:true,
+                smooth: true,
+                offset: -120,
+                duration: 100,
+            })} >
                 News
-              </Link>
+               
             </Nav.Link>
-            <Nav.Link>
-              <Link className="nav-links" to="/allevents">
+            <Nav.Link
+               className="nav-links  text-dark" 
+                onClick={() => scroller.scrollTo('allevents', {
+                  spy:true,
+                  smooth: true,
+                  offset: -200,
+                  duration: 100,
+              })}
+              
+              >
                 Events
-              </Link>
+              
             </Nav.Link>
             
+            <Nav.Link>
+              <Link
+                activeClass="active"
+                className="nav-links  text-dark" 
+                onClick={() => scroller.scrollTo('about', {
+                  spy:true,
+                  smooth: true,
+                  offset: -180,
+                  duration: 100,
+              })}
+              >
+                About
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link 
+                className="nav-links  text-dark" 
+                onClick={() => scroller.scrollTo('profilepage', {
+                  spy:true,
+                  smooth: true,
+                  offset: 0,
+                  duration: 100,
+              })}
+              
+              >
+                Contact us
+              </Link>
+            </Nav.Link>
             <div className="dropdown">
               <NavDropdown
                 className="dropdown"

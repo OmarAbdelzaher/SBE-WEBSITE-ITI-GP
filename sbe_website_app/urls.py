@@ -2,6 +2,8 @@ from django.urls import path
 from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
+# from rest_framework import routers
+# from sbe_dj_react_proj import views
 
 urlpatterns = [
     path('students/',StudentList.as_view()),
@@ -46,6 +48,9 @@ urlpatterns = [
     path('officehourdetails/<int:pk>',OfficeHoursDetails.as_view()),
 
 
+    path('download/<int:pk>',DownloadPDF, name='download_pdf'),
 
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns+= static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+urlpatterns+=static(settings.STATIC_URL, document_root= settings.MEDIA_ROOT)
