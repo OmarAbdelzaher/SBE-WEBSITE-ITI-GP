@@ -53,18 +53,18 @@ export default function GraduatePage(){
          <br className="mt-5"></br>
 
 <ul className="nav nav-tabs" style={start}>
-        <li className="nav-item">
+        <li className="nav-item ">
           <a className="nav-link active" aria-current="page" href="/graduatepage">News</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="/coursegraduate">Courses</a>
+          <a className="nav-link nav-links" href="/coursegraduate">Courses</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Office Hours </a>
+          <a className="nav-link nav-links" href="#">Office Hours </a>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <a className="nav-link disabled" href="#" tabIndex={-1} aria-disabled="true">Disabled</a>
-        </li>
+        </li> */}
       </ul>
 
 
@@ -101,9 +101,9 @@ export default function GraduatePage(){
                     })}
 
                 </div>
-                <Link to='/' className="nav-link">
+                {/* <Link to='/' className="nav-link">
                     <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >Return Home            </button>
-                </Link>
+                </Link> */}
                 {/* <Link to='/coursegraduate' className="nav-link">
                     <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} > Courses            </button>
                 </Link> */}

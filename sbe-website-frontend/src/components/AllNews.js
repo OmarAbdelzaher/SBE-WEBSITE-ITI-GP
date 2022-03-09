@@ -2,10 +2,12 @@ import React from "react";
 // import Header from "./header";
 import axios from "axios";
 import { useEffect,useState } from "react";
-import { Link } from "react-router-dom";
+import { Link  } from "react-router-dom";
+
 
 
 export default function AllNews(){
+
 
     const [AllNews, setAllNews] = useState([]);
 
@@ -44,6 +46,9 @@ export default function AllNews(){
       }
 
 
+
+
+  
     return(
 
         <>
@@ -63,7 +68,14 @@ export default function AllNews(){
                                     {/* <p>{item.id}</p> */}
 
                                     <h2>{item.title}</h2>
-                                    {item.picture}
+
+                                <div>
+                                    <img src={item.picture} />
+                                {/* <img src={`http://localhost:8000/api/news/${item.picture}`} alt={item.title} /> */}
+                                {/* <img src={`${item.picture}`} /> */}
+
+                                </div>
+                                    
                                     {/* <img src={img}  className="card--image" /> */}
                                     <p>{item.description}</p>
                                     <p>Category:{item.category}</p>
@@ -77,9 +89,9 @@ export default function AllNews(){
                     })}
 
                 </div>
-                <Link to='/' className="nav-link">
+                {/* <Link to='/' className="nav-link">
                     <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >Return Home            </button>
-                </Link>
+                </Link> */}
             </div>
 
         </div>
