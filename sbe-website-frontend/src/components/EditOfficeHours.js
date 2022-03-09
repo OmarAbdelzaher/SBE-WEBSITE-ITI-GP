@@ -1,103 +1,119 @@
-import React from "react";
+import React from 'react'
 import { useSelector } from "react-redux";
-import {useHistory } from "react-router-dom";
-import { useState } from "react";
+import {useHistory,useParams } from "react-router-dom";
+import { useState ,useEffect} from "react";
 import axios from "axios";
 
-export default function OfficeHours() {
-  let Url = `http://localhost:8000/api/officehours/`;
-  const history = useHistory();
-  const who = useSelector((state) => state.auth);
-  const [formErrors, setFormErrors] = useState({});
-  const [OfficeHourErrors, setOfficeHourErrors] = useState({});
-  const [formData, setFormData] = useState({
-    day: "",
-    start: "",
-    end: "",
-    staff_id: "",
-    officehours_type:"",
-  });
+export default function EditOfficeHours() {
+    const params = useParams();
+    let Url = `http://localhost:8000/api/officehourdetails/${params.id}`;
+    const history = useHistory();
+    const who = useSelector((state) => state.auth);
+    const [formErrors, setFormErrors] = useState({});
+    const [OfficeHourErrors, setOfficeHourErrors] = useState({});
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const validate = (values) => {
-    const errors = {};
-
-    let temp_start = values.start.split(":")
-    let startHour = temp_start[0]
-    let startMin = temp_start[1]
-    let startSec = "00"
-
-    let temp_end = values.end.split(":")
-    let endHour = temp_end[0]
-    let endMin = temp_end[1]
-    let endSec = "00"
-
-    let startTimeObject = new Date();
-    startTimeObject.setHours(startHour, startMin, startSec);
-
-    let endTimeObject = new Date(startTimeObject);
-    endTimeObject.setHours(endHour, endMin, endSec);
+    console.log(params)
+    const [formData, setFormData] = useState({
+      weekday: "",
+      from_hour: "",
+      to_hour: "",
+      staff_id: "",
+      officehours_type:"",
+    });
 
 
+    useEffect(() => {
+        axios
+            .get(Url)
+            .then((res) => {setFormData(res.data)
+            console.log(res.data)
+            });
+    }, []);
 
-
-
-    if (!values.start) {
-      errors.start = "Start time is required";
-    }
-    if (!values.end) {
-      errors.end = "End time is required";
-    }
-    if( startTimeObject > endTimeObject)
-    {
-        errors.end = "End time can't be before start "
-    }
-    if (values.day == "Weekdays" || values.day == "" ) {
-      errors.day = "Please , Select a day  ";
-    }
-    if (values.officehours_type == "officehours_type" || values.officehours_type == "" ) {
-        errors.officehours_type = "Please , Select a type ";
+  
+    const onChange = (e) =>
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+  
+    const validate = (values) => {
+      const errors = {};
+  
+      let temp_start = values.from_hour.split(":")
+      let startHour = temp_start[0]
+      let startMin = temp_start[1]
+      let startSec = "00"
+  
+      let temp_end = values.to_hour.split(":")
+      let endHour = temp_end[0]
+      let endMin = temp_end[1]
+      let endSec = "00"
+  
+      let startTimeObject = new Date();
+      startTimeObject.setHours(startHour, startMin, startSec);
+  
+      let endTimeObject = new Date(startTimeObject);
+      endTimeObject.setHours(endHour, endMin, endSec);
+  
+  
+  
+  
+  
+      if (!values.from_hour) {
+        errors.start = "Start time is required";
       }
-    return errors;
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    let errors_form = validate(formData);
-    setOfficeHourErrors(validate(formData));
-
-    if (Object.keys(errors_form).length === 0) {
-      const Data = new FormData();
-
-      if (who.user != null) {
-        console.log(who.user);
-        formData.staff_id = who.user.id;
-        Data.append("staff_id", formData.staff_id);
+      if (!values.to_hour) {
+        errors.end = "End time is required";
       }
-
-      Data.append("officehours_type", formData.officehours_type);
-      Data.append("weekday", formData.day);
-      Data.append("from_hour", formData.start);
-      Data.append("to_hour", formData.end);
-
-      axios
-        .post(Url, Data)
-        .then((res) => {
-          console.log(res.data);
-          history.push("/");
-        })
-        .catch((e) => {
-          setFormErrors(e.response.data.non_field_errors[0]);
-          
-        });
+      if( startTimeObject > endTimeObject)
+      {
+          errors.end = "End time can't be before start "
+      }
+      if (values.weekday == "Weekdays" || values.weekday == "" ) {
+        errors.day = "Please , Select a day  ";
+      }
+      if (values.officehours_type == "officehours_type" || values.officehours_type == "" ) {
+          errors.officehours_type = "Please , Select a type ";
+        }
+      return errors;
+    };
+  
+    const onSubmit = (e) => {
+      e.preventDefault();
+      let errors_form = validate(formData);
+      setOfficeHourErrors(validate(formData));
+  
+      if (Object.keys(errors_form).length === 0) {
+        const Data = new FormData();
+  
+        if (who.user != null) {
+          console.log(who.user);
+          formData.staff_id = who.user.id;
+          Data.append("staff_id", formData.staff_id);
+        }
+  
+        Data.append("officehours_type", formData.officehours_type);
+        Data.append("weekday", formData.weekday);
+        Data.append("from_hour", formData.from_hour);
+        Data.append("to_hour", formData.to_hour);
+  
+        axios
+          .put(Url, Data)
+          .then((res) => {
+            console.log(res.data);
+            history.push("/officehoursDetails");
+          })
+          .catch((e) => {
+            setFormErrors(e.response.data.non_field_errors[0]);
+            
+          });
+      }
     }
-  };
+
+
+
 
   return (
     <>
-      <section className="h-150 h-custom">
+     <section className="h-150 h-custom">
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
@@ -155,8 +171,8 @@ export default function OfficeHours() {
                           <br />
                           <select
                             className="select form-control-lg"
-                            name="day"
-                            value={formData.day}
+                            name="weekday"
+                            value={formData.weekday}
                             onChange={(e) => onChange(e)}
                             id="Weekdays"
                           >
@@ -174,9 +190,9 @@ export default function OfficeHours() {
                         </div>
                       </div>
                     </div>
-                    {OfficeHourErrors.day ? (
+                    {OfficeHourErrors.weekday ? (
                       <div class="alert alert-danger" role="alert">
-                        {OfficeHourErrors.day}
+                        {OfficeHourErrors.weekday}
                       </div>
                     ) : null}
 
@@ -191,16 +207,16 @@ export default function OfficeHours() {
                             type="time"
                             className="form-control form-control-lg"
                             id="StartTime"
-                            name="start"
-                            value={formData.start}
+                            name="from_hour"
+                            value={formData.from_hour}
                             onChange={(e) => onChange(e)}
                           />
                         </div>
                       </div>
                     </div>
-                    {OfficeHourErrors.start ? (
+                    {OfficeHourErrors.from_hour ? (
                       <div class="alert alert-danger" role="alert">
-                        {OfficeHourErrors.start}
+                        {OfficeHourErrors.from_hour}
                       </div>
                     ) : null}
 
@@ -215,16 +231,16 @@ export default function OfficeHours() {
                             type="time"
                             className="form-control form-control-lg"
                             id="EndTime"
-                            name="end"
+                            name="to_hour"
                             onChange={(e) => onChange(e)}
-                            value={formData.end}
+                            value={formData.to_hour}
                           />
                         </div>
                       </div>
                     </div>
-                    {OfficeHourErrors.end ? (
+                    {OfficeHourErrors.to_hour ? (
                       <div class="alert alert-danger" role="alert">
-                        {OfficeHourErrors.end}
+                        {OfficeHourErrors.to_hour}
                       </div>
                     ) : null}
 
@@ -244,6 +260,8 @@ export default function OfficeHours() {
           </div>
         </div>
       </section>
+
     </>
-  );
+    
+  )
 }

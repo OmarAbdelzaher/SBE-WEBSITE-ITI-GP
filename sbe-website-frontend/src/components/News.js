@@ -34,7 +34,7 @@ export default function News() {
 
   return (
     <>
-      <section className="news-section">
+      <section id="allnews" className="news-section">
         <h1 className=" text-center">SBE NEWS </h1>
 
         <div className="container ">

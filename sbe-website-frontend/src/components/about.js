@@ -4,7 +4,7 @@ import '../pages/style.css'
 function About() {
   return (
     <>
-      <section className="s-tow row">
+      <section className="s-tow row" id='about'>
         <h1 className="col-md-6 offset-md-3 text-center about-h">
           About Department
         </h1>

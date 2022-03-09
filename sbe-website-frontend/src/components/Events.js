@@ -35,7 +35,8 @@ export default function Events() {
 
   return (
     <>
-      <section className="events-section">
+
+      <section id='allevents'  className="events-section">
         <h1 className="text-center text-light">SBE EVENTS</h1>
  
         <div className="container">

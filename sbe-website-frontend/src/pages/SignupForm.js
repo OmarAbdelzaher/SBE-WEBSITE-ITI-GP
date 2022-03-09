@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Redirect,useHistory } from 'react-router-dom';
 import { connect  , useSelector} from 'react-redux';
 import { signup } from '../actions/auth';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Signup = ({ signup, isAuthenticated }) => {
   const errorMessage = useSelector(state => state.auth.data)
@@ -70,10 +70,10 @@ const Signup = ({ signup, isAuthenticated }) => {
       errors.email = "Email is required !";
       flag = false
 
-    } else if (!pattern_email.test(email)) {
+    } else if (!pattern_email.test(values.email)) {
       errors.email = "Email is invalid !";
       flag = false
-
+      
     }
     if (!values.password){
       errors.password = "Password is Required"
@@ -101,7 +101,7 @@ const Signup = ({ signup, isAuthenticated }) => {
       errors.phone_number = "Phone Number is required";
       flag = false
 
-    } else if (phone_number.length != 11 )
+    } else if (values.phone_number.length != 11 )
     {
       errors.phone_number = "Phone Number must be 11 digits"  
       flag = false

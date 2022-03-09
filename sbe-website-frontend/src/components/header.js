@@ -9,6 +9,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 import { useSelector } from "react-redux";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 let flag = false
 
@@ -66,14 +67,14 @@ const Header = ({ logout, isAuthenticated }) => {
     
   );
 
-  const signedInLink = () => (
-    <Nav.Link className="button">
-      <Link className="fs-5 header-link ani" to="/profilepage" >
-       Edit Profile 
-      </Link>
-    </Nav.Link>
+  // const signedInLink = () => (
+  //   <Nav.Link className="button">
+  //     <Link className="fs-5 header-link ani" to="/profilepage" >
+  //      Edit Profile 
+  //     </Link>
+  //   </Nav.Link>
     
-  );
+  // );
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
@@ -111,7 +112,7 @@ const Header = ({ logout, isAuthenticated }) => {
               </Link>
             </Nav.Link>
             {isAuthenticated ? authLinks() : guestLinks()}
-            {isAuthenticated ? signedInLink() : null}
+            {/* {isAuthenticated ? signedInLink() : null} */}
 
             
             {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
@@ -121,6 +122,22 @@ const Header = ({ logout, isAuthenticated }) => {
               </Link>
             </Nav.Link>
             {is_staff ? staffLinks() : null}
+
+            { isAuthenticated ? <div className="dropdown">
+              <NavDropdown
+                className="dropdown "
+                title= {
+                  staff.user != null ? staff.user.fname : null
+                }  
+                id="navbarScrollingDropdown"
+              >
+                <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
+                <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
+                <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
+                <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
+              </NavDropdown>
+            </div> : null }
+
           </Nav>
         </Navbar.Collapse>
       </Navbar>
