@@ -38,8 +38,8 @@ export default function Academics() {
                 </p>
                 {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
                 {/* <button type="button" className="btn btn-primary btn-md">Read more</button> */}
-                <Link to="/graduatepage" className="nav-link">
-                  <button type="button" className="btn btn-primary btn-md">
+                <Link to="/graduatepage" className="btn button">
+                  <button type="button" className="button ani">
                     Read more
                   </button>
                 </Link>
@@ -70,8 +70,8 @@ export default function Academics() {
                   the bulk of the card's content.
                 </p>
                 {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                <Link to="/undergraduatepage" className="nav-link">
-                  <button type="button" className="btn btn-primary btn-md">
+                <Link to="/undergraduatepage" className="btn button">
+                  <button type="button" className="button ani ">
                     Read more
                   </button>
                 </Link>

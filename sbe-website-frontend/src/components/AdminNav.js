@@ -89,13 +89,6 @@ function AdminNav() {
 
               <Nav.Link>
                 <Link className="fs-3 sbar-links" to="/moderator">
-                  <FontAwesomeIcon className="fs-2" icon={faCalendarDay} />{" "}
-                  Reservation List
-                </Link>
-              </Nav.Link>
-
-              <Nav.Link>
-                <Link className="fs-3 sbar-links" to="/moderator">
                   <FontAwesomeIcon
                     className="fs-2"
                     icon={faSquarePollHorizontal}

@@ -48,28 +48,7 @@ const NavBar = () => {
                 Events
               </Link>
             </Nav.Link>
-            <Nav.Link>
-            <Link className="nav-links" to="/coursesMenu">
-                Courses
-                </Link>
-            </Nav.Link>
             
-            <Nav.Link>
-              <Link
-                className="nav-links"
-                activeClass="active"
-                to="/#about"
-                spy={true}
-                smooth={true}
-              >
-                About
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link className="nav-links" to="profilepage">
-                Contact us
-              </Link>
-            </Nav.Link>
             <div className="dropdown">
               <NavDropdown
                 className="dropdown"
@@ -80,7 +59,6 @@ const NavBar = () => {
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
 
-                <NavDropdown.Divider />
               </NavDropdown>
             </div>
             <div className="dropdown">
@@ -89,11 +67,10 @@ const NavBar = () => {
                 title="Under-Graduates"
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="/courseungraduate">Courses</NavDropdown.Item>
+                <NavDropdown.Item href="/coursesMenu">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/undergraduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
                 <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
-                <NavDropdown.Divider />
               </NavDropdown>
             </div>
           </Nav>
