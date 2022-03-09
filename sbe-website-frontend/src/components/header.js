@@ -123,7 +123,7 @@ const Header = ({ logout, isAuthenticated }) => {
             </Nav.Link>
             {is_staff ? staffLinks() : null}
 
-            <div className="dropdown">
+            { isAuthenticated ? <div className="dropdown">
               <NavDropdown
                 className="dropdown"
                 title= {
@@ -137,7 +137,8 @@ const Header = ({ logout, isAuthenticated }) => {
                 <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
                 <NavDropdown.Divider />
               </NavDropdown>
-            </div>
+            </div> : null }
+
           </Nav>
         </Navbar.Collapse>
       </Navbar>
