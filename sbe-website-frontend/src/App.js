@@ -37,6 +37,8 @@ import RegistrationApprove from "./pages/RegistrationApprove";
 import Users from "./pages/Users";
 import Layout from './hocs/Layout'; 
 import ReservationSchedule from "./components/ReservationSchedule";
+import UnderGraduateExams from "./components/UnderGraduateExams";
+import GraduateExams from "./components/GraduateExams";
 
 function App() {
 
@@ -80,6 +82,10 @@ function App() {
             <Route path={"/reservation-approv"} exact component={ReservationApprov} />
             <Route path={"/registration-approv"} exact component={RegistrationApprove} />
             <Route path={"/users"} exact component={Users} />
+            <Route path={"/undergraduate-exams"} exact component={UnderGraduateExams} /> 
+            <Route path={"/graduate-exams"} exact component={GraduateExams} /> 
+
+
 
 
             <Route path={"/reservationsShedule"} exact component={ReservationSchedule} />

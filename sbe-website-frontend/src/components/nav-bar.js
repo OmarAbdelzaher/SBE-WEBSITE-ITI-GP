@@ -5,8 +5,8 @@ import "../pages/style.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // import { Link, animateScroll as scroll } from "react-scroll";
-
 import "../pages/style.css";
+import UnderGraduateExams from "./UnderGraduateExams";
 
 const NavBar = () => {
   const [bar, setNavbar] = useState(false);
@@ -58,7 +58,7 @@ const NavBar = () => {
                 <NavDropdown.Item href="/coursegraduate">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
-
+                <NavDropdown.Item href="/graduate-exams">Exams</NavDropdown.Item>
               </NavDropdown>
             </div>
             <div className="dropdown">
@@ -71,6 +71,9 @@ const NavBar = () => {
                 <NavDropdown.Item href="/undergraduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
                 <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
+                <NavDropdown.Item href="/undergraduate-exams">
+                Exams
+                </NavDropdown.Item>
               </NavDropdown>
             </div>
           </Nav>

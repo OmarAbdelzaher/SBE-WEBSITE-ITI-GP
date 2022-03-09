@@ -18,10 +18,11 @@ export default function CoursesMenu() {
   return (
     <>
       <section className="h-150 h-custom py-5">
-        <div className="container c-form">
+        
+        <div className="container ">
           <div className="row  d-flex justify-content-center align-items-center h-100 ">
             <div className="col-lg-8 col-xl-6">
-              <div className=" rounded-3 form">
+              <div className=" rounded-3 ">
                 <div className=" p-4 p-md-5 courses-b border border-2 border-light">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 ">
                     Students Courses
@@ -364,6 +365,7 @@ export default function CoursesMenu() {
             </div>
           </div>
         </div>
+        <div className="c-form"></div>
       </section>
     </>
   );

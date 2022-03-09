@@ -89,7 +89,7 @@ export default function GraduatePage(){
                               </div>
                               <img
                                 class="card-img-bottom"
-                                src={image}
+                                src={item.picture}
                                 alt="Card image cap"
                                 style={imgEvent}
                               />

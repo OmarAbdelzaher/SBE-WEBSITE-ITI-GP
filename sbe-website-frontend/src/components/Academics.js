@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 export default function Academics() {
   return (
     <>
+    <section className="academic-section"></section>
       <h1 className="text-center">Academics</h1>
 
       <div className="container">
