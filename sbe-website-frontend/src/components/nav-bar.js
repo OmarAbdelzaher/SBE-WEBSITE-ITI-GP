@@ -5,8 +5,9 @@ import "../pages/style.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // import { Link, animateScroll as scroll } from "react-scroll";
-
 import "../pages/style.css";
+
+import { scroller } from "react-scroll";
 
 const NavBar = () => {
   const [bar, setNavbar] = useState(false);
@@ -38,35 +39,75 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0 fs-3">
-            <Nav.Link>
-              <Link className="nav-links" to="/allnews">
+            <Nav.Link
+              className="nav-links text-dark"
+            
+                onClick={() => scroller.scrollTo('allnews', {
+                  spy:true,
+                  smooth: true,
+                  offset: -120,
+                  duration: 100,
+                })}
+              
+              >
                 News
-              </Link>
             </Nav.Link>
-            <Nav.Link>
-              <Link className="nav-links" to="/allevents">
+            <Nav.Link
+         
+              className="nav-links text-dark"
+              activeClassName={"active"}
+            
+              onClick={() => scroller.scrollTo('allevents', {
+                spy:true,
+                smooth: true,
+                offset: -170,
+                duration: 100,
+            })}
+
+              >
                 Events
-              </Link>
             </Nav.Link>
             <Nav.Link>
             <Link className="nav-links" to="/coursesMenu">
                 Courses
                 </Link>
             </Nav.Link>
+            {/* <ScrollLink 
+        to="example-destination" 
+        spy={true} 
+        smooth={true} 
+        duration={500} 
+        className='some-class' 
+        activeClass='some-active-class'
+      >
+        Link Text Goes Here
+      </ScrollLink>  */}
             
-            <Nav.Link>
-              <Link
-                className="nav-links"
-                activeClass="active"
-                to="/#about"
-                spy={true}
-                smooth={true}
+            <Nav.Link
+            
+                className="nav-links text-dark"
+            
+                onClick={() => scroller.scrollTo('about', {
+                  spy:true,
+                  smooth: true,
+                  offset: -170,
+                  duration: 100,
+              })}
               >
                 About
-              </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link className="nav-links" to="profilepage">
+              <Link 
+                            className="nav-links text-dark"
+            
+                            onClick={() => scroller.scrollTo('contact', {
+                              spy:true,
+                              smooth: true,
+                              offset: 0,
+                              duration: 100,
+                          })}
+              
+              >
                 Contact us
               </Link>
             </Nav.Link>
