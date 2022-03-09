@@ -5,10 +5,7 @@ import { Link } from "react-router-dom";
 
 function YoneSone() {
   const [courses, setCourses] = useState([]);
-  const [coursesone, setCoursesone] = useState([false]);
-const semesterone=false
   useEffect(() => {
-    // coursesone=true
     axios
       .get("http://localhost:8000/api/courseungraduateyearone/")
       .then((res) => {
@@ -16,18 +13,9 @@ const semesterone=false
 
       })
   }, []);
-  // useEffect(() => {
-  //   // semestertwo=True
-  //   axios
-  //     .get("http://localhost:8000/api/courseungraduateyearone/")
-  //     .then((res) => {
-  //       setCourses(res.data)
-
-  //     })
-  // }, []);
   return (
     <>
-    {coursesone?(<section className="h-custom py-5">
+      <section className="h-custom py-5">
         <div className="container">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
@@ -62,9 +50,7 @@ const semesterone=false
             </div>
           </div>
         </div>
-      </section>):'That is Wrong'}
-
-      
+      </section>
     </>
   )
 }
