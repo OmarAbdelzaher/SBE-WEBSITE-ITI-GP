@@ -141,3 +141,8 @@ class TimeslotSerializer(serializers.ModelSerializer):
 
         return ret
         
+
+class OfficeHoursSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = OfficeHours
+        fields = ['id','weekday','from_hour','to_hour','staff_id','officehours_type']

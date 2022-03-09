@@ -16,7 +16,6 @@ function Profile(isAuthenticated) {
   let StaffUrl = "";
   let EmpUrl = "";
   let Url = "";
-  let imgChanged=false
 
   const [User, setUser] = useState({
     fname: "",
@@ -28,7 +27,6 @@ function Profile(isAuthenticated) {
     birthdate: "",
     phone_number: "",
     password: "",
-
     graduate: "",
     year_of_graduation: "",
 
@@ -55,14 +53,15 @@ function Profile(isAuthenticated) {
     StudentUrl = `http://localhost:8000/api/student/${who.user.id}`;
     StaffUrl = `http://localhost:8000/api/onestaff/${who.user.id}`;
     EmpUrl = `http://localhost:8000/api/facultyemp/${who.user.id}`;
-  }
 
-  if (who.user.role == "student") {
-    Url = StudentUrl;
-  } else if (who.user.role == "dr" || who.user.role == "ta") {
-    Url = StaffUrl;
-  } else if ((who.user.role = "employee")) {
-    Url = EmpUrl;
+    if (who.user.role == "student") {
+      Url = StudentUrl;
+    } else if (who.user.role == "dr" || who.user.role == "ta") {
+      Url = StaffUrl;
+    } else if ((who.user.role = "employee")) {
+      Url = EmpUrl;
+    }
+  
   }
 
   const validate = (values) =>{

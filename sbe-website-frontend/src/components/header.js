@@ -9,6 +9,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 import { useSelector } from "react-redux";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 let flag = false
 
@@ -121,6 +122,22 @@ const Header = ({ logout, isAuthenticated }) => {
               </Link>
             </Nav.Link>
             {is_staff ? staffLinks() : null}
+
+            <div className="dropdown">
+              <NavDropdown
+                className="dropdown"
+                title= {
+                  staff.user != null ? staff.user.fname : null
+                }  
+                id="navbarScrollingDropdown"
+              >
+                <NavDropdown.Item href="/profilepage">Profile</NavDropdown.Item>
+                <NavDropdown.Item href="/reservation">Reservation</NavDropdown.Item>
+                <NavDropdown.Item href="/officehoursDetails/">Office Hours</NavDropdown.Item>
+                <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
+                <NavDropdown.Divider />
+              </NavDropdown>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

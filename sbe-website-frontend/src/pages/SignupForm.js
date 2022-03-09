@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Redirect,useHistory } from 'react-router-dom';
 import { connect  , useSelector} from 'react-redux';
 import { signup } from '../actions/auth';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Signup = ({ signup, isAuthenticated }) => {
   const errorMessage = useSelector(state => state.auth.data)
@@ -72,7 +72,6 @@ const Signup = ({ signup, isAuthenticated }) => {
 
     } else if (!pattern_email.test(values.email)) {
       errors.email = "Email is invalid !";
-
     }
     if (!values.password){
       errors.password = "Password is Required"
