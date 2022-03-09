@@ -125,17 +125,16 @@ const Header = ({ logout, isAuthenticated }) => {
 
             { isAuthenticated ? <div className="dropdown">
               <NavDropdown
-                className="dropdown"
+                className="dropdown "
                 title= {
                   staff.user != null ? staff.user.fname : null
                 }  
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item ><Link to="/profilepage">Profile</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link to="/reservation">Reservation</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
-                <NavDropdown.Divider />
+                <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
+                <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
+                <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
+                <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
               </NavDropdown>
             </div> : null }
 

@@ -55,6 +55,8 @@ function YoneSone() {
             </div>
           </div>
         </div>
+        <div className="c-form"></div>
+
       </section>
     </>
   )

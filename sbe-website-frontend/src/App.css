@@ -8,6 +8,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
+  color: #f1f1f1;
 
 }
 
@@ -40,8 +41,13 @@
   margin-top: 34% !important;
 }
 .c-form{
-  margin-top: 2% !important;
+  margin-bottom: 30%;
+  /* margin-top: 20% !important; */
 }
+.margin-b{
+  margin-bottom: 150vh;
+}
+
 .courses-b {
   background: rgb(0, 0, 0) !important;
   /* background: rgba(0, 0, 0, 0.5); */
@@ -50,6 +56,7 @@
   height: auto;
   overflow-x: auto;
   margin-top: 14% !important;
+  padding: 2%;
 }
 
 .course-d {

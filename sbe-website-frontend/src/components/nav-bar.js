@@ -4,10 +4,11 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import "../pages/style.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { scroller } from "react-scroll";
 // import { Link, animateScroll as scroll } from "react-scroll";
 import "../pages/style.css";
+import UnderGraduateExams from "./UnderGraduateExams";
 
-import { scroller } from "react-scroll";
 
 const NavBar = () => {
   const [bar, setNavbar] = useState(false);
@@ -67,11 +68,7 @@ const NavBar = () => {
               >
                 Events
             </Nav.Link>
-            <Nav.Link>
-            <Link className="nav-links" to="/coursesMenu">
-                Courses
-                </Link>
-            </Nav.Link>
+          
             {/* <ScrollLink 
         to="example-destination" 
         spy={true} 
@@ -96,8 +93,7 @@ const NavBar = () => {
               >
                 About
             </Nav.Link>
-            <Nav.Link>
-              <Link 
+            <Nav.Link
                             className="nav-links text-dark"
             
                             onClick={() => scroller.scrollTo('contact', {
@@ -109,7 +105,6 @@ const NavBar = () => {
               
               >
                 Contact us
-              </Link>
             </Nav.Link>
             <div className="dropdown">
               <NavDropdown
@@ -120,9 +115,9 @@ const NavBar = () => {
                 <NavDropdown.Item href="/adm-graduates">Admission</NavDropdown.Item>
                 <NavDropdown.Item href="/coursegraduate">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
-                <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
+                <NavDropdown.Item href="/graduate-exams">Exams</NavDropdown.Item>
 
-                <NavDropdown.Divider />
+
               </NavDropdown>
             </div>
             <div className="dropdown">
@@ -132,11 +127,13 @@ const NavBar = () => {
                 id="navbarScrollingDropdown"
               >
                 <NavDropdown.Item href="/adm-undergraduates">Admission</NavDropdown.Item>
-                <NavDropdown.Item href="/courseungraduate">Courses</NavDropdown.Item>
+                <NavDropdown.Item href="/coursesMenu">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/undergraduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
                 <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
-                <NavDropdown.Divider />
+                <NavDropdown.Item href="/undergraduate-exams">
+                Exams
+                </NavDropdown.Item>
               </NavDropdown>
             </div>
           </Nav>
@@ -147,3 +144,7 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+
+
+

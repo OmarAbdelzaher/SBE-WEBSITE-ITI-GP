@@ -41,17 +41,14 @@ const CourseHistory = () => {
                         className="row justify-content-center align-items-center "
                         key={item.course_id}
                       >
-                        <h2 className="bg-light py-3 nav-links">Year</h2>{" "}
-                        <p>{item.year}</p>
-                        <h3 className="col-12">Doctor Name {item.staff_id}</h3>
+                        <h2 className="bg-light py-3 nav-links">Year: {item.year}</h2>{" "}
+                        <h3 className="col-12">Dr: {item.staff_id}</h3>
                         <p className="col-4">
                           Download Materials {item.material}{" "}
                         </p>
                         <button className="btn btn-lg col-6 button">
                           Download
                         </button>
-                        <h1>Course ID : {item.course_id}</h1>
-                        <h1>Course History ID : {item.id}</h1>
                       </div>
                     </>
                   );
@@ -73,6 +70,8 @@ const CourseHistory = () => {
             </div>
           </div>
         </div>
+        <div className="margin-b"></div>
+
       </section>
     </>
   );
