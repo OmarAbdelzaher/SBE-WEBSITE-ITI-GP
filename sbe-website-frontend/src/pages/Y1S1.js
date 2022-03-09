@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function YoneSone() {
   const [courses, setCourses] = useState([]);
-  const flag=false
+  var flag=false
   useEffect(() => {
     flag=true
     axios
