@@ -15,6 +15,7 @@
 
 .head {
   position: fixed;
+  height: 12vh;
   font-family: Arial, Helvetica, sans-serif;
   background: transparent;
 }
@@ -63,7 +64,7 @@
 
 .bar {
   position: fixed;
-  margin-top:15vh;
+  margin-top:12vh;
   font-family: Arial, Helvetica, sans-serif;
   /* background: rgb(0, 0, 0); 
   background: rgba(0, 0, 0, 0.5); 
@@ -88,8 +89,8 @@
 .scroll {
     background-image: linear-gradient(to right, #8ecae6, #0096c7);
     background-image: -o-linear-gradient(right, #457b9d, #0096c7);
-    background-image: -moz-linear-gradient(right, #8ecae6, #0096c7);
-    background-image: -webkit-linear-gradient(left, #8ecae6, #003049);
+    background-image: -moz-linear-gradient(right, #8ecae6, #adb5bd);
+    background-image: -webkit-linear-gradient(left, #adb5bd, #003049);
 }
 
 .logo {

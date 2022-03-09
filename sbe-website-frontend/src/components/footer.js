@@ -11,6 +11,7 @@ import {
   faEnvelope,
   faHome,
   faInbox,
+  faMapLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -30,7 +31,7 @@ function Footer() {
 
         <Link
           className="icon fs-3"
-          to={{ pathname: "https://www.facebook.com/" }}
+          to={{ pathname: "https://twitter.com/" }}
           target="_blank"
         >
           <FontAwesomeIcon icon={faTwitter} />
@@ -38,19 +39,12 @@ function Footer() {
 
         <Link
           className="icon fs-3"
-          to={{ pathname: "https://www.facebook.com/" }}
+          to={{ pathname: "https://www.linkedin.com/" }}
           target="_blank"
         >
           <FontAwesomeIcon icon={faLinkedin} />
         </Link>
 
-        <Link
-          className="icon fs-3"
-          to={{ pathname: "https://www.facebook.com/" }}
-          target="_blank"
-        >
-          <FontAwesomeIcon icon={faGoogle} />
-        </Link>
         <Link
           className="icon fs-3"
           to={{ pathname: "https://www.google.com/maps/dir//Faculty+of+Engineering+-+Cairo+University+Cairo+University+Rd+Oula+Giza+District,+Giza+Governorate/@30.0263303,31.21167,16z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1458472fa8265ddb:0x282c4b44cdf7e83c!2m2!1d31.21167!2d30.0263303/" }}
@@ -63,7 +57,7 @@ function Footer() {
           to={{ pathname: "http://cufe.edu.eg/wp-content/uploads/2014/12/map.jpg" }}
           target="_blank"
         >
-          <FontAwesomeIcon icon={faGoogle} />
+          <FontAwesomeIcon icon={faMapLocationDot} />
         </Link>
         <div className="row">
           <p className="contact col-auto me-auto">

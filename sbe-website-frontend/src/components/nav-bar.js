@@ -113,8 +113,9 @@ const NavBar = () => {
                 id="navbarScrollingDropdown"
               >
                 <NavDropdown.Item href="/adm-graduates">Admission</NavDropdown.Item>
-                <NavDropdown.Item href="/coursegraduate">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
+                <NavDropdown.Item href="/coursegraduate">Courses</NavDropdown.Item>
+                <NavDropdown.Item href="/officehourschedule">Office Hours</NavDropdown.Item>
                 <NavDropdown.Item href="/graduate-exams">Exams</NavDropdown.Item>
 
 
@@ -127,13 +128,11 @@ const NavBar = () => {
                 id="navbarScrollingDropdown"
               >
                 <NavDropdown.Item href="/adm-undergraduates">Admission</NavDropdown.Item>
-                <NavDropdown.Item href="/coursesMenu">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/undergraduatepage">News</NavDropdown.Item>
-                <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
+                <NavDropdown.Item href="/coursesMenu">Courses</NavDropdown.Item>
+                <NavDropdown.Item href="/officehourschedule">Office Hours</NavDropdown.Item>
                 <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
-                <NavDropdown.Item href="/undergraduate-exams">
-                Exams
-                </NavDropdown.Item>
+                <NavDropdown.Item href="/undergraduate-exams">Exams</NavDropdown.Item>
               </NavDropdown>
             </div>
           </Nav>

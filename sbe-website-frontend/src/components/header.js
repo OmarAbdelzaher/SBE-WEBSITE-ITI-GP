@@ -35,7 +35,7 @@ const Header = ({ logout, isAuthenticated }) => {
 
   const guestLinks = () => (
     <>
-      <Nav.Link className="button">
+      <Nav.Link className="button ">
         <Link className="fs-5 header-link ani" to="/login">
           Log In
         </Link>
@@ -59,7 +59,7 @@ const Header = ({ logout, isAuthenticated }) => {
   )
 
   const authLinks = () => (
-    <Nav.Link className="button">
+    <Nav.Link className="button ">
       <Link className="fs-5 header-link ani" to="/"  onClick={logout_user}>
        Logout
       </Link>
@@ -97,8 +97,8 @@ const Header = ({ logout, isAuthenticated }) => {
         <Navbar.Brand className="col-3" href="/">
           <img
             src={logo}
-            width="200"
-            height="90"
+            width="180"
+            height="70"
             className="d-inline-block align-top"
             alt="Department logo"
           />

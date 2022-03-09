@@ -50,31 +50,36 @@ export default function OfficeHoursSchedule() {
 
     return (
     <>  
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-        <select className="select form-control-lg" 
-            onChange={(e) => onChange(e)}
-            name="staffmenu"
-            value="asdasd">
-        
-            <option selected value="staffmenu">Staff Menu</option>
-            { staff != undefined ?
-                staff.map((item,index) => {
-                    return (
-                <option value={item.id }>{item.fname}</option>
-                    )
-                })
-            : null
-            }
-        </select>
+    <section className="h-custom ">
+        <div className="container">
+          <div className="row d-flex justify-content-center align-items-center h-100 ">
+            <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
+                <div className="card-body ">
+                    <p className="fs-3"> - Reservation Schedule</p>
+                
+                    <div className="justify-content-center">
+                        <select className="select form-control-lg button" 
+                            onChange={(e) => onChange(e)}
+                            name="staffmenu"
+                            value="asdasd">
+                        
+                            <option selected value="staffmenu">Staff Menu</option>
+                            { staff != undefined ?
+                                staff.map((item,index) => {
+                                    return (
+                                <option value={item.id }>{item.fname}</option>
+                                    )
+                                })
+                            : null
+                            }
+                        </select>
+                    </div>
+                </div>
 
 
-<table class="table table-hover table-dark">
+<table class="table table-hover bg-light fs-4 col-12 ">
             <thead>
-                <tr>
+                <tr  className="text-dark">
                 <th scope="col">#</th>
                 <th scope="col">OfficeHour Type</th>
                 <th scope="col">Week Day</th>
@@ -82,17 +87,17 @@ export default function OfficeHoursSchedule() {
                 <th scope="col">To</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="mb-3">
                 {
                     oh_list != undefined ?
                     oh_list.map((item,index)=>{
                         return (
                             <tr key={index}>
                                 <th scope="row">{index+1}</th>   
-                                <td>{item.officehours_type}</td>
-                                <td>{item.weekday}</td>
-                                <td>{item.from_hour}</td>
-                                <td>{item.to_hour}</td>
+                                <td className="admin-tables">{item.officehours_type}</td>
+                                <td className="admin-tables">{item.weekday}</td>
+                                <td className="admin-tables">{item.from_hour}</td>
+                                <td className="admin-tables">{item.to_hour}</td>
                             </tr>
                         )
                     })
@@ -101,7 +106,11 @@ export default function OfficeHoursSchedule() {
             </tbody>
             </table>
             
-            
+             </div>
+            <div className="margin-b"></div>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

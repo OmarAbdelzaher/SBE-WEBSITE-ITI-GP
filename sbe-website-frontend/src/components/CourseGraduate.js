@@ -81,9 +81,6 @@ export default function CourseGraduate(){
                     })}
 
                 </div>
-                <Link to='/graduatepage' className="btn button">
-                    <button className="button ani " >Graduated Page            </button>
-                </Link>
             </div>
 
         </div>
