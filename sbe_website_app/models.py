@@ -139,7 +139,22 @@ class Student(Person,models.Model):
     graduate = models.CharField(max_length=20, choices=GRADE_CHOICES)
     year_of_graduation = models.IntegerField()
 
+
+class Staff(Person,models.Model):
+    POS_CHOICES = (
+        ('Dr', 'Dr'),
+        ('TA', 'TA'),
+    )
+    position = models.CharField(max_length=10, choices=POS_CHOICES)
+    
+    def __str__(self):
+        return self.fname + ' ' + self.lname
+
 class OfficeHours(models.Model):
+    TYPE_CHOICES = (
+        ('Online', 'Online'),
+        ('Offline', 'Offline'),
+    )
     WEEKDAYS = [
         ('Monday', "Monday"),
         ('Tuesday', "Tuesday"),
@@ -152,25 +167,22 @@ class OfficeHours(models.Model):
     weekday = models.CharField(
         max_length=20,
         choices=WEEKDAYS,
-        unique=True,
+        null=True
+    )
+    officehours_type = models.CharField(
+        max_length=20,
+        choices=TYPE_CHOICES,
         null=True
     )
     from_hour = models.TimeField(null=True)
     to_hour = models.TimeField(null=True)
-    
+    staff_id = models.ForeignKey(Staff ,on_delete =models.CASCADE)
+
+    class Meta : 
+        unique_together =("weekday","from_hour","to_hour","staff_id","officehours_type")
+
     def __str__(self):
         return self.weekday + ' ' + str(self.from_hour) + ' ' + 'to' + ' ' + str(self.to_hour)
-
-class Staff(Person,models.Model):
-    POS_CHOICES = (
-        ('Dr', 'Dr'),
-        ('TA', 'TA'),
-    )
-    position = models.CharField(max_length=10, choices=POS_CHOICES)
-    office_hours = models.ManyToManyField(OfficeHours)
-    
-    def __str__(self):
-        return self.fname + ' ' + self.lname
     
 
 class FacultyEmp(Person,models.Model):
@@ -178,7 +190,18 @@ class FacultyEmp(Person,models.Model):
     
     def __str__(self):
         return self.fname + ' ' + self.lname
-    
+
+# class StaffOfficeHours(models.Model):
+#     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
+#     office_hours = models.ForeignKey(OfficeHours, on_delete=models.CASCADE)
+
+#     class Meta:
+#         unique_together = ("staff_id","office_hours")
+
+
+
+
+
 class Course(models.Model):
     name = models.CharField(max_length=20)
     total_grade = models.IntegerField()
@@ -304,6 +327,5 @@ class Event(models.Model):
        
     def __str__(self):
         return self.name
-
 
     
