@@ -1,14 +1,14 @@
 from django.urls import path 
 from django.conf import settings
 from django.conf.urls.static import static
-from .Devices.devicesviews import *
-from .Halls.hallsviews import *
-from .Labs.labsviews import *
-from .Person.personviews import *
-from .Courses.coursesviews import *
-from .Events.eventsviews import *
-from .News.newsviews import *
-from .OffHoursandTimeSlots.hoursandslotsviews import *
+from .Views.Devices.devicesviews import *
+from .Views.Halls.hallsviews import *
+from .Views.Labs.labsviews import *
+from .Views.Person.personviews import *
+from .Views.Courses.coursesviews import *
+from .Views.Events.eventsviews import *
+from .Views.News.newsviews import *
+from .Views.OffHoursandTimeSlots.hoursandslotsviews import *
 
 
 
