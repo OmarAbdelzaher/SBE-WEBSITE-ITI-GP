@@ -91,7 +91,7 @@ const NavBar = () => {
               >
                 <NavDropdown.Item href="/courseungraduate">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/undergraduatepage">News</NavDropdown.Item>
-                <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
+                <NavDropdown.Item href="/officehourschedule">Office Hours</NavDropdown.Item>
                 <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
                 <NavDropdown.Divider />
               </NavDropdown>
