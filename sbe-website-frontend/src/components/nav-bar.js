@@ -76,6 +76,7 @@ const NavBar = () => {
                 title="Graduates"
                 id="navbarScrollingDropdown"
               >
+                <NavDropdown.Item href="/adm-graduates">Admission</NavDropdown.Item>
                 <NavDropdown.Item href="/coursegraduate">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
@@ -89,6 +90,7 @@ const NavBar = () => {
                 title="Under-Graduates"
                 id="navbarScrollingDropdown"
               >
+                <NavDropdown.Item href="/adm-undergraduates">Admission</NavDropdown.Item>
                 <NavDropdown.Item href="/courseungraduate">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/undergraduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="">Office Hours</NavDropdown.Item>
