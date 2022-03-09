@@ -16,7 +16,6 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
-
 # Get and Post HTTP Methods using API For Students 
 @method_decorator(csrf_exempt, name='dispatch') 
 class StudentList(APIView):
@@ -160,7 +159,7 @@ class FacultyEmpList(APIView):
         email_uni = re.search("@eng.cu.edu.eg" , request.data['email'])
         if email_uni or email_uni1 :
             request.data["is_active"] = True
-            serializer = StudentSerializer(data=request.data)
+            serializer = FacultyEmpSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)

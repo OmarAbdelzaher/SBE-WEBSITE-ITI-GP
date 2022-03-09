@@ -31,23 +31,6 @@ export default function OfficeHoursSchedule() {
     }
    ;
 
-
-    // function onChange(e){
-
-    //     if (e.target.value == "halls"){
-    //         setReservations(hallReservations)
-    //     }
-    //     else if (e.target.value == "labs"){
-    //         setReservations(labReservations)
-    //     }
-    //     else if (e.target.value == "devices"){
-    //         setReservations(deviceReservations)
-    //     }
-    //     else if (e.target.value == "Reservation Types"){
-    //         alert("Choose a proper Reservation Type")
-    //     }
-    // }
-
     return (
     <>  
     <br/>

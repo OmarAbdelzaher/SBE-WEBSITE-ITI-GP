@@ -71,7 +71,7 @@ export default function ReservationSchedule() {
                 <th scope="col">Reserved By</th>
                 {/* <th scope="col">Confirmed By</th> */}
                 <th scope="col">Date</th>
-                <th scope="col">Slot</th>
+                <th scope="col">Time Slot</th>
                 <th scope="col">Confirmed</th>
                 </tr>
             </thead>

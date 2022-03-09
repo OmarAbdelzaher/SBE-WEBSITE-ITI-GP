@@ -44,6 +44,8 @@ import OfficeHoursView from "./components/OfficeHoursView";
 import OfficeHoursSchedule from "./components/OfficeHoursView";
 import OfficeHoursDetails from "./components/OfficeHoursDetails";
 import EditOfficeHours from "./components/EditOfficeHours";
+import EditReservation from "./components/EditReservation";
+
 function App() {
 
 
@@ -95,6 +97,7 @@ function App() {
             <Route path={"/officehourschedule"} exact component={OfficeHoursSchedule} />
             <Route path={"/officehoursDetails"} exact component={OfficeHoursDetails} />
             <Route path={"/officehoursEdit/:id"} exact component={EditOfficeHours} />
+            <Route path={"/reservationEdit/:id/:date/:time/:type/:name"} exact component={EditReservation} />
 
 
 

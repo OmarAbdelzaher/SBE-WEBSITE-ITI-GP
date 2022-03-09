@@ -112,8 +112,6 @@ const Header = ({ logout, isAuthenticated }) => {
               </Link>
             </Nav.Link>
             {isAuthenticated ? authLinks() : guestLinks()}
-            {isAuthenticated ? signedInLink() : null}
-
             
             {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
             <Nav.Link className="button">
@@ -131,11 +129,10 @@ const Header = ({ logout, isAuthenticated }) => {
                 }  
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="/profilepage">Profile</NavDropdown.Item>
-                <NavDropdown.Item href="/reservation">Reservation</NavDropdown.Item>
-                <NavDropdown.Item href="/officehoursDetails/">Office Hours</NavDropdown.Item>
-                <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
-                <NavDropdown.Divider />
+                <NavDropdown.Item><Link to="/profilepage">Profile</Link></NavDropdown.Item>
+                <NavDropdown.Item><Link to="/reservation">Reservation</Link></NavDropdown.Item>
+                <NavDropdown.Item><Link to="/officehoursDetails">Office Hours</Link></NavDropdown.Item>
+                <NavDropdown.Item><Link to="/reservationsShedule">Reservations Schedule</Link></NavDropdown.Item>
               </NavDropdown>
             </div> : null }
 
