@@ -16,7 +16,7 @@ class UserCreateSerializer(UserCreateSerializer):
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['id','fname','lname','email','gender','profile_img','birthdate','address','phone_number','password','role']
+        fields = ['id','fname','lname','email','gender','profile_img','birthdate','address','phone_number','password','role','is_active']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(PersonSerializer, self).create(validated_data)
@@ -32,7 +32,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','role',"is_active"]
+        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','role','is_active']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StaffSerializer, self).create(validated_data)
@@ -40,7 +40,7 @@ class StaffSerializer(serializers.ModelSerializer):
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
         model = FacultyEmp
-        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','title','role',"is_active"]
+        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','title','role','is_active']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -120,8 +120,8 @@ class ReserveHallSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        ret['timeslot'] = str(instance.timeslot)
-        ret['staff_id'] = str(instance.staff_id)
+        ret['timeslot'] = (ret['timeslot'],str(instance.timeslot))
+        ret['staff_id'] = (ret["staff_id"],str(instance.staff_id))
         return ret
     
 class ReserveLabSerializer(serializers.ModelSerializer):
@@ -131,8 +131,8 @@ class ReserveLabSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        ret['timeslot'] = str(instance.timeslot)
-        ret['staff_id'] = str(instance.staff_id)
+        ret['timeslot'] = (ret['timeslot'],str(instance.timeslot))
+        ret['staff_id'] = (ret["staff_id"],str(instance.staff_id))
         return ret
     
 class ReserveDeviceSerializer(serializers.ModelSerializer):
@@ -142,8 +142,8 @@ class ReserveDeviceSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        ret['timeslot'] = str(instance.timeslot)
-        ret['staff_id'] = str(instance.staff_id)
+        ret['timeslot'] = (ret['timeslot'],str(instance.timeslot))
+        ret['staff_id'] = (ret["staff_id"],str(instance.staff_id))
         return ret
     
 class NewsSerializer(serializers.ModelSerializer):

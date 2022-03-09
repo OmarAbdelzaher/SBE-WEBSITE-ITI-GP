@@ -193,24 +193,12 @@ class FacultyEmp(Person,models.Model):
     def __str__(self):
         return self.fname + ' ' + self.lname
 
-# class StaffOfficeHours(models.Model):
-#     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
-#     office_hours = models.ForeignKey(OfficeHours, on_delete=models.CASCADE)
-
-#     class Meta:
-#         unique_together = ("staff_id","office_hours")
-
-
-
-
-
 class Course(models.Model):
     name = models.CharField(max_length=20)
     total_grade = models.IntegerField()
 
 
     stds_grades = models.FileField(upload_to='student_grades/',)
-    # filepath= models.FileField(upload_to='files/', null=True, verbose_name="")
 
     instructions = models.TextField(max_length=500)
     materials = models.CharField(max_length=500)
@@ -227,12 +215,6 @@ class Course(models.Model):
     
     def __str__(self):
         return self.name
-
-
-# class CourseFile(models.Model):
-#     course_id = models.ForeignKey(Course,on_delete=models.CASCADE)
-#     stds_grade = models.FileField(upload_to='student_grades/')
-
 
 class CourseHistory(models.Model):
     year = models.IntegerField()
@@ -272,7 +254,6 @@ class New(models.Model):
     def __str__(self):
         return self.title
     
-
 class ReserveHall(models.Model):
     staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
     hall_id = models.ForeignKey(Hall, on_delete=models.CASCADE)

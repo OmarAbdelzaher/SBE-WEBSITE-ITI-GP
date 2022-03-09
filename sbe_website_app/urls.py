@@ -55,7 +55,6 @@ urlpatterns = [
     path('coursehistory/',CourseHistoryView.as_view()),
     path('coursehistory/<int:pk>',CourseHistoryDetailsView.as_view()),
     path('download/<int:pk>',DownloadPDF, name='download_pdf'),
-    
 
 
 ]

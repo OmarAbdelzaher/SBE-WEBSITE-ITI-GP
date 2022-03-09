@@ -3,12 +3,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const ReservationForm = (isAuthenticated) => {
+export default function EditReservation(isAuthenticated) {
+  const params = useParams();
+  const history = useHistory();
   const staff = useSelector((state) => state.auth);
+  const slot = params.time.split(',')
+  
 
   let staff_id = null;
   let unique_error = "";
+
+  let ReserveHallUrl = `http://localhost:8000/api/reservedhall/${params.id}`;
+  let ReserveLabUrl = `http://localhost:8000/api/reservedlab/${params.id}`;
+  let ReserveDeviceUrl = `http://localhost:8000/api/reserveddevice/${params.id}`;
+  let ReserveUrl = "";
 
   if (isAuthenticated && staff.user != null) {
     staff_id = staff.user.id;
@@ -21,12 +31,14 @@ const ReservationForm = (isAuthenticated) => {
   const [uniqueErr, setUniqueErr] = useState();
   const [successState, setSuccesState] = useState();
 
-  const history = useHistory();
+  const [formErrors, setFormErrors] = useState({});
 
-  let ReserveHallUrl = "http://localhost:8000/api/reservedhalls/";
-  let ReserveLabUrl = "http://localhost:8000/api/reservedlabs/";
-  let ReserveDeviceUrl = "http://localhost:8000/api/reserveddevices/";
-  let ReserveUrl = "";
+  const [formData, setFormData] = useState({
+    ReserveDate: params.date,
+    ReserveTime: slot[1],
+    ReserveType: params.type,
+    toBeReserved: params.name,
+  });
 
   useEffect(() => {
     axios
@@ -52,21 +64,11 @@ const ReservationForm = (isAuthenticated) => {
       .then((res) => setDevices(res.data));
   }, []);
 
-  const [formData, setFormData] = useState({
-    ReserveDate: "",
-    ReserveTime: "",
-    ReserveType: "hall",
-    toBeReserved: "",
-  });
-
-  const [formErrors, setFormErrors] = useState({});
-
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const validate = (values) => {
     const errors = {};
-
     var now = new Date();
     var reserveDate = new Date(values.ReserveDate);
 
@@ -92,8 +94,10 @@ const ReservationForm = (isAuthenticated) => {
     ) {
       errors.toBeReserved = "Enter a valid Device";
     }
+
     return errors;
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     let errors_form = validate(formData);
@@ -122,7 +126,7 @@ const ReservationForm = (isAuthenticated) => {
         .then((res) => {
           console.log(res);
           setSuccesState(res.status);
-          history.push("/");
+          history.push("/reservation-approv");
         })
         .catch((e) => {
           unique_error = e.response.data.non_field_errors[0];
@@ -342,5 +346,4 @@ const ReservationForm = (isAuthenticated) => {
       </section>
     </>
   );
-};
-export default ReservationForm;
+}

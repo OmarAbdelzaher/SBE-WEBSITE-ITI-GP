@@ -13,99 +13,54 @@ function CourseDetails() {
 
   const params = useParams();
   const [course, setCourse] = useState({});
+  const [filesList, setFilesList] = useState([])
+
   useEffect(() => {
     axios.get(`http://localhost:8000/api/course/${params.id}`).then((res) => {
       setCourse(res.data);
     });
   }, []);
 
-  // useEffect(() => {
-  //   fetch(`http://localhost:8000/api/course/${params.id}`,
-  //       {
-  //           method: "GET",
-  //           headers: { "Content-Type": "application/json",
-
-  //           'Authorization': 'Bearer ' + window.localStorage["Access_Token"]},
-  //       }).then(response => console.log(response.blob())).then(response =>console.log(response.data.stds_grades) )
-
-  //   }, []);
-
-  // const download=()=>{
-  //     axios({
-  //       url: (`http://localhost:8000/api/course/${params.id}/${course.stds_grades}`), //your url
-  //       method: 'GET',
-  //       headers: {
-  //         'Access-Control-Allow-Origin' :  '*' ,
-  //         'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-  //         'Access-Control-Allow-Credentials': 'true',
-  //         'Content-Type': 'application/octet-stream',
-  //         'Content-Disposition': 'attachment',
-  //         // 'filename':"picture.png",
-
-  //         },
-  //       responseType: 'blob', // important
-
-  //   }).then((response) => {
-  //       const url = window.URL.createObjectURL(new Blob([response.data]));
-  //       const link = document.createElement('a');
-  //       link.href = url;
-  //       link.setAttribute('download', 'file.jpg'); //or any other extension
-  //       document.body.appendChild(link);
-  //       link.click();
-  //   });
-  // }
-
-  // const downloadFile = () => {
-  //   window.location.href = "../../../media/student_grades/Dj_Proj_Specs_-_ITP_-_Python_-_Minya.pdf"
-  // }
-  //  apiUrl='https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg'
-
   const handleChangeFile = (e) => {
-        // for (let i = 0; i < file.length; i++) { 
-      //   formData.append(`stds_grades[${i}]`,file
-                        
-      //   );
-      // }
+    const list = [];
 
-  
-    // const file = e.target.files[0];
-
-    const list=[]
     const files = e.target.files;
+    // console.log(e.target.files);
 
-      for (let i = 0; i < files.length; i++) {
-      list.push(files[i])
-      console.log(list.name)
-      console.log(list)
-
+    for (let i = 0; i < files.length; i++) {
+      list.push(files[i]);
     }
+    // console.log(list);
     //  function onSelectedFiles(e){
-
-      // for (let i = 0; i < list.length; i++){
-        // if(list.find((selected)=> selected.name!==i.name)){
-          // list.push(list[i])
-          // console.log(files)
-        // }
-        // else{
-        //   console.log(files)
-        // }
-
-      // }
+    setFilesList(list)
+    // for (let i = 0; i < list.length; i++){
+    // if(list.find((selected)=> selected.name!==i.name)){
+    // list.push(list[i])
+    // console.log(files)
+    // }
+    // else{
+    //   console.log(files)
     // }
 
-    console.log(list)
+    // }
+    // }
 
-    console.log('updated list ' ,list)
-    let formData = new FormData();
-    console.log(e.target.files)
+    
 
+    // console.log(course.name);
+    // handleSubmit(formData)
+  };
   
-    formData.append("stds_grades", files);
-    formData.append("name", course.name);
-    files.forEach((element)=>{
-      formData.append("total_grade",element);
+  const handleSubmit = () => {
 
-    })
+    let formData = new FormData();
+
+    console.log(filesList);
+
+    filesList.forEach((element) => {
+      formData.append("stds_grades", element);
+    });
+    formData.append("name", course.name);
     formData.append("total_grade", course.total_grade);
     formData.append("instructions", course.instructions);
     formData.append("materials", course.materials);
@@ -114,11 +69,12 @@ function CourseDetails() {
     formData.append("year", course.year);
     formData.append("semester", course.semester);
 
-    console.log(formData);
-    //Make a request to server and send formData
-    axios.put(`http://localhost:8000/api/course/${params.id}`, formData);
-  };
-
+    axios.put(`http://localhost:8000/api/course/${params.id}`, formData).then((res)=>{
+      console.log(res)
+    }).catch((error)=>{
+      console.log(error)
+    })
+  }
   // const saveFile = () => {
   //   saveAs(
   //     `http://localhost:8000/api/course/${params.id}`,
@@ -193,10 +149,6 @@ function CourseDetails() {
                         </Text>
                       </TouchableOpacity>
 
-                      {/* <Text style={{color: 'blue'}}
-      onPress={() => Linking.openURL('http://google.com')}>
-  Google
-</Text> */}
                       <button className="btn btn-lg col-12 button">
                         <a
                           className="button nav-links text-light"
@@ -212,26 +164,19 @@ function CourseDetails() {
                         Download Students Grades
                       </p>
 
-                      {/* <p className="card-text col-12 text-dark">{course.stds_grades}</p> */}
-
                       <div>
+                        <form onSubmit={(event) => handleSubmit(event)}>
                         <input
                           type="file"
                           multiple
                           onChange={(event) => handleChangeFile(event)}
-
                         />
-                        {/* <button className="btn " type="submit" onClick={onSelectedFiles} >
-                                  Submit
-                        </button> */}
+                        <button type="submit" className="btn btn-success"></button>
+                        </form>
+
                         <p></p>
                       </div>
                       <div>
-                        {/* <div>
-       <button
-          onClick={() => handlePDFDownload()}>Download File!
-       </button>
-    </div> */}
                         <button
                           className="btn btn-lg col-12 button"
                           onClick={() => handlePDFDownload()}
@@ -240,49 +185,10 @@ function CourseDetails() {
                             Download Grades
                           </a>
                         </button>
-                        {/* <button onClick={saveFile}>download</button> */}
                       </div>
-                      {/* <a href={require("../path/to/file.pdf")} download="myFile">Download file</a> */}
-
-                      {/* <a
-        href={course.stds_grades}
-        download
-      >Click Here tp downloaddddddd</a> */}
-                      {/* <button className="btn btn-lg col-12 button" onClick={getFileToDownload}  >click */}
-                      {/* <a className="button nav-links text-light" href={course.stds_grades} download>Download</a> */}
-                      {/* </button> */}
                     </div>
-                    {/* <div className="row card cards col-10 text-center border border-2 ">
-                    <h3 className="card-body col-12 nav-links">Schedule</h3>
-                    <p className="card-text col-12 text-dark">Download Course Schedule</p>
-                    <button className="btn btn-lg col-12 button">
-                      <a className="button nav-links text-light" href={course.schedule} download>Download</a>
-                    </button>
-                  </div> */}
                   </div>
                 </div>
-
-                {/* <div className="row justify-content-center align-items-center ">
-                  <h2 className="bg-light py-3 nav-links">Course Materials</h2>
-                  <p className="col-4">{course.materials}</p>
-                  <button className="btn btn-lg col-6 button">
-                      <a className="button nav-links text-light" href={course.materials} download>Download</a>
-                    </button>
-                </div>
-                <div className="row justify-content-center align-items-center ">
-                  <h2 className="bg-light py-3 nav-links">Students Grades</h2>
-                  <p className="col-4">Download Students Grades</p>
-                  <button className="btn btn-lg col-6 button">
-                      <a className="button nav-links text-light" href={course.stds_grades} download>Download</a>
-                    </button>
-                </div>
-                <div className="row justify-content-center align-items-center ">
-                  <h2 className="bg-light py-3 nav-links">Students Grades</h2>
-                  <p className="col-4">Download Course Schedule</p>
-                  <button className="btn btn-lg col-6 button">
-                      <a className="button nav-links text-light" href={course.schedule} download>Download</a>
-                    </button>
-                </div> */}
               </div>
             </div>
           </div>

@@ -47,6 +47,8 @@ import OfficeHoursView from "./components/OfficeHoursView";
 import OfficeHoursSchedule from "./components/OfficeHoursView";
 import OfficeHoursDetails from "./components/OfficeHoursDetails";
 import EditOfficeHours from "./components/EditOfficeHours";
+import EditReservation from "./components/EditReservation";
+
 function App() {
 
 
@@ -72,7 +74,7 @@ function App() {
             <Route path={"/reset-password"} exact component={ResetPassword} />
             <Route path={"/allnews"} exact component={AllNews} />
             <Route path={"/allevents"} exact component={AllEvents} />
-            <Route path={"/graduatepage"} exact component={GraduatePage} />
+            {/* <Route path={"/graduatepage"} exact component={GraduatePage} /> */}
             <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
             <Route path={"/coursegraduate"} exact component={CourseGraduate} />
             <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} />
@@ -102,6 +104,7 @@ function App() {
             <Route path={"/officehourschedule"} exact component={OfficeHoursSchedule} />
             <Route path={"/officehoursDetails"} exact component={OfficeHoursDetails} />
             <Route path={"/officehoursEdit/:id"} exact component={EditOfficeHours} />
+            <Route path={"/reservationEdit/:id/:date/:time/:type/:name"} exact component={EditReservation} />
 
 
 

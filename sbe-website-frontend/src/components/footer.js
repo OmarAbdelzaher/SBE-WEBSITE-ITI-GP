@@ -11,6 +11,7 @@ import {
   faEnvelope,
   faHome,
   faInbox,
+  faMapLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -30,7 +31,7 @@ function Footer() {
 
         <Link
           className="icon fs-3"
-          to={{ pathname: "https://www.facebook.com/" }}
+          to={{ pathname: "https://twitter.com/" }}
           target="_blank"
         >
           <FontAwesomeIcon icon={faTwitter} />
@@ -38,7 +39,7 @@ function Footer() {
 
         <Link
           className="icon fs-3"
-          to={{ pathname: "https://www.facebook.com/" }}
+          to={{ pathname: "https://www.linkedin.com/" }}
           target="_blank"
         >
           <FontAwesomeIcon icon={faLinkedin} />
