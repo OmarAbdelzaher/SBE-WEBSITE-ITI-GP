@@ -14,45 +14,6 @@ from .Views.OffHoursandTimeSlots.hoursandslotsviews import *
 
 
 urlpatterns = [
-<<<<<<< HEAD
-    path('students/',StudentList.as_view()),
-    path('staff/',StaffList.as_view()),
-    path('facultyemps/',FacultyEmpList.as_view()),
-    path('courses/',CourseList.as_view()),
-    path('halls/',HallList.as_view()),
-    path('devices/',DeviceList.as_view()),
-    path('labs/',LabList.as_view()),
-    path('reservedhalls/',ReserveHallList.as_view()),
-    path('reserveddevices/',ReserveDeviceList.as_view()),
-    path('reservedlabs/',ReserveLabList.as_view()),
-    path('student/<int:pk>',StudentDetails.as_view()),
-    path('onestaff/<int:pk>',StaffDetails.as_view()),
-    path('facultyemp/<int:pk>',FacultyEmpDetails.as_view()),
-    path('course/<int:pk>',CourseDetails.as_view()),
-    path('hall/<int:pk>',HallDetails.as_view()),
-    path('device/<int:pk>',DeviceList.as_view()),
-    path('lab/<int:pk>',LabDetails.as_view()),
-    path('reservedhall/<int:pk>',ReserveHallDetails.as_view()),
-    path('reserveddevice/<int:pk>',ReserveDeviceDetails.as_view()),
-    path('reservedlab/<int:pk>',ReserveLabDetails.as_view()),
-    path('news/',News.as_view()),
-    path('news/<int:pk>',NewDetails.as_view()),
-    path('events/',Events.as_view()),
-    path('event/<int:pk>',EventsDetails.as_view()),
-    path('timeslots/',TimeSlotsView.as_view()),
-    path('newsgraduate/',NewsGraduateView.as_view()),
-    path('newsundergraduate/',NewsUnderGraduateView.as_view()),
-    path('coursegraduate/',CourseGraduateView.as_view()),
-    path('courseungraduate/',CourseUngraduateView.as_view()),
-    path('courseungraduateyearone/',CourseUngraduateYearOne.as_view()),
-
-    path('courseungraduateyeartwo/',CourseUngraduateYearTwo.as_view()),
-    path('courseungraduateyearthree/',CourseUngraduateYearThree.as_view()),
-    path('courseungraduateyearfour/',CourseUngraduateYearFour.as_view()),
-
-    path('coursehistory/',CourseHistoryView.as_view()),
-    path('coursehistory/<int:pk>',CourseHistoryDetailsView.as_view()),
-=======
     path('students/', StudentList.as_view()),
     path('staff/', StaffList.as_view()),
     path('facultyemps/', FacultyEmpList.as_view()),
@@ -87,17 +48,12 @@ urlpatterns = [
     path('courseungraduateyeartwo/', CourseUngraduateYearTwo.as_view()),
     path('courseungraduateyearthree/', CourseUngraduateYearThree.as_view()),
     path('courseungraduateyearfour/', CourseUngraduateYearFour.as_view()),
->>>>>>> 3ed126fcdca2dbda143312c8ab90d755b7ab7cfd
     
     path('officehours/',OfficeHoursList.as_view()),
     path('officehourdetails/<int:pk>',OfficeHoursDetails.as_view()),
 
-<<<<<<< HEAD
-
-=======
     path('coursehistory/',CourseHistoryView.as_view()),
     path('coursehistory/<int:pk>',CourseHistoryDetailsView.as_view()),
->>>>>>> 3ed126fcdca2dbda143312c8ab90d755b7ab7cfd
     path('download/<int:pk>',DownloadPDF, name='download_pdf'),
 
 
