@@ -52,20 +52,7 @@ export default function GraduatePage(){
          <br className="mt-5"></br>
          <br className="mt-5"></br>
 
-<ul className="nav nav-tabs" style={start}>
-        <li className="nav-item ">
-          <a className="nav-link active" aria-current="page" href="/graduatepage">News</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link nav-links" href="/coursegraduate">Courses</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link nav-links" href="#">Office Hours </a>
-        </li>
-        {/* <li className="nav-item">
-          <a className="nav-link disabled" href="#" tabIndex={-1} aria-disabled="true">Disabled</a>
-        </li> */}
-      </ul>
+
 
 
 {/* <div style={start} > */}
