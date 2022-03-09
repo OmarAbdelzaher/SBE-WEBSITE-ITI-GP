@@ -1,18 +1,28 @@
+from asyncio import constants
+from urllib import response
 from django.shortcuts import render
 from rest_framework.views import APIView
-from  ..serializers import *
+from ..serializers import *
 from rest_framework.response import Response
 from ..models import *
 from rest_framework import status
 from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from braces.views import CsrfExemptMixin
+from django.http import HttpResponse
 from django.core.exceptions import ValidationError
 import re
-
 # import email confirmation stuff
 from django.core.mail import send_mail
 from django.conf import settings
+# import file staff
+from django.core.files import File
+from django.http import HttpResponse
+from rest_framework.decorators import api_view
+# from sbe_website_app.settings import BASE_DIR, MEDIA_ROOT
+from sbe_dj_react_proj.settings import BASE_DIR, MEDIA_ROOT
+from rest_framework import viewsets
 
 
 
@@ -184,3 +194,17 @@ class CourseHistoryDetailsView(APIView):
         course = self.get_object(pk)
         course.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+@api_view(['GET'])
+def DownloadPDF(self,pk):
+
+    course=Course.objects.get(pk=pk)
+    print(course)
+    path_to_file = MEDIA_ROOT + f'/{course.stds_grades}'
+    f = open(path_to_file, 'rb')
+    pdfFile = File(f)
+    response = HttpResponse(pdfFile.read())
+    response['Content-Disposition'] = 'attachment'
+    return response

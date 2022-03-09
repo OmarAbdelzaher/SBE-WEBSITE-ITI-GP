@@ -4,7 +4,7 @@ import {
   faFacebookF,
   faGoogle,
 } from "@fortawesome/free-brands-svg-icons";
-import { faTwitter, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faTwitter, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 import {
     faBuildingColumns,
   faCopyright,
@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <>
-    <div className="row footer">
+    <div className="row footer" id="profilepage" >
       <section className="f-one text-center col-12">
         <Link
           className="icon fs-3"
@@ -47,6 +47,20 @@ function Footer() {
         <Link
           className="icon fs-3"
           to={{ pathname: "https://www.facebook.com/" }}
+          target="_blank"
+        >
+          <FontAwesomeIcon icon={faGoogle} />
+        </Link>
+        <Link
+          className="icon fs-3"
+          to={{ pathname: "https://www.google.com/maps/dir//Faculty+of+Engineering+-+Cairo+University+Cairo+University+Rd+Oula+Giza+District,+Giza+Governorate/@30.0263303,31.21167,16z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1458472fa8265ddb:0x282c4b44cdf7e83c!2m2!1d31.21167!2d30.0263303/" }}
+          target="_blank"
+        >
+          <FontAwesomeIcon icon={faGoogle} />
+        </Link>
+        <Link
+          className="icon fs-3"
+          to={{ pathname: "http://cufe.edu.eg/wp-content/uploads/2014/12/map.jpg" }}
           target="_blank"
         >
           <FontAwesomeIcon icon={faGoogle} />
