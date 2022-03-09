@@ -161,6 +161,8 @@ function RegistrationApprove() {
                 </table>
               </div>
             </div>
+            <div className="margin-b"></div>
+
           </div>
         </div>
       </section>

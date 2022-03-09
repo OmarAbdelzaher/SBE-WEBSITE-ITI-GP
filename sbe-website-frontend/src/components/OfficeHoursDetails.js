@@ -1,88 +1,116 @@
-import React from 'react';
-import { useState, useEffect,useCallback } from "react";
+import React from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendarXmark,
+  faGears,
+  faTrash,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function OfficeHoursDetails(params) {
+  const staff = useSelector((state) => state.auth);
+  const [officehours, setOfficeHours] = useState();
+  const history = useHistory();
 
-    const staff = useSelector(( state ) => state.auth)
-    const [officehours,setOfficeHours] = useState()
-    const history = useHistory()
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/officehours/").then((res) => {
+      setOfficeHours(res.data);
+    });
+  }, []);
 
-    useEffect(() => {
-        axios
-          .get("http://localhost:8000/api/officehours/")
-          .then((res) =>{
-              setOfficeHours(res.data)
-            }); 
-      }, []);
-
-      useEffect(() => {
-    
-            if (staff.user != null && officehours != undefined ) 
-            {
-              setOfficeHours(officehours.filter((oh) => oh.staff_id == staff.user.id))
-            }
-      }, []);
-
-    const deleteOfficeHour = (id) => {
-        axios.delete(`http://localhost:8000/api/officehourdetails/${id}`).then((res)=>{
-            const officehours_update = officehours.filter( item => item.id !== id  )
-            setOfficeHours(officehours_update)
-        }).catch((e)=>{
-            console.log(e)
-        })
+  useEffect(() => {
+    if (staff.user != null && officehours != undefined) {
+      setOfficeHours(officehours.filter((oh) => oh.staff_id == staff.user.id));
     }
+  }, []);
+
+  const deleteOfficeHour = (id) => {
+    axios
+      .delete(`http://localhost:8000/api/officehourdetails/${id}`)
+      .then((res) => {
+        const officehours_update = officehours.filter((item) => item.id !== id);
+        setOfficeHours(officehours_update);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
-   <>
-   <br/>
-   <br/>
+    <>
+      <section className="h-custom ">
+        <div className="container">
+          <div className="row d-flex justify-content-center align-items-center h-100 ">
+            <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
+              <div className="card-body ">
+                <p className="fs-3"> - OfficeHours Schedule</p>
+                <Link to={"/officehours"}>
+                  <button className="btn btn-lg button">Add Office Hours </button>
+                </Link>
+              </div>
 
-   <br/>
-   <br/>
-   <br/>
-
-   <button className='btn btn-success'>
-   <Link to={"/officehours"}>Add Office Hours 
-</Link>
-   </button>
-        <table class="table table-hover table-dark">
-        <thead>
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">OfficeHour Type</th>
-            <th scope="col">Week Day</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
-            <th scope="col">Actions</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            {
-                officehours != undefined ?
-                officehours.map((item,index)=>{
-                    return (
-                        <tr key={index}>
-                            <th scope="row">{index+1}</th>   
-                            <td>{item.officehours_type}</td>
-                            <td>{item.weekday}</td>
-                            <td>{item.from_hour}</td>
-                            <td>{item.to_hour}</td>
-                            <td>
-                                <button className="btn btn-success" ><Link to={`/officehoursEdit/${item.id}`}>Edit</Link> </button>
-                                <button className="btn btn-danger" onClick={()=> deleteOfficeHour(item.id)} >Delete</button>
+              <table class="table table-hover bg-light fs-4 col-12">
+                <thead>
+                  <tr className="text-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">OfficeHour Type</th>
+                    <th scope="col">Week Day</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="mb-3">
+                  {officehours != undefined
+                    ? officehours.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <th scope="row">{index + 1}</th>
+                            <td className="admin-tables">
+                              {item.officehours_type}
                             </td>
-                        </tr>
-                    )
-                })
-                : null
-            }
-        </tbody>
-        </table>
-   </>
-    
-    )
+                            <td className="admin-tables">{item.weekday}</td>
+                            <td className="admin-tables">{item.from_hour}</td>
+                            <td className="admin-tables">{item.to_hour}</td>
+                            <td className="admin-tables">
+                              <Link to={`/officehoursEdit/${item.id}`}>
+                                <button className="btn button">
+                                  <FontAwesomeIcon
+                                    className="fs-5"
+                                    icon={faGears}
+                                  />{" "}
+                                  Edit
+                                </button>
+                              </Link>
+                              <button
+                                className="btn"
+                                style={{
+                                  background: "#ae2012",
+                                  color: "white",
+                                }}
+                                onClick={() => deleteOfficeHour(item.id)}
+                              >
+                                <FontAwesomeIcon
+                                  className="fs-5"
+                                  icon={faTrashCan}
+                                />{" "}
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : null}
+                </tbody>
+              </table>
+            </div>
+            <div className="margin-b"></div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }

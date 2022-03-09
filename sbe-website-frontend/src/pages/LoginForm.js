@@ -100,6 +100,8 @@ function LoginForm({login , isAuthenticated}) {
                 </div>
               </div>
             </div>
+            <div className="margin-b"></div>
+
           </div>
         </div>
       </section>

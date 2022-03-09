@@ -119,7 +119,7 @@ function ReservationApprov() {
               </select>
 
               <div>
-                <table className="table table-bordered border-primary bg-light fs-4 col-12">
+                <table className="table table-hover bg-light fs-4 col-12">
                   <thead>
                     <tr className="text-dark">
                       <th>#</th>
@@ -193,6 +193,7 @@ function ReservationApprov() {
                 </table>
               </div>
             </div>
+            <div className="margin-b"></div>
           </div>
         </div>
       </section>

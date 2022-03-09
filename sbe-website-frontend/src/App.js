@@ -39,6 +39,9 @@ import Adm_Graduates from "./pages/Adm_Graduates";
 import Users from "./pages/Users";
 import Layout from './hocs/Layout'; 
 import ReservationSchedule from "./components/ReservationSchedule";
+import UnderGraduateExams from "./components/UnderGraduateExams";
+import GraduateExams from "./components/GraduateExams";
+
 import OfficeHours from "./components/OfficeHours";
 import OfficeHoursView from "./components/OfficeHoursView";
 import OfficeHoursSchedule from "./components/OfficeHoursView";
@@ -71,7 +74,7 @@ function App() {
             <Route path={"/reset-password"} exact component={ResetPassword} />
             <Route path={"/allnews"} exact component={AllNews} />
             <Route path={"/allevents"} exact component={AllEvents} />
-            <Route path={"/graduatepage"} exact component={GraduatePage} />
+            {/* <Route path={"/graduatepage"} exact component={GraduatePage} /> */}
             <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
             <Route path={"/coursegraduate"} exact component={CourseGraduate} />
             <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} />
@@ -88,6 +91,10 @@ function App() {
             <Route path={"/reservation-approv"} exact component={ReservationApprov} />
             <Route path={"/registration-approv"} exact component={RegistrationApprove} />
             <Route path={"/users"} exact component={Users} />
+            <Route path={"/undergraduate-exams"} exact component={UnderGraduateExams} /> 
+            <Route path={"/graduate-exams"} exact component={GraduateExams} /> 
+
+
             <Route path={"/adm-undergraduates"} exact component={Adm_UnderGraduates} />
             <Route path={"/adm-graduates"} exact component={Adm_Graduates} />
 
