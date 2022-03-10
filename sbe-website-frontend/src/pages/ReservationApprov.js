@@ -12,7 +12,7 @@ import {
 function ReservationApprov() {
   return (
     <>
-      <section className="h-custom ">
+      <section className="h-custom main">
         <div className="container ">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
@@ -20,8 +20,8 @@ function ReservationApprov() {
                 <AdminNav />
               </div>
               <div className="card-body ">
-                <p className="fs-1"> SBE DEPARTMENT</p>
-                <p className="fs-3"> - Reservation Menu</p>
+                <p className="fs-1 text-light"> SBE DEPARTMENT</p>
+                <p className="fs-3 text-light"> - Reservation Menu</p>
 
               </div>
 
@@ -85,7 +85,7 @@ function ReservationApprov() {
                 </table>
               </div>
             </div>
-            <div className="margin-b"></div>
+            {/* <div className="margin-b"></div> */}
           </div>
         </div>
       </section>

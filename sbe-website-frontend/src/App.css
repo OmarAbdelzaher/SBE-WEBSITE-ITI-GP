@@ -8,6 +8,8 @@
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
+  /* filter: blur(2px);
+    -webkit-filter: blur(2px); */
 
 }
 
@@ -40,11 +42,11 @@
   margin-top: 34% !important;
 }
 .c-form{
-  margin-bottom: 30%;
+  margin-bottom: 9.8%;
   /* margin-top: 20% !important; */
 }
 .margin-b{
-  margin-bottom: 150vh;
+  margin-bottom: 10vh;
 }
 
 .courses-b {
@@ -85,7 +87,7 @@
 
 }
 .cards{
-  box-shadow: 0 4px 8px 0 rgba(187, 177, 177, 0.2) !important;
+  box-shadow: 0 4px 8px 0 rgba(63, 61, 61, 0.2) !important;
   transition: 0.3s !important;
   margin: 1% !important;
 }

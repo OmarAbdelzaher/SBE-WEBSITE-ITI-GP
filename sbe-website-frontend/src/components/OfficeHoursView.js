@@ -55,10 +55,10 @@ export default function OfficeHoursSchedule() {
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
                 <div className="card-body ">
-                    <p className="fs-3"> - Reservation Schedule</p>
+                    <p className="fs-3 text-light"> - OfficeHours Schedule</p>
                 
                     <div className="justify-content-center">
-                        <select className="select form-control-lg button" 
+                        <select className="select form-control-lg btn btn-lg" style={{backgroundColor:"#001233", color:"#ffff"}} 
                             onChange={(e) => onChange(e)}
                             name="staffmenu"
                             value="asdasd">

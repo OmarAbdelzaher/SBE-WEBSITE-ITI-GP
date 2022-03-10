@@ -20,8 +20,8 @@
   background: transparent;
 }
 .header-link {
-  text-decoration: none;
-  color: #ffff;
+  text-decoration: none !important;
+  color: #ffff !important;
 }
 .button {
   border-radius: 4px;
@@ -50,11 +50,11 @@
 }
 
 .button:hover{
-  color: #9b2226;
+  color: #9b2226 !important;
 }
 .button:hover .ani {
   padding-right: 25px;
-  color: #9b2226;
+  color: #9b2226 !important;
 }
 
 .button:hover .ani:after {
@@ -63,9 +63,10 @@
 }
 
 .bar {
-  position: fixed;
+  /* position: fixed; */
   margin-top:12vh;
   font-family: Arial, Helvetica, sans-serif;
+  z-index: 1;
   /* background: rgb(0, 0, 0); 
   background: rgba(0, 0, 0, 0.5); 
   color: #f1f1f1; */
@@ -73,11 +74,11 @@
 
 
 .nav-links {
-  text-decoration: none;
-  color: #001233;
+  text-decoration: none !important;
+  color: #001233 !important;
 }
 .nav-links:hover {
-  color: #9b2226;
+  color: #9b2226 !important;
 }
 
 .active {
@@ -96,6 +97,16 @@
 .logo {
   background-image: url(../assets/image/departmentLogo.png);
 }
+#headScrollingDropdown{
+  color:#ffff ;
+  font-family: Arial, Helvetica, sans-serif ;
+
+}
+.head-dropdown{
+  margin-top: 40%;
+  
+}
+
 
 #navbarScrollingDropdown {
   color: #001233;
@@ -106,6 +117,7 @@
 .active #navbarScrollingDropdown {
   color: #457b9d;
 }
+
 .active #navbarScrollingDropdown:hover {
   color: #9b2226;
 }
@@ -123,8 +135,8 @@
   background-repeat: no-repeat;
   background-position: center;
   background-image: url(../assets/image/Fac_eng.jpg);
-  filter: blur(2px);
-    -webkit-filter: blur(2px);
+  /* filter: blur(2px);
+    -webkit-filter: blur(2px); */
   /* background-color: #bcb8b1;
   background-blend-mode: multiply; */
   background-attachment: fixed;
@@ -209,22 +221,14 @@
   background-color: #001233;
 }
 
-.sidebar {
+/* .sidebar {
   width: 22%;
   z-index: 1;
  
  
-}
+} */
 
 
-.sbar-links{
-  text-decoration: none;
-  color: #001233;
-  font-weight:lighter;
-}
-.sbar-links:hover{
-  color: #9b2226;
-}
 .menu{
   width: auto;
 }
@@ -283,7 +287,46 @@
   font-size: 70px;
 }
 
+
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  padding-top: 100px;
+  padding-left: 1%;
+  font-size:xx-large;
+  box-shadow: 7px 8px 5px 0px rgba(247, 233, 233, 0.2) !important;
+
+}
+
+
+.sbar-links{
+  text-decoration: none;
+  color:black;
+  /* font-weight:lighter; */
+  font-weight: 300;
+  font-size: 22px !important;
+
+}
+.sbar-links:hover{
+  color: #9b2226;
+}
+
+
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+  background-color:black;
+}
+
 @media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
 }
