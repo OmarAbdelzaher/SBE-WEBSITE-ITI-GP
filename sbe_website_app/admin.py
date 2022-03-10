@@ -12,7 +12,7 @@ class PersonAdmin(admin.ModelAdmin):
 class StaffAdmin(admin.ModelAdmin):
     fieldsets = (
         ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number"]}],
-        ["Office Hours",{'fields':["office_hours"]}]
+        # ["Office Hours",{'fields':["office_hours"]}]
     )
     def save_model(self, request, obj, form, change):
         if len(obj.password) < 80:

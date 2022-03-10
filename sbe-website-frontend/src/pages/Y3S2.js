@@ -33,7 +33,7 @@ export default function YthreeStwo() {
                     </thead>
                   
                   {courses
-                  .filter(course => course.semester === 2)
+                  .filter(course => course.semester === 'two')
 
                   .map((course) => {
                     return (

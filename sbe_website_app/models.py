@@ -194,17 +194,31 @@ class FacultyEmp(Person,models.Model):
         return self.fname + ' ' + self.lname
 
 class Course(models.Model):
+    YEAR_CHOICES = (
+        ('grade1', 'Year 1'),
+        ('grade2', 'Year 2'),
+        ('grade3', 'Year 3'),
+        ('grade4', 'Year 4'),
+
+    )
     name = models.CharField(max_length=20)
     total_grade = models.IntegerField()
 
 
-    stds_grades = models.FileField(upload_to='student_grades/',null=True)
+    stds_grades = models.FileField(upload_to='student_grades/',blank=True)
     # filepath= models.FileField(upload_to='files/', null=True, verbose_name="")
 
     instructions = models.TextField(max_length=500)
-    materials = models.CharField(max_length=500)
-    year = models.IntegerField()
-    semester = models.IntegerField()
+    materials = models.CharField(max_length=500,blank=True)
+    year = models.CharField( max_length=20,choices=YEAR_CHOICES)
+    SEMESTER_CHOICES = (
+        ('one', 'One'),
+        ('two', 'Two'),
+      
+
+    )
+
+    semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES)
     
     staff_id = models.ManyToManyField(Staff)
     CATEGORY_CHOICES = (
