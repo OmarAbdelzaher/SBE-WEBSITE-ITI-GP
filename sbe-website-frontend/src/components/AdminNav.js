@@ -44,32 +44,47 @@ function AdminNav() {
                   Page
                 </Link>
               </Nav.Link>
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/halls">
+                  <FontAwesomeIcon className="fs-2" icon={faHome} /> Halls
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/labs">
+                  <FontAwesomeIcon className="fs-2" icon={faHome} /> Labs
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/devices">
+                  <FontAwesomeIcon className="fs-2" icon={faHome} /> Devices
+                </Link>
+              </Nav.Link>
 
               <Nav.Link>
-                <Link className="fs-3 sbar-links" to="/users">
-                  <FontAwesomeIcon className="fs-2" icon={faUsers} /> Users
+                <Link className="fs-3 sbar-links" to="/hallsreservations">
+                  <FontAwesomeIcon className="fs-2" icon={faUsers} /> Halls Reservations
                 </Link>
               </Nav.Link>
 
 
               <Nav.Link>
-                <Link className="fs-3 sbar-links" to="/moderator">
+                <Link className="fs-3 sbar-links" to="/labsreservations">
                   <FontAwesomeIcon
                     className="fs-2"
                     icon={faUser}
                   />{" "}
-                  UnderGraduate
+                  Labs Reservations
                 </Link>
               </Nav.Link>
 
 
               <Nav.Link >
-                <Link className="fs-3 sbar-links" to="/moderator">
+                <Link className="fs-3 sbar-links" to="/devicesreservations">
                   <FontAwesomeIcon
                     className="fs-2"
                     icon={faUserGraduate}
                   />{" "}
-                  Graduate
+                  Devices Reservations
                 </Link>
               </Nav.Link>
 

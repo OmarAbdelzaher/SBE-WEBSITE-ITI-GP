@@ -24,6 +24,7 @@ const initialState = {
     data: null,
     error:null,
     emailerror:null,
+    
     };
 
 export default function(state = initialState, action) {

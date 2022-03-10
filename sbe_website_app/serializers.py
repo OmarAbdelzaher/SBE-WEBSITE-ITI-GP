@@ -96,22 +96,17 @@ class CourseHistorySerializer(serializers.ModelSerializer):
 class HallSerializer(serializers.ModelSerializer):
     class Meta :
         model = Hall
-        fields = ['name']
+        fields = ['id','name']
 
 class LabSerializer(serializers.ModelSerializer):
     class Meta :
         model = Lab
-        fields = ['name']
+        fields = ['id','name']
 
 class DeviceSerializer(serializers.ModelSerializer):
     class Meta :
         model = Device
-        fields = ['name']
-
-class DeviceSerializer(serializers.ModelSerializer):
-    class Meta :
-        model = Device
-        fields = ['name']
+        fields = ['id','name']
 
 class ReserveHallSerializer(serializers.ModelSerializer):
     class Meta :

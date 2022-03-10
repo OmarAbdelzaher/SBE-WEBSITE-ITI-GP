@@ -232,7 +232,7 @@ class Schedule(models.Model):
     schedule = models.FileField(upload_to='Schedules/')
     
 class Hall(models.Model):
-    name = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=20,unique=True)
 
     def __str__(self):
         return self.name
@@ -275,7 +275,7 @@ class ReserveHall(models.Model):
         return f'{ str(self.hall_id) } reserved by {str(self.staff_id)}'
     
 class Lab(models.Model):
-    name = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=20,unique=True)
     
     def __str__(self):
         return self.name
@@ -294,7 +294,7 @@ class ReserveLab(models.Model):
         return str(self.lab_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
     
 class Device(models.Model):
-    name = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=20,unique=True)
     
     def __str__(self):
         return self.name
@@ -305,6 +305,8 @@ class ReserveDevice(models.Model):
     date = models.DateField(null=True)
     timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
     is_confirmed = models.BooleanField(default=False,null=True)
+
+
     
     class Meta:
         unique_together = ('device_id','date','timeslot')
