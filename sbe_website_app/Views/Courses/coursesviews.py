@@ -102,7 +102,7 @@ class CourseUngraduateView(APIView):
 
 class CourseUngraduateYearOne(APIView):
     def get(self,request):
-        course = Course.objects.filter(year=1)
+        course = Course.objects.filter(year='grade1')
 
         # news = New.objects.all()
         serializer = CourseSerializer(course,many=True)
@@ -116,7 +116,7 @@ class CourseUngraduateYearOne(APIView):
 
 class CourseUngraduateYearTwo(APIView):
     def get(self,request):
-        course = Course.objects.filter(year=2)
+        course = Course.objects.filter(year='grade2')
 
         # news = New.objects.all()
         serializer = CourseSerializer(course,many=True)
@@ -130,7 +130,7 @@ class CourseUngraduateYearTwo(APIView):
 
 class CourseUngraduateYearThree(APIView):
     def get(self,request):
-        course = Course.objects.filter(year=3)
+        course = Course.objects.filter(year='grade3')
 
         # news = New.objects.all()
         serializer = CourseSerializer(course,many=True)
@@ -144,7 +144,7 @@ class CourseUngraduateYearThree(APIView):
 
 class CourseUngraduateYearFour(APIView):
     def get(self,request):
-        course = Course.objects.filter(year=4)
+        course = Course.objects.filter(year='grade4')
 
         # news = New.objects.all()
         serializer = CourseSerializer(course,many=True)
