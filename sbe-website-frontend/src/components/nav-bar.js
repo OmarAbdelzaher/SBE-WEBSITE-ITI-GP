@@ -96,8 +96,7 @@ const NavBar = () => {
               >
                 About
             </Nav.Link>
-            <Nav.Link>
-              <Link 
+            <Nav.Link
                             className="nav-links text-dark"
             
                             onClick={() => scroller.scrollTo('contact', {
@@ -109,7 +108,6 @@ const NavBar = () => {
               
               >
                 Contact us
-              </Link>
             </Nav.Link>
             <div className="dropdown">
               <NavDropdown

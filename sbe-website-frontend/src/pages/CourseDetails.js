@@ -102,10 +102,10 @@ function CourseDetails() {
   
     formData.append("stds_grades", files);
     formData.append("name", course.name);
-    files.forEach((element)=>{
-      formData.append("total_grade",element);
+    // files.forEach((element)=>{
+    //   formData.append("total_grade",element);
 
-    })
+    // })
     formData.append("total_grade", course.total_grade);
     formData.append("instructions", course.instructions);
     formData.append("materials", course.materials);

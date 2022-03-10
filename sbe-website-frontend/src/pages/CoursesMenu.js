@@ -23,6 +23,16 @@ export default function CoursesMenu() {
             <div className="col-lg-8 col-xl-6">
               <div className=" rounded-3 form">
                 <div className=" p-4 p-md-5 courses-b border border-2 border-light">
+                <Link
+                                          className="button btn btn-lg col-12"
+                                          to="/courseform"
+                                        >
+                                          <button
+                                            className="button ani  mb-1"
+                                          >
+                                            Add Course
+                                          </button>
+                                        </Link>
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 ">
                     Students Courses
                   </h3>

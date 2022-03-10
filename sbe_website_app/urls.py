@@ -48,7 +48,6 @@ urlpatterns = [
     path('courseungraduateyeartwo/', CourseUngraduateYearTwo.as_view()),
     path('courseungraduateyearthree/', CourseUngraduateYearThree.as_view()),
     path('courseungraduateyearfour/', CourseUngraduateYearFour.as_view()),
-    
     path('officehours/',OfficeHoursList.as_view()),
     path('officehourdetails/<int:pk>',OfficeHoursDetails.as_view()),
 
@@ -56,7 +55,9 @@ urlpatterns = [
     path('coursehistory/<int:pk>',CourseHistoryDetailsView.as_view()),
     path('download/<int:pk>',DownloadPDF, name='download_pdf'),
     
+    path('uploadmatrial/',MatrialfileView.as_view()),
 
 
 ]
 urlpatterns+= static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+# urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

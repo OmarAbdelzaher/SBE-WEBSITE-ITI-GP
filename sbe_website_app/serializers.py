@@ -86,10 +86,10 @@ class CourseHistorySerializer(serializers.ModelSerializer):
 #         return photo
 
 
-# class FileSerializer(serializers.Serializer):
-#     class Meta :
-#         model = CourseFile
-#         fields = ['course_id','stds_grade']
+class MaterialfileSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = MaterialFile
+        fields = ['course_id','matrial_upload']
     # file = serializers.FileField(max_length=None, allow_empty_file=False)
 
 
