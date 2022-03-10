@@ -12,7 +12,6 @@ export default function EditOfficeHours() {
     const [formErrors, setFormErrors] = useState({});
     const [OfficeHourErrors, setOfficeHourErrors] = useState({});
 
-    console.log(params)
     const [formData, setFormData] = useState({
       weekday: "",
       from_hour: "",

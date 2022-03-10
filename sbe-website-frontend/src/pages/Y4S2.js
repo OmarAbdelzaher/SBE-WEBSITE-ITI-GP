@@ -51,6 +51,7 @@ export default function YfourStwo() {
             </div>
           </div>
         </div>
+        <div className="c-form"></div>
       </section>
     </>
   )

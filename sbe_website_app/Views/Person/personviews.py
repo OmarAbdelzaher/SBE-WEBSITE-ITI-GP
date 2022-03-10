@@ -16,7 +16,6 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 
-
 # Get and Post HTTP Methods using API For Students 
 @method_decorator(csrf_exempt, name='dispatch') 
 class StudentList(APIView):

@@ -15,9 +15,9 @@
 
 .head {
   position: fixed;
+  height: 12vh;
   font-family: Arial, Helvetica, sans-serif;
   background: transparent;
-  
 }
 .header-link {
   text-decoration: none;
@@ -48,6 +48,7 @@
   right: -20px;
   transition: 0.5s;
 }
+
 .button:hover{
   color: #9b2226;
 }
@@ -63,37 +64,13 @@
 
 .bar {
   position: fixed;
-  margin-top: 8%;
+  margin-top:12vh;
   font-family: Arial, Helvetica, sans-serif;
   /* background: rgb(0, 0, 0); 
   background: rgba(0, 0, 0, 0.5); 
   color: #f1f1f1; */
 }
-@media only screen and (max-width: 1024px) {
-  .bar {
-    margin-top: 11%;
-  }
-}
-@media only screen and (max-width: 768px) {
-  .bar {
-    margin-top: 15%;
-  }
-}
-@media only screen and (max-width: 425px) {
-  .bar {
-    margin-top: 25%;
-  }
-}
-@media only screen and (max-width: 375px) {
-  .bar {
-    margin-top: 29%;
-  }
-}
-@media only screen and (max-width: 320px) {
-  .bar {
-    margin-top: 33%;
-  }
-}
+
 
 .nav-links {
   text-decoration: none;
@@ -112,8 +89,8 @@
 .scroll {
     background-image: linear-gradient(to right, #8ecae6, #0096c7);
     background-image: -o-linear-gradient(right, #457b9d, #0096c7);
-    background-image: -moz-linear-gradient(right, #8ecae6, #0096c7);
-    background-image: -webkit-linear-gradient(left, #8ecae6, #003049);
+    background-image: -moz-linear-gradient(right, #8ecae6, #adb5bd);
+    background-image: -webkit-linear-gradient(left, #adb5bd, #003049);
 }
 
 .logo {
@@ -159,8 +136,34 @@
   padding: 1%;
 }
 
+.news-section{
+  padding: 2%;
+  height: auto;
+}
+.events-section{
+  background-color: #003049;
+  padding: 2%;
+  height: auto;
+}
+
+.card-hight{
+  height: 65vh;
+}
+
+.img-h{
+  height: 40vh;
+}
+.body-h{
+  height: 25vh;
+}
+
+.academic-section{
+  padding: 2%;
+}
+
 .about-h {
   font-size: 55px;
+  /* width: auto; */
   font-weight: 900;
   padding-top: 2%;
   color: #001233;
@@ -207,26 +210,12 @@
 }
 
 .sidebar {
-  /* position: fixed; */
   width: 22%;
   z-index: 1;
-  /* top: 20%; */
-  /* left: 2%; */
-  /* height: 30%; */
-  /* background-color: transparent; */
-  /* overflow-x: hidden; */
-  /* padding-top: 9%; */
+ 
  
 }
 
-/* .m-button{
-  border-radius: 4px;
-  background-color: #003049;
-  border: none;
-  color: #ffffff;
-  text-align: center;
-  
-} */
 
 .sbar-links{
   text-decoration: none;
@@ -245,10 +234,7 @@
   color: #9b2226;
 }
 
-/* .main {
-  margin-left: 25%;
-  margin-top: 7%;
-} */
+
 .admin-page{
   font-family:Arial, Helvetica, sans-serif;
   background-size: cover;
@@ -287,6 +273,7 @@
 .admin-tables{
   text-decoration: none !important;
   color: #001233;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .admin-tables:hover{

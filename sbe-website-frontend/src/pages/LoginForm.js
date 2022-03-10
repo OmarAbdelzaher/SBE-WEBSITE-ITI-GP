@@ -10,16 +10,46 @@ function LoginForm({login , isAuthenticated}) {
     email: "",
     password: "",
   });
-  const { email, password } = formData;
+  const [FormErrors,setFormErrors] = useState({})
+  const {
+    email,
+    password
+  } = formData;
+
   const errorMessage = useSelector(state => state.auth.error)
+  const emailMessage = useSelector(state => state.auth.emailerror) 
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const validate = (values) =>{
+    const errors = {}
+    if (!values.email) {
+      errors.email = "Email is required !";
+
+    } else if (!pattern_email.test(values.email)) {
+      errors.email = "Email is invalid !";
+      
+    }
+    if (!values.password){
+      errors.password = "Password is Required"       
+    } 
+    return errors
+  }
+  
     const onSubmit = e => {
         e.preventDefault();
+        let errors_form = validate(formData)
+        setFormErrors(errors_form)
+        if ( Object.keys(errors_form).length === 0  ){
         login(email, password);
-
+        }
     };
+
+    const pattern_email = new RegExp(
+      /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+    );
+
+  
 
 
   if (isAuthenticated) {
@@ -61,6 +91,7 @@ function LoginForm({login , isAuthenticated}) {
                             name="email"
                           />
                         </div>
+                        <p className="text-danger">{ FormErrors.email }</p>
                       </div>
                     </div>
                     <div className="row">
@@ -78,6 +109,7 @@ function LoginForm({login , isAuthenticated}) {
                             value={password}
                           />
                         </div>
+                        <p className="text-danger">{ FormErrors.password }</p>
                       </div>
                     </div>
                     <button
@@ -100,6 +132,8 @@ function LoginForm({login , isAuthenticated}) {
                 </div>
               </div>
             </div>
+            <div className="margin-b"></div>
+
           </div>
         </div>
       </section>

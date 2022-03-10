@@ -35,7 +35,7 @@ const Header = ({ logout, isAuthenticated }) => {
 
   const guestLinks = () => (
     <>
-      <Nav.Link className="button">
+      <Nav.Link className="button ">
         <Link className="fs-5 header-link ani" to="/login">
           Log In
         </Link>
@@ -59,7 +59,7 @@ const Header = ({ logout, isAuthenticated }) => {
   )
 
   const authLinks = () => (
-    <Nav.Link className="button">
+    <Nav.Link className="button ">
       <Link className="fs-5 header-link ani" to="/"  onClick={logout_user}>
        Logout
       </Link>
@@ -97,8 +97,8 @@ const Header = ({ logout, isAuthenticated }) => {
         <Navbar.Brand className="col-3" href="/">
           <img
             src={logo}
-            width="200"
-            height="90"
+            width="180"
+            height="70"
             className="d-inline-block align-top"
             alt="Department logo"
           />
@@ -125,17 +125,16 @@ const Header = ({ logout, isAuthenticated }) => {
 
             { isAuthenticated ? <div className="dropdown">
               <NavDropdown
-                className="dropdown"
+                className="dropdown "
                 title= {
                   staff.user != null ? staff.user.fname : null
                 }  
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item ><Link to="/profilepage">Profile</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link to="/reservation">Reservation</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
-                <NavDropdown.Divider />
+                <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
+                <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
+                <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
+                <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
               </NavDropdown>
             </div> : null }
 
