@@ -100,13 +100,11 @@ function ReservationApprov() {
                 <AdminNav />
               </div>
               <div className="card-body ">
-                <p className="fs-1 text-light"> SBE DEPARTMENT</p>
-                <p className="fs-3 text-light"> - Reservation Menu</p>
+                {/* <p className="fs-1 text-light"> SBE DEPARTMENT</p> */}
+                <p className="fs-1 text-light"> - Reservation Menu</p>
 
-              </div>
-
-              <select
-                className="select form-control-lg btn button"
+                <select
+                className="select form-control-lg btn btn-lg" style={{backgroundColor:"#001233", color:"#ffff"}}
                 onChange={(e) => onChange(e)}
                 name="ReserveType"
                 value={reservation}
@@ -119,21 +117,25 @@ function ReservationApprov() {
                 <option value="devices">Devices Reservations</option>
               </select>
 
+              </div>
+
+              
+
               <div>
-                <table className="table table-hover bg-light fs-4 col-12">
+                <table className="table table-bordered table-hover bg-light fs-4 col-12">
                   <thead>
-                    <tr className="text-dark">
+                    <tr className="text-dark ">
                       <th>#</th>
-                      <th>Name</th>
-                      <th>Reserved By</th>
-                      <th>Confirm By</th>
-                      <th>Date</th>
-                      <th>Time Slot</th>
-                      <th>Actions</th>
+                      <th className="fw-normal">Name</th>
+                      <th className="fw-normal">Reserved By</th>
+                      <th className="fw-normal">Confirm By</th>
+                      <th className="fw-normal">Date</th>
+                      <th className="fw-normal">Time Slot</th>
+                      <th className="fw-normal">Actions</th>
                     </tr>
                   </thead>
 
-                  <tbody className="mb-3">
+                  <tbody className="fs-5">
                     {reservation.map((item, index) => {
                       return (
                         <tr>
@@ -194,7 +196,7 @@ function ReservationApprov() {
                 </table>
               </div>
             </div>
-            {/* <div className="margin-b"></div> */}
+            <div className="margin-b"></div>
           </div>
         </div>
       </section>
