@@ -34,8 +34,6 @@ import YfourStwo from "./pages/Y4S2";
 import Moderator from "./pages/Moderator";
 import ReservationApprov from "./pages/ReservationApprov";
 import RegistrationApprove from "./pages/RegistrationApprove";
-import Adm_UnderGraduates from "./pages/Adm_UnderGraduates";
-import Adm_Graduates from "./pages/Adm_Graduates";
 import Users from "./pages/Users";
 import Layout from './hocs/Layout'; 
 import ReservationSchedule from "./components/ReservationSchedule";
@@ -63,6 +61,10 @@ import DeviceForm from "./components/DeviceForm";
 import EditHallForm from "./components/EditHallForm";
 import EditLabForm from "./components/EditLabForm";
 import EditDeviceForm from "./components/EditDeviceForm";
+import CourseForm from "./pages/CourseForm";
+import EditReservation from "./components/EditReservation";
+import Adm_Graduates from "./pages/Adm_Graduates"
+import Adm_UnderGraduates from "./pages/Adm_UnderGraduates"
 
 function App() {
 
@@ -89,7 +91,7 @@ function App() {
             <Route path={"/reset-password"} exact component={ResetPassword} />
             <Route path={"/allnews"} exact component={AllNews} />
             <Route path={"/allevents"} exact component={AllEvents} />
-            {/* <Route path={"/graduatepage"} exact component={GraduatePage} /> */}
+            <Route path={"/graduatepage"} exact component={GraduatePage} />
             <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
             <Route path={"/coursegraduate"} exact component={CourseGraduate} />
             <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} />
@@ -144,6 +146,7 @@ function App() {
             <Route path={"/devicesreservations"} exact component={DevicesReservations} />
 
 
+            <Route path={"/courseform"} exact component={CourseForm} />
 
 
 

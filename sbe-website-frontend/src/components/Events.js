@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function Events() {
@@ -55,7 +55,12 @@ export default function Events() {
                       <div className=" col-12 ">
                         <div className="card-body body-h" key={item.id}>
                           <h2 className="card-title">{item.name}</h2>
-                          <p className="card-text">{item.details}</p>
+                          <p className="card-text text-dark">
+                          <FontAwesomeIcon
+                                  className="fs-6"
+                                  icon={faCalendarDays}
+                                />{" "}
+                            {item.details}</p>
                         </div>
                       </div>
                     </div>

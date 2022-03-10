@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function CoursesMenu() {
   const [formData, setFormData] = useState({
@@ -13,17 +15,50 @@ export default function CoursesMenu() {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    const btnStyle = {
+      // color: "white",
+      // width: "50%",
+      // height: "50%",
+      // background:'red',
+      marginTop:'45px',
 
+    };
 
   return (
     <>
+
+
       <section className="h-150 h-custom py-5">
         
         <div className="container ">
-          <div className="row  d-flex justify-content-center align-items-center h-100 ">
+        {/* <div className="row  justify-content-left align-items-center "> */}
+
+
+              {/* </div>
+              
+            </div> */}
+          <div className="row  justify-content-left align-items-center  ">
+          <div className="col-lg-2 col-xl-3 align-self-start mt-5 "   >
+              <div className="rounded-4 align-items-start justify-content-left  "  >
+              <Link
+                    className="button btn btn-lg "
+                    to="/courseform"
+                    style={btnStyle}
+                  >
+                    <button
+                       className="button   "
+                    >
+                      <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
+                      Add Course
+                    </button>
+              </Link>
+              </div>
+              </div>
+  
             <div className="col-lg-8 col-xl-6">
               <div className=" rounded-3 ">
                 <div className=" p-4 p-md-5 courses-b border border-2 border-light">
+    
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 ">
                     Students Courses
                   </h3>

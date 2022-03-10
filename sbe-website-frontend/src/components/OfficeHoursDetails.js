@@ -47,7 +47,7 @@ export default function OfficeHoursDetails(params) {
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="card-body ">
-                <p className="fs-3"> - OfficeHours Schedule</p>
+                <p className="fs-3 text-light"> - OfficeHours Schedule</p>
                 <Link to={"/officehours"}>
                   <button className="btn btn-lg button">Add Office Hours </button>
                 </Link>

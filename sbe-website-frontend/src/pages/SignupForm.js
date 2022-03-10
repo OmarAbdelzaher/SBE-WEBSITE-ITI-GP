@@ -402,7 +402,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                     ) : null}
 
                     <br />
-                    <p className="mt-3">
+                    <p className="mt-3 text-light fs-5 ">
                       Already have an account? <Link className="nav-links" to="/login">Sign In</Link>
                     </p>
                     <button
