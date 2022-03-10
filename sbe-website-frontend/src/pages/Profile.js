@@ -105,7 +105,6 @@ function Profile(isAuthenticated) {
 
   useEffect(() => {
     axios.get(Url).then((res)=>{
-      console.log(res.data)
       setUser(res.data)
     })
   }, []);

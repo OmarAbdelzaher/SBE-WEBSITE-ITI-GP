@@ -17,9 +17,9 @@ from django.conf import settings
 
 
 # Get and Post HTTP Methods using API For Students 
-@method_decorator(csrf_exempt, name='dispatch') 
+@method_decorator(csrf_exempt, name='dispatch')
 class StudentList(APIView):
-
+    
     # @csrf_exempt
     def get(self,request):
         students = Student.objects.all()
@@ -60,8 +60,9 @@ def sendActivationRequest(request):
             'settings.EMAIL_HOST_USER', [request.data["email"]],fail_silently=False,)
         
     except Exception :
-        raise ValidationError("Couldn't send the message to the email ! ") 
-    
+        raise ValidationError("Couldn't send the message to the email ! ")
+     
+@method_decorator(csrf_exempt, name='dispatch')    
 class StudentDetails(APIView):
     def get_object(self, pk):
         try:
@@ -89,7 +90,7 @@ class StudentDetails(APIView):
 
 # Get and Post HTTP Methods using API For Staff 
 
-
+@method_decorator(csrf_exempt, name='dispatch') 
 class StaffList(APIView):
         def get(self,request):
             all_staff = Staff.objects.all()
@@ -118,7 +119,7 @@ class StaffList(APIView):
 
 
 # Get , Put and delete HTTP Methods using API For a specific staff member  
-
+@method_decorator(csrf_exempt, name='dispatch') 
 class StaffDetails(APIView):
     def get_object(self, pk):
         try:
@@ -147,7 +148,7 @@ class StaffDetails(APIView):
 
 # Get and Post HTTP Methods using API For Faculty Employees 
 
-
+@method_decorator(csrf_exempt, name='dispatch') 
 class FacultyEmpList(APIView):
     def get(self,request):
         faculty_emps = FacultyEmp.objects.all()
@@ -175,7 +176,7 @@ class FacultyEmpList(APIView):
             return Response("this email is already exist")
 
 # Get , Put and delete HTTP Methods using API For a specific Faculty Employee  
-
+@method_decorator(csrf_exempt, name='dispatch') 
 class FacultyEmpDetails(APIView):
     def get_object(self, pk):
         try:

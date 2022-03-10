@@ -93,8 +93,8 @@ def sendReservationRequest(request):
 class ReserveDeviceDetails(APIView):
     def get_object(self, pk):
         try:
-            return ReserveLab.objects.get(pk=pk)
-        except ReserveLab.DoesNotExist:
+            return ReserveDevice.objects.get(pk=pk)
+        except ReserveDevice.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):

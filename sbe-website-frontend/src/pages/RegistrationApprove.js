@@ -6,6 +6,10 @@ import { faUserCheck, faUserXmark } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 function RegistrationApprove() {
+
+  axios.defaults.xsrfCookieName = "csrftoken";
+  axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
   const [staff, setStaff] = useState([]);
   const [student, setStudent] = useState([]);
   const [emp, setEmp] = useState([]);

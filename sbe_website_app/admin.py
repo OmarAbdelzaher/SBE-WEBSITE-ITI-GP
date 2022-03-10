@@ -11,8 +11,7 @@ class PersonAdmin(admin.ModelAdmin):
 # Register your models here.
 class StaffAdmin(admin.ModelAdmin):
     fieldsets = (
-        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number"]}],
-        ["Office Hours",{'fields':["office_hours"]}]
+        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","role","is_coordinator"]}],
     )
     def save_model(self, request, obj, form, change):
         if len(obj.password) < 80:
@@ -22,7 +21,7 @@ class StaffAdmin(admin.ModelAdmin):
 
 class StudentAdmin(admin.ModelAdmin):
     fieldsets = (
-        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","graduate","year_of_graduation"]}],
+        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","graduate","year_of_graduation","role"]}],
     )
     def save_model(self, request, obj, form, change):
         if len(obj.password) < 80:
@@ -31,7 +30,7 @@ class StudentAdmin(admin.ModelAdmin):
         
 class FacEmpAdmin(admin.ModelAdmin):
     fieldsets = (
-        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","title"]}],
+        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","title","role","is_moderator"]}],
     )
     def save_model(self, request, obj, form, change):
         if len(obj.password) < 80:

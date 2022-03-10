@@ -104,7 +104,7 @@ function App() {
             <Route path={"/officehourschedule"} exact component={OfficeHoursSchedule} />
             <Route path={"/officehoursDetails"} exact component={OfficeHoursDetails} />
             <Route path={"/officehoursEdit/:id"} exact component={EditOfficeHours} />
-            <Route path={"/reservationEdit/:id/:date/:time/:type/:name"} exact component={EditReservation} />
+            <Route path={"/reservationEdit/:id/:date/:time/:type/:name/:staff"} exact component={EditReservation} />
 
 
 

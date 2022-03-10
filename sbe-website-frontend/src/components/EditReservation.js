@@ -119,10 +119,10 @@ export default function EditReservation(isAuthenticated) {
       Data.append("date", formData.ReserveDate);
       Data.append("timeslot", formData.ReserveTime);
       Data.append(reserved, formData.toBeReserved);
-      Data.append("staff_id", staff_id);
+      Data.append("staff_id", params.staff);
 
       axios
-        .post(ReserveUrl, Data)
+        .put(ReserveUrl, Data)
         .then((res) => {
           console.log(res);
           setSuccesState(res.status);

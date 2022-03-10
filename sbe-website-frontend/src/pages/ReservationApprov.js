@@ -156,7 +156,7 @@ function ReservationApprov() {
                                 Confirm
                               </button>
                             </Link>
-                            {item.hall_id ? <Link to={`/reservationEdit/${item.id}/${item.date}/${item.timeslot}/hall/${item.hall_id}`}>
+                            {item.hall_id ? <Link to={`/reservationEdit/${item.id}/${item.date}/${item.timeslot}/hall/${item.hall_id}/${item.staff_id}`}>
                               <button className="btn button">
                                 <FontAwesomeIcon
                                   className="fs-5"
@@ -166,7 +166,7 @@ function ReservationApprov() {
                               </button>
                             </Link> : null}
 
-                            {item.lab_id ? <Link to={`/reservationEdit/${item.id}/${item.date}/${item.timeslot}/lab/${item.lab_id}`}>
+                            {item.lab_id ? <Link to={`/reservationEdit/${item.id}/${item.date}/${item.timeslot}/lab/${item.lab_id}/${item.staff_id}`}>
                               <button className="btn button">
                                 <FontAwesomeIcon
                                   className="fs-5"
@@ -176,7 +176,7 @@ function ReservationApprov() {
                               </button>
                             </Link> : null}
 
-                            {item.device_id ? <Link to={`/reservationEdit/${item.id}/${item.date}/${item.timeslot}/device/${item.device_id}`}>
+                            {item.device_id ? <Link to={`/reservationEdit/${item.id}/${item.date}/${item.timeslot}/device/${item.device_id}/${item.staff_id}`}>
                               <button className="btn button">
                                 <FontAwesomeIcon
                                   className="fs-5"

@@ -10,25 +10,52 @@ import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 import { useSelector } from "react-redux";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import axios from "axios";
 
 let flag = false
 
 const Header = ({ logout, isAuthenticated }) => {
+
   const [head, setHeader] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [is_staff, setIs_staff] = useState(false);
-  const staff = useSelector(state=>state.auth)
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator,setIsCoordinator] = useState(false)
+  const [isModerator,setIsModerator] = useState(false)
 
-  if( isAuthenticated && staff.user != null && flag == false)
-  {
-    if (staff.user.role == 'dr' || staff.user.role == 'ta'){
-      setIs_staff(true)
-      flag = true
-    }
-  }
+  const person = useSelector(state=>state.auth)
   
+  useEffect(() => {
+
+    if( isAuthenticated && person.user != null && flag == false)
+    {
+      if (person.user.role == 'dr' || person.user.role == 'ta'){
+        setIs_staff(true)
+        if(person.user.is_coordinator)
+        {
+          setIsCoordinator(true)
+        }
+        flag = true
+      }
+
+      if(person.user.role == 'employee'){
+        setIsEmp(true)
+        if(person.user.is_moderator)
+        {
+          setIsModerator(true)
+        }
+      }
+      console.log(person.user)
+    }
+
+  });
+
   const logout_user = () => {
     setIs_staff(false)
+    setIsEmp(false)
+    setIsModerator(false)
+    setIsCoordinator(false)
+
     logout();
     setRedirect(true);
   };
@@ -66,7 +93,14 @@ const Header = ({ logout, isAuthenticated }) => {
     </Nav.Link>
     
   );
-
+  
+const moderatorLink = () => (
+  <Nav.Link className="button">
+    <Link className="fs-5 header-link ani" to="/moderator">
+    Moderator
+    </Link>
+  </Nav.Link>
+)
   // const signedInLink = () => (
   //   <Nav.Link className="button">
   //     <Link className="fs-5 header-link ani" to="/profilepage" >
@@ -112,29 +146,27 @@ const Header = ({ logout, isAuthenticated }) => {
               </Link>
             </Nav.Link>
             {isAuthenticated ? authLinks() : guestLinks()}
-            {/* {isAuthenticated ? signedInLink() : null} */}
-
-            
-            {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
-            <Nav.Link className="button">
-              <Link className="fs-5 header-link ani" to="/moderator">
-              Moderator
-              </Link>
-            </Nav.Link>
             {is_staff ? staffLinks() : null}
+            {isModerator ? moderatorLink() : null}
 
             { isAuthenticated ? <div className="dropdown">
               <NavDropdown
-                className="dropdown "
+                className="dropdown"
                 title= {
-                  staff.user != null ? staff.user.fname : null
+                  person.user != null ? person.user.fname : null
                 }  
                 id="navbarScrollingDropdown"
               >
                 <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
+                {
+                  is_staff ? 
+                  <>
+                    <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
+                    <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
+                    <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
+                  </>
+                  : null
+                }
               </NavDropdown>
             </div> : null }
 
