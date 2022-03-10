@@ -122,10 +122,10 @@ function LoginForm({login , isAuthenticated}) {
                     {errorMessage === "No active account found with the given credentials" ? <p className="text-danger">No active account found with this email</p> :null}
                     </div>
                   </form>
-                  <p className="mt-3">
+                  <p className="mt-3 text-light fs-5 ">
                     Don't have an account? <Link className="nav-links" to="/signup">Sign Up</Link>
                   </p>
-                  <p className="mt-3">
+                  <p className="mt-3 text-light fs-5 ">
                     Forgot your Password?{" "}
                     <Link className="nav-links" to="/reset-password">Reset Password</Link>
                   </p>

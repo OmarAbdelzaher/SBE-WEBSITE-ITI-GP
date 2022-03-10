@@ -75,7 +75,7 @@ function App() {
             <Route path={"/reset-password"} exact component={ResetPassword} />
             <Route path={"/allnews"} exact component={AllNews} />
             <Route path={"/allevents"} exact component={AllEvents} />
-            {/* <Route path={"/graduatepage"} exact component={GraduatePage} /> */}
+            <Route path={"/graduatepage"} exact component={GraduatePage} />
             <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
             <Route path={"/coursegraduate"} exact component={CourseGraduate} />
             <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} />
