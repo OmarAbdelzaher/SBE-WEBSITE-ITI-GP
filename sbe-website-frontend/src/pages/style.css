@@ -27,11 +27,15 @@
   border-radius: 4px;
   background-color: #003049;
   border: none;
-  color: #ffffff !important;
+  color: #ffffff;
   text-align: center;
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
+}
+.btn-b{
+  background: transparent !important;
+  color: #001233 !important;
 }
 
 .button .ani {
@@ -46,7 +50,7 @@
   opacity: 0;
   top: 0;
   right: -20px;
-  transition: 0.5s;
+  transition: 0.4s;
 }
 
 .button:hover{
@@ -98,7 +102,7 @@
   background-image: url(../assets/image/departmentLogo.png);
 }
 #headScrollingDropdown{
-  color:#ffff ;
+  color:#001233 ;
   font-family: Arial, Helvetica, sans-serif ;
 
 }
