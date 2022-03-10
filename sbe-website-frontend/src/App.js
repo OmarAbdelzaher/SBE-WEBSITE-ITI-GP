@@ -24,7 +24,6 @@ import CourseUnderGraduate from "./components/CourseUndergraduate";
 import Profile from "./pages/Profile";
 import YoneSone from "./pages/Y1S1";
 import YoneStwo from "./pages/Y1S2";
-// import YearTwo from "./pages/Y2S1";
 import YtwoSone from "./pages/Y2S1";
 import YtwoStwo from "./pages/Y2S2";
 import YthreeSone from "./pages/Y3S1";
@@ -41,11 +40,9 @@ import UnderGraduateExams from "./components/UnderGraduateExams";
 import GraduateExams from "./components/GraduateExams";
 
 import OfficeHours from "./components/OfficeHours";
-import OfficeHoursView from "./components/OfficeHoursView";
 import OfficeHoursSchedule from "./components/OfficeHoursView";
 import OfficeHoursDetails from "./components/OfficeHoursDetails";
 import EditOfficeHours from "./components/EditOfficeHours";
-import EditReservation from "./components/EditReservationHall";
 import LabsReservations from "./pages/LabsReservations";
 import HallsReservations from "./pages/HallsReservations";
 import DevicesReservations from "./pages/DevicesReservations";
@@ -62,7 +59,6 @@ import EditHallForm from "./components/EditHallForm";
 import EditLabForm from "./components/EditLabForm";
 import EditDeviceForm from "./components/EditDeviceForm";
 import CourseForm from "./pages/CourseForm";
-import EditReservation from "./components/EditReservation";
 import Adm_Graduates from "./pages/Adm_Graduates"
 import Adm_UnderGraduates from "./pages/Adm_UnderGraduates"
 

@@ -19,7 +19,7 @@ import {
 function AdminNav() {
   return (
     <>
-      <Navbar className="m-button" expand={false}>
+      {/* <Navbar className="m-button" expand={false}>
         <Navbar.Toggle className="bg-light" aria-controls="offcanvasNavbar" />
         <Navbar.Offcanvas
           className="shadow menu "
@@ -117,7 +117,7 @@ function AdminNav() {
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
-      </Navbar>
+      </Navbar> */}
      <nav className="sidenav shadow-lg ">
        <div className="text-dark">
          <div className="dropdown-divider"></div>
