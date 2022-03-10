@@ -33,9 +33,8 @@ export default function Academics() {
                 {/*Title*/}
                 <h4 className="card-title">Graduate</h4>
                 {/*Text*/}
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
+                <p className="card-text text-dark">
+                News For Graduate
                 </p>
                 {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
                 {/* <button type="button" className="btn btn-primary btn-md">Read more</button> */}
@@ -64,12 +63,10 @@ export default function Academics() {
               {/*Card content*/}
               <div className="card-body">
                 {/*Title*/}
-                <h4 className="card-title">Under Graduate</h4>
+                <h4 className="card-title">Undergraduate</h4>
                 {/*Text*/}
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
+                <p className="card-text text-dark">
+News for Students                </p>
                 {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
                 <Link to="/undergraduatepage" className="btn button">
                   <button type="button" className="button ani ">

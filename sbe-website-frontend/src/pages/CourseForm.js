@@ -2,9 +2,11 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import {useHistory } from "react-router-dom";
 
 
 export default function CourseForm() {
+  const history = useHistory();
 
   const who = useSelector((state) => state.auth);
   const [formErrors, setFormErrors] = useState({});
@@ -18,13 +20,58 @@ export default function CourseForm() {
     materials: "",
     year: "",
     semester: "",
-    staff: "",
+    // staff: "",
     category: "",
   });
 
+
+  const validate = (values) =>{
+    const errors = {}
+
+    if (!values.name) {
+      errors.name = "Course Name is Required";
+
+    }
+    if (!values.totalgrade) {
+      errors.totalgrade = "Total Grade is Required";
+      
+
+    }
+    if (!values.instructions) {
+      errors.instructions = "Instructions is required !";
+    }
+
+
+    if (!values.materials){
+      errors.materials = "Materials is Required"
+    }
+
+    if (!values.year){
+      errors.year = "Year is required";
+
+    } 
+    if (!values.semester)
+    {
+      errors.semester = " Semester is required "
+    }
+ 
+    if(!values.category)
+    {
+      errors.category = "Category is required"
+    }
+
+    return errors
+  }
+
+
+
+
   function onSubmit(e) {
     e.preventDefault();
+    let errors_form = validate(data)
+    setFormErrors(errors_form)
     // console.log(data)
+    if (Object.keys(errors_form).length === 0) {
     const Data = new FormData();
 
 
@@ -50,9 +97,16 @@ export default function CourseForm() {
       .post(url, Data)
       .then((res) => {
         console.log(res.data);
-      });
-  }
 
+        history.push("/coursesMenu");
+
+      });
+    //   .catch((e) => {
+    //     setFormErrors(e.response.data.non_field_errors[0]);
+        
+    //   });
+  }
+  }
 
   function handle(e) {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -97,7 +151,7 @@ export default function CourseForm() {
                             value={data.name}
                           />
                           <p className="text-danger">
-                            {/* {formErrors.ReserveDate} */}
+                            {formErrors.name}
                           </p>
                         </div>
                       </div>
@@ -123,7 +177,7 @@ export default function CourseForm() {
                             value={data.totalgrade}
                           />
                           <p className="text-danger">
-                            {/* {formErrors.ReserveDate} */}
+                            {formErrors.totalgrade}
                           </p>
                         </div>
                       </div>
@@ -174,7 +228,7 @@ export default function CourseForm() {
                             value={data.instructions}
                           />
                           <p className="text-danger">
-                            {/* {formErrors.ReserveDate} */}
+                            {formErrors.instructions}
                           </p>
                         </div>
                       </div>
@@ -200,7 +254,7 @@ export default function CourseForm() {
                             value={data.materials}
                           />
                           <p className="text-danger">
-                            {/* {formErrors.ReserveDate} */}
+                            {formErrors.materials}
                           </p>
                         </div>
                       </div>
@@ -226,7 +280,7 @@ export default function CourseForm() {
                             value={data.year}
                           />
                           <p className="text-danger">
-                            {/* {formErrors.ReserveDate} */}
+                            {formErrors.year}
                           </p>
                         </div>
                       </div>
@@ -252,7 +306,7 @@ export default function CourseForm() {
                             value={data.semester}
                           />
                           <p className="text-danger">
-                            {/* {formErrors.ReserveDate} */}
+                            {formErrors.semester}
                           </p>
                         </div>
                       </div>

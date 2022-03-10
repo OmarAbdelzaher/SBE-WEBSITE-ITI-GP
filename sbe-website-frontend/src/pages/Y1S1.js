@@ -9,14 +9,14 @@ function YoneSone() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/courseungraduateyearone/")
-      .then((res) => {
+      .then((res) =>  setCourses(res.data.filter((course)=>course.category=='undergraduate')))
 
-        res.filter(function(courses) {
-          return courses.category == 'undergraduate';
-        });
-        setCourses(res.data)
-
-      })
+        // .then((res) => setEmp(res.data.filter((e) => e.is_active == false)));
+        // res.filter(function(courses) {
+        //   return courses.category == 'undergraduate';
+        // });
+       
+      
   }, []);
   return (
     <>
