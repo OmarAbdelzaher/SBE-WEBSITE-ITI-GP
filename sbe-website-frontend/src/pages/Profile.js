@@ -16,7 +16,6 @@ function Profile(isAuthenticated) {
   let StaffUrl = "";
   let EmpUrl = "";
   let Url = "";
-  let imgChanged=false
 
   const [User, setUser] = useState({
     fname: "",
@@ -67,56 +66,38 @@ function Profile(isAuthenticated) {
 
   const validate = (values) =>{
     const errors = {}
-    let flag = true;
     if (!values.fname) {
       errors.fname = "First Name is Required";
-      flag = false
     }
     if (!values.lname) {
       errors.lname = "Last Name is Required";
-      flag = false
-
     }
     if (!values.email) {
       errors.email = "Email is required !";
-      flag = false
 
     } else if (!pattern_email.test(email)) {
       errors.email = "Email is invalid !";
-      flag = false
-
     }
     if (!values.phone_number){
       errors.phone_number = "Phone Number is required";
-      flag = false
 
     } else if (phone_number.length != 11 )
     {
       errors.phone_number = "Phone Number must be 11 digits"  
-      flag = false
-
     }
     if (!values.address)
     {
       errors.address = " Address is required "
-      flag = false
-
     }
     var now = new Date();
     var birthdate = new Date(values.birthdate)
     if(!values.birthdate)
     {
       errors.birthdate = "BirthDate is required"
-      flag = false
-
-
     }
     else if(birthdate.getTime() > now.getTime() )
     {
       errors.birthdate = "Enter a valid birth date which is a past date "
-      flag = false
-
-      
     } 
     return errors
   }
@@ -169,12 +150,9 @@ function Profile(isAuthenticated) {
       Url = EmpUrl;
       Data.append("title", User.title);
     }
-    console.log(imgData)
-    console.log(User.profile_img)
-console.log(changed)
+
 if(changed==true){
   User.profile_img=picture
-
 }
     Data.append("fname", User.fname);
     Data.append("lname", User.lname);
@@ -186,8 +164,6 @@ if(changed==true){
     Data.append("phone_number", User.phone_number);
     Data.append("password", User.password);
 
-
-
     try {
       axios.put(Url, Data);
       history.push("/");
@@ -195,14 +171,6 @@ if(changed==true){
       console.log(e);
     }
   }};
-
-
-  // useEffect(() => {
-  //   User.profile_img= imgData
-    
-    
-  // }, [imgData]);
-
 
   return (
     <section className="py-5 h-150 h-custom">

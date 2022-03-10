@@ -65,7 +65,6 @@ class HallDetails(APIView):
 class ReserveHallList(APIView):
     def get(self,request):
         reserved_halls = ReserveHall.objects.all()
-        # reserved_halls = ReserveHall.objects.filter(is_confirmed = True)
         serializer = ReserveHallSerializer(reserved_halls,many=True)
         return Response(serializer.data)
     
@@ -111,6 +110,14 @@ class ReserveHallDetails(APIView):
 
     def put(self, request, pk, format=None):
         reserved_hall = self.get_object(pk)
+        print(request.data)
+        # print(Staff.objects.filter(id = reserved_hall.staff_id))
+        print(reserved_hall.timeslot)
+        
+        field_name = 'staff_id'
+        field_value = getattr(reserved_hall, field_name)
+        print(field_value)
+        
         serializer = ReserveHallSerializer(reserved_hall, data=request.data)
         if serializer.is_valid():
             serializer.save()

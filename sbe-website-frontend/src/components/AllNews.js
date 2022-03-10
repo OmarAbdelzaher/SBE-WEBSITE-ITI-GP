@@ -77,8 +77,8 @@ export default function AllNews(){
                                 </div>
                                     
                                     {/* <img src={img}  className="card--image" /> */}
-                                    <p>{item.description}</p>
-                                    <p>Category:{item.category}</p>
+                                    <p className="text-dark" >{item.description}</p>
+                                    <p className="text-dark">For :{item.category}</p>
 
 
                                 </div>

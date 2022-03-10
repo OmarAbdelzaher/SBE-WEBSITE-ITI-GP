@@ -55,7 +55,7 @@ export default function Events() {
                       <div className=" col-12 ">
                         <div className="card-body body-h" key={item.id}>
                           <h2 className="card-title">{item.name}</h2>
-                          <p className="card-text">{item.details}</p>
+                          <p className="card-text text-dark">{item.details}</p>
                         </div>
                       </div>
                     </div>

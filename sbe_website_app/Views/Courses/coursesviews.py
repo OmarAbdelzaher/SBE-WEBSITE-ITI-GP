@@ -208,3 +208,24 @@ def DownloadPDF(self,pk):
     response = HttpResponse(pdfFile.read())
     response['Content-Disposition'] = 'attachment'
     return response
+
+
+class MatrialfileView(APIView):
+    def get(self,request):
+        courses = MaterialFile.objects.all()
+        serializer = MaterialfileSerializer(courses,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = MaterialfileSerializer(data=request.data)
+
+        if len(request.FILES.getlist('matrial_upload'))>0:
+            MaterialFile.objects.create(matrial_upload=matrial_upload)
+
+        print(matrial_upload)
+
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

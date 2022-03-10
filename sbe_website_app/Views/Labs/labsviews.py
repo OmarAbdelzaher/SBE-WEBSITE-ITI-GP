@@ -71,11 +71,26 @@ class ReserveLabList(APIView):
         serializer = ReserveLabSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            sendReservationRequest(request)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Get , Put and delete HTTP Methods using API For a specific reserved Lab
-
+def sendReservationRequest(request):
+    try:
+        staff_name = Person.objects.get(id=request.data["staff_id"])
+        
+        send_mail("Reservation Request",
+            str(staff_name) + " has requested a reservation, confirm or decline his request",
+            'settings.EMAIL_HOST_USER', ["omarzaher787@gmail.com"],fail_silently=False,)
+        
+        send_mail("Reservation Pending",
+            "hello "+ staff_name.fname +" , please wait for a confirmation for your reservation. \nThank you for your patience \nSBME Website Managers",
+            'settings.EMAIL_HOST_USER', [staff_name.email],fail_silently=False,)
+        
+    except Exception :
+        raise ValidationError("Couldn't send the message to the email ! ") 
+    
 class ReserveLabDetails(APIView):
     def get_object(self, pk):
         try:
