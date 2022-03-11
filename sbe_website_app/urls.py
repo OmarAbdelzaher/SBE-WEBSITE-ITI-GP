@@ -14,6 +14,7 @@ from .Views.OffHoursandTimeSlots.hoursandslotsviews import *
 
 
 urlpatterns = [
+    path('persons/',PersonList.as_view()),
     path('students/', StudentList.as_view()),
     path('staff/', StaffList.as_view()),
     path('facultyemps/', FacultyEmpList.as_view()),
@@ -24,6 +25,7 @@ urlpatterns = [
     path('reservedhalls/', ReserveHallList.as_view()),
     path('reserveddevices/', ReserveDeviceList.as_view()),
     path('reservedlabs/', ReserveLabList.as_view()),
+    path('person/<int:pk>', PersonDetails.as_view()),
     path('student/<int:pk>', StudentDetails.as_view()),
     path('onestaff/<int:pk>', StaffDetails.as_view()),
     path('facultyemp/<int:pk>', FacultyEmpDetails.as_view()),
@@ -48,14 +50,17 @@ urlpatterns = [
     path('courseungraduateyeartwo/', CourseUngraduateYearTwo.as_view()),
     path('courseungraduateyearthree/', CourseUngraduateYearThree.as_view()),
     path('courseungraduateyearfour/', CourseUngraduateYearFour.as_view()),
-    
     path('officehours/',OfficeHoursList.as_view()),
     path('officehourdetails/<int:pk>',OfficeHoursDetails.as_view()),
 
     path('coursehistory/',CourseHistoryView.as_view()),
     path('coursehistory/<int:pk>',CourseHistoryDetailsView.as_view()),
-    path('download/<int:pk>',DownloadPDF, name='download_pdf'),
+    path('download/<int:pk>/<str:type>',DownloadPDF, name='download_pdf'),
+    
+    path('uploadmaterials/',MaterialfileView.as_view()),
+    path('uploadmaterial/<int:pk>',MaterialfileDetailsView.as_view()),
 
 
 ]
 urlpatterns+= static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+# urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

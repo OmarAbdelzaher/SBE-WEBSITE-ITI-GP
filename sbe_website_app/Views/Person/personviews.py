@@ -15,7 +15,59 @@ import re
 from django.core.mail import send_mail
 from django.conf import settings
 
+class PersonList(APIView):
+    def get(self,request):
+        persons = Person.objects.all()
+        serializer = PersonSerializer(persons,many=True)
+        return Response(serializer.data)
+        
+    # @csrf_exempt
+    def post(self,request):
+        user = Person.objects.filter(email=request.data['email'])
+        email_uni1 = re.search("@eng1.cu.edu.eg",request.data['email'])
+        email_uni = re.search("@eng.cu.edu.eg" , request.data['email'])
+        if email_uni or email_uni1 :
+            request.data["is_active"] = True
+            serializer = PersonSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif not user.exists():
+            serializer = PersonSerializer(data=request.data)
+            if serializer.is_valid():
+                # sendActivationRequest(request)
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else :
+            return Response("this email is already exist")
 
+class PersonDetails(APIView):
+    def get_object(self, pk):
+        try:
+            return Person.objects.get(pk=pk)
+        except Person.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        person = self.get_object(pk)
+        serializer = PersonSerializer(person)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        person = self.get_object(pk)
+        serializer = PersonSerializer(person, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        person = self.get_object(pk)
+        person.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+       
 # Get and Post HTTP Methods using API For Students 
 @method_decorator(csrf_exempt, name='dispatch')
 class StudentList(APIView):

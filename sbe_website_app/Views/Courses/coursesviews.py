@@ -56,8 +56,10 @@ class CourseDetails(APIView):
 
     def put(self, request, pk, format=None):
         course = self.get_object(pk)
+        
         serializer = CourseSerializer(course, data=request.data)
         if serializer.is_valid():
+            course.stds_grades = request.FILES.getlist('stds_grades')[0]
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -198,13 +200,66 @@ class CourseHistoryDetailsView(APIView):
 
 
 @api_view(['GET'])
-def DownloadPDF(self,pk):
-
-    course=Course.objects.get(pk=pk)
-    print(course)
-    path_to_file = MEDIA_ROOT + f'/{course.stds_grades}'
+def DownloadPDF(self,pk,type):
+    print(pk)
+    print(type)
+    if type == "grade":
+        course=Course.objects.get(pk=pk)
+        path_to_file = MEDIA_ROOT + f'/{course.stds_grades}'
+    elif type == "mat":
+        mat=MaterialFile.objects.get(pk=pk)
+        path_to_file = MEDIA_ROOT + f'/{mat.material_upload}'
     f = open(path_to_file, 'rb')
+    print(f)
     pdfFile = File(f)
+    print(pdfFile)
+    
     response = HttpResponse(pdfFile.read())
     response['Content-Disposition'] = 'attachment'
+    print(response)
     return response
+
+
+class MaterialfileView(APIView):
+    def get(self,request):
+        courses = MaterialFile.objects.all()
+        serializer = MaterialfileSerializer(courses,many=True)
+        return Response(serializer.data)
+    
+    def post(self,request):
+        serializer = MaterialfileSerializer(data=request.data)
+        
+        # print(type(int(request.data["course_id"])))
+        
+        # course = Course.objects.get(id=int(request.data["course_id"]))
+        if serializer.is_valid():
+            if len(request.FILES.getlist('material_upload'))>0:
+                # MaterialFile.objects.create(material_upload=request.FILES.getlist('material_upload')[0],course_id=course)
+                serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class MaterialfileDetailsView(APIView):
+    def get_object(self, pk):
+        try:
+            return MaterialFile.objects.get(pk=pk)
+        except MaterialFile.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        material = self.get_object(pk)
+        serializer = MaterialFileSerializer(material)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        material = self.get_object(pk)
+        serializer = MaterialfileSerializer(material, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        material = self.get_object(pk)
+        material.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

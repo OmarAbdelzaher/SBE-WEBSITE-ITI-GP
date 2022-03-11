@@ -52,11 +52,11 @@ export default function News() {
 
                         <div className="col-12">
                           <div
-                            className="card-body mb-4 cardItem"
+                            className="card-body mb-4 "
                             key={item.id}
                           >
                             <h2 className="card-title">{item.title}</h2>
-                            <p className="card-text">{item.description}</p>
+                            <p className="card-text text-dark">{item.description}</p>
                           </div>
                         </div>
                       </div>

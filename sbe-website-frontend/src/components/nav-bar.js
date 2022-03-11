@@ -37,7 +37,7 @@ const NavBar = () => {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0 fs-3">
             <Nav.Link
-              className="nav-links text-dark"
+              className="nav-links"
               onClick={() =>
                 scroller.scrollTo("allnews", {
                   spy: true,
@@ -50,7 +50,7 @@ const NavBar = () => {
               News
             </Nav.Link>
             <Nav.Link
-              className="nav-links text-dark"
+              className="nav-links"
               activeClassName={"active"}
               onClick={() =>
                 scroller.scrollTo("allevents", {
@@ -65,7 +65,7 @@ const NavBar = () => {
             </Nav.Link>
 
             <Nav.Link
-              className="nav-links text-dark"
+              className="nav-links "
               onClick={() =>
                 scroller.scrollTo("about", {
                   spy: true,
@@ -78,7 +78,7 @@ const NavBar = () => {
               About
             </Nav.Link>
             <Nav.Link
-              className="nav-links text-dark"
+              className="nav-links "
               onClick={() =>
                 scroller.scrollTo("contact", {
                   spy: true,
@@ -127,9 +127,7 @@ const NavBar = () => {
                 <NavDropdown.Item href="/officehourschedule">
                   Office Hours
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/reservationsShedule">
-                  Reservations Schedule
-                </NavDropdown.Item>
+
                 <NavDropdown.Item href="/undergraduate-exams">
                   Exams
                 </NavDropdown.Item>

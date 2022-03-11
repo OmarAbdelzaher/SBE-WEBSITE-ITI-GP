@@ -83,8 +83,8 @@ class Person(AbstractBaseUser,PermissionsMixin):
     phone_number = models.CharField(validators=[phone_regex], max_length=17) # validators should be a list
     
     is_active = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False) # a admin user; non super-user
-    is_admin = models.BooleanField(default=False) # a superuser
+    is_staff = models.BooleanField(default=False) 
+    is_admin = models.BooleanField(default=False) 
     is_superuser = models.BooleanField(default=False)
     is_coordinator = models.BooleanField(default=False)
     is_moderator = models.BooleanField(default=False)
@@ -149,9 +149,7 @@ class Staff(Person,models.Model):
         ('TA', 'TA'),
     )
     position = models.CharField(max_length=10, choices=POS_CHOICES)
-    
-    # is_coordinator = models.BooleanField(default=False,null=True)
-    
+        
     def __str__(self):
         return self.fname + ' ' + self.lname
 
@@ -201,10 +199,11 @@ class Course(models.Model):
     total_grade = models.IntegerField()
 
 
-    stds_grades = models.FileField(upload_to='student_grades/',)
+    stds_grades = models.FileField(upload_to='student_grades/',null=True,blank=True)
+    # filepath= models.FileField(upload_to='files/', null=True, verbose_name="")
 
     instructions = models.TextField(max_length=500)
-    materials = models.CharField(max_length=500)
+    materials = models.CharField(max_length=500,blank=True)
     year = models.IntegerField()
     semester = models.IntegerField()
     
@@ -218,6 +217,14 @@ class Course(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class MaterialFile(models.Model):
+    course_id = models.ForeignKey(Course,on_delete=models.CASCADE)
+    material_upload = models.FileField(upload_to='student_material/')
+
+    def __str__(self):
+        return f'Material for {str(self.course_id)} course'
 
 class CourseHistory(models.Model):
     year = models.IntegerField()

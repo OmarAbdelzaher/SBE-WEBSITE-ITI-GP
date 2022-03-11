@@ -11,6 +11,11 @@ import {
   faEnvelope,
   faHome,
   faInbox,
+  faLocation,
+  faLocationArrow,
+  faLocationCrosshairs,
+  faLocationDot,
+  faMap,
   faMapLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
@@ -47,17 +52,10 @@ function Footer() {
 
         <Link
           className="icon fs-3"
-          to={{ pathname: "https://www.google.com/maps/dir//Faculty+of+Engineering+-+Cairo+University+Cairo+University+Rd+Oula+Giza+District,+Giza+Governorate/@30.0263303,31.21167,16z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1458472fa8265ddb:0x282c4b44cdf7e83c!2m2!1d31.21167!2d30.0263303/" }}
+          to={{ pathname: "https://www.google.com/" }}
           target="_blank"
         >
           <FontAwesomeIcon icon={faGoogle} />
-        </Link>
-        <Link
-          className="icon fs-3"
-          to={{ pathname: "http://cufe.edu.eg/wp-content/uploads/2014/12/map.jpg" }}
-          target="_blank"
-        >
-          <FontAwesomeIcon icon={faMapLocationDot} />
         </Link>
         <div className="row">
           <p className="contact col-auto me-auto">
@@ -82,14 +80,19 @@ function Footer() {
           <p className="col-auto adress ">
             <h1 className="fs-3 text-light">Adress </h1>
             <span>
-            <FontAwesomeIcon icon={faHome} />
-              {"   "}
-              123 Street Name <br/> <br/>
-            </span>
-            <span>
             <FontAwesomeIcon icon={faBuildingColumns} />
               {"   "}
-              Cairo University 
+              <a style={{textDecoration: 'none',color: '#457b9d'}} href="https://www.google.com/maps/dir//Faculty+of+Engineering+-+Cairo+University+Cairo+University+Rd+Oula+Giza+District,+Giza+Governorate/@30.0263303,31.21167,16z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1458472fa8265ddb:0x282c4b44cdf7e83c!2m2!1d31.21167!2d30.0263303/" >Faculty Location </a><br/> <br/>
+            </span>
+            <span>
+            <FontAwesomeIcon icon={faLocationCrosshairs} />
+              {"   "}
+              <a style={{textDecoration: 'none',color: '#457b9d'}} href="http://cufe.edu.eg/wp-content/uploads/2014/12/map.jpg" >Faculty Map </a><br/> <br/>
+            </span>
+            <span>
+            <FontAwesomeIcon icon={faMapLocationDot} />
+              {"   "}
+              <a style={{textDecoration: 'none',color: '#457b9d'}} href="https://www.google.com/maps/dir//Faculty+of+Engineering+-+Cairo+University+Cairo+University+Rd+Oula+Giza+District,+Giza+Governorate/@30.0263303,31.21167,16z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1458472fa8265ddb:0x282c4b44cdf7e83c!2m2!1d31.21167!2d30.0263303/" >Department Map</a>
             </span>
           </p>
         </div>

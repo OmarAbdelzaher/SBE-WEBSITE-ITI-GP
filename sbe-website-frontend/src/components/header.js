@@ -10,7 +10,6 @@ import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 import { useSelector } from "react-redux";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import axios from "axios";
 
 let flag = false
 
@@ -22,6 +21,8 @@ const Header = ({ logout, isAuthenticated }) => {
   const [is_emp, setIsEmp] = useState(false);
   const [isCoordinator,setIsCoordinator] = useState(false)
   const [isModerator,setIsModerator] = useState(false)
+  const [isAdmin,setIsAdmin] = useState(false)
+
 
   const person = useSelector(state=>state.auth)
   
@@ -45,9 +46,11 @@ const Header = ({ logout, isAuthenticated }) => {
           setIsModerator(true)
         }
       }
-      console.log(person.user)
-    }
 
+      if(person.user.is_admin){
+        setIsAdmin(true)
+      }
+    }
   });
 
   const logout_user = () => {
@@ -55,6 +58,7 @@ const Header = ({ logout, isAuthenticated }) => {
     setIsEmp(false)
     setIsModerator(false)
     setIsCoordinator(false)
+    setIsAdmin(false)
 
     logout();
     setRedirect(true);
@@ -75,16 +79,6 @@ const Header = ({ logout, isAuthenticated }) => {
     </>
   );
 
-  const staffLinks = () =>(
-    <>
-    <Nav.Link className="button">
-      <Link className="fs-5 header-link ani"  to="/reservation">
-       Reservation
-      </Link>
-    </Nav.Link>
-    </>
-  )
-
   const authLinks = () => (
     <Nav.Link className="button ">
       <Link className="fs-5 header-link ani" to="/"  onClick={logout_user}>
@@ -101,14 +95,6 @@ const moderatorLink = () => (
     </Link>
   </Nav.Link>
 )
-  // const signedInLink = () => (
-  //   <Nav.Link className="button">
-  //     <Link className="fs-5 header-link ani" to="/profilepage" >
-  //      Edit Profile 
-  //     </Link>
-  //   </Nav.Link>
-    
-  // );
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
@@ -127,8 +113,8 @@ const moderatorLink = () => (
 
   return (
     <>
-      <Navbar fixed="top" fixed="top" className={head ? "head scroll" : "head"}>
-        <Navbar.Brand className="col-3" href="/">
+      <Navbar fixed="top" className={head ? "head scroll" : "head"}>
+        <Navbar.Brand className="col-2" href="/">
           <img
             src={logo}
             width="180"
@@ -137,16 +123,21 @@ const moderatorLink = () => (
             alt="Department logo"
           />
         </Navbar.Brand>{" "}
+        
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav variant="dark" className="col-7 offset-6">
+
+          <Nav  className="col-7 offset-6">
+          
             <Nav.Link className="button">
               <Link className="fs-5 header-link ani" to="/">
                 <FontAwesomeIcon icon={faHome} />{" "}
               </Link>
             </Nav.Link>
+          
+           
             {isAuthenticated ? authLinks() : guestLinks()}
-            {is_staff ? staffLinks() : null}
             {isModerator ? moderatorLink() : null}
 
             { isAuthenticated ? <div className="dropdown">
@@ -155,11 +146,13 @@ const moderatorLink = () => (
                 title= {
                   person.user != null ? person.user.fname : null
                 }  
-                id="navbarScrollingDropdown"
+                id="headScrollingDropdown"
+                aria-controls="navbar-dark-example"
               >
+                <div className="  "  aria-expanded="false" >
                 <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
                 {
-                  is_staff ? 
+                  is_staff || isAdmin ? 
                   <>
                     <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
                     <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
@@ -167,9 +160,9 @@ const moderatorLink = () => (
                   </>
                   : null
                 }
+                </div>
               </NavDropdown>
             </div> : null }
-
           </Nav>
         </Navbar.Collapse>
       </Navbar>

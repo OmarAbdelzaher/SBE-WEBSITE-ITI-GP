@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +15,7 @@ function Profile(isAuthenticated) {
   let StudentUrl = "";
   let StaffUrl = "";
   let EmpUrl = "";
+  let PersonUrl = "";
   let Url = "";
 
   const [User, setUser] = useState({
@@ -53,6 +54,7 @@ function Profile(isAuthenticated) {
     StudentUrl = `http://localhost:8000/api/student/${who.user.id}`;
     StaffUrl = `http://localhost:8000/api/onestaff/${who.user.id}`;
     EmpUrl = `http://localhost:8000/api/facultyemp/${who.user.id}`;
+    PersonUrl = `http://localhost:8000/api/person/${who.user.id}`;
 
     if (who.user.role == "student") {
       Url = StudentUrl;
@@ -61,7 +63,10 @@ function Profile(isAuthenticated) {
     } else if ((who.user.role = "employee")) {
       Url = EmpUrl;
     }
-  
+
+    if(who.user.is_admin){
+      Url = PersonUrl
+    }
   }
 
   const validate = (values) =>{
@@ -102,7 +107,7 @@ function Profile(isAuthenticated) {
     return errors
   }
 
-
+  
   useEffect(() => {
     axios.get(Url).then((res)=>{
       setUser(res.data)
@@ -129,7 +134,6 @@ function Profile(isAuthenticated) {
   };
 
 
-
   const onSubmit = (e) => {
     e.preventDefault();
     let errors_form = validate(User)
@@ -140,19 +144,22 @@ function Profile(isAuthenticated) {
     const Data = new FormData();
 
     if (who.user.role == "student") {
+      //Repeated Line
       Url = StudentUrl;
       Data.append("year_of_graduation", User.year_of_graduation);
       Data.append("graduate", User.graduate);
     } else if (who.user.role == "dr" || who.user.role == "ta") {
+      //Repeated Line
       Url = StaffUrl;
     } else if ((who.user.role = "employee")) {
+      //Repeated Line
       Url = EmpUrl;
       Data.append("title", User.title);
     }
 
-if(changed==true){
-  User.profile_img=picture
-}
+    if(changed==true){
+      User.profile_img=picture
+    }
     Data.append("fname", User.fname);
     Data.append("lname", User.lname);
     Data.append("email", User.email);
@@ -163,13 +170,11 @@ if(changed==true){
     Data.append("phone_number", User.phone_number);
     Data.append("password", User.password);
 
-    try {
-      axios.put(Url, Data);
-      history.push("/");
-    } catch (e) {
-      console.log(e);
+      axios.put(Url, Data).then((res)=>{
+        history.push("/");
+      }).catch((e)=>console.log(e))
     }
-  }};
+  };
 
   return (
     <section className="py-5 h-150 h-custom">

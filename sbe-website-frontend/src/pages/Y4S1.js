@@ -8,10 +8,10 @@ export default function YfourSone() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/courseungraduateyearfour/")
-      .then((res) => {
-        setCourses(res.data)
+      .then((res) => setCourses(res.data.filter((course)=>course.category=='undergraduate')))
+        // setCourses(res.data)
 
-      })
+      
   }, []);
   return (
     <>

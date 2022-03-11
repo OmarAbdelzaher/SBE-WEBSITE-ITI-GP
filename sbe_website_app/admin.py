@@ -36,7 +36,13 @@ class FacEmpAdmin(admin.ModelAdmin):
         if len(obj.password) < 80:
             obj.password = make_password(obj.password)
         super().save_model(request, obj, form, change)
-        
+
+class MaterialAdmin(admin.ModelAdmin):    
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        for afile in request.FILES.getlist('files_multiple'):
+            obj.material_upload.create(material_upload=afile)
+                   
 admin.site.register(Person,PersonAdmin)  
 admin.site.register(Staff,StaffAdmin)
 admin.site.register(Student,StudentAdmin)
@@ -54,6 +60,8 @@ admin.site.register(ReserveDevice)
 admin.site.register(TimeSlot)
 admin.site.register(New)
 admin.site.register(Event)
+admin.site.register(MaterialFile,MaterialAdmin)
+
 
 
 

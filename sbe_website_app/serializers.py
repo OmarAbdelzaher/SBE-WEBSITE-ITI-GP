@@ -10,13 +10,13 @@ User = get_user_model()
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password' ,'role','is_coordinator','is_moderator']
+        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password' ,'role','is_coordinator','is_moderator','is_admin']
 
         
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['id','fname','lname','email','gender','profile_img','birthdate','address','phone_number','password','role','is_active']
+        fields = ['id','fname','lname','email','gender','profile_img','birthdate','address','phone_number','password','role','is_active','is_admin']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(PersonSerializer, self).create(validated_data)
@@ -69,6 +69,12 @@ class CourseHistorySerializer(serializers.ModelSerializer):
         for i in range(len(ret['staff_id'])): 
             ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
         return ret
+
+class MaterialfileSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = MaterialFile
+        fields = ['id','course_id','material_upload']
+
 
 class HallSerializer(serializers.ModelSerializer):
     class Meta :
