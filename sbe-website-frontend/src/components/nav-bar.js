@@ -5,9 +5,42 @@ import "../pages/style.css";
 import React, { useState, useEffect } from "react";
 import { scroller } from "react-scroll";
 import "../pages/style.css";
+import { useSelector } from "react-redux";
 
-const NavBar = () => {
+const NavBar = (isAuthenticated) => {
+  let flag = false;
+
   const [bar, setNavbar] = useState(false);
+  const [is_staff, setIs_staff] = useState(false);
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const person = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated && person.user != null && flag == false) {
+      if (person.user.role == "dr" || person.user.role == "ta") {
+        setIs_staff(true);
+        if (person.user.is_coordinator) {
+          setIsCoordinator(true);
+        }
+        flag = true;
+      }
+
+      if (person.user.role == "employee") {
+        setIsEmp(true);
+        if (person.user.is_moderator) {
+          setIsModerator(true);
+        }
+      }
+
+      if (person.user.is_admin) {
+        setIsAdmin(true);
+      }
+    }
+  });
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
@@ -106,9 +139,11 @@ const NavBar = () => {
                 <NavDropdown.Item href="/officehourschedule">
                   Office Hours
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/graduate-exams">
-                  Exams
-                </NavDropdown.Item>
+                {isCoordinator || isModerator ? (
+                  <NavDropdown.Item href="/graduate-exams">
+                    Exams
+                  </NavDropdown.Item>
+                ) : null}
               </NavDropdown>
             </div>
             <div className="dropdown">
@@ -127,10 +162,11 @@ const NavBar = () => {
                 <NavDropdown.Item href="/officehourschedule">
                   Office Hours
                 </NavDropdown.Item>
-
-                <NavDropdown.Item href="/undergraduate-exams">
-                  Exams
-                </NavDropdown.Item>
+                {isCoordinator || isModerator ? (
+                  <NavDropdown.Item href="/undergraduate-exams">
+                    Exams
+                  </NavDropdown.Item>
+                ) : null}
               </NavDropdown>
             </div>
           </Nav>

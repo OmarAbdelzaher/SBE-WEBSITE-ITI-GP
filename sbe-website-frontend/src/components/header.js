@@ -2,7 +2,7 @@ import Navbar from "react-bootstrap/Navbar";
 import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import logo from "../assets/image/departmentLogo.png";
-import { Link, NavLink, Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "../pages/style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
@@ -11,9 +11,9 @@ import { logout } from "../actions/auth";
 import { useSelector } from "react-redux";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-let flag = false
 
 const Header = ({ logout, isAuthenticated }) => {
+  let flag = false
 
   const [head, setHeader] = useState(false);
   const [redirect, setRedirect] = useState(false);
@@ -89,8 +89,8 @@ const Header = ({ logout, isAuthenticated }) => {
   );
   
 const moderatorLink = () => (
-  <Nav.Link className="button">
-    <Link className="fs-5 header-link ani" to="/moderator">
+  <Nav.Link className="button btn-b">
+    <Link className="fs-4 header-link ani btn-b" to="/moderator">
     Moderator
     </Link>
   </Nav.Link>
@@ -142,48 +142,31 @@ const moderatorLink = () => (
               
               className=" button btn-b "
               title= {
-                staff.user != null ? staff.user.fname : null
+                person.user != null ? person.user.fname : null
               }  
               id="headScrollingDropdown"
               aria-controls="navbar-dark-example"
             >
               <div className="  "  aria-expanded="false" >
               <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
-              <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
-              <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
-              <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
+              {
+                is_staff || isAdmin ? 
+                <>
+                  <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
+                  <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
+                  <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule">Reservations Schedule</Link></NavDropdown.Item>
+                </>
+                : null
+              }
+              {
+                isModerator ? <NavDropdown.Item ><Link className="nav-links" to="/moderator">Moderator</Link></NavDropdown.Item>
+                : null
+              }
               </div>
             </NavDropdown>
           </div> : null }
-          
-          
-           
             {isAuthenticated ? authLinks() : guestLinks()}
-            {isModerator ? moderatorLink() : null}
 
-            { isAuthenticated ? <div className="dropdown">
-              <NavDropdown
-                className="dropdown"
-                title= {
-                  person.user != null ? person.user.fname : null
-                }  
-                id="headScrollingDropdown"
-                aria-controls="navbar-dark-example"
-              >
-                <div className="  "  aria-expanded="false" >
-                <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
-                {
-                  is_staff || isAdmin ? 
-                  <>
-                    <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
-                    <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
-                    <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
-                  </>
-                  : null
-                }
-                </div>
-              </NavDropdown>
-            </div> : null }
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -191,8 +174,6 @@ const moderatorLink = () => (
     </>
   );
 };
-
-// export default Header;
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
