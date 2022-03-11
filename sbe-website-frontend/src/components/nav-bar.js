@@ -3,16 +3,44 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../pages/style.css";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { scroller } from "react-scroll";
-// import { Link, animateScroll as scroll } from "react-scroll";
 import "../pages/style.css";
-import UnderGraduateExams from "./UnderGraduateExams";
+import { useSelector } from "react-redux";
 
+const NavBar = (isAuthenticated) => {
+  let flag = false;
 
-
-const NavBar = () => {
   const [bar, setNavbar] = useState(false);
+  const [is_staff, setIs_staff] = useState(false);
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const person = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated && person.user != null && flag == false) {
+      if (person.user.role == "dr" || person.user.role == "ta") {
+        setIs_staff(true);
+        if (person.user.is_coordinator) {
+          setIsCoordinator(true);
+        }
+        flag = true;
+      }
+
+      if (person.user.role == "employee") {
+        setIsEmp(true);
+        if (person.user.is_moderator) {
+          setIsModerator(true);
+        }
+      }
+
+      if (person.user.is_admin) {
+        setIsAdmin(true);
+      }
+    }
+  });
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
@@ -43,69 +71,57 @@ const NavBar = () => {
           <Nav className="me-auto my-2 my-lg-0 fs-3">
             <Nav.Link
               className="nav-links"
-            
-                onClick={() => scroller.scrollTo('allnews', {
-                  spy:true,
+              onClick={() =>
+                scroller.scrollTo("allnews", {
+                  spy: true,
                   smooth: true,
                   offset: -120,
                   duration: 100,
-                })}
-              
-              >
-                News
+                })
+              }
+            >
+              News
             </Nav.Link>
             <Nav.Link
-         
               className="nav-links"
               activeClassName={"active"}
-            
-              onClick={() => scroller.scrollTo('allevents', {
-                spy:true,
-                smooth: true,
-                offset: -170,
-                duration: 100,
-            })}
-
-              >
-                Events
-            </Nav.Link>
-          
-            {/* <ScrollLink 
-        to="example-destination" 
-        spy={true} 
-        smooth={true} 
-        duration={500} 
-        className='some-class' 
-        activeClass='some-active-class'
-      >
-        Link Text Goes Here
-      </ScrollLink>  */}
-            
-            <Nav.Link
-            
-                className="nav-links "
-            
-                onClick={() => scroller.scrollTo('about', {
-                  spy:true,
+              onClick={() =>
+                scroller.scrollTo("allevents", {
+                  spy: true,
                   smooth: true,
                   offset: -170,
                   duration: 100,
-              })}
-              >
-                About
+                })
+              }
+            >
+              Events
+            </Nav.Link>
+
+            <Nav.Link
+              className="nav-links "
+              onClick={() =>
+                scroller.scrollTo("about", {
+                  spy: true,
+                  smooth: true,
+                  offset: -170,
+                  duration: 100,
+                })
+              }
+            >
+              About
             </Nav.Link>
             <Nav.Link
-                            className="nav-links "
-            
-                            onClick={() => scroller.scrollTo('contact', {
-                              spy:true,
-                              smooth: true,
-                              offset: 0,
-                              duration: 100,
-                          })}
-              
-              >
-                Contact us
+              className="nav-links "
+              onClick={() =>
+                scroller.scrollTo("contact", {
+                  spy: true,
+                  smooth: true,
+                  offset: 0,
+                  duration: 100,
+                })
+              }
+            >
+              Contact us
             </Nav.Link>
             <div className="dropdown">
               <NavDropdown
@@ -113,13 +129,21 @@ const NavBar = () => {
                 title="Graduates"
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="/adm-graduates">Admission</NavDropdown.Item>
+                <NavDropdown.Item href="/adm-graduates">
+                  Admission
+                </NavDropdown.Item>
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
-                <NavDropdown.Item href="/coursegraduate">Courses</NavDropdown.Item>
-                <NavDropdown.Item href="/officehourschedule">Office Hours</NavDropdown.Item>
-                <NavDropdown.Item href="/graduate-exams">Exams</NavDropdown.Item>
-
-
+                <NavDropdown.Item href="/coursegraduate">
+                  Courses
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/officehourschedule">
+                  Office Hours
+                </NavDropdown.Item>
+                {isCoordinator || isModerator ? (
+                  <NavDropdown.Item href="/graduate-exams">
+                    Exams
+                  </NavDropdown.Item>
+                ) : null}
               </NavDropdown>
             </div>
             <div className="dropdown">
@@ -128,12 +152,21 @@ const NavBar = () => {
                 title="Under-Graduates"
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="/adm-undergraduates">Admission</NavDropdown.Item>
-                <NavDropdown.Item href="/undergraduatepage">News</NavDropdown.Item>
+                <NavDropdown.Item href="/adm-undergraduates">
+                  Admission
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/undergraduatepage">
+                  News
+                </NavDropdown.Item>
                 <NavDropdown.Item href="/coursesMenu">Courses</NavDropdown.Item>
-                <NavDropdown.Item href="/officehourschedule">Office Hours</NavDropdown.Item>
-                <NavDropdown.Item href="/reservationsShedule">Reservations Schedule</NavDropdown.Item>
-                <NavDropdown.Item href="/undergraduate-exams">Exams</NavDropdown.Item>
+                <NavDropdown.Item href="/officehourschedule">
+                  Office Hours
+                </NavDropdown.Item>
+                {isCoordinator || isModerator ? (
+                  <NavDropdown.Item href="/undergraduate-exams">
+                    Exams
+                  </NavDropdown.Item>
+                ) : null}
               </NavDropdown>
             </div>
           </Nav>
@@ -144,7 +177,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-
-
-

@@ -92,19 +92,18 @@ function ReservationApprov() {
 
   return (
     <>
-      <section className="h-custom main">
-        <div className="container ">
+      <section className=" main">
+        <div className="container py-5">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="sidebar justify-content-center">
                 <AdminNav />
               </div>
               <div className="card-body ">
-                {/* <p className="fs-1 text-light"> SBE DEPARTMENT</p> */}
-                <p className="fs-1 text-light"> - Reservation Menu</p>
+                <p className="fs-1 text-light"> Reservation Menu</p>
 
                 <select
-                className="select form-control-lg btn btn-lg" style={{backgroundColor:"#001233", color:"#ffff"}}
+                className="select form-control-lg btn btn-md col-3" style={{backgroundColor:"#003049", color:"#ffff"}}
                 onChange={(e) => onChange(e)}
                 name="ReserveType"
                 value={reservation}
@@ -122,16 +121,16 @@ function ReservationApprov() {
               
 
               <div>
-                <table className="table table-bordered table-hover bg-light fs-4 col-12">
+                <table className="table  table-hover bg-light fs-4 col-12">
                   <thead>
                     <tr className="text-dark ">
                       <th>#</th>
-                      <th className="fw-normal">Name</th>
-                      <th className="fw-normal">Reserved By</th>
-                      <th className="fw-normal">Confirm By</th>
-                      <th className="fw-normal">Date</th>
-                      <th className="fw-normal">Time Slot</th>
-                      <th className="fw-normal">Actions</th>
+                      <th className="text-dark fw-light">Name</th>
+                      <th className="text-dark fw-light">Reserved By</th>
+                      <th className="text-dark fw-light">Confirm By</th>
+                      <th className="text-dark fw-light">Date</th>
+                      <th className="text-dark fw-light">Time Slot</th>
+                      <th className="text-dark fw-light">Actions</th>
                     </tr>
                   </thead>
 
@@ -151,7 +150,7 @@ function ReservationApprov() {
                           <td>{item.timeslot[1]}</td>
                           <td>
                             <Link to="#">
-                              <button className="btn button" onClick={()=>{ConfirmReservation(item)}}>
+                              <button className="btn btn-md nav-links" onClick={()=>{ConfirmReservation(item)}}>
                                 <FontAwesomeIcon
                                   className="fs-5"
                                   icon={faCalendarCheck}
@@ -159,37 +158,9 @@ function ReservationApprov() {
                                 Confirm
                               </button>
                             </Link>
-                            {item.hall_id ? <Link to={`/reservationEdit/${item.id}/${item.date}/${item.timeslot}/hall/${item.hall_id}`}>
-                              <button className="btn button">
-                                <FontAwesomeIcon
-                                  className="fs-5"
-                                  icon={faGear}
-                                />{" "}
-                                Edit
-                              </button>
-                            </Link> : null}
-
-                            {item.lab_id ? <Link to={`/reservationEdit/${item.id}/${item.date}/${item.timeslot}/lab/${item.lab_id}`}>
-                              <button className="btn button">
-                                <FontAwesomeIcon
-                                  className="fs-5"
-                                  icon={faGear}
-                                />{" "}
-                                Edit
-                              </button>
-                            </Link> : null}
-
-                            {item.device_id ? <Link to={`/reservationEdit/${item.id}/${item.date}/${item.timeslot}/device/${item.device_id}`}>
-                              <button className="btn button">
-                                <FontAwesomeIcon
-                                  className="fs-5"
-                                  icon={faGear}
-                                />{" "}
-                                Edit
-                              </button>
-                            </Link> : null}
                           </td>
                         </tr>
+                        
                       );
                     })}
                   </tbody>

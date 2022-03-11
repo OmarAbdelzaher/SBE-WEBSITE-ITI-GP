@@ -24,7 +24,6 @@ import CourseUnderGraduate from "./components/CourseUndergraduate";
 import Profile from "./pages/Profile";
 import YoneSone from "./pages/Y1S1";
 import YoneStwo from "./pages/Y1S2";
-// import YearTwo from "./pages/Y2S1";
 import YtwoSone from "./pages/Y2S1";
 import YtwoStwo from "./pages/Y2S2";
 import YthreeSone from "./pages/Y3S1";
@@ -41,12 +40,25 @@ import UnderGraduateExams from "./components/UnderGraduateExams";
 import GraduateExams from "./components/GraduateExams";
 
 import OfficeHours from "./components/OfficeHours";
-import OfficeHoursView from "./components/OfficeHoursView";
 import OfficeHoursSchedule from "./components/OfficeHoursView";
 import OfficeHoursDetails from "./components/OfficeHoursDetails";
 import EditOfficeHours from "./components/EditOfficeHours";
+import LabsReservations from "./pages/LabsReservations";
+import HallsReservations from "./pages/HallsReservations";
+import DevicesReservations from "./pages/DevicesReservations";
+import EditReservationHall from "./components/EditReservationHall";
+import EditReservationLab from "./components/EditReservationsLab";
+import EditReservationDevice from "./components/EditReservationsDevice";
+import Halls from "./components/Halls";
+import HallForm from "./components/HallForm";
+import Labs from "./components/Labs";
+import LabForm from "./components/LabForm";
+import Devices from "./components/Devices";
+import DeviceForm from "./components/DeviceForm";
+import EditHallForm from "./components/EditHallForm";
+import EditLabForm from "./components/EditLabForm";
+import EditDeviceForm from "./components/EditDeviceForm";
 import CourseForm from "./pages/CourseForm";
-import EditReservation from "./components/EditReservation";
 import Adm_Graduates from "./pages/Adm_Graduates"
 import Adm_UnderGraduates from "./pages/Adm_UnderGraduates"
 import AssignCourse from "./pages/AssignCourse";
@@ -106,7 +118,30 @@ function App() {
             <Route path={"/officehourschedule"} exact component={OfficeHoursSchedule} />
             <Route path={"/officehoursDetails"} exact component={OfficeHoursDetails} />
             <Route path={"/officehoursEdit/:id"} exact component={EditOfficeHours} />
-            <Route path={"/reservationEdit/:id/:date/:time/:type/:name"} exact component={EditReservation} />
+            <Route path={"/reservationEditHall/:id/:date/:time/:type/:name/:staff"} exact component={EditReservationHall} />
+            <Route path={"/reservationEditLab/:id/:date/:time/:type/:name/:staff"} exact component={EditReservationLab} />
+            <Route path={"/reservationEditDevice/:id/:date/:time/:type/:name/:staff"} exact component={EditReservationDevice} />
+
+            <Route path={"/halls"} exact component={Halls} />
+            <Route path={"/hallform"} exact component={HallForm} />
+            <Route path={"/labs"} exact component={Labs} />
+            <Route path={"/labform"} exact component={LabForm} />
+            <Route path={"/devices"} exact component={Devices} />
+            <Route path={"/deviceform"} exact component={DeviceForm} />
+            <Route path={"/editHallForm/:id/:name"} exact component={EditHallForm} />
+            <Route path={"/editLabForm/:id/:name"} exact component={EditLabForm} />
+            <Route path={"/editDeviceForm/:id/:name"} exact component={EditDeviceForm} />
+
+
+
+
+
+
+
+            <Route path={"/labsreservations"} exact component={LabsReservations} />
+            <Route path={"/hallsreservations"} exact component={HallsReservations} />
+            <Route path={"/devicesreservations"} exact component={DevicesReservations} />
+
 
             <Route path={"/courseform"} exact component={CourseForm} />
             <Route path={"/assigncourse"} exact component={AssignCourse} />

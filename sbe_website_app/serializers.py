@@ -10,13 +10,13 @@ User = get_user_model()
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password' ,'role']
+        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password' ,'role','is_coordinator','is_moderator','is_admin']
 
         
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['id','fname','lname','email','gender','profile_img','birthdate','address','phone_number','password','role','is_active']
+        fields = ['id','fname','lname','email','gender','profile_img','birthdate','address','phone_number','password','role','is_active','is_admin']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(PersonSerializer, self).create(validated_data)
@@ -32,7 +32,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','role','is_active']
+        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','role','is_active','is_coordinator']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StaffSerializer, self).create(validated_data)
@@ -40,7 +40,7 @@ class StaffSerializer(serializers.ModelSerializer):
 class FacultyEmpSerializer(serializers.ModelSerializer):
     class Meta :
         model = FacultyEmp
-        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','title','role','is_active']
+        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','title','role','is_active','is_moderator']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -70,48 +70,26 @@ class CourseHistorySerializer(serializers.ModelSerializer):
             ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
         return ret
 
-# class FileListSerializer ( serializers.Serializer ) :
-
-
-#     CourseFile = serializers.ListField(
-#                        child=serializers.FileField( max_length=100000,
-#                                          allow_empty_file=False,
-#                                          use_url=False )
-#                                 )
-#     def create(self, validated_data):
-#         blogs=Blogs.objects.latest('created_at')
-#         image=validated_data.pop('image')
-#         for img in image:
-#             photo=Photo.objects.create(image=img,blogs=blogs,**validated_data)
-#         return photo
-
-
 class MaterialfileSerializer(serializers.ModelSerializer):
     class Meta :
         model = MaterialFile
-        fields = ['course_id','matrial_upload']
-    # file = serializers.FileField(max_length=None, allow_empty_file=False)
+        fields = ['id','course_id','material_upload']
 
 
 class HallSerializer(serializers.ModelSerializer):
     class Meta :
         model = Hall
-        fields = ['name']
+        fields = ['id','name']
 
 class LabSerializer(serializers.ModelSerializer):
     class Meta :
         model = Lab
-        fields = ['name']
+        fields = ['id','name']
 
 class DeviceSerializer(serializers.ModelSerializer):
     class Meta :
         model = Device
-        fields = ['name']
-
-class DeviceSerializer(serializers.ModelSerializer):
-    class Meta :
-        model = Device
-        fields = ['name']
+        fields = ['id','name']
 
 class ReserveHallSerializer(serializers.ModelSerializer):
     class Meta :

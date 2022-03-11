@@ -289,13 +289,15 @@
 }
 .sbe{
   font-size: 70px;
+  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 
 
 .sidenav {
   height: 100%;
-  width: 200px;
+  width: 320px;
   position: fixed;
   z-index: 2;
   top: 0;
@@ -312,9 +314,9 @@
 
 .sbar-links{
   text-decoration: none;
-  color:black;
+  color:#001233;
   /* font-weight:lighter; */
-  font-weight: 300;
+  font-weight:300;
   font-size: 22px !important;
 
 }
@@ -322,12 +324,22 @@
   color: #9b2226;
 }
 
+.main-a{
+  height: 100vh;
+  background-attachment: fixed;
+
+}
 
 .main {
-  margin-left: 200px; 
-  /* font-size: 28px; */
+  margin-left: 320px; 
   padding: 0px 10px;
-  background-color:black;
+  background-image: url(../assets/image/Fac_eng.jpg);
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* background-attachment: fixed; */
+ margin-bottom: 0% !important;
 }
 
 @media screen and (max-height: 450px) {

@@ -9,6 +9,7 @@ import {
   faGears,
   faTrash,
   faTrashCan,
+  faCirclePlus
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function OfficeHoursDetails(params) {
@@ -47,9 +48,10 @@ export default function OfficeHoursDetails(params) {
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="card-body ">
-                <p className="fs-3 text-light"> - OfficeHours Schedule</p>
-                <Link to={"/officehours"}>
-                  <button className="btn btn-lg button">Add Office Hours </button>
+                <p className="fs-2 text-light">OfficeHours Schedule</p>
+                <Link className="btn btn-lg col-3" style={{backgroundColor:"#003049", color:"#ffff"}} to={"/officehours"}>
+                <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
+                  Add Office Hours 
                 </Link>
               </div>
 
@@ -57,11 +59,11 @@ export default function OfficeHoursDetails(params) {
                 <thead>
                   <tr className="text-dark">
                     <th scope="col">#</th>
-                    <th scope="col">OfficeHour Type</th>
-                    <th scope="col">Week Day</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" className="text-dark fw-light">OfficeHour Type</th>
+                    <th scope="col" className="text-dark fw-light">Week Day</th>
+                    <th scope="col" className="text-dark fw-light">From</th>
+                    <th scope="col" className="text-dark fw-light">To</th>
+                    <th scope="col" className="text-dark fw-light">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="mb-3">

@@ -6,9 +6,21 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarCheck,
+  faCalendarDays,
+  faCalendarTimes,
+  faClinicMedical,
+  faClock,
+  faFlask,
   faGear,
+  faGears,
   faHome,
+  faHourglass,
+  faListCheck,
+  faMicroscope,
+  faSchool,
+  faScrewdriverWrench,
   faSquarePollHorizontal,
+  faToolbox,
   faUser,
   faUserClock,
   faUserGraduate,
@@ -16,59 +28,64 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
+
 function AdminNav() {
   return (
     <>
      <nav className="sidenav shadow-lg ">
        <div className="text-dark">
          <div className="dropdown-divider"></div>
-         <Link className="fs-5 sbar-links" to="/moderator">
-            <FontAwesomeIcon className="fs-6" icon={faHome} /> Moderator
+         <Link className="fs-3 fw-normal sbar-links" to="/moderator">
+            <FontAwesomeIcon className="fs-4" icon={faScrewdriverWrench} style={{color:"#dc2f02"}} /> Moderator
           </Link>
           <br></br>
-          <Link className="fs-6 sbar-links" to="/users">
-            <FontAwesomeIcon className="fs-6" icon={faUsers} /> Users
+          <Link className="fs-6 sbar-links" to="/halls">
+            <FontAwesomeIcon className="fs-6" icon={faSchool} style={{color:"#dc2f02"}} /> Halls
           </Link>
           <br></br>
-          <Link className="fs-6 sbar-links" to="/moderator">
+          <Link className="fs-6 sbar-links" to="/labs">
             <FontAwesomeIcon
               className="fs-6"
-              icon={faUser}
+              icon={faFlask}
+              style={{color:"#dc2f02"}}
             />{" "}
-            UnderGraduate
+            Labs
           </Link>
           <br></br>
-          <Link className="fs-6 sbar-links" to="/moderator">
+          <Link className="fs-6 sbar-links" to="/devices">
             <FontAwesomeIcon
               className="fs-6"
-              icon={faUserGraduate}
+              icon={faMicroscope}
+              style={{color:"#dc2f02"}}
             />{" "}
-            Graduate
+            Devices
+          </Link>
+          <br></br>
+          <Link className="fs-6 sbar-links" to="/hallsreservations">
+            <FontAwesomeIcon className="fs-6" icon={faListCheck} style={{color:"#dc2f02"}}/>{" "}
+            Halls Reservations 
+          </Link>
+          <br></br>
+          <Link className="fs-6 sbar-links" to="/labsreservations">
+            <FontAwesomeIcon className="fs-6" icon={faClock} style={{color:"#dc2f02"}}/>{" "}
+            Labs Reservations 
+          </Link>
+          <br></br>
+          <Link className="fs-6 sbar-links" to="/devicesreservations">
+            <FontAwesomeIcon className="fs-6" icon={faHourglass} style={{color:"#dc2f02"}}/>{" "}
+            Devices Reservations 
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/registration-approv">
-            <FontAwesomeIcon className="fs-6" icon={faUserClock} />{" "}
-            Registration 
+            <FontAwesomeIcon className="fs-6" icon={faUserClock} style={{color:"#dc2f02"}}/>{" "}
+            Registration Approvement 
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/reservation-approv">
-            <FontAwesomeIcon className="fs-6" icon={faCalendarCheck} />{" "}
-            Reservation 
+            <FontAwesomeIcon className="fs-6" icon={faCalendarDays} style={{color:"#dc2f02"}}/>{" "}
+            Reservation Approvement 
           </Link>
           <br></br>
-          <div className="dropdown">
-
-          <Link className="fs-6 sbar-links">
-            <FontAwesomeIcon
-              className="fs-6"
-              icon={faSquarePollHorizontal}
-            />{" "}
-            News
-          </Link>
-          </div>
-          <br></br>
-        
- 
   </div>
 
      </nav>
@@ -172,3 +189,111 @@ export default AdminNav;
   </Navbar.Collapse>
 
 </Navbar> */}
+
+
+
+
+
+
+
+
+
+      {/* <Navbar className="m-button" expand={false}>
+        <Navbar.Toggle className="bg-light" aria-controls="offcanvasNavbar" />
+        <Navbar.Offcanvas
+          className="shadow menu "
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+          placement="start"
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title
+              className="sbar-links fs-3 fw-bold"
+              id="offcanvasNavbarLabel"
+            >
+              <FontAwesomeIcon className="fs-2" icon={faGear} /> Admin Control
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="justify-content-start flex-grow-1 pe-3">
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/moderator">
+                  <FontAwesomeIcon className="fs-2" icon={faHome} /> Moderator
+                  Page
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/halls">
+                  <FontAwesomeIcon className="fs-2" icon={faHome} /> Halls
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/labs">
+                  <FontAwesomeIcon className="fs-2" icon={faHome} /> Labs
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/devices">
+                  <FontAwesomeIcon className="fs-2" icon={faHome} /> Devices
+                </Link>
+              </Nav.Link>
+
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/hallsreservations">
+                  <FontAwesomeIcon className="fs-2" icon={faUsers} /> Halls Reservations
+                </Link>
+              </Nav.Link>
+
+
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/labsreservations">
+                  <FontAwesomeIcon
+                    className="fs-2"
+                    icon={faUser}
+                  />{" "}
+                  Labs Reservations
+                </Link>
+              </Nav.Link>
+
+
+              <Nav.Link >
+                <Link className="fs-3 sbar-links" to="/devicesreservations">
+                  <FontAwesomeIcon
+                    className="fs-2"
+                    icon={faUserGraduate}
+                  />{" "}
+                  Devices Reservations
+                </Link>
+              </Nav.Link>
+
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/registration-approv">
+                  <FontAwesomeIcon className="fs-2" icon={faUserClock} />{" "}
+                  Registration Approvement
+                </Link>
+              </Nav.Link>
+
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/reservation-approv">
+                  <FontAwesomeIcon className="fs-2" icon={faCalendarCheck} />{" "}
+                  Reservation Approvement
+                </Link>
+              </Nav.Link>
+
+              <Nav.Link>
+                <Link className="fs-3 sbar-links" to="/moderator">
+                  <FontAwesomeIcon
+                    className="fs-2"
+                    icon={faSquarePollHorizontal}
+                  />{" "}
+                  News
+                </Link>
+              </Nav.Link>
+
+
+              
+
+            </Nav>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
+      </Navbar> */}
