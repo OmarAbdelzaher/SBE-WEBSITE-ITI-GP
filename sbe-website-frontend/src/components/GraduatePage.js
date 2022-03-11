@@ -49,36 +49,26 @@ export default function GraduatePage(){
     return(
 
         <>
-         <br className="mt-5"></br>
-         <br className="mt-5"></br>
+        
 
+        <section className="container">
+                <div style={start} className="row d-flex justify-content-center">
+                <h1 className="text-center fw-lighter text-light scroll"> Graduate News</h1>
 
-
-
-{/* <div style={start} > */}
-        {/* <h1> Hello graduate page</h1> */}
-<div>
-
-        <div className="container-fluid mt-2">
-                <div className="row">
                     {AllNews.sort(orderByOrderValue).map((item) => {
                         return (
 
-                            <div className="col-md-9 col-sm-12">
-                            <div  class="card " key={item.id}  >
+                            <div className="col-5">
+                            <div  class="card mb-4 border-light " key={item.id}  >
                               <div class="card-body">
                                 <h5 class="card-title">{item.title}</h5>
-                                <p class="card-text">{item.description}</p>
-                                {/* <h3>{item.category}</h3> */}
-                                {/* <p class="card-text">
-                                  <small class="text-muted">Last updated 3 mins ago</small>
-                                </p> */}
+                                <p class="card-text text-dark fs-4">{item.description}</p>
+                    
                               </div>
                               <img
-                                class="card-img-bottom"
-                                src={item.picture}
+                        class="card-img-bottom img-h"
+                        src={item.picture}
                                 alt="Card image cap"
-                                style={imgEvent}
                               />
                             </div>
                           </div>
@@ -94,9 +84,8 @@ export default function GraduatePage(){
                 {/* <Link to='/coursegraduate' className="nav-link">
                     <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} > Courses            </button>
                 </Link> */}
-            </div>
+            </section>
 
-        </div>
         </>
     )
 }

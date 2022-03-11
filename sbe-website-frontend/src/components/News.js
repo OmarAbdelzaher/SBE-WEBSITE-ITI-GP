@@ -2,7 +2,6 @@ import React from "react";
 import DataNews from "./DataNews";
 import "./cards.css";
 import img from "../assets/image/new.jpg";
-// import images from "../../images"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";

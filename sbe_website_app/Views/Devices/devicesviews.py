@@ -40,8 +40,8 @@ class DeviceDetails(APIView):
             raise Http404
 
     def get(self, request, pk, format=None):
-        lab = self.get_object(pk)
-        serializer = DeviceSerializer(lab)
+        device = self.get_object(pk)
+        serializer = DeviceSerializer(device)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):

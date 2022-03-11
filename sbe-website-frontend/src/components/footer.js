@@ -77,12 +77,12 @@ function Footer() {
               info@example.com
             </span>
           </p>
-          <p className="col-auto adress ">
-            <h1 className="fs-3 text-light">Adress </h1>
-            <span>
+          <p className="col-auto adress">
+            <h1 className="fs-3 text-light">Adress </h1> <br/>
+            <span >
             <FontAwesomeIcon icon={faBuildingColumns} />
               {"   "}
-              <a style={{textDecoration: 'none',color: '#457b9d'}} href="https://www.google.com/maps/dir//Faculty+of+Engineering+-+Cairo+University+Cairo+University+Rd+Oula+Giza+District,+Giza+Governorate/@30.0263303,31.21167,16z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1458472fa8265ddb:0x282c4b44cdf7e83c!2m2!1d31.21167!2d30.0263303/" >Faculty Location </a><br/> <br/>
+              <a  style={{textDecoration: 'none',color: '#457b9d'}} href="https://www.google.com/maps/dir//Faculty+of+Engineering+-+Cairo+University+Cairo+University+Rd+Oula+Giza+District,+Giza+Governorate/@30.0263303,31.21167,16z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1458472fa8265ddb:0x282c4b44cdf7e83c!2m2!1d31.21167!2d30.0263303/" >Faculty Location </a><br/> <br/>
             </span>
             <span>
             <FontAwesomeIcon icon={faLocationCrosshairs} />

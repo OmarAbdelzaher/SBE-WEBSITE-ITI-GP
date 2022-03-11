@@ -109,7 +109,6 @@ class ReserveLabDetails(APIView):
     @csrf_exempt    
     def put(self, request, pk, format=None):
         reserved_lab = self.get_object(pk)
-        # print(request.data)
         serializer = ReserveLabSerializer(reserved_lab, data=request.data)
         if serializer.is_valid():
             serializer.save()

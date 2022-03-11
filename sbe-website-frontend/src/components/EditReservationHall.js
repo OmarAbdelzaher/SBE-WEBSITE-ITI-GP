@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-export default function EditReservation(isAuthenticated) {
+export default function EditReservationHall(isAuthenticated) {
   const params = useParams();
   const history = useHistory();
   const staff = useSelector((state) => state.auth);
@@ -13,11 +13,9 @@ export default function EditReservation(isAuthenticated) {
   
 
   let staff_id = null;
-  let unique_error = "";
 
   let ReserveHallUrl = `http://localhost:8000/api/reservedhall/${params.id}`;
-  let ReserveLabUrl = `http://localhost:8000/api/reservedlab/${params.id}`;
-  let ReserveDeviceUrl = `http://localhost:8000/api/reserveddevice/${params.id}`;
+
   let ReserveUrl = "";
 
   if (isAuthenticated && staff.user != null) {
@@ -25,10 +23,10 @@ export default function EditReservation(isAuthenticated) {
   }
 
   const [timeslot, setTimeSlot] = useState([]);
-  const [labs, setLabs] = useState([]);
   const [halls, setHalls] = useState([]);
-  const [devices, setDevices] = useState([]);
   const [uniqueErr, setUniqueErr] = useState();
+  const [timeSlotErr, setTimeSlotErr] = useState();
+
   const [successState, setSuccesState] = useState();
 
   const [formErrors, setFormErrors] = useState({});
@@ -46,22 +44,12 @@ export default function EditReservation(isAuthenticated) {
       .then((res) => setTimeSlot(res.data));
   }, []);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/labs/")
-      .then((res) => setLabs(res.data));
-  }, []);
+ 
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/halls/")
       .then((res) => setHalls(res.data));
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/devices/")
-      .then((res) => setDevices(res.data));
   }, []);
 
   const onChange = (e) =>
@@ -83,17 +71,7 @@ export default function EditReservation(isAuthenticated) {
       values.toBeReserved === ""
     ) {
       errors.toBeReserved = "Enter a valid Hall";
-    } else if (
-      values.toBeReserved === "Available Labs" ||
-      values.toBeReserved === ""
-    ) {
-      errors.toBeReserved = "Enter a valid Lab";
-    } else if (
-      values.toBeReserved === "Available Devices" ||
-      values.toBeReserved === ""
-    ) {
-      errors.toBeReserved = "Enter a valid Device";
-    }
+    } 
 
     return errors;
   };
@@ -108,30 +86,22 @@ export default function EditReservation(isAuthenticated) {
       if (formData.ReserveType === "hall") {
         ReserveUrl = ReserveHallUrl;
         reserved = "hall_id";
-      } else if (formData.ReserveType === "lab") {
-        ReserveUrl = ReserveLabUrl;
-        reserved = "lab_id";
-      } else if (formData.ReserveType === "device") {
-        ReserveUrl = ReserveDeviceUrl;
-        reserved = "device_id";
-      }
+      } 
       const Data = new FormData();
       Data.append("date", formData.ReserveDate);
       Data.append("timeslot", formData.ReserveTime);
       Data.append(reserved, formData.toBeReserved);
       Data.append("staff_id", params.staff);
-
       axios
         .put(ReserveUrl, Data)
         .then((res) => {
-          console.log(res);
           setSuccesState(res.status);
-          history.push("/reservation-approv");
+          history.push("/hallsreservations");
         })
         .catch((e) => {
-          unique_error = e.response.data.non_field_errors[0];
-          console.log(unique_error);
-          setUniqueErr(unique_error);
+          setTimeSlotErr(e.response.data.timeslot[0])
+          setUniqueErr(e.response.data.non_field_errors[0]);
+
         });
     }
   };
@@ -145,7 +115,7 @@ export default function EditReservation(isAuthenticated) {
               <div className="card rounded-3 courses-b ">
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
-                    Reservation Form
+                   Edit Hall Reservation 
                   </h3>
                   <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
                     <div className="row">
@@ -166,9 +136,10 @@ export default function EditReservation(isAuthenticated) {
                             name="ReserveDate"
                             value={formData.ReserveDate}
                           />
-                          <p className="text-danger">
+                          { formErrors.ReserveDate ? <div class="alert alert-danger" role="alert">
                             {formErrors.ReserveDate}
-                          </p>
+                          </div> : null }
+                         
                         </div>
                       </div>
                     </div>
@@ -200,9 +171,17 @@ export default function EditReservation(isAuthenticated) {
                               );
                             })}
                           </select>
-                          <p className="text-danger">
+                          {timeSlotErr
+                     ? (
+                      <div class="alert alert-danger" role="alert">
+                       Please , Pick a time slot
+                      </div>
+                    ) : null}
+                    { formErrors.ReserveTime ?
+                          <div class="alert alert-danger" role="alert">
                             {formErrors.ReserveTime}
-                          </p>
+                          </div> :null }
+
                         </div>
                       </div>
                     </div>
@@ -221,12 +200,7 @@ export default function EditReservation(isAuthenticated) {
                           value={formData.ReserveType}
                         >
                           <option value="hall">Halls</option>
-                          <option value="lab">Labs</option>
-                          <option value="device">Devices</option>
                         </select>
-
-                        {formData.ReserveType == "hall" ? (
-                          <>
                             <br />
                             <div>
                               <div>
@@ -243,69 +217,15 @@ export default function EditReservation(isAuthenticated) {
                                   </option>
                                   {halls.map((item) => {
                                     return (
-                                      <option value={item.name}>
+                                      <option value={item.id}>
                                         {item.name}
                                       </option>
                                     );
                                   })}
-                                </select>
+                                </select> 
                               </div>
                             </div>
-                          </>
-                        ) : null}
-
-                        {formData.ReserveType == "lab" ? (
-                          <div className="row">
-                            <div className="col-12">
-                              <label htmlFor="lab">Pick a Lab</label>
-                              <br />
-                              <select
-                                className="select form-control-lg"
-                                value={formData.toBeReserved}
-                                onChange={(e) => onChange(e)}
-                                name="toBeReserved"
-                              >
-                                <option selected value="Available Labs">
-                                  Available Labs
-                                </option>
-                                {labs.map((item) => {
-                                  return (
-                                    <option value={item.name}>
-                                      {item.name}
-                                    </option>
-                                  );
-                                })}
-                              </select>
-                            </div>
-                          </div>
-                        ) : null}
-
-                        {formData.ReserveType == "device" ? (
-                          <div className="row">
-                            <div className="col-12">
-                              <label htmlFor="device">Pick a Device</label>
-                              <br />
-                              <select
-                                className="select form-control-lg"
-                                value={formData.toBeReserved}
-                                onChange={(e) => onChange(e)}
-                                name="toBeReserved"
-                              >
-                                <option selected value="Available Devices">
-                                  Available Devices
-                                </option>
-                                {devices.map((item) => {
-                                  return (
-                                    <option value={item.name}>
-                                      {item.name}
-                                    </option>
-                                  );
-                                })}
-                              </select>
-                            </div>
-                          </div>
-                        ) : null}
-                        <p className="text-danger">{formErrors.toBeReserved}</p>
+                            {formErrors.toBeReserved ?    <div class="alert alert-danger" role="alert">{formErrors.toBeReserved}</div> : null}                       
                       </div>
                     </div>
                     <br />
@@ -320,18 +240,6 @@ export default function EditReservation(isAuthenticated) {
                     "The fields hall_id, date, timeslot must make a unique set." ? (
                       <div class="alert alert-danger" role="alert">
                         Sorry, Already Resreved Hall in this slot
-                      </div>
-                    ) : null}
-                    {uniqueErr ==
-                    "The fields lab_id, date, timeslot must make a unique set." ? (
-                      <div class="alert alert-danger" role="alert">
-                        Sorry, Already Resreved Lab in this slot
-                      </div>
-                    ) : null}
-                    {uniqueErr ==
-                    "The fields device_id, date, timeslot must make a unique set." ? (
-                      <div class="alert alert-danger" role="alert">
-                        Sorry, Already Resreved Device in this slot
                       </div>
                     ) : null}
                     {successState == "201"

@@ -3,30 +3,38 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-const ReservationForm = (isAuthenticated) => {
+export default function EditReservationDevice(isAuthenticated) {
+  const params = useParams();
+  const history = useHistory();
   const staff = useSelector((state) => state.auth);
+  const slot = params.time.split(',')
+  
 
   let staff_id = null;
-  let unique_error = "";
+  let ReserveDeviceUrl = `http://localhost:8000/api/reserveddevice/${params.id}`;
+  let ReserveUrl = "";
 
   if (isAuthenticated && staff.user != null) {
     staff_id = staff.user.id;
   }
 
   const [timeslot, setTimeSlot] = useState([]);
-  const [labs, setLabs] = useState([]);
-  const [halls, setHalls] = useState([]);
   const [devices, setDevices] = useState([]);
   const [uniqueErr, setUniqueErr] = useState();
+  const [timeSlotErr, setTimeSlotErr] = useState();
+
   const [successState, setSuccesState] = useState();
 
-  const history = useHistory();
+  const [formErrors, setFormErrors] = useState({});
 
-  let ReserveHallUrl = "http://localhost:8000/api/reservedhalls/";
-  let ReserveLabUrl = "http://localhost:8000/api/reservedlabs/";
-  let ReserveDeviceUrl = "http://localhost:8000/api/reserveddevices/";
-  let ReserveUrl = "";
+  const [formData, setFormData] = useState({
+    ReserveDate: params.date,
+    ReserveTime: slot[1],
+    ReserveType: params.type,
+    toBeReserved: params.name,
+  });
 
   useEffect(() => {
     axios
@@ -34,17 +42,6 @@ const ReservationForm = (isAuthenticated) => {
       .then((res) => setTimeSlot(res.data));
   }, []);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/labs/")
-      .then((res) => setLabs(res.data));
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/halls/")
-      .then((res) => setHalls(res.data));
-  }, []);
 
   useEffect(() => {
     axios
@@ -52,21 +49,11 @@ const ReservationForm = (isAuthenticated) => {
       .then((res) => setDevices(res.data));
   }, []);
 
-  const [formData, setFormData] = useState({
-    ReserveDate: "",
-    ReserveTime: "",
-    ReserveType: "hall",
-    toBeReserved: "",
-  });
-
-  const [formErrors, setFormErrors] = useState({});
-
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const validate = (values) => {
     const errors = {};
-
     var now = new Date();
     var reserveDate = new Date(values.ReserveDate);
 
@@ -77,23 +64,15 @@ const ReservationForm = (isAuthenticated) => {
       errors.ReserveTime = "Enter a valid Reservation Time";
     }
     if (
-      values.toBeReserved === "Available Halls" ||
-      values.toBeReserved === ""
-    ) {
-      errors.toBeReserved = "Enter a valid Hall";
-    } else if (
-      values.toBeReserved === "Available Labs" ||
-      values.toBeReserved === ""
-    ) {
-      errors.toBeReserved = "Enter a valid Lab";
-    } else if (
       values.toBeReserved === "Available Devices" ||
       values.toBeReserved === ""
     ) {
       errors.toBeReserved = "Enter a valid Device";
-    }
+    } 
+
     return errors;
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     let errors_form = validate(formData);
@@ -101,32 +80,26 @@ const ReservationForm = (isAuthenticated) => {
     let reserved = "";
 
     if (Object.keys(errors_form).length === 0) {
-      if (formData.ReserveType === "hall") {
-        ReserveUrl = ReserveHallUrl;
-        reserved = "hall_id";
-      } else if (formData.ReserveType === "lab") {
-        ReserveUrl = ReserveLabUrl;
-        reserved = "lab_id";
-      } else if (formData.ReserveType === "device") {
+      if (formData.ReserveType === "device") {
         ReserveUrl = ReserveDeviceUrl;
         reserved = "device_id";
-      }
+      } 
       const Data = new FormData();
       Data.append("date", formData.ReserveDate);
       Data.append("timeslot", formData.ReserveTime);
       Data.append(reserved, formData.toBeReserved);
-      Data.append("staff_id", staff_id);
-
+      Data.append("staff_id", params.staff);
       axios
-        .post(ReserveUrl, Data)
+        .put(ReserveUrl, Data)
         .then((res) => {
+          console.log(res.data)
           setSuccesState(res.status);
-          history.push("/");
+          history.push("/devicesreservations");
         })
         .catch((e) => {
-          unique_error = e.response.data.non_field_errors[0];
-          console.log(unique_error);
-          setUniqueErr(unique_error);
+          setTimeSlotErr(e.response.data.timeslot[0])
+          setUniqueErr(e.response.data.non_field_errors[0]);
+
         });
     }
   };
@@ -140,7 +113,7 @@ const ReservationForm = (isAuthenticated) => {
               <div className="card rounded-3 courses-b ">
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
-                    Reservation Form
+                   Edit Device Reservation 
                   </h3>
                   <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
                     <div className="row">
@@ -161,9 +134,10 @@ const ReservationForm = (isAuthenticated) => {
                             name="ReserveDate"
                             value={formData.ReserveDate}
                           />
-                          <p className="text-danger">
+                          { formErrors.ReserveDate ?   <div class="alert alert-danger" role="alert">
                             {formErrors.ReserveDate}
-                          </p>
+                          </div> : null }
+                        
                         </div>
                       </div>
                     </div>
@@ -195,9 +169,17 @@ const ReservationForm = (isAuthenticated) => {
                               );
                             })}
                           </select>
-                          <p className="text-danger">
+                          {timeSlotErr
+                     ? (
+                      <div class="alert alert-danger" role="alert">
+                       Please , Pick a time slot
+                      </div>
+                    ) : null}
+                    {formErrors.ReserveTime ? <p className="text-danger">
                             {formErrors.ReserveTime}
-                          </p>
+                          </p> : null }
+
+                         
                         </div>
                       </div>
                     </div>
@@ -215,17 +197,12 @@ const ReservationForm = (isAuthenticated) => {
                           name="ReserveType"
                           value={formData.ReserveType}
                         >
-                          <option value="hall">Halls</option>
-                          <option value="lab">Labs</option>
                           <option value="device">Devices</option>
                         </select>
-
-                        {formData.ReserveType == "hall" ? (
-                          <>
                             <br />
                             <div>
                               <div>
-                                <label htmlFor="hall">Pick a Hall</label>
+                                <label htmlFor="hall">Pick a Device</label>
                                 <br />
                                 <select
                                   className="select form-control-lg"
@@ -233,10 +210,10 @@ const ReservationForm = (isAuthenticated) => {
                                   onChange={(e) => onChange(e)}
                                   name="toBeReserved"
                                 >
-                                  <option selected value="Available Halls">
-                                    Available Halls
+                                  <option selected value="Available Devices">
+                                    Available Devices
                                   </option>
-                                  {halls.map((item) => {
+                                  {devices.map((item) => {
                                     return (
                                       <option value={item.id}>
                                         {item.name}
@@ -245,62 +222,8 @@ const ReservationForm = (isAuthenticated) => {
                                   })}
                                 </select>
                               </div>
-                            </div>
-                          </>
-                        ) : null}
-
-                        {formData.ReserveType == "lab" ? (
-                          <div className="row">
-                            <div className="col-12">
-                              <label htmlFor="lab">Pick a Lab</label>
-                              <br />
-                              <select
-                                className="select form-control-lg"
-                                value={formData.toBeReserved}
-                                onChange={(e) => onChange(e)}
-                                name="toBeReserved"
-                              >
-                                <option selected value="Available Labs">
-                                  Available Labs
-                                </option>
-                                {labs.map((item) => {
-                                  return (
-                                    <option value={item.id}>
-                                      {item.name}
-                                    </option>
-                                  );
-                                })}
-                              </select>
-                            </div>
-                          </div>
-                        ) : null}
-
-                        {formData.ReserveType == "device" ? (
-                          <div className="row">
-                            <div className="col-12">
-                              <label htmlFor="device">Pick a Device</label>
-                              <br />
-                              <select
-                                className="select form-control-lg"
-                                value={formData.toBeReserved}
-                                onChange={(e) => onChange(e)}
-                                name="toBeReserved"
-                              >
-                                <option selected value="Available Devices">
-                                  Available Devices
-                                </option>
-                                {devices.map((item) => {
-                                  return (
-                                    <option value={item.id}>
-                                      {item.name}
-                                    </option>
-                                  );
-                                })}
-                              </select>
-                            </div>
-                          </div>
-                        ) : null}
-                        <p className="text-danger">{formErrors.toBeReserved}</p>
+                            </div> 
+                            { formErrors.toBeReserved ?  <div class="alert alert-danger" role="alert">{formErrors.toBeReserved}</div> : null}                       
                       </div>
                     </div>
                     <br />
@@ -313,18 +236,6 @@ const ReservationForm = (isAuthenticated) => {
                     <br />
                     {uniqueErr ==
                     "The fields hall_id, date, timeslot must make a unique set." ? (
-                      <div class="alert alert-danger" role="alert">
-                        Sorry, Already Resreved Hall in this slot
-                      </div>
-                    ) : null}
-                    {uniqueErr ==
-                    "The fields lab_id, date, timeslot must make a unique set." ? (
-                      <div class="alert alert-danger" role="alert">
-                        Sorry, Already Resreved Lab in this slot
-                      </div>
-                    ) : null}
-                    {uniqueErr ==
-                    "The fields device_id, date, timeslot must make a unique set." ? (
                       <div class="alert alert-danger" role="alert">
                         Sorry, Already Resreved Device in this slot
                       </div>
@@ -341,5 +252,4 @@ const ReservationForm = (isAuthenticated) => {
       </section>
     </>
   );
-};
-export default ReservationForm;
+}

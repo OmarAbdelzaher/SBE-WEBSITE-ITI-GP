@@ -27,11 +27,15 @@
   border-radius: 4px;
   background-color: #003049;
   border: none;
-  color: #ffffff !important;
+  color: #ffffff;
   text-align: center;
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
+}
+.btn-b{
+  background: transparent !important;
+  color: #001233 !important;
 }
 
 .button .ani {
@@ -46,7 +50,7 @@
   opacity: 0;
   top: 0;
   right: -20px;
-  transition: 0.5s;
+  transition: 0.4s;
 }
 
 .button:hover{
@@ -98,7 +102,7 @@
   background-image: url(../assets/image/departmentLogo.png);
 }
 #headScrollingDropdown{
-  color:#ffff ;
+  color:#001233 ;
   font-family: Arial, Helvetica, sans-serif ;
 
 }
@@ -291,7 +295,7 @@
 
 .sidenav {
   height: 100%;
-  width: 200px;
+  width: 300px;
   position: fixed;
   z-index: 2;
   top: 0;
@@ -320,7 +324,7 @@
 
 
 .main {
-  margin-left: 200px; 
+  margin-left: 300px; 
   /* font-size: 28px; */
   padding: 0px 10px;
   background-color:black;

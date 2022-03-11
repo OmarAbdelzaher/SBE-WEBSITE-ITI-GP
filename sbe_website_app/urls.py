@@ -31,7 +31,7 @@ urlpatterns = [
     path('facultyemp/<int:pk>', FacultyEmpDetails.as_view()),
     path('course/<int:pk>', CourseDetails.as_view()),
     path('hall/<int:pk>', HallDetails.as_view()),
-    path('device/<int:pk>', DeviceList.as_view()),
+    path('device/<int:pk>', DeviceDetails.as_view()),
     path('lab/<int:pk>', LabDetails.as_view()),
     path('reservedhall/<int:pk>', ReserveHallDetails.as_view()),
     path('reserveddevice/<int:pk>', ReserveDeviceDetails.as_view()),
