@@ -16,10 +16,7 @@ export default function CoursesMenu() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const btnStyle = {
-      // color: "white",
-      // width: "50%",
-      // height: "50%",
-      // background:'red',
+   
       marginTop:'45px',
 
     };
@@ -50,6 +47,21 @@ export default function CoursesMenu() {
                     >
                       <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
                       Add Course
+                    </button>
+              </Link>
+              </div>
+              <br/>
+              <div className="rounded-4 align-items-start justify-content-left  "  >
+              <Link
+                    className="button btn btn-lg "
+                    to="/assigncourse"
+                    style={btnStyle}
+                  >
+                    <button
+                       className="button   "
+                    >
+                      <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
+                      Assign Course
                     </button>
               </Link>
               </div>

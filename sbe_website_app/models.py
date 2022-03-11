@@ -210,7 +210,7 @@ class Course(models.Model):
 
     instructions = models.TextField(max_length=500)
     materials = models.CharField(max_length=500,blank=True)
-    year = models.CharField( max_length=20,choices=YEAR_CHOICES)
+    year = models.CharField( max_length=20,choices=YEAR_CHOICES ,blank=True)
     SEMESTER_CHOICES = (
         ('one', 'One'),
         ('two', 'Two'),
@@ -218,7 +218,7 @@ class Course(models.Model):
 
     )
 
-    semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES)
+    semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES,blank=True)
     
     staff_id = models.ManyToManyField(Staff)
     CATEGORY_CHOICES = (

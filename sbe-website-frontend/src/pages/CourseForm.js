@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 // import Select, { components } from "react-select";
-import Select from "react-select";
+// import Select from "react-select";
+import { Select } from 'antd';
+
+const { Option } = Select;
 
 export default function CourseForm() {
   const history = useHistory();
 
-  const who = useSelector((state) => state.auth);
   const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
 
@@ -40,7 +42,6 @@ export default function CourseForm() {
   const [data, setData] = useState({
     name: "",
     totalgrade: "",
-    // Stdgrades: "",
     instructions: "",
     materials: "",
     year: "",
@@ -62,16 +63,12 @@ export default function CourseForm() {
       errors.instructions = "Instructions is required !";
     }
 
-    // if (!values.materials){
-    //   errors.materials = "Materials is Required"
+    // if (values.year=='0') {
+    //   errors.year = "Year is required";
     // }
-
-    if (!values.year) {
-      errors.year = "Year is required";
-    }
-    if (!values.semester) {
-      errors.semester = " Semester is required ";
-    }
+    // if (!values.semester) {
+    //   errors.semester = " Semester is required ";
+    // }
 
     if (!values.category) {
       errors.category = "Category is required";
@@ -88,16 +85,8 @@ export default function CourseForm() {
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
 
-      // if (who.user != null) {
-      //     // console.log(who.user);
-      //     data.staff = who.user.id;
-      //     Data.append("staff_id", data.staff);
-      // }
-      // const filooo = e.target.files;
-
       Data.append("name", data.name);
       Data.append("total_grade", data.totalgrade);
-      // Data.append("stds_grades", data.Stdgrades);
       Data.append("staff_id", data.staff);
 
       Data.append("instructions", data.instructions);
@@ -116,21 +105,19 @@ export default function CourseForm() {
         .catch((e) => {
           setFormErrors(e.response.data.non_field_errors[0]);
         });
-      //   .catch((e) => {
-      //     setFormErrors(e.response.data.non_field_errors[0]);
-
-      //   });
     }
   }
 
+
+  // const children = [];
+// for (let i = 10; i < 36; i++) {
+  // const children = course.map(<Option key={course.id}>{course.name}</Option>);
+// }
   function handle(e) {
     setData({ ...data, [e.target.name]: e.target.value });
-
-    // const newdata = { ...data };
-    // newdata[e.target.name] = e.target.value;
-    // setData(newdata);
-    // console.log(newdata);
   }
+
+
   return (
     <>
       <section className="h-150 h-custom">
@@ -248,99 +235,60 @@ export default function CourseForm() {
                             htmlFor="ReservationDate"
                             className="form-label"
                           >
-                            Year
-                          </label>
-                          <br />
-
-                          <select
-                            className="select form-control-lg"
-                            onChange={(e) => handle(e)}
-                            name="year"
-                            value={data.year}
-                          >
-                            <option selected>Choose Grade</option>
-                            <option value="grade1">Grade 1</option>
-                            <option value="grade2">Grade 2</option>
-                            <option value="grade3">Grade 3</option>
-                            <option value="grade4">Grade 4</option>                            
-                          </select>
-
-                          {/* <input
-                            onChange={(e) => handle(e)}
-                            id="year"
-                            type="number"
-                            className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
-                            name="year"
-                            value={data.year}
-                          /> */}
-                          <p className="text-danger">{formErrors.year}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-md-12 mb-4 d-flex align-items-center">
-                        <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
-                            Semester
-                          </label>
-                          <br />
-                          {/* <input
-                            onChange={(e) => handle(e)}
-                            id="semester"
-                            type="number"
-                            className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
-                            name="semester"
-                            value={data.semester}
-                          /> */}
-                          <select
-                            className="select form-control-lg"
-                            onChange={(e) => handle(e)}
-                            name="semester"
-                            value={data.semester}
-                          >
-                            <option selected>Choose Semester</option>
-                            <option value="one">Semester 1</option>
-                            <option value="two">Semester 2</option>
-                          </select>
-                          <p className="text-danger">{formErrors.semester}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-md-12 mb-4 d-flex align-items-center">
-                        <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
                             Staff Name
                           </label>
                           <br />
-                          {/* <input
-                            onChange={(e) => handle(e)}
-                            id="staff"
-                            type="number"
-                            className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
-                            name="year"
-                            value={data.year}
-                          /> */}
-                          <select
-                            id="multiselect staff"
-                            multiple="multiple"
-                            className="select form-control-lg"
-                            value={data.staff}
-                            onChange={(e) => handle(e)}
-                            name="staff"
+                          {/* <Select
+                              mode="multiple"
+
+          onChange={handle}
+          optionLabelProp="label"
+
+          style={{ width: '100%' }}
+          placeholder="Select a person"
+          optionFilterProp="children"
+        >
+          {doctors.map((item) => {
+        return (
+
+            <Option value={item.id} >
+              {item.fname} {item.lname}
+            </Option>
+          );
+        })}
+        </Select> */}
+        {/* <Select
+    mode="multiple"
+    style={{ width: '100%' }}
+    placeholder="select one country"
+    defaultValue={['china']}
+    onChange={handleChange}
+    optionLabelProp="label"
+  >
+    <Option value="china" label="China">
+      <div className="demo-option-label-item">
+        <span role="img" aria-label="China">
+        
+        </span>
+        China (中国)
+      </div>
+    </Option> */}
+
+                          {/* <Select
+                            multiple
+                            showSearch
+                            style={{ width: 200 }}
+                            placeholder="Select a person"
+                            optionFilterProp="children"
+                            onChange={(e) => this.handle(e)}
                           >
-                            {/* 
+                            {course.map((item) => (
+                              <Option key={key} value={item.id}>
+                                {item.name}
+                              </Option>
+                            ))}
+                          </Select> */}
+                          {/* 
 <Select
       isMulti
       onChange={(e) => handle(e)}
@@ -352,10 +300,16 @@ export default function CourseForm() {
       // isClearable={false}
       options={doctors}
       // components={{ MultiValueRemove }}
+      
     /> */}
-                            {/* <option selected value="0">
-                              Available Staff
-                            </option> */}
+
+    <select
+             id="multiselect staff"
+             multiple
+             className="select form-control-lg"
+             value={data.staff}
+             onChange={(e) => handle(e)}
+             name="staff">
                             {doctors.map((doctor) => {
                               return (
                                 <option value={doctor.id}>
@@ -364,8 +318,10 @@ export default function CourseForm() {
                               );
                             })}
 
-                            {/* <option value="undergraduate">Undergraduate</option> */}
                           </select>
+
+                          {/* <option value="undergraduate">Undergraduate</option> */}
+                          {/* </select> */}
                           <br />
                           <p className="text-danger">{formErrors.staff}</p>
                         </div>
@@ -395,9 +351,75 @@ export default function CourseForm() {
                             <option value="graduate">Graduate</option>
                             <option value="undergraduate">Undergraduate</option>
                           </select>
-                          <br />
+                          <p className="text-danger">{formErrors.category}</p>
 
-                          <p className="text-danger"></p>
+                          {data.category == "undergraduate" ? (
+                            <>
+                              <br />
+                              <div className="row">
+                                <div className="col-md-12 mb-4 d-flex align-items-center">
+                                  <div className="form-outline datepi+cker w-100">
+                                    <label
+                                      htmlFor="ReservationDate"
+                                      className="form-label"
+                                    >
+                                      Year
+                                    </label>
+                                    <br />
+
+                                    <select
+                                      className="select form-control-lg"
+                                      onChange={(e) => handle(e)}
+                                      name="year"
+                                      value={data.year}
+                                    >
+                                      <option value="0" selected>
+                                        Choose Grade
+                                      </option>
+                                      <option value="grade1">Grade 1</option>
+                                      <option value="grade2">Grade 2</option>
+                                      <option value="grade3">Grade 3</option>
+                                      <option value="grade4">Grade 4</option>
+                                    </select>
+
+                                    <p className="text-danger">
+                                      {formErrors.year}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="row">
+                                <div className="col-md-12 mb-4 d-flex align-items-center">
+                                  <div className="form-outline datepi+cker w-100">
+                                    <label
+                                      htmlFor="ReservationDate"
+                                      className="form-label"
+                                    >
+                                      Semester
+                                    </label>
+                                    <br />
+
+                                    <select
+                                      className="select form-control-lg"
+                                      onChange={(e) => handle(e)}
+                                      name="semester"
+                                      value={data.semester}
+                                    >
+                                      <option value="0" selected>
+                                        Choose Semester
+                                      </option>
+                                      <option value="one">Semester 1</option>
+                                      <option value="two">Semester 2</option>
+                                    </select>
+                                    <p className="text-danger">
+                                      {formErrors.semester}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          ) : null}
                         </div>
                       </div>
                     </div>

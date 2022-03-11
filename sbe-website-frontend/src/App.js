@@ -49,6 +49,7 @@ import CourseForm from "./pages/CourseForm";
 import EditReservation from "./components/EditReservation";
 import Adm_Graduates from "./pages/Adm_Graduates"
 import Adm_UnderGraduates from "./pages/Adm_UnderGraduates"
+import AssignCourse from "./pages/AssignCourse";
 
 function App() {
 
@@ -108,6 +109,7 @@ function App() {
             <Route path={"/reservationEdit/:id/:date/:time/:type/:name"} exact component={EditReservation} />
 
             <Route path={"/courseform"} exact component={CourseForm} />
+            <Route path={"/assigncourse"} exact component={AssignCourse} />
 
 
 
