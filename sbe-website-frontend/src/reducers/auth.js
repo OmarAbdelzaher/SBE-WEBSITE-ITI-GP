@@ -24,7 +24,8 @@ const initialState = {
     data: null,
     error:null,
     emailerror:null,
-    
+    is_coordinator: false,
+    is_moderator: false,
     };
 
 export default function(state = initialState, action) {

@@ -50,12 +50,12 @@ export default function ReservationSchedule() {
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="card-body ">
-                <p className="fs-3 text-light"> - Reservation Schedule</p>
+                <p className="fs-2 text-light">Reservation Schedule</p>
 
                 <div className=" justify-content-center">
                   <select
-                  style={{backgroundColor:"#001233", color:"#ffff"}}
-                    className="select form-control-lg btn btn-lg"
+                  style={{backgroundColor:"#003049", color:"#ffff"}}
+                    className="select form-control-lg btn btn-lg col-3"
                     onChange={(e) => onChange(e)}
                     name="ReserveType"
                     value={reservations}
@@ -74,12 +74,12 @@ export default function ReservationSchedule() {
                 <thead>
                   <tr className="text-dark">
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Reserved By</th>
+                    <th scope="col" className="text-dark fw-light">Name</th>
+                    <th scope="col" className="text-dark fw-light">Reserved By</th>
                     {/* <th scope="col">Confirmed By</th> */}
-                    <th scope="col">Date</th>
-                    <th scope="col">Slot</th>
-                    <th scope="col">Confirmed</th>
+                    <th scope="col" className="text-dark fw-light">Date</th>
+                    <th scope="col" className="text-dark fw-light">Slot</th>
+                    <th scope="col" className="text-dark fw-light">Confirmed</th>
                   </tr>
                 </thead>
                 <tbody className="mb-3">
@@ -98,14 +98,16 @@ export default function ReservationSchedule() {
                               {/* <td>{}</td> */}
                               <td className="admin-tables">{item.date}</td>
                               <td className="admin-tables">{item.timeslot}</td>
-                              <td className="admin-tables">
+                              <td className="admin-tables text-center">
                                 {item.is_confirmed ? (
                                   <FontAwesomeIcon
-                                    className="fs-2"
+                                  style={{color:'green' }}
+                                    className="fs-2 "
                                     icon={faCircleCheck}
                                   />
                                 ) : (
                                   <FontAwesomeIcon
+                                  style={{color:'red'}}
                                     className="fs-2"
                                     icon={faCircleXmark}
                                   />

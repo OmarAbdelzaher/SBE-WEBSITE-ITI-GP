@@ -5,6 +5,7 @@ import axios from "axios";
 import AdminNav from "../components/AdminNav";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Nav from "react-bootstrap/Nav";
 
 import {
@@ -40,30 +41,32 @@ export default function Halls() {
       
   return (
     <>
-      <section className="h-custom ">
-        <div className="container ">
+      <section className="main">
+        <div className="container py-5">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="sidebar justify-content-center">
                 <AdminNav />
               </div>
               <div className="card-body ">
-                <p className="fs-1"> SBE DEPARTMENT</p>
-                <p className="fs-3"> Halls Menu</p>
-              </div>
-              <Nav.Link className="button ">
-                <Link className="fs-5 header-link ani" to="/hallform">
+                <p className="fs-1 text-light">Halls Menu</p>
+
+                <Link to="/hallform" className="btn btn-md col-3" style={{backgroundColor:"#003049", color:"#ffff"}}>
+                <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
+
                   Add Hall  
                 </Link>
-              </Nav.Link>
+             
+              </div>
+           
 
               <div>
                 <table className="table table-hover bg-light fs-4 col-12">
                   <thead>
-                    <tr className="text-dark">
+                    <tr>
                       <th>#</th>
-                      <th>Name</th>
-                      <th>Actions</th>
+                      <th className="text-dark fw-light">Name</th>
+                      <th className="text-dark fw-light">Actions</th>
                     </tr>
                   </thead>
 
@@ -75,20 +78,7 @@ export default function Halls() {
 
                           <td>{item.name}</td>
                           <td>
-                            <Link to="#">
-                              <button
-                                className="btn button"
-                                onClick={() => {
-                                  deleteHall(item.id);
-                                }}
-                              >
-                                <FontAwesomeIcon
-                                  className="fs-5"
-                                  icon={faCalendarCheck}
-                                />{" "}
-                                Delete
-                              </button>
-                            </Link>
+                         
 
                             <Link to={`/editHallForm/${item.id}/${item.name}`}>
                               <button className="btn button">
@@ -99,6 +89,22 @@ export default function Halls() {
                                 Edit
                               </button>
                             </Link> 
+                            <Link to="#">
+                              <button
+                                style={{backgroundColor:"red"}}
+                                className="btn btn-sm"
+                                onClick={() => {
+                                  deleteHall(item.id);
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                style={{color:"white"}}
+                                  className="fs-5"
+                                  icon={faTrashAlt}
+                                />{" "}
+                               
+                              </button>
+                            </Link>
                           </td>
                         </tr>
                       );
@@ -111,6 +117,7 @@ export default function Halls() {
           </div>
         </div>
       </section>
+
     </>
   );
 }

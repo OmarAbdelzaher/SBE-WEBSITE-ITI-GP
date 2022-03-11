@@ -10,7 +10,8 @@ function Moderator() {
 
   return (
     <>
-      <section className=" py-5 h-custom main ">
+    <section className='main-a'>
+      <section className=" py-5 main ">
         <div className="container ">
           <div className=' row d-flex justify-content-center align-items-center h-100'>
             <div className='py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light'>
@@ -19,7 +20,7 @@ function Moderator() {
                   <AdminNav />
                 </div>
                 <div className='card-body justify-content-center'>
-                <p className=' text-center sbe text-light'> SBE DEPARTMENT</p>
+                <h1 className=' text-center sbe text-light'> SBE DEPARTMENT</h1>
               
                 </div>
                
@@ -29,6 +30,7 @@ function Moderator() {
         </div>
         <div className="margin-b"></div>
 
+      </section>
       </section>
     </>
   )

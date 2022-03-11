@@ -8,6 +8,7 @@ from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ValidationError
+from django.views.decorators.csrf import csrf_exempt
 import re
 
 # import email confirmation stuff
@@ -61,8 +62,8 @@ class LabDetails(APIView):
 
 
 # Get and Post HTTP Methods using API For Reserving Labs 
-
 class ReserveLabList(APIView):
+    @csrf_exempt    
     def get(self,request):
         reserved_labs = ReserveLab.objects.all()
         serializer = ReserveLabSerializer(reserved_labs,many=True)
@@ -92,17 +93,20 @@ def sendReservationRequest(request):
         raise ValidationError("Couldn't send the message to the email ! ") 
     
 class ReserveLabDetails(APIView):
+    @csrf_exempt    
     def get_object(self, pk):
         try:
             return ReserveLab.objects.get(pk=pk)
         except ReserveLab.DoesNotExist:
             raise Http404
 
+    @csrf_exempt    
     def get(self, request, pk, format=None):
         reserved_lab= self.get_object(pk)
         serializer = ReserveLabSerializer(reserved_lab)
         return Response(serializer.data)
 
+    @csrf_exempt    
     def put(self, request, pk, format=None):
         reserved_lab = self.get_object(pk)
         serializer = ReserveLabSerializer(reserved_lab, data=request.data)
@@ -111,6 +115,7 @@ class ReserveLabDetails(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @csrf_exempt   
     def delete(self, request, pk, format=None):
         reserved_lab = self.get_object(pk)
         reserved_lab.delete()

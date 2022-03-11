@@ -11,8 +11,7 @@ class PersonAdmin(admin.ModelAdmin):
 # Register your models here.
 class StaffAdmin(admin.ModelAdmin):
     fieldsets = (
-        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number"]}],
-        # ["Office Hours",{'fields':["office_hours"]}]
+        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","role","is_coordinator"]}],
     )
     def save_model(self, request, obj, form, change):
         if len(obj.password) < 80:
@@ -22,7 +21,7 @@ class StaffAdmin(admin.ModelAdmin):
 
 class StudentAdmin(admin.ModelAdmin):
     fieldsets = (
-        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","graduate","year_of_graduation"]}],
+        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","graduate","year_of_graduation","role"]}],
     )
     def save_model(self, request, obj, form, change):
         if len(obj.password) < 80:
@@ -31,13 +30,19 @@ class StudentAdmin(admin.ModelAdmin):
         
 class FacEmpAdmin(admin.ModelAdmin):
     fieldsets = (
-        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","title"]}],
+        ["Personal Information",{'fields':["fname","lname","password","email","gender","birthdate","address","phone_number","title","role","is_moderator"]}],
     )
     def save_model(self, request, obj, form, change):
         if len(obj.password) < 80:
             obj.password = make_password(obj.password)
         super().save_model(request, obj, form, change)
-        
+
+class MaterialAdmin(admin.ModelAdmin):    
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        for afile in request.FILES.getlist('files_multiple'):
+            obj.material_upload.create(material_upload=afile)
+                   
 admin.site.register(Person,PersonAdmin)  
 admin.site.register(Staff,StaffAdmin)
 admin.site.register(Student,StudentAdmin)
@@ -55,6 +60,8 @@ admin.site.register(ReserveDevice)
 admin.site.register(TimeSlot)
 admin.site.register(New)
 admin.site.register(Event)
+admin.site.register(MaterialFile,MaterialAdmin)
+
 
 
 

@@ -38,10 +38,10 @@ export default function OfficeHoursSchedule() {
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
                 <div className="card-body ">
-                    <p className="fs-3 text-light"> - OfficeHours Schedule</p>
+                    <p className="fs-2 text-light"> OfficeHours Schedule</p>
                 
                     <div className="justify-content-center">
-                        <select className="select form-control-lg btn btn-lg" style={{backgroundColor:"#001233", color:"#ffff"}} 
+                        <select className="select form-control-lg btn btn-lg col-3" style={{backgroundColor:"#003049", color:"#ffff"}} 
                             onChange={(e) => onChange(e)}
                             name="staffmenu"
                             value="asdasd">
@@ -64,10 +64,10 @@ export default function OfficeHoursSchedule() {
             <thead>
                 <tr  className="text-dark">
                 <th scope="col">#</th>
-                <th scope="col">OfficeHour Type</th>
-                <th scope="col">Week Day</th>
-                <th scope="col">From</th>
-                <th scope="col">To</th>
+                <th scope="col" className="text-dark fw-light">OfficeHour Type</th>
+                <th scope="col" className="text-dark fw-light">Week Day</th>
+                <th scope="col" className="text-dark fw-light">From</th>
+                <th scope="col" className="text-dark fw-light">To</th>
                 </tr>
             </thead>
             <tbody className="mb-3">

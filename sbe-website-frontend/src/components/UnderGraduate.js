@@ -44,27 +44,28 @@ export default function UnderGraduate() {
   return (
     <>
       <section className="container">
-        <div style={start} className="row d-flex justify-content-center ">
+        <div style={start} className="row  ">
         <h1 className="text-center fw-lighter text-light scroll"> Students News </h1>
         
               {AllNews.sort(orderByOrderValue).map((item) => {
                 return (
-                  <div className="col-5">
-                    <div class="card mb-4 border-light " key={item.id}>
+                  <div className="col-4">
+                    <div class="card mb-4 border-0 " key={item.id}>
+                    <div>
+                      <img
+                        class="card-img-top img-h"
+                        src={item.picture}
+                        alt="Card image cap"
+                      
+                      />
+                      </div>
                       
                       <div class="card-body">
                         <h5 class="card-title">{item.title}</h5>
                         <p class="card-text text-dark fs-4">{item.description}</p>
                       </div>
 
-                      <div>
-                      <img
-                        class="card-img-bottom img-h"
-                        src={item.picture}
-                        alt="Card image cap"
-                      
-                      />
-                      </div>
+                    
                   
                     </div>
                   </div>
