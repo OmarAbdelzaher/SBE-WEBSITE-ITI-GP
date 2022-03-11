@@ -206,7 +206,7 @@ class Course(models.Model):
     total_grade = models.IntegerField()
 
 
-    stds_grades = models.FileField(upload_to='student_grades/',null=True,blank=True)
+    stds_grades = models.FileField(upload_to='student_grades/', blank=True)
     # filepath= models.FileField(upload_to='files/', null=True, verbose_name="")
 
     instructions = models.TextField(max_length=500)

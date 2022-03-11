@@ -188,7 +188,7 @@ function CourseDetails(isAuthenticated) {
                     <div className="rounded-4 align-items-start justify-content-left  "  >
               <Link
                     className="button btn btn-lg "
-                  to={`/assigncourse/${course.id}/${course.name}`}
+                  to={`/assigncourse/${course.id}/${course.name}/`}
                     style={btnStyle}
                   >
                     <button
@@ -305,3 +305,6 @@ function CourseDetails(isAuthenticated) {
 }
 
 export default CourseDetails;
+
+
+// to={`/assigncourse/${course.id}/${course.name}/${course.total_grade}/${course.stds_grades}/${course.instructions}/${course.materials}/${course.category}/${course.year}/${course.semster}`}
