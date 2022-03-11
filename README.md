@@ -180,21 +180,73 @@ Zeina Ayman | zeinaayman14@gmail.com
 
 
 ## User Interface
- #### Home Page
- #### Registration and Login
- #### Reset Password
- #### Profile Page
-#### Graduate and Undergraduate Admission
-#### Graduate and Undergraduate News
-#### Graduate and Undergraduate Events
-#### Graduate and Undergraduate Exams
-#### Reservation and Registration Approve
+ ### Home Page
+ ![home1](https://user-images.githubusercontent.com/61268414/157886381-183c8c6f-9645-4786-a7a6-1216f26a459c.png)
+ #### About and Footer sections
+![home2](https://user-images.githubusercontent.com/61268414/157886409-5022338a-b9b7-49bd-9061-345d2107227d.png)
+
+ ### Registration and Login Forms
+ #### Registration Form
+ ![signuupp](https://user-images.githubusercontent.com/61268414/157886338-75d066ef-1d13-448d-9a74-35041b1e2a88.png)
+ #### Login Form
+![login](https://user-images.githubusercontent.com/61268414/157886426-f27f6308-1890-422a-bb74-d078bc6c2b60.png)
+
+ ### Reset Password
+ 
+ ### Profile Page
+ ![profile](https://user-images.githubusercontent.com/61268414/157886730-5d948e5e-82d1-49d9-84ca-f70da91d22c0.png)
+
+### Graduate and Undergraduate Admission
+#### Graduate Admission
+#### Undergraduate Admission
+
+### Graduate and Undergraduate News
+#### Graduate News
+#### Undergraduate News
+
+### Graduate and Undergraduate Events
+#### Graduate Events
+#### Undergraduate Events
+
+### Graduate and Undergraduate Exams
+#### Graduate Exams
+#### Undergraduate Exams
+
+### Reservation and Registration Approve
+
+### Courses Pages
+
 ####  Courses Menu
- #### Courses Page
-####  Course Details
-####  Reservation Form
-#### Staff Office Hours
-#### Admin Panel
+![courses](https://user-images.githubusercontent.com/61268414/157886655-80134290-ea86-40f6-bb2d-593b0c955b75.png)
+
+ #### Specific year and semester courses
+ ![courses-pages](https://user-images.githubusercontent.com/61268414/157888527-2fb49447-1b5d-436d-ae22-e3f3db254ee4.png)
+
+ #### Add Courses
+ ![addcourse](https://user-images.githubusercontent.com/61268414/157886889-5989b9fe-5373-4b64-927f-de0019f08aa5.png)
+
+ 
+###  Course Details
+
+###  Reservation Forms
+#### Reserve A Hall
+![reserve-hall](https://user-images.githubusercontent.com/61268414/157892089-3fc9803e-111d-42f1-b32e-b3763020cd19.png)
+
+#### Reserve A Lab
+![reserve-lab](https://user-images.githubusercontent.com/61268414/157892167-82970c3a-c96f-47f8-9241-e1de3d1646da.png)
+
+#### Reserve A Device
+![reserve-device](https://user-images.githubusercontent.com/61268414/157892185-bdf9aacc-6914-4b49-a97e-10751e559617.png)
+
+### Staff Office Hours
+
+### Admin Panel
+![admin1](https://user-images.githubusercontent.com/61268414/157886866-8a7366fd-5f30-46ce-a974-6e61ae94f447.png)
+#### Halls
+![hall-admin](https://user-images.githubusercontent.com/61268414/157886819-1b03b920-805e-4bc3-acad-e58f5c3d12f7.png)
+#### Add Hall
+![add_hall](https://user-images.githubusercontent.com/61268414/157886846-45e93fd5-5791-42cc-b5f5-a67eeb8ba4ca.png)
+
 
 ## Demo
 
