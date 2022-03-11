@@ -31,38 +31,31 @@ function RegistrationApprove() {
       .then((res) => setEmp(res.data.filter((e) => e.is_active == false)));
   }, []);
 
-  function onChange(e){
-
-    if (e.target.value == "stf"){
-        setPerson(staff)
-    }
-    else if (e.target.value == "std"){
-        setPerson(student)
-    }
-    else if (e.target.value == "emp"){
-        setPerson(emp)
-    }
-    else if (e.target.value == "Request Type"){
-        alert("Choose a proper Request Type")
+  function onChange(e) {
+    if (e.target.value == "stf") {
+      setPerson(staff);
+    } else if (e.target.value == "std") {
+      setPerson(student);
+    } else if (e.target.value == "emp") {
+      setPerson(emp);
+    } else if (e.target.value == "Request Type") {
+      alert("Choose a proper Request Type");
     }
   }
-  
-  let url = ""
-  
-  const ActivateUser = (user) => {
-    
-    let userData = new FormData()
 
-    if (user.role == "dr" || user.role == "ta"){
-      url = `http://localhost:8000/api/onestaff/${user.id}`
-    }
-    else if (user.role == "student"){
-      url = `http://localhost:8000/api/student/${user.id}`
+  let url = "";
+
+  const ActivateUser = (user) => {
+    let userData = new FormData();
+
+    if (user.role == "dr" || user.role == "ta") {
+      url = `http://localhost:8000/api/onestaff/${user.id}`;
+    } else if (user.role == "student") {
+      url = `http://localhost:8000/api/student/${user.id}`;
       userData.append("graduate", user.graduate);
       userData.append("year_of_graduation", user.year_of_graduation);
-    }
-    else if (user.role == "employee"){
-      url = `http://localhost:8000/api/facultyemp/${user.id}`
+    } else if (user.role == "employee") {
+      url = `http://localhost:8000/api/facultyemp/${user.id}`;
       userData.append("title", user.title);
     }
 
@@ -71,7 +64,7 @@ function RegistrationApprove() {
     userData.append("email", user.email);
 
     // userData.append("profile_img", user.profile_img);
-    
+
     userData.append("address", user.address);
     userData.append("gender", user.gender);
     userData.append("birthdate", user.birthdate);
@@ -80,57 +73,51 @@ function RegistrationApprove() {
 
     userData.append("is_active", true);
 
-
-    axios.put(url,userData).then((res)=>{
-      
-      const user_update = person.filter( item => item.id !== user.id  )
-      setPerson(user_update)
-
-    }).catch((e)=>{
-      console.log(e)
-    })
-
+    axios
+      .put(url, userData)
+      .then((res) => {
+        const user_update = person.filter((item) => item.id !== user.id);
+        setPerson(user_update);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
     <>
-      <section className="h-custom main">
-        <div className="container ">
+      <section className=" main">
+        <div className="container py-5">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="sidebar justify-content-center">
                 <AdminNav />
               </div>
               <div className="card-body">
-                {/* <p className="fs-1 text-light"> SBE DEPARTMENT</p> */}
-                <p className="fs-1 text-light"> - Registration Menu</p>
+                <p className="fs-1 text-light"> Registration Menu</p>
 
-                <select className="select form-control-lg btn btn-lg" style={{backgroundColor:"#001233", color:"#ffff"}}
-
-onChange={(e) => onChange(e)}
-name="ReserveType"
-value={person}>
-
-<option selected value="Request Type">User Requests</option>
-<option value="stf">Staff Requests</option>
-<option value="std">Students Requests</option>
-<option value="emp">Employee Requests</option>
-
-</select>
-
+                <select
+                  className="select form-control-lg btn btn-md col-3"
+                  style={{ backgroundColor: "#003049", color: "#ffff" }}
+                  onChange={(e) => onChange(e)}
+                  name="ReserveType"
+                  value={person}
+                >
+                  <option selected value="Request Type">User Requests</option>
+                  <option value="stf">Staff Requests</option>
+                  <option value="std">Students Requests</option>
+                  <option value="emp">Employee Requests</option>
+                </select>
               </div>
               <div>
-
-          
-
-                <table className="table table-bordered table-hover bg-light fs-4 col-12">
+                <table className="table  bg-light fs-4 col-12">
                   <thead>
                     <tr className="text-dark">
-                      <th className="fw-normal">ID</th>
-                      <th className="fw-normal">First Name</th>
-                      <th className="fw-normal">Last Name</th>
-                      <th className="fw-normal">Mail</th>
-                      <th className="fw-normal">Action</th>
+                      <th>#</th>
+                      <th className="text-dark fw-light">First Name</th>
+                      <th className="text-dark fw-light">Last Name</th>
+                      <th className="text-dark fw-light">Mail</th>
+                      <th className="text-dark fw-light">Action</th>
                     </tr>
                   </thead>
 
@@ -143,15 +130,15 @@ value={person}>
                           <td>{item.lname}</td>
                           <td>{item.email}</td>
                           <td>
-                            <Link to="#">
+                            <Link  to="#">
                               <button
-                                className="btn button"
+                                className="btn btn-md nav-links"
                                 onClick={() => {
                                   ActivateUser(item);
                                 }}
                               >
                                 <FontAwesomeIcon
-                                  className="fs-5"
+                                  className="fs-5 "
                                   icon={faUserCheck}
                                 />{" "}
                                 Activate
