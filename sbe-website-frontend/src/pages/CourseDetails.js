@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Linking, Text, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 let flag = false;
 
@@ -153,6 +155,11 @@ function CourseDetails(isAuthenticated) {
         });
     }
   };
+  const btnStyle = {
+   
+    marginTop:'45px',
+
+  };
 
   return (
     <>
@@ -177,6 +184,21 @@ function CourseDetails(isAuthenticated) {
                         {course.instructions}
                       </p>
                     </div>
+                    {/* Assign Button  */}
+                    <div className="rounded-4 align-items-start justify-content-left  "  >
+              <Link
+                    className="button btn btn-lg "
+                  to={`/assigncourse/${course.id}/${course.name}`}
+                    style={btnStyle}
+                  >
+                    <button
+                       className="button   "
+                    >
+                      <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
+                      Assign Course
+                    </button>
+              </Link>
+              </div>
 
                     <div className="btn button col-12 card cards justify-content-center align-items-center ">
                       <Link

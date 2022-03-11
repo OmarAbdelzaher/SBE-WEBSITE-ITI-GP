@@ -77,20 +77,7 @@ export default function CoursesMenu(isAuthenticated) {
 
 
               <br/>
-              <div className="rounded-4 align-items-start justify-content-left  "  >
-              <Link
-                    className="button btn btn-lg "
-                    to="/assigncourse"
-                    style={btnStyle}
-                  >
-                    <button
-                       className="button   "
-                    >
-                      <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
-                      Assign Course
-                    </button>
-              </Link>
-              </div>
+             
 
 
             

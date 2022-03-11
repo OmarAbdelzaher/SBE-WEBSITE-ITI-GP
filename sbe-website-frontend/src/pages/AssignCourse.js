@@ -2,25 +2,29 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 // import Select, { components } from "react-select";
 import Select from "react-select";
 
 export default function AssignCourse() {
+
+  const params = useParams();
+
   const history = useHistory();
 
   const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
+  const [courses, setCourse] = useState([]);
 
-  const url = "http://localhost:8000/api/courses/";
 
-  const [course, setCourse] = useState([]);
+  const url =  `http://localhost:8000/api/course/${params.id}`;
 
-  let CoursesUrl = "http://localhost:8000/api/courses/";
+
+  // let CoursesUrl = "http://localhost:8000/api/courses/";
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/courses/")
+      .get(`http://localhost:8000/api/course/${params.id}`)
       .then((res) => setCourse(res.data));
   }, []);
   useEffect(() => {
@@ -37,24 +41,43 @@ export default function AssignCourse() {
     // })
   }, []);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/courses/")
-      .then((res) => setCourse(res.data));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8000/api/courses/")
+  //     .then((res) => setCourse(res.data));
+  // }, []);
 
   const [data, setData] = useState({
-    coursename: "",
+    coursename: params.name,
+    totalgrade:params.total_grade ,
+
+    stds_grades:courses.stds_grades ,
+    instructions: params.instructions,
+    materials: params.materials,
+    year: params.year,
+    semester: params.semester,
     staff: "",
+    category: params.category,
+
 
   });
+
+  function handle(e) {
+    setData({ ...data, [e.target.name]: e.target.value });
+    // console.log(data)
+
+    // const newdata = { ...data };
+    // newdata[e.target.name] = e.target.value;
+    // setData(newdata);
+    // console.log(newdata);
+  }
 
   const validate = (values) => {
     const errors = {};
 
-    if (!values.coursename) {
-      errors.coursename = "Course Name is Required";
-    }
+    // if (!values.coursename) {
+    //   errors.coursename = "Course Name is Required";
+    // }
     if (!values.staff) {
       errors.staff = "Staff Name is Required";
     }
@@ -66,40 +89,46 @@ export default function AssignCourse() {
 
   function onSubmit(e) {
     e.preventDefault();
+    console.log(params)
     let errors_form = validate(data);
     setFormErrors(errors_form);
-    // console.log(data)
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
+      // a = []
 
-    //   Data.append("name", data.name);
-    
-    //   Data.append("staff_id", data.staff);
+      // for i in staff:
+      //   a.append(i)
+
+      Data.append("name", courses.name);
 
     
+      Data.append("staff_id", data.staff);
+      Data.append("total_grade",courses.total_grade);
+      Data.append("stds_grades",data.stds_grades);
+
+      Data.append("instructions",courses.instructions);
+      Data.append("materials",courses. materials);
+      Data.append("year",courses.year);
+      Data.append("semester", courses.semester);
+      Data.append("category", courses.category);
+      console.log(data)
+
+
       axios
         .put(url, Data)
         .then((res) => {
           console.log(res.data);
+          setData(res.data);
+
 
           history.push("/coursesMenu");
         })
-        .catch((e) => {
-          setFormErrors(e.response.data.non_field_errors[0]);
-        });
+        .catch((e)=>console.log(e))
+        
     
     }
   }
 
-  function handle(e) {
-    setData({ ...data, [e.target.name]: e.target.value });
-    // console.log(data)
-
-    // const newdata = { ...data };
-    // newdata[e.target.name] = e.target.value;
-    // setData(newdata);
-    // console.log(newdata);
-  }
   return (
     <>
       <section className="h-150 h-custom">
@@ -121,10 +150,11 @@ export default function AssignCourse() {
                             htmlFor="ReservationDate"
                             className="form-label"
                           >
-                             Choose Course Name
+                              Course Name
                           </label>
+                          <h4>{courses.name}</h4>
                           <br />
-
+{/* 
                           <select
                             id="coursename"
                             className="select form-control-lg"
@@ -134,14 +164,14 @@ export default function AssignCourse() {
                           >
                             <option selected value="0">Choose Course</option>
 
-                                  {course.map((item) => {
+                                  {courses.map((item) => {
                                     return (
                                       <option value={item.id}>
                                         {item.name}
                                       </option>
                                     );
                                   })}
-                          </select>
+                          </select> */}
                           <p className="text-danger">{formErrors.coursename}</p>
 
                          
@@ -164,8 +194,8 @@ export default function AssignCourse() {
                           <br />
 
                           <select
-                            id="multiselect staff"
-                            multiple="multiple"
+                            id="staff"
+                            multiple
                             className="select form-control-lg"
                             value={data.staff}
                             onChange={(e) => handle(e)}
@@ -178,7 +208,7 @@ export default function AssignCourse() {
                             </option> */}
                             {doctors.map((doctor) => {
                               return (
-                                <option value={doctor.id}>
+                                <option value={doctor.id} multiple >
                                   {doctor.fname} {doctor.lname}
                                 </option>
                               );

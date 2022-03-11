@@ -144,7 +144,7 @@ function App() {
 
 
             <Route path={"/courseform"} exact component={CourseForm} />
-            <Route path={"/assigncourse"} exact component={AssignCourse} />
+            <Route path={"/assigncourse/:id/:name"} exact component={AssignCourse} />
 
 
 
