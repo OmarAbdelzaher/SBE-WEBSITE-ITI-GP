@@ -295,7 +295,7 @@
 
 .sidenav {
   height: 100%;
-  width: 200px;
+  width: 300px;
   position: fixed;
   z-index: 2;
   top: 0;
@@ -324,7 +324,7 @@
 
 
 .main {
-  margin-left: 200px; 
+  margin-left: 300px; 
   /* font-size: 28px; */
   padding: 0px 10px;
   background-color:black;

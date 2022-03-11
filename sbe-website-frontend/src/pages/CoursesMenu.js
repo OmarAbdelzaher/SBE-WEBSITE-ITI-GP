@@ -77,14 +77,14 @@ export default function CoursesMenu() {
                           {/* Default Value */}
                           <option value="0">Please select Your Year</option>
                           {/* Selections values */}
-                          <option value="1">First Year</option>
-                          <option value="2">Second Year</option>
-                          <option value="3">Third Year</option>
-                          <option value="4">Fourth Year</option>
+                          <option value="grade1">Year One</option>
+                          <option value="grade2">Year Two</option>
+                          <option value="grade3">Year Three</option>
+                          <option value="grade4">Year Four</option>
                         </select>
 
                         {/* Year One Selection  */}
-                        {formData.Year == "1" ? (
+                        {formData.Year == "grade1" ? (
                           <>
                             <br />
                             <div>
@@ -105,14 +105,14 @@ export default function CoursesMenu() {
                                         
                                      
 
-                                      <option value="first">First Term</option>
-                                      <option value="second">Second Term</option>
+                                      <option value="one">First Term</option>
+                                      <option value="two">Second Term</option>
                                     </select>
 
                                     {/* Year One Selection Semester One */}
-                                    {formData.Semester == "first" ? (
+                                    {formData.Semester == "one" ? (
                                       <>
-                                        <label htmlFor="first">
+                                        <label htmlFor="one">
                                           You choose year 1 Semester 1{" "}
                                         </label>
                                         <Link
@@ -130,9 +130,9 @@ export default function CoursesMenu() {
                                     ) : null}
 
                                     {/* Year One Selection Semester Two */}
-                                    {formData.Semester == "second" ? (
+                                    {formData.Semester == "two" ? (
                                       <>
-                                        <label htmlFor="second">
+                                        <label htmlFor="two">
                                           You choose year 1 Semester 2{" "}
                                         </label>
                                         <Link
@@ -157,7 +157,7 @@ export default function CoursesMenu() {
                           </>
                         ) : null}
                         {/* Year two Selection */}
-                        {formData.Year == "2" ? (
+                        {formData.Year == "grade2" ? (
                            <>
                            <br />
                            <div>
@@ -179,16 +179,16 @@ export default function CoursesMenu() {
                                        Please select Your Term
                                      </option>
 
-                                     <option value="first">First Term</option>
-                                     <option value="second">
+                                     <option value="one">First Term</option>
+                                     <option value="two">
                                        Second Term
                                      </option>
                                    </select>
 
                                    {/* Year two Selection Semester One */}
-                                   {formData.Semester == "first" ? (
+                                   {formData.Semester == "one" ? (
                                      <>
-                                       <label htmlFor="first">
+                                       <label htmlFor="one">
                                          You choose year 2 Semester 1{" "}
                                        </label>
                                        <Link
@@ -206,9 +206,9 @@ export default function CoursesMenu() {
                                    ) : null}
 
                                    {/* Year two Selection Semester Two */}
-                                   {formData.Semester == "second" ? (
+                                   {formData.Semester == "two" ? (
                                      <>
-                                       <label htmlFor="second">
+                                       <label htmlFor="two">
                                          You choose year 2 Semester 2{" "}
                                        </label>
                                        <Link
@@ -234,7 +234,7 @@ export default function CoursesMenu() {
                         ) : null}
 
                         {/* Year Three Selection */}
-                        {formData.Year == "3" ? (
+                        {formData.Year == "grade3" ? (
                           <>
                           <br />
                           <div>
@@ -254,16 +254,16 @@ export default function CoursesMenu() {
                                       Please select Your Term
                                     </option>
 
-                                    <option value="first">First Term</option>
-                                    <option value="second">
+                                    <option value="one">First Term</option>
+                                    <option value="two">
                                       Second Term
                                     </option>
                                   </select>
 
                                    {/* Year Three Selection Smester One*/}
-                                  {formData.Semester == "first" ? (
+                                  {formData.Semester == "one" ? (
                                     <>
-                                      <label htmlFor="1">
+                                      <label htmlFor="one">
                                         You choose year 3 Semester 1{" "}
                                       </label>
                                       <Link
@@ -281,9 +281,9 @@ export default function CoursesMenu() {
                                   ) : null}
 
                                    {/* Year Three Selection Semester Two  */}
-                                  {formData.Semester == "second" ? (
+                                  {formData.Semester == "two" ? (
                                     <>
-                                      <label htmlFor="1">
+                                      <label htmlFor="two">
                                         You choose year 3 Semester 2{" "}
                                       </label>
                                       <Link
@@ -311,7 +311,7 @@ export default function CoursesMenu() {
                         ) : null}
 
                           {/* Year Four Selection */}
-                          {formData.Year == "4" ? (
+                          {formData.Year == "grade4" ? (
                            <>
                            <br />
                            <div>
@@ -331,15 +331,15 @@ export default function CoursesMenu() {
                                        Please select Your Term
                                      </option>
 
-                                     <option value="first">First Term</option>
-                                     <option value="second">
+                                     <option value="one">First Term</option>
+                                     <option value="two">
                                        Second Term
                                      </option>
                                    </select>
                                    {/* Year Four Selection Semester One */}
-                                   {formData.Semester == "first" ? (
+                                   {formData.Semester == "one" ? (
                                      <>
-                                       <label htmlFor="1">
+                                       <label htmlFor="one">
                                          You choose year 4 Semester 1{" "}
                                        </label>
                                        <Link
@@ -357,9 +357,9 @@ export default function CoursesMenu() {
                                    ) : null}
 
                                    {/* Year Four Selection Semester Two */}
-                                   {formData.Semester == "second" ? (
+                                   {formData.Semester == "two" ? (
                                      <>
-                                       <label htmlFor="1">
+                                       <label htmlFor="two">
                                          You choose year 4 Semester 2{" "}
                                        </label>
                                        <Link

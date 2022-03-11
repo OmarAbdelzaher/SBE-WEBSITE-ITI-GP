@@ -2,16 +2,41 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {useHistory } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+// import Select, { components } from "react-select";
+import Select from "react-select";
 
 export default function CourseForm() {
   const history = useHistory();
 
   const who = useSelector((state) => state.auth);
   const [formErrors, setFormErrors] = useState({});
+  const [doctors, setDoctors] = useState([]);
 
   const url = "http://localhost:8000/api/courses/";
+
+  const [course, setCourse] = useState([]);
+
+  let CoursesUrl = "http://localhost:8000/api/courses/";
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/courses/")
+      .then((res) => setCourse(res.data));
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/staff/")
+      // .then((res) => setDoctors(res.data));
+
+      .then((res) => setDoctors(res.data));
+
+    //   function (res) {
+    //   let options = res.data.map( doctor => ({ value: doctor.id, label: doctor.fname}));
+    //   setDoctors (options)
+    //   console.log(options)
+    // })
+  }, []);
   const [data, setData] = useState({
     name: "",
     totalgrade: "",
@@ -20,92 +45,82 @@ export default function CourseForm() {
     materials: "",
     year: "",
     semester: "",
-    // staff: "",
+    staff: "",
     category: "",
   });
 
-
-  const validate = (values) =>{
-    const errors = {}
+  const validate = (values) => {
+    const errors = {};
 
     if (!values.name) {
       errors.name = "Course Name is Required";
-
     }
     if (!values.totalgrade) {
       errors.totalgrade = "Total Grade is Required";
-      
-
     }
     if (!values.instructions) {
       errors.instructions = "Instructions is required !";
     }
 
+    // if (!values.materials){
+    //   errors.materials = "Materials is Required"
+    // }
 
-    if (!values.materials){
-      errors.materials = "Materials is Required"
-    }
-
-    if (!values.year){
+    if (!values.year) {
       errors.year = "Year is required";
-
-    } 
-    if (!values.semester)
-    {
-      errors.semester = " Semester is required "
     }
- 
-    if(!values.category)
-    {
-      errors.category = "Category is required"
+    if (!values.semester) {
+      errors.semester = " Semester is required ";
     }
 
-    return errors
-  }
+    if (!values.category) {
+      errors.category = "Category is required";
+    }
 
-
-
+    return errors;
+  };
 
   function onSubmit(e) {
     e.preventDefault();
-    let errors_form = validate(data)
-    setFormErrors(errors_form)
+    let errors_form = validate(data);
+    setFormErrors(errors_form);
     // console.log(data)
     if (Object.keys(errors_form).length === 0) {
-    const Data = new FormData();
+      const Data = new FormData();
 
+      // if (who.user != null) {
+      //     // console.log(who.user);
+      //     data.staff = who.user.id;
+      //     Data.append("staff_id", data.staff);
+      // }
+      // const filooo = e.target.files;
 
-    if (who.user != null) {
-        // console.log(who.user);
-        data.staff = who.user.id;
-        Data.append("staff_id", data.staff);
+      Data.append("name", data.name);
+      Data.append("total_grade", data.totalgrade);
+      // Data.append("stds_grades", data.Stdgrades);
+      Data.append("staff_id", data.staff);
+
+      Data.append("instructions", data.instructions);
+      Data.append("materials", data.materials);
+      Data.append("year", data.year);
+      Data.append("semester", data.semester);
+      Data.append("category", data.category);
+
+      axios
+        .post(url, Data)
+        .then((res) => {
+          console.log(res.data);
+
+          history.push("/coursesMenu");
+        })
+        .catch((e) => {
+          setFormErrors(e.response.data.non_field_errors[0]);
+        });
+      //   .catch((e) => {
+      //     setFormErrors(e.response.data.non_field_errors[0]);
+
+      //   });
     }
-    // const filooo = e.target.files;
-
-
-    Data.append("name", data.name);
-    Data.append("total_grade", data.totalgrade);
-    // Data.append("stds_grades", data.Stdgrades);
-    Data.append("instructions", data.instructions);
-    Data.append("materials", data.materials);
-    Data.append("year", data.year);
-    Data.append("semester", data.semester);
-    Data.append("category", data.category);
-
-
-    axios
-      .post(url, Data)
-      .then((res) => {
-        console.log(res.data);
-
-        history.push("/coursesMenu");
-
-      });
-    //   .catch((e) => {
-    //     setFormErrors(e.response.data.non_field_errors[0]);
-        
-    //   });
-  }
   }
 
   function handle(e) {
@@ -127,10 +142,7 @@ export default function CourseForm() {
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Add Course Form
                   </h3>
-                  <form
-                    className="px-md-2"
-                      onSubmit={(e) => onSubmit(e)}
-                  >
+                  <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
@@ -150,9 +162,7 @@ export default function CourseForm() {
                             name="name"
                             value={data.name}
                           />
-                          <p className="text-danger">
-                            {formErrors.name}
-                          </p>
+                          <p className="text-danger">{formErrors.name}</p>
                         </div>
                       </div>
                     </div>
@@ -176,37 +186,10 @@ export default function CourseForm() {
                             name="totalgrade"
                             value={data.totalgrade}
                           />
-                          <p className="text-danger">
-                            {formErrors.totalgrade}
-                          </p>
+                          <p className="text-danger">{formErrors.totalgrade}</p>
                         </div>
                       </div>
                     </div>
-                    {/* <div className="row">
-                      <div className="col-md-12 mb-4 d-flex align-items-center">
-                        <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
-                            Student Grades{" "}
-                          </label>
-                          <br />
-                          <input
-                            onChange={(e) => handle(e)}
-                            id="Stdgrades"
-                            type="file"
-                            className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
-                            name="Stdgrades"
-                            value={data.Stdgrades}
-                          />
-                          <p className="text-danger">
-                          </p>
-                        </div>
-                      </div>
-                    </div> */}
-
 
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
@@ -241,7 +224,7 @@ export default function CourseForm() {
                             htmlFor="ReservationDate"
                             className="form-label"
                           >
-                            Material{" "}
+                            Material Link{" "}
                           </label>
                           <br />
                           <input
@@ -253,9 +236,7 @@ export default function CourseForm() {
                             name="materials"
                             value={data.materials}
                           />
-                          <p className="text-danger">
-                            {formErrors.materials}
-                          </p>
+                          <p className="text-danger">{formErrors.materials}</p>
                         </div>
                       </div>
                     </div>
@@ -270,7 +251,21 @@ export default function CourseForm() {
                             Year
                           </label>
                           <br />
-                          <input
+
+                          <select
+                            className="select form-control-lg"
+                            onChange={(e) => handle(e)}
+                            name="year"
+                            value={data.year}
+                          >
+                            <option selected>Choose Grade</option>
+                            <option value="grade1">Grade 1</option>
+                            <option value="grade2">Grade 2</option>
+                            <option value="grade3">Grade 3</option>
+                            <option value="grade4">Grade 4</option>                            
+                          </select>
+
+                          {/* <input
                             onChange={(e) => handle(e)}
                             id="year"
                             type="number"
@@ -278,10 +273,8 @@ export default function CourseForm() {
                             // onChange={(e) => onChange(e)}
                             name="year"
                             value={data.year}
-                          />
-                          <p className="text-danger">
-                            {formErrors.year}
-                          </p>
+                          /> */}
+                          <p className="text-danger">{formErrors.year}</p>
                         </div>
                       </div>
                     </div>
@@ -296,7 +289,7 @@ export default function CourseForm() {
                             Semester
                           </label>
                           <br />
-                          <input
+                          {/* <input
                             onChange={(e) => handle(e)}
                             id="semester"
                             type="number"
@@ -304,14 +297,22 @@ export default function CourseForm() {
                             // onChange={(e) => onChange(e)}
                             name="semester"
                             value={data.semester}
-                          />
-                          <p className="text-danger">
-                            {formErrors.semester}
-                          </p>
+                          /> */}
+                          <select
+                            className="select form-control-lg"
+                            onChange={(e) => handle(e)}
+                            name="semester"
+                            value={data.semester}
+                          >
+                            <option selected>Choose Semester</option>
+                            <option value="one">Semester 1</option>
+                            <option value="two">Semester 2</option>
+                          </select>
+                          <p className="text-danger">{formErrors.semester}</p>
                         </div>
                       </div>
                     </div>
-{/* 
+
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
@@ -322,21 +323,54 @@ export default function CourseForm() {
                             Staff Name
                           </label>
                           <br />
-                          <input
+                          {/* <input
                             onChange={(e) => handle(e)}
                             id="staff"
-                            type="text"
+                            type="number"
                             className="form-control form-control-lg"
                             // onChange={(e) => onChange(e)}
-                            name="staff"
+                            name="year"
+                            value={data.year}
+                          /> */}
+                          <select
+                            id="multiselect staff"
+                            multiple="multiple"
+                            className="select form-control-lg"
                             value={data.staff}
-                          />
-                          <p className="text-danger">
-                            {formErrors.ReserveDate}
-                          </p>
+                            onChange={(e) => handle(e)}
+                            name="staff"
+                          >
+                            {/* 
+<Select
+      isMulti
+      onChange={(e) => handle(e)}
+      value={doctors.id}
+      name="staff"
+      labelKey='fname'
+      valueKey='id'
+      defaultValue={[doctors[0]]}
+      // isClearable={false}
+      options={doctors}
+      // components={{ MultiValueRemove }}
+    /> */}
+                            {/* <option selected value="0">
+                              Available Staff
+                            </option> */}
+                            {doctors.map((doctor) => {
+                              return (
+                                <option value={doctor.id}>
+                                  {doctor.fname} {doctor.lname}
+                                </option>
+                              );
+                            })}
+
+                            {/* <option value="undergraduate">Undergraduate</option> */}
+                          </select>
+                          <br />
+                          <p className="text-danger">{formErrors.staff}</p>
                         </div>
                       </div>
-                    </div> */}
+                    </div>
 
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
@@ -356,41 +390,18 @@ export default function CourseForm() {
                             onChange={(e) => handle(e)}
                             name="category"
                           >
+                            <option value="0">Choose Gategory</option>
+
                             <option value="graduate">Graduate</option>
                             <option value="undergraduate">Undergraduate</option>
                           </select>
                           <br />
-                          {/* <input
-                          onChange={(e)=>handle(e)}
-                            id="category"
-                            type="text"
-                            className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
-                            name="category"
-                            value={data.category}
-                          /> */}
-                          <p className="text-danger">
-                            {/* {formErrors.ReserveDate} */}
-                          </p>
+
+                          <p className="text-danger"></p>
                         </div>
                       </div>
                     </div>
 
-                    {/* <div className="row">
-                      <div className="col-md-12 mb-4 d-flex align-items-center">
-                        <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationTime"
-                            className="form-label"
-                          >
-                            Reservation Time
-                          </label>
-                          <br />
-                        </div>
-
-                        <p className="text-danger">{formErrors.toBeReserved}</p>
-                      </div>
-                    </div> */}
                     <br />
                     <button type="submit" className="btn button btn-lg mb-1">
                       Submit

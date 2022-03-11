@@ -33,7 +33,7 @@ export default function YtwoSone() {
                     </thead>
                   
                   {courses
-                  .filter(course => course.semester === 1)
+                  .filter(course => course.semester === 'one')
 
                   .map((course) => {
                     return (

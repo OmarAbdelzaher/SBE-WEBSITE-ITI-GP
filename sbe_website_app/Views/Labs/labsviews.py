@@ -100,12 +100,12 @@ class ReserveLabDetails(APIView):
 
     def get(self, request, pk, format=None):
         reserved_lab= self.get_object(pk)
-        serializer = ReserveHallSerializer(reserved_lab)
+        serializer = ReserveLabSerializer(reserved_lab)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         reserved_lab = self.get_object(pk)
-        serializer = ReserveHallSerializer(reserved_lab, data=request.data)
+        serializer = ReserveLabSerializer(reserved_lab, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
