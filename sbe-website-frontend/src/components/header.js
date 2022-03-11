@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 import { useSelector } from "react-redux";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 
 let flag = false
 
@@ -48,15 +49,15 @@ const Header = ({ logout, isAuthenticated }) => {
     </>
   );
 
-  const staffLinks = () =>(
-    <>
-    <Nav.Link className="button">
-      <Link className="fs-5 header-link ani"  to="/reservation">
-       Reservation
-      </Link>
-    </Nav.Link>
-    </>
-  )
+  // const staffLinks = () =>(
+  //   <>
+  //   <Nav.Link className="button">
+  //     <Link className="fs-5 header-link ani"  to="/reservation">
+  //      Reservation
+  //     </Link>
+  //   </Nav.Link>
+  //   </>
+  // )
 
   const authLinks = () => (
     <Nav.Link className="button ">
@@ -93,8 +94,8 @@ const Header = ({ logout, isAuthenticated }) => {
 
   return (
     <>
-      <Navbar fixed="top" fixed="top" className={head ? "head scroll" : "head"}>
-        <Navbar.Brand className="col-3" href="/">
+      <Navbar fixed="top" className={head ? "head scroll" : "head"}>
+        <Navbar.Brand className="col-2" href="/">
           <img
             src={logo}
             width="180"
@@ -103,14 +104,20 @@ const Header = ({ logout, isAuthenticated }) => {
             alt="Department logo"
           />
         </Navbar.Brand>{" "}
+        
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav variant="dark" className="col-7 offset-6">
+
+          <Nav  className="col-7 offset-6">
+          
             <Nav.Link className="button">
               <Link className="fs-5 header-link ani" to="/">
                 <FontAwesomeIcon icon={faHome} />{" "}
               </Link>
             </Nav.Link>
+          
+           
             {isAuthenticated ? authLinks() : guestLinks()}
             {/* {isAuthenticated ? signedInLink() : null} */}
 
@@ -121,22 +128,26 @@ const Header = ({ logout, isAuthenticated }) => {
               Moderator
               </Link>
             </Nav.Link>
-            {is_staff ? staffLinks() : null}
-
-            { isAuthenticated ? <div className="dropdown">
+            {/* {is_staff ? staffLinks() : null} */}
+            { isAuthenticated ? <div className="dropdown  button" >
               <NavDropdown
-                className="dropdown "
+                style={{  }}
+                className=" button "
                 title= {
                   staff.user != null ? staff.user.fname : null
                 }  
-                id="navbarScrollingDropdown"
+                id="headScrollingDropdown"
+                aria-controls="navbar-dark-example"
               >
+                <div className="  "  aria-expanded="false" >
                 <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
                 <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
                 <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
                 <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
+                </div>
               </NavDropdown>
             </div> : null }
+            
 
           </Nav>
         </Navbar.Collapse>

@@ -8,10 +8,10 @@ export default function YtwoStwo() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/courseungraduateyeartwo/")
-      .then((res) => {
-        setCourses(res.data)
+      .then((res) => setCourses(res.data.filter((course)=>course.category=='undergraduate')))
+        // setCourses(res.data)
 
-      })
+      
   }, []);
   return (
     <>

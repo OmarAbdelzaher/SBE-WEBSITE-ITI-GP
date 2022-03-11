@@ -5,15 +5,18 @@ import { Link } from "react-router-dom";
 
 function YoneSone() {
   const [courses, setCourses] = useState([]);
-  var flag=false
+  // var flag=false
   useEffect(() => {
-    flag=true
     axios
       .get("http://localhost:8000/api/courseungraduateyearone/")
-      .then((res) => {
-        setCourses(res.data)
+      .then((res) =>  setCourses(res.data.filter((course)=>course.category=='undergraduate')))
 
-      })
+        // .then((res) => setEmp(res.data.filter((e) => e.is_active == false)));
+        // res.filter(function(courses) {
+        //   return courses.category == 'undergraduate';
+        // });
+       
+      
   }, []);
   return (
     <>
@@ -33,8 +36,7 @@ function YoneSone() {
                         <th>Course Name</th>
                       </tr>
                     </thead>
-                  {flag?
-                  <>
+                
                   {courses
                   .filter(course => course.semester === 1)
                   .map((course) => {
@@ -47,7 +49,6 @@ function YoneSone() {
                         </tbody>
                     );
                   })}
-                  </> :'Thay is wrong'}
 
                   </table>
                 </div>

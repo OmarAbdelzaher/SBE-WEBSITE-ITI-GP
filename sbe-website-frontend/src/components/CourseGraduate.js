@@ -56,9 +56,9 @@ export default function CourseGraduate(){
                             <div  class="card " key={item.id}  >
                               <div class="card-body">
                                 <h5 class="card-title">{item.name}</h5>
-                                <p class="card-text">Category:{item.category}</p>
-                                <p class="card-text">Staff ID:{item.staff_id}</p>
-                                <p class="card-text">instructions:{item.instructions}</p>
+                                {/* <p class="card-text text-dark">Category:{item.category}</p> */}
+                                <p class="card-text text-dark">Doctor :{item.staff_id}</p>
+                                <p class="card-text text-dark">{item.instructions}</p>
 
 
 

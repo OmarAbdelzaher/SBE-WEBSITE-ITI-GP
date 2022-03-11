@@ -198,7 +198,8 @@ class Course(models.Model):
     total_grade = models.IntegerField()
 
 
-    stds_grades = models.FileField(upload_to='student_grades/',)
+    stds_grades = models.FileField(upload_to='student_grades/',null=True)
+    # filepath= models.FileField(upload_to='files/', null=True, verbose_name="")
 
     instructions = models.TextField(max_length=500)
     materials = models.CharField(max_length=500)
@@ -215,6 +216,12 @@ class Course(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class MaterialFile(models.Model):
+    course_id = models.ForeignKey(Course,on_delete=models.CASCADE)
+    matrial_upload = models.FileField(upload_to='student_material/')
+
 
 class CourseHistory(models.Model):
     year = models.IntegerField()

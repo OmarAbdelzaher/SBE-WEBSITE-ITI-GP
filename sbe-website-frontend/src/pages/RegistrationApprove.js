@@ -94,43 +94,47 @@ function RegistrationApprove() {
 
   return (
     <>
-      <section className="h-custom ">
+      <section className="h-custom main">
         <div className="container ">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="sidebar justify-content-center">
                 <AdminNav />
               </div>
-              <div className="card-body ">
-                <p className="fs-1"> SBE DEPARTMENT</p>
-                <p className="fs-3"> - Registration Menu</p>
+              <div className="card-body">
+                {/* <p className="fs-1 text-light"> SBE DEPARTMENT</p> */}
+                <p className="fs-1 text-light"> - Registration Menu</p>
+
+                <select className="select form-control-lg btn btn-lg" style={{backgroundColor:"#001233", color:"#ffff"}}
+
+onChange={(e) => onChange(e)}
+name="ReserveType"
+value={person}>
+
+<option selected value="Request Type">User Requests</option>
+<option value="stf">Staff Requests</option>
+<option value="std">Students Requests</option>
+<option value="emp">Employee Requests</option>
+
+</select>
+
               </div>
               <div>
 
-              <select className="select form-control-lg btn button" 
-                onChange={(e) => onChange(e)}
-                name="ReserveType"
-                value={person}>
+          
 
-                <option selected value="Request Type">User Requests</option>
-                <option value="stf">Staff Requests</option>
-                <option value="std">Students Requests</option>
-                <option value="emp">Employee Requests</option>
-
-              </select>
-
-                <table className="table table-bordered border-primary bg-light fs-4 col-12">
+                <table className="table table-bordered table-hover bg-light fs-4 col-12">
                   <thead>
                     <tr className="text-dark">
-                      <th>ID</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Mail</th>
-                      <th>Action</th>
+                      <th className="fw-normal">ID</th>
+                      <th className="fw-normal">First Name</th>
+                      <th className="fw-normal">Last Name</th>
+                      <th className="fw-normal">Mail</th>
+                      <th className="fw-normal">Action</th>
                     </tr>
                   </thead>
 
-                  <tbody className="mb-3">
+                  <tbody className="fs-5">
                     {person.map((item, index) => {
                       return (
                         <tr key={index}>
@@ -162,7 +166,6 @@ function RegistrationApprove() {
               </div>
             </div>
             <div className="margin-b"></div>
-
           </div>
         </div>
       </section>

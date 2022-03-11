@@ -10,6 +10,7 @@ import "../pages/style.css";
 import UnderGraduateExams from "./UnderGraduateExams";
 
 
+
 const NavBar = () => {
   const [bar, setNavbar] = useState(false);
 
@@ -41,7 +42,7 @@ const NavBar = () => {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0 fs-3">
             <Nav.Link
-              className="nav-links text-dark"
+              className="nav-links"
             
                 onClick={() => scroller.scrollTo('allnews', {
                   spy:true,
@@ -55,7 +56,7 @@ const NavBar = () => {
             </Nav.Link>
             <Nav.Link
          
-              className="nav-links text-dark"
+              className="nav-links"
               activeClassName={"active"}
             
               onClick={() => scroller.scrollTo('allevents', {
@@ -82,7 +83,7 @@ const NavBar = () => {
             
             <Nav.Link
             
-                className="nav-links text-dark"
+                className="nav-links "
             
                 onClick={() => scroller.scrollTo('about', {
                   spy:true,
@@ -94,7 +95,7 @@ const NavBar = () => {
                 About
             </Nav.Link>
             <Nav.Link
-                            className="nav-links text-dark"
+                            className="nav-links "
             
                             onClick={() => scroller.scrollTo('contact', {
                               spy:true,
