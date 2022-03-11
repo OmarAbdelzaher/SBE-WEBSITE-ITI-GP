@@ -118,7 +118,7 @@ export default function AssignCourse() {
         .put(url, Data)
         .then((res) => {
           console.log(res.data);
-          setData(res.data);
+          setData(res.status);
 
 
           history.push("/coursesMenu");
