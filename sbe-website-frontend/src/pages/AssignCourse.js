@@ -1,7 +1,8 @@
-import React , {Component} from "react";
+import React, { Component } from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+
 export default function AssignCourse() {
   const params = useParams();
   let url = `http://localhost:8000/api/course/${params.id}`;
@@ -21,7 +22,6 @@ export default function AssignCourse() {
     category: "",
   });
 
-
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/course/${params.id}`)
@@ -34,10 +34,8 @@ export default function AssignCourse() {
       .then((res) => setDoctors(res.data));
   }, []);
 
-  
   function handle(e) {
     setData({ ...data, [e.target.name]: e.target.value });
-  
   }
 
   const validate = (values) => {
@@ -49,16 +47,17 @@ export default function AssignCourse() {
     return errors;
   };
 
+
   function onSubmit(e) {
     e.preventDefault();
-    console.log(data)
     let errors_form = validate(data);
+
     setFormErrors(errors_form);
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
-  
+
       Data.append("name", data.name);
-      Data.append("staff_id",data.staff_id);
+      Data.append("staff_id", data.staff_id);
       Data.append("total_grade", data.total_grade);
       Data.append("instructions", data.instructions);
       Data.append("materials", data.materials);
@@ -106,25 +105,21 @@ export default function AssignCourse() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="staff"
-                            className="form-label"
-                          >
+                          <label htmlFor="staff" className="form-label">
                             Staff Name
                           </label>
                           <br />
                           <select
-                            multiple={true}
+                            multiple
                             id="staff"
                             className="select form-control-lg"
                             value={data.staff_id}
                             onChange={(e) => handle(e)}
                             name="staff_id"
                           >
-
                             {doctors.map((doctor) => {
                               return (
-                                <option value={doctor.id} >
+                                <option value={doctor.id}>
                                   {doctor.fname} {doctor.lname}
                                 </option>
                               );

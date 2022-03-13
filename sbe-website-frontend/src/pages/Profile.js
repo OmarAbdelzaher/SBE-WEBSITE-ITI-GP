@@ -37,15 +37,6 @@ function Profile(isAuthenticated) {
   });
 
   const [FormErrors,setFormErrors] = useState({})
-  const {
-    fname,
-    lname,
-    email,
-    birthdate,
-    address,
-    phone_number,
-  } = User;
-
   const pattern_email = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
@@ -80,13 +71,13 @@ function Profile(isAuthenticated) {
     if (!values.email) {
       errors.email = "Email is required !";
 
-    } else if (!pattern_email.test(email)) {
+    } else if (!pattern_email.test(values.email)) {
       errors.email = "Email is invalid !";
     }
     if (!values.phone_number){
       errors.phone_number = "Phone Number is required";
 
-    } else if (phone_number.length != 11 )
+    } else if (values.phone_number.length != 11 )
     {
       errors.phone_number = "Phone Number must be 11 digits"  
     }
@@ -169,6 +160,8 @@ function Profile(isAuthenticated) {
     Data.append("birthdate", User.birthdate);
     Data.append("phone_number", User.phone_number);
     Data.append("password", User.password);
+    Data.append("role", User.role);
+
 
       axios.put(Url, Data).then((res)=>{
         history.push("/");
