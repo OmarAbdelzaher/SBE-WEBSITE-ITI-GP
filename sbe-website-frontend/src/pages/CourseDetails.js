@@ -21,7 +21,7 @@ function CourseDetails(isAuthenticated) {
   const [isCoordinator, setIsCoordinator] = useState(false);
   const [isModerator, setIsModerator] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isExist,setIsExist] = useState(false)
+  const [isExist, setIsExist] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated && who.user != null && flag == false) {
@@ -58,38 +58,39 @@ function CourseDetails(isAuthenticated) {
   useEffect(() => {
     axios.get("http://localhost:8000/api/uploadmaterials/").then((res) => {
       setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
-      console.log(res.data.filter((mat) => mat.course_id == mat_id))
+      console.log(res.data.filter((mat) => mat.course_id == mat_id));
     });
   }, []);
 
-  const handleChangeFile = (e,type) => {
+  const handleChangeFile = (e, type) => {
     const list = [];
     const files = e.target.files;
 
-    if (type == "mat"){
-      for(let element of files){
-        if(material.find((mat)=>mat.material_upload === '/media/student_material/'+element.name) == undefined){
-          list.push(element)
+    if (type == "mat") {
+      for (let element of files) {
+        if (
+          material.find(
+            (mat) =>
+              mat.material_upload === "/media/student_material/" + element.name
+          ) == undefined
+        ) {
+          list.push(element);
         }
       }
-    }
-    else if(type == "grades"){
-
-      if(course.stds_grades !== '/media/student_grades/'+files[0].name){
-        list.push(files[0])
-      }else{
-        setIsExist(true)
+    } else if (type == "grades") {
+      if (course.stds_grades !== "/media/student_grades/" + files[0].name) {
+        list.push(files[0]);
+      } else {
+        setIsExist(true);
       }
     }
     setFilesList(list);
   };
 
-
   // const onChange = (e) =>
   //   course.materials = e.target.value ;
 
-  const handleSubmit = (e,type) => {
-
+  const handleSubmit = (e, type) => {
     // e.preventDefault();
 
     let formData = new FormData();
@@ -100,11 +101,15 @@ function CourseDetails(isAuthenticated) {
       fileData.append("course_id", course.id);
     });
 
-    if(type == "mat"){
-      axios.post("http://localhost:8000/api/uploadmaterials/",fileData).then((res)=>{
-        console.log(res)}).catch((e)=>{
-          console.log(e)
+    if (type == "mat") {
+      axios
+        .post("http://localhost:8000/api/uploadmaterials/", fileData)
+        .then((res) => {
+          console.log(res);
         })
+        .catch((e) => {
+          console.log(e);
+        });
     }
 
     formData.append("name", course.name);
@@ -115,9 +120,9 @@ function CourseDetails(isAuthenticated) {
     formData.append("category", course.category);
     formData.append("year", course.year);
     formData.append("semester", course.semester);
-    formData.append("stds_grades",filesList[0]);
+    formData.append("stds_grades", filesList[0]);
 
-    if(type == "grades"){
+    if (type == "grades") {
       axios
         .put(`http://localhost:8000/api/course/${params.id}`, formData)
         .then((res) => {
@@ -148,26 +153,22 @@ function CourseDetails(isAuthenticated) {
           console.log(err);
         });
     } else if (downType == "materials") {
-
-      for(let i = 0; i <= material.length;i++)
-      {
+      for (let i = 0; i <= material.length; i++) {
         axios
-        .get(`http://localhost:8000/api/download/${material[i].id}/mat`,{
-          responseType: "blob",
-        })
-        .then((res) => {
-          fileDownload(res.data, basename(material[i].material_upload));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .get(`http://localhost:8000/api/download/${material[i].id}/mat`, {
+            responseType: "blob",
+          })
+          .then((res) => {
+            fileDownload(res.data, basename(material[i].material_upload));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     }
   };
   const btnStyle = {
-   
-    marginTop:'45px',
-
+    marginTop: "45px",
   };
 
   return (
@@ -194,20 +195,19 @@ function CourseDetails(isAuthenticated) {
                       </p>
                     </div>
                     {/* Assign Button  */}
-                    <div className="rounded-4 align-items-start justify-content-left  "  >
-              <Link
-                    className="button btn btn-lg "
-                  to={`/assigncourse/${course.id}/${course.name}/`}
-                    style={btnStyle}
-                  >
-                    <button
-                       className="button   "
-                    >
-                      <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
-                      Assign Course
-                    </button>
-              </Link>
-              </div>
+                    <div className="rounded-4 align-items-start justify-content-left  ">
+                      <Link
+                        className="button btn btn-lg "
+                        to={`/assigncourse/${course.id}/${course.name}/`}
+                        style={btnStyle}
+                      >
+                        <button className="button   ">
+                          <FontAwesomeIcon icon={faCirclePlus} />
+                          {"  "}
+                          Assign Course
+                        </button>
+                      </Link>
+                    </div>
 
                     <div className="btn button col-12 card cards justify-content-center align-items-center ">
                       <Link
@@ -222,31 +222,39 @@ function CourseDetails(isAuthenticated) {
                   <div className=" row col-4 offset-1">
                     <div className="row card cards col-10 text-center border border-2 ">
                       <h3 className="card-body col-12 nav-links">Materials</h3>
-                      {course.materials ? 
-                      <TouchableOpacity>
-                        <Text
-                          className="card-text col-12 "
-                          style={{ color: "blue" }}
-                          onPress={() => Linking.openURL(course.materials)}
-                        >
-                          Material Link
-                        </Text>
-                      </TouchableOpacity>
-                      : <p className="text-danger">No Materials link available yet</p>
-                      }
+                      {course.materials ? (
+                        <TouchableOpacity>
+                          <Text
+                            className="card-text col-12 "
+                            style={{ color: "blue" }}
+                            onPress={() => Linking.openURL(course.materials)}
+                          >
+                            Material Link
+                          </Text>
+                        </TouchableOpacity>
+                      ) : (
+                        <p className="text-danger">
+                          No Materials link available yet
+                        </p>
+                      )}
 
                       {/* {upload materials} */}
 
                       {is_staff || isAdmin || isCoordinator ? (
                         <div>
-                          <form onSubmit={(event) => handleSubmit(event,"mat")} action="/coursesMenu">
-                            {/* <label className="text-primary">Material Link</label><br/> */}
-                            {/* <input name="material-link" type="text" value={course.materials} onChange={(e) => onChange(e)}/> */}
-                            {/* <br/> */}
+                          <form
+                            onSubmit={(event) => handleSubmit(event, "mat")}
+                            action="/coursesMenu"
+                          >
+                            <label className="text-primary">Material Link</label><br/>
+                            <input name="material-link" type="text" value=""/>
+                            <br/>
                             <input
                               type="file"
                               multiple
-                              onChange={(event) => handleChangeFile(event,"mat")}
+                              onChange={(event) =>
+                                handleChangeFile(event, "mat")
+                              }
                             />
                             <button type="submit" className="btn btn-success">
                               Upload Materials
@@ -274,35 +282,42 @@ function CourseDetails(isAuthenticated) {
 
                       {is_staff || isAdmin || isCoordinator ? (
                         <div>
-                          <form onSubmit={(event) => handleSubmit(event,"grades")}>
+                          <form
+                            onSubmit={(event) => handleSubmit(event, "grades")}
+                          >
                             <input
                               type="file"
-                              onChange={(event) => handleChangeFile(event,"grades")}
+                              onChange={(event) =>
+                                handleChangeFile(event, "grades")
+                              }
                             />
                             <button type="submit" className="btn btn-success">
                               Upload Grades
                             </button>
-                            {
-                              isExist? <p className="text-danger">This file Already Exists</p> 
-                              : null
-                            }
+                            {isExist ? (
+                              <p className="text-danger">
+                                This file Already Exists
+                              </p>
+                            ) : null}
                           </form>
                         </div>
                       ) : null}
 
                       {/* {download grades} */}
-                      {course.stds_grades ? 
-                      <div>
-                        <button
-                          className="btn btn-lg col-12 button"
-                          onClick={() => handlePDFDownload("grades")}
+                      {course.stds_grades ? (
+                        <div>
+                          <button
+                            className="btn btn-lg col-12 button"
+                            onClick={() => handlePDFDownload("grades")}
                           >
-                          <a className="button nav-links text-light">
-                            Download Grades
-                          </a>
-                        </button>
-                      </div>
-                      :<p className="text-danger">No Grades uploaded yet</p>}
+                            <a className="button nav-links text-light">
+                              Download Grades
+                            </a>
+                          </button>
+                        </div>
+                      ) : (
+                        <p className="text-danger">No Grades uploaded yet</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -317,6 +332,5 @@ function CourseDetails(isAuthenticated) {
 }
 
 export default CourseDetails;
-
 
 // to={`/assigncourse/${course.id}/${course.name}/${course.total_grade}/${course.stds_grades}/${course.instructions}/${course.materials}/${course.category}/${course.year}/${course.semster}`}
