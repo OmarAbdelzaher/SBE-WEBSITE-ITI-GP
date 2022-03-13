@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 
-function GraduateExamSchedule() {
+function GraduateLecSchedule() {
   return (
     <>
  <section className="h-custom py-5">
@@ -12,7 +12,7 @@ function GraduateExamSchedule() {
             <div className='py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light'>
               <div className='margin'>
                 <div className='card-body justify-content-center'>
-                <p className=' text-center'>Exams Schedule</p>
+                <p className=' text-center'>Lectures Schedule</p>
                 </div>
                 <div>
                 <table className="table table-bordered border-primary bg-light fs-4 col-12">
@@ -61,4 +61,4 @@ function GraduateExamSchedule() {
   )
 }
 
-export default GraduateExamSchedule
+export default GraduateLecSchedule

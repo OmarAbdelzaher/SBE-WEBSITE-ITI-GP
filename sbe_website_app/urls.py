@@ -9,6 +9,7 @@ from .Views.Courses.coursesviews import *
 from .Views.Events.eventsviews import *
 from .Views.News.newsviews import *
 from .Views.OffHoursandTimeSlots.hoursandslotsviews import *
+from .Views.Schedules.schedulesviews import *
 
 
 
@@ -59,8 +60,12 @@ urlpatterns = [
     
     path('uploadmaterials/',MaterialfileView.as_view()),
     path('uploadmaterial/<int:pk>',MaterialfileDetailsView.as_view()),
-
+    
+    path('lecschedules/',LecSchedulesList.as_view()),
+    path('lecschedule/<int:pk>',LecSchedulesDetails.as_view()),
+    path('examschedules/',ExamSchedulesList.as_view()),
+    path('examschedule/<int:pk>',ExamSchedulesDetails.as_view()),
+    path('download-exam-lec/<str:year>/<str:type>',DownloadPDFSchedules, name='download_pdf'),
 
 ]
 urlpatterns+= static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
-# urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -59,7 +59,8 @@ class CourseDetails(APIView):
         
         serializer = CourseSerializer(course, data=request.data)
         if serializer.is_valid():
-            course.stds_grades = request.FILES.getlist('stds_grades')[0]
+            if len(request.FILES.getlist('stds_grades')) > 0:
+                course.stds_grades = request.FILES.getlist('stds_grades')[0]
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -201,8 +202,7 @@ class CourseHistoryDetailsView(APIView):
 
 @api_view(['GET'])
 def DownloadPDF(self,pk,type):
-    print(pk)
-    print(type)
+
     if type == "grade":
         course=Course.objects.get(pk=pk)
         path_to_file = MEDIA_ROOT + f'/{course.stds_grades}'
@@ -210,13 +210,10 @@ def DownloadPDF(self,pk,type):
         mat=MaterialFile.objects.get(pk=pk)
         path_to_file = MEDIA_ROOT + f'/{mat.material_upload}'
     f = open(path_to_file, 'rb')
-    print(f)
     pdfFile = File(f)
-    print(pdfFile)
-    
     response = HttpResponse(pdfFile.read())
     response['Content-Disposition'] = 'attachment'
-    print(response)
+ 
     return response
 
 
@@ -229,13 +226,13 @@ class MaterialfileView(APIView):
     def post(self,request):
         serializer = MaterialfileSerializer(data=request.data)
         
-        # print(type(int(request.data["course_id"])))
+        print(request.FILES.getlist('material_upload'))
         
-        # course = Course.objects.get(id=int(request.data["course_id"]))
+        course = Course.objects.get(id=int(request.data["course_id"]))
         if serializer.is_valid():
-            if len(request.FILES.getlist('material_upload'))>0:
-                # MaterialFile.objects.create(material_upload=request.FILES.getlist('material_upload')[0],course_id=course)
-                serializer.save()
+            for file in request.FILES.getlist('material_upload'):
+                MaterialFile.objects.create(material_upload=file,course_id=course)
+                # serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

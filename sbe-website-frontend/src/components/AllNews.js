@@ -11,18 +11,8 @@ export default function AllNews() {
       .then((res) => setAllNews(res.data));
   }, []);
 
-  const btnStyle = {
-    color: "white",
-    width: "50%",
-    height: "50%",
-    // background:'blue',
-  };
   const start = {
-    // color: 'red',
-    // width: '50%',
-    // height: '50%',
     marginTop: "150px",
-    // background:'blue',
   };
   function orderByOrderValue(a, b) {
     if (a.id > b.id) {

@@ -1,15 +1,11 @@
 import React from "react";
-
-// import { CardView } from 'react-card-with-image'
-// import Card from 'react-bootstrap/Card'
-// import 'react-card-with-image/dist/index.css'
 import "./Academics.css";
 import { Link } from "react-router-dom";
 
 export default function Academics() {
   return (
     <>
-    <section className="academic-section"></section>
+      <section className="academic-section"></section>
       <h1 className="text-center">Academics</h1>
 
       <div className="container">
@@ -23,6 +19,7 @@ export default function Academics() {
                 <img
                   className="card-img-top imgcard"
                   src="https://lv7ms1pq6dm2sea8j1mrajzw-wpengine.netdna-ssl.com/wp-content/uploads/2014/05/shutterstock_789412672-1200x675.jpg"
+                  alt="graduate-img"
                 />
                 <a href="#!">
                   <div className="mask rgba-white-slight" />
@@ -34,7 +31,7 @@ export default function Academics() {
                 <h4 className="card-title">Graduate</h4>
                 {/*Text*/}
                 <p className="card-text text-dark">
-                News For Graduate
+                  See all about graduates, news, admissions and more details
                 </p>
                 {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
                 {/* <button type="button" className="btn btn-primary btn-md">Read more</button> */}
@@ -55,6 +52,7 @@ export default function Academics() {
                 <img
                   className="card-img-top imgcard"
                   src="https://imageio.forbes.com/specials-images/imageserve/5e020def4e2917000783d582/0x0.jpg?format=jpg&width=1200&fit=bounds"
+                  alt="undergraduate-img"
                 />
                 <a href="#!">
                   <div className="mask rgba-white-slight" />
@@ -66,7 +64,9 @@ export default function Academics() {
                 <h4 className="card-title">Undergraduate</h4>
                 {/*Text*/}
                 <p className="card-text text-dark">
-News for Students                </p>
+                  See all about undergraduates, news, admissions and more
+                  details
+                </p>
                 {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
                 <Link to="/undergraduatepage" className="btn button">
                   <button type="button" className="button ani ">

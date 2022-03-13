@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 # import email confirmation stuff
 from django.core.mail import send_mail
 from django.conf import settings
+import os
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -196,10 +197,10 @@ class FacultyEmp(Person,models.Model):
 
 class Course(models.Model):
     YEAR_CHOICES = (
-        ('grade1', 'Year 1'),
-        ('grade2', 'Year 2'),
-        ('grade3', 'Year 3'),
-        ('grade4', 'Year 4'),
+        ('Year 1', 'Year 1'),
+        ('Year 2', 'Year 2'),
+        ('Year 3', 'Year 3'),
+        ('Year 4', 'Year 4'),
 
     )
     name = models.CharField(max_length=20)
@@ -207,7 +208,6 @@ class Course(models.Model):
 
 
     stds_grades = models.FileField(upload_to='student_grades/',null=True,blank=True)
-    # filepath= models.FileField(upload_to='files/', null=True, verbose_name="")
 
     instructions = models.TextField(max_length=500)
     materials = models.CharField(max_length=500,blank=True)
@@ -215,8 +215,6 @@ class Course(models.Model):
     SEMESTER_CHOICES = (
         ('one', 'One'),
         ('two', 'Two'),
-      
-
     )
 
     semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES)
@@ -249,11 +247,6 @@ class CourseHistory(models.Model):
     
     def __str__(self):
         return str(self.course_id)
-
-class Schedule(models.Model):
-    year = models.IntegerField()
-    semester = models.IntegerField()
-    schedule = models.FileField(upload_to='Schedules/')
     
 class Hall(models.Model):
     name = models.CharField(max_length=20,unique=True)
@@ -348,3 +341,38 @@ class Event(models.Model):
         return self.name
 
     
+class LecSchedule(models.Model):
+    YEAR_CHOICES = (
+        ('Year 1', 'Year 1'),
+        ('Year 2', 'Year 2'),
+        ('Year 3', 'Year 3'),
+        ('Year 4', 'Year 4'),
+    )
+    SEMESTER_CHOICES = (
+        ('one', 'One'),
+        ('two', 'Two'),
+    )
+    year = models.CharField( max_length=20,choices=YEAR_CHOICES)
+    semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES,blank=True)
+    schedule_file = models.FileField(upload_to='Lecs_Schedule/')
+
+    def __str__(self):
+        return os.path.basename(str(self.schedule_file))
+    
+class ExamSchedule(models.Model):
+    YEAR_CHOICES = (
+        ('Year 1', 'Year 1'),
+        ('Year 2', 'Year 2'),
+        ('Year 3', 'Year 3'),
+        ('Year 4', 'Year 4'),
+    )
+    SEMESTER_CHOICES = (
+        ('one', 'One'),
+        ('two', 'Two'),
+    )
+    year = models.CharField( max_length=20,choices=YEAR_CHOICES)
+    semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES,blank=True)
+    exam_file = models.FileField(upload_to='Exams_Schedule/')
+    
+    def __str__(self):
+        return os.path.basename(str(self.exam_file))

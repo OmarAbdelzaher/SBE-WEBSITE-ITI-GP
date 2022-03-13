@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-function UnderGraduateExamSchedule(isAuthenticated) {
+function UnderGraduateLecSchedule(isAuthenticated) {
   let flag = false;
   const who = useSelector((state) => state.auth);
   const [is_staff, setIs_staff] = useState(false);
@@ -17,11 +17,11 @@ function UnderGraduateExamSchedule(isAuthenticated) {
   const [isExist,setIsExist] = useState(false)
   const [filesList, setFilesList] = useState([]);
 
-  const [yearOneExam, setYearOneExam] = useState([]);
-  const [yearTwoExam, setYearTwoExam] = useState([]);
-  const [yearThreeExam, setYearThreeExam] = useState([]);
-  const [yearFourExam, setYearFourExam] = useState([]);
-  const [allExams, setAllExams] = useState([]);
+  const [yearOneSchedule, setYearOneSchedule] = useState([]);
+  const [yearTwoSchedule, setYearTwoSchedule] = useState([]);
+  const [yearThreeSchedule, setYearThreeSchedule] = useState([]);
+  const [yearFourSchedule, setYearFourSchedule] = useState([]);
+  const [allSchedules, setAllSchedules] = useState([]);
 
   useEffect(() => {
     if (isAuthenticated && who.user != null && flag == false) {
@@ -47,17 +47,17 @@ function UnderGraduateExamSchedule(isAuthenticated) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/examschedules/").then((res) => {
-      setYearOneExam(res.data.filter((y1) => y1.year == "Year 1"));
-      setYearTwoExam(res.data.filter((y2) => y2.year == "Year 2"));
-      setYearThreeExam(res.data.filter((y3) => y3.year == "Year 3"));
-      setYearFourExam(res.data.filter((y4) => y4.year == "Year 4"));
+    axios.get("http://localhost:8000/api/lecschedules/").then((res) => {
+      setYearOneSchedule(res.data.filter((y1) => y1.year == "Year 1"));
+      setYearTwoSchedule(res.data.filter((y2) => y2.year == "Year 2"));
+      setYearThreeSchedule(res.data.filter((y3) => y3.year == "Year 3"));
+      setYearFourSchedule(res.data.filter((y4) => y4.year == "Year 4"));
     }).catch((e)=>console.log(e))
   }, []);
 
   useEffect(() => {
-    setAllExams(yearOneExam.concat(yearTwoExam, yearThreeExam, yearFourExam));
-  }, [yearFourExam]);
+    setAllSchedules(yearOneSchedule.concat(yearTwoSchedule, yearThreeSchedule, yearFourSchedule));
+  }, [yearFourSchedule]);
 
   var fileDownload = require("js-file-download");
 
@@ -65,13 +65,13 @@ function UnderGraduateExamSchedule(isAuthenticated) {
     return path.split("/").reverse()[0];
   }
 
-  const handlePDFDownload = (exam) => {
+  const handlePDFDownload = (schedule) => {
     axios
-      .get(`http://localhost:8000/api/download-exam-lec/${exam.year}/exam`, {
+      .get(`http://localhost:8000/api/download/${schedule.year}/lec`, {
         responseType: "blob",
       })
       .then((res) => {
-        fileDownload(res.data, basename(exam.exam_file));
+        fileDownload(res.data, basename(schedule.schedule_file));
       })
       .catch((err) => {
         console.log(err);
@@ -79,11 +79,11 @@ function UnderGraduateExamSchedule(isAuthenticated) {
   };
 
 
-  const handleChangeFile = (e,exam) => {
+  const handleChangeFile = (e,schedule) => {
     const list = [];
     const files = e.target.files;
     console.log(files)
-      if(exam.exam_file !== '/media/Exams_Schedule/'+files[0].name){
+      if(schedule.schedule_file !== '/media/Lecs_Schedule/'+files[0].name){
         list.push(files[0])
       }else{
         setIsExist(true)
@@ -91,15 +91,15 @@ function UnderGraduateExamSchedule(isAuthenticated) {
     setFilesList(list);
   };
 
-  const handleSubmit = (e,exam) => {
+  const handleSubmit = (e,schedule) => {
 
     // e.preventDefault();
     let fileData = new FormData();
     
-    fileData.append("year", exam.year);
-    fileData.append("exam_file", filesList[0]);
+    fileData.append("year", schedule.year);
+    fileData.append("schedule_file", filesList[0]);
 
-    axios.put(`http://localhost:8000/api/examschedule/${exam.id}`,fileData).then((res)=>{
+    axios.put(`http://localhost:8000/api/lecschedule/${schedule.id}`,fileData).then((res)=>{
       console.log(res)
       }).catch((e)=>{
         console.log(e)
@@ -114,7 +114,7 @@ function UnderGraduateExamSchedule(isAuthenticated) {
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="">
                 <div className="card-body ">
-                  <p className="fs-2">Exams Schedule</p>
+                  <p className="fs-2">Lectures Schedule</p>
                 </div>
                 <div>
                   <table className="table table-bordered border-primary bg-light fs-4 col-12">
@@ -126,15 +126,15 @@ function UnderGraduateExamSchedule(isAuthenticated) {
                     </thead>
 
                     <tbody className="mb-3">
-                      {allExams.map((exam) => {
+                      {allSchedules.map((schedule) => {
                         return (
                           <tr>
                             <td>
-                              <Link className="admin-tables" to="#">{exam.year.split(" ")[1]}</Link>
+                              <Link className="admin-tables" to="#">{schedule.year.split(" ")[1]}</Link>
                             </td>
                             <td>
                               <Link to="#">
-                                <button className="btn button" onClick={()=>handlePDFDownload(exam)}>
+                                <button className="btn button" onClick={()=>handlePDFDownload(schedule)}>
                                   <FontAwesomeIcon
                                     className="fs-5"
                                     icon={faDownload}
@@ -145,10 +145,10 @@ function UnderGraduateExamSchedule(isAuthenticated) {
 
                               {isModerator || isAdmin || isCoordinator ? (
                                 <div>
-                                  <form onSubmit={(event) => handleSubmit(event,exam)}>
+                                  <form onSubmit={(event) => handleSubmit(event,schedule)}>
                                     <input
                                       type="file"
-                                      onChange={(event) => handleChangeFile(event,exam)}
+                                      onChange={(event) => handleChangeFile(event,schedule)}
                                     />
                                     <button className="btn button">
                                         <FontAwesomeIcon
@@ -180,4 +180,4 @@ function UnderGraduateExamSchedule(isAuthenticated) {
   );
 }
 
-export default UnderGraduateExamSchedule;
+export default UnderGraduateLecSchedule;
