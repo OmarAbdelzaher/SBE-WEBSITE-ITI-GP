@@ -6,7 +6,7 @@ import AdminNav from "../components/AdminNav";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-
+import background from '../assets/image/Fac_eng.jpg'
 import Nav from "react-bootstrap/Nav";
 
 import {
@@ -38,18 +38,17 @@ export default function Labs() {
             console.log(e);
           });
       };
-
-      
+   
   return (
     <>
       <section className="main ">
-        <div className="container py-5">
+        <div className="container">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="sidebar justify-content-center">
                 <AdminNav />
               </div>
-              <div className="card-body ">
+              <div className="card-body">
                 <p className="fs-1 text-light"> Labs Menu</p>
                 <Link  className="btn btn-md col-3" style={{backgroundColor:"#003049", color:"#ffff"}} to="/labform">
                 <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
@@ -113,7 +112,7 @@ export default function Labs() {
                 </table>
               </div>
             </div>
-            <div className="margin-b"></div>
+            <div className="margin-bottom"></div>
           </div>
         </div>
       </section>

@@ -195,7 +195,7 @@ function CourseDetails(isAuthenticated) {
                       <TouchableOpacity>
                         <Text
                           className="card-text col-12 "
-                          style={{ color: "blue" }}
+                          style={{ color: "#03045e" }}
                           onPress={() => Linking.openURL(course.materials)}
                         >
                           Material Link

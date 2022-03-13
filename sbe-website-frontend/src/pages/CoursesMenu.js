@@ -51,38 +51,40 @@ export default function CoursesMenu(isAuthenticated) {
     // width: "50%",
     // height: "50%",
     // background:'red',
-    marginTop: "45px",
+    // marginTop: "45px",
   };
 
   return (
     <>
-      <section className="h-150 h-custom py-5">
+      <section className="h-custom py-5">
         <div className="container ">
-          <div className="row  justify-content-left align-items-center  ">
-            {isCoordinator || isAdmin ? (
-              <div className="col-lg-2 col-xl-3 align-self-start mt-5 ">
-                <div className="rounded-4 align-items-start justify-content-left  ">
-                  <Link
-                    className="button btn btn-lg "
-                    to="/courseform"
-                    style={btnStyle}
-                  >
-                    <button className="button   ">
-                      <FontAwesomeIcon icon={faCirclePlus} />
-                      {"  "}
-                      Add Course
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ) : null}
+          <div className="row justify-content-center align-items-center">
+            
 
             <div className="col-lg-8 col-xl-6">
               <div className=" rounded-3 ">
-                <div className=" p-4 p-md-5 courses-b border border-2 border-light">
-                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 ">
+                <div className=" card form rounded-3 courses-b border border-2 border-light">
+                  <div className="card-body">
+                  <h3 className="fs-2 ">
                     Students Courses
                   </h3>
+                  {isCoordinator || isAdmin ? (
+              // <div className="col-lg-2 col-xl-3 align-self-start mt-5 ">
+                // <div className="rounded-4 align-items-start justify-content-left  ">
+                  <Link
+                  className="btn btn-md col-6" style={{backgroundColor:"#003049", color:"#ffff"}}
+                    to="/courseform"
+                    // style={btnStyle}
+                  >
+                      <FontAwesomeIcon icon={faCirclePlus} />
+                      {"  "}
+                      Add Course
+                   
+                  </Link>
+                // </div>
+              // </div>
+            ) : null}
+            </div>
                   <form className="px-md-2">
                     <div className="row">
                       <div className="col-12">
@@ -391,7 +393,7 @@ export default function CoursesMenu(isAuthenticated) {
 
                     <div className="row">
                       <Link className="button btn btn-lg col-12">
-                        <button type="submit" className="button ani mb-1">
+                        <button type="submit" className="button ani ">
                           Show Schedule
                         </button>
                       </Link>

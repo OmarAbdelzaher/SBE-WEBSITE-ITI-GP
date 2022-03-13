@@ -128,7 +128,7 @@ const moderatorLink = () => (
         
         <Navbar.Collapse id="responsive-navbar-nav">
 
-          <Nav  className="col-7 offset-6">
+          <Nav  className="col-7 offset-8">
           
             <Nav.Link className="button btn-b">
               <Link className="fs-4 ani btn-b" to="/" style={{color:"#9b2226"}}>

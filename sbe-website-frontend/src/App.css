@@ -2,14 +2,17 @@
   /* margin-top: 10%; */
   /* height: 150vh !important; */
   /* background-color: #001233; */
-  background-image: url(../src/assets/image/Fac_eng.jpg);
+  background-image: url(../src/assets/image/thisisengineering.jpg);
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
+  overflow: hidden;
+
   /* filter: blur(2px);
     -webkit-filter: blur(2px); */
+
 
 }
 
@@ -42,7 +45,7 @@
   margin-top: 34% !important;
 }
 .c-form{
-  margin-bottom: 9.8%;
+  margin-bottom: 90%;
   /* margin-top: 20% !important; */
 }
 .margin-b{
