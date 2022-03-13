@@ -13,14 +13,15 @@ from braces.views import CsrfExemptMixin
 from django.http import HttpResponse
 from django.core.exceptions import ValidationError
 import re
+
 # import email confirmation stuff
 from django.core.mail import send_mail
 from django.conf import settings
-# import file staff
+
+# import file stuff
 from django.core.files import File
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
-# from sbe_website_app.settings import BASE_DIR, MEDIA_ROOT
 from sbe_dj_react_proj.settings import BASE_DIR, MEDIA_ROOT
 from rest_framework import viewsets
 
@@ -245,7 +246,7 @@ class MaterialfileDetailsView(APIView):
 
     def get(self, request, pk, format=None):
         material = self.get_object(pk)
-        serializer = MaterialFileSerializer(material)
+        serializer = MaterialfileSerializer(material)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):

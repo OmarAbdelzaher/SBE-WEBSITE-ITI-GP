@@ -45,8 +45,9 @@ export default function HallForm() {
 
   return (
     <>
-      <section className="h-150 h-custom">
-        <div className="container py-5 h-150">
+    <section style={{height:"100vh"}}>
+      <div className="h-custom py-5">
+        <div className="container ">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3 courses-b ">
@@ -90,6 +91,7 @@ export default function HallForm() {
             </div>
           </div>
         </div>
+      </div>
       </section>
     </>
   );

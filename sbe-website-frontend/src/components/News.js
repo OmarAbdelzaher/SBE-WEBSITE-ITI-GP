@@ -42,8 +42,8 @@ export default function News() {
               .slice(0, 3)
               .map((item) => {
                 return (
-                  <div className="col-md-4 card-group">
-                    <div className="card">
+                  <div className="col-md-4 card-group ">
+                    <div className="card border-0">
                       <div className="row ">
                         <div className="col-12">
                           <img src={item.picture} className="img-h card-img-top "/>

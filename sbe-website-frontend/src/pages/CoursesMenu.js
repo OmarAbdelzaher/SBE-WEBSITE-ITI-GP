@@ -46,13 +46,11 @@ export default function CoursesMenu(isAuthenticated) {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const btnStyle = {
-    // color: "white",
-    // width: "50%",
-    // height: "50%",
-    // background:'red',
-    marginTop: "45px",
-  };
+    const btnStyle = {
+   
+      marginTop:'45px',
+
+    };
 
   return (
     <>
@@ -76,6 +74,13 @@ export default function CoursesMenu(isAuthenticated) {
                 </div>
               </div>
             ) : null}
+
+
+              <br/>
+             
+
+
+            
 
             <div className="col-lg-8 col-xl-6">
               <div className=" rounded-3 ">

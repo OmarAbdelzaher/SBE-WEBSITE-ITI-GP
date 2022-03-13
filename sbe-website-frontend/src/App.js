@@ -63,6 +63,7 @@ import EditDeviceForm from "./components/EditDeviceForm";
 import CourseForm from "./pages/CourseForm";
 import Adm_Graduates from "./pages/Adm_Graduates"
 import Adm_UnderGraduates from "./pages/Adm_UnderGraduates"
+import AssignCourse from "./pages/AssignCourse";
 
 function App() {
 
@@ -137,6 +138,7 @@ function App() {
             <Route path={"/devicesreservations"} exact component={DevicesReservations} />
 
             <Route path={"/courseform"} exact component={CourseForm} />
+            <Route path={"/assigncourse/:id/:name"} exact component={AssignCourse} />
 
             <Route path={"/undergraduate-lecs"} exact component={UnderGraduateLecSchedule} /> 
             <Route path={"/graduate-lecs"} exact component={GraduateLecSchedule} /> 

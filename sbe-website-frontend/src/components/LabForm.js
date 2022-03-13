@@ -45,7 +45,8 @@ export default function LabForm() {
 
   return (
     <>
-      <section className="h-150 h-custom">
+      <section style={{height:"100vh"}}>
+      <div className="py-5 h-custom">
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
@@ -90,6 +91,7 @@ export default function LabForm() {
             </div>
           </div>
         </div>
+      </div>
       </section>
     </>
   );

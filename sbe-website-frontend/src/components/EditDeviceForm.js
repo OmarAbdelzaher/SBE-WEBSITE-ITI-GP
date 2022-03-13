@@ -59,7 +59,9 @@ export default function EditDeviceForm() {
 
   return (
     <>
-    <section className="h-150 h-custom">
+        <section style={{height:"100vh"}}>
+
+    <section className="h-custom">
       <div className="container py-5 h-150">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-8 col-xl-6">
@@ -104,6 +106,7 @@ export default function EditDeviceForm() {
           </div>
         </div>
       </div>
+    </section>
     </section>
   </>
     

@@ -5,6 +5,8 @@ import axios from "axios";
 import AdminNav from "../components/AdminNav";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
 import Nav from "react-bootstrap/Nav";
 
 import {
@@ -45,38 +47,38 @@ export default function LabsReservations() {
       
   return (
     <>
-      <section className="h-custom ">
-        <div className="container ">
+      <section className="main">
+        <div className="container py-5">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="sidebar justify-content-center">
                 <AdminNav />
               </div>
               <div className="card-body ">
-                <p className="fs-1"> SBE DEPARTMENT</p>
-                <p className="fs-3"> Labs Reservations Menu</p>
-              </div>
-              <Nav.Link className="button ">
-                <Link className="fs-5 header-link ani" to="/reservation">
-                  Add Lab 
+                <p className="fs-1 text-light" > Labs Reservations Menu</p>
+                <Link className="btn btn-md col-3" style={{backgroundColor:"#003049", color:"#ffff"}} to="/reservation">
+                <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
+                  Reserve Lab 
                 </Link>
-              </Nav.Link>
+           
+              </div>
+              
 
               <div>
                 <table className="table table-hover bg-light fs-4 col-12">
                   <thead>
                     <tr className="text-dark">
-                      <th>#</th>
-                      <th>Name</th>
-                      <th>Reserved By</th>
-                      <th>Confirm By</th>
-                      <th>Date</th>
-                      <th>Time Slot</th>
-                      <th>Actions</th>
+                      <th className="text-dark fw-light">#</th>
+                      <th className="text-dark fw-light">Name</th>
+                      <th className="text-dark fw-light">Reserved By</th>
+                      <th className="text-dark fw-light">Confirm By</th>
+                      <th className="text-dark fw-light">Date</th>
+                      <th className="text-dark fw-light"> Time Slot</th>
+                      <th className="text-dark fw-light">Actions</th>
                     </tr>
                   </thead>
 
-                  <tbody className="mb-3">
+                  <tbody className="fs-6">
                     {labs.map((item, index) => {
                       return (
                         <tr>
@@ -91,21 +93,8 @@ export default function LabsReservations() {
                           <td>{item.date}</td>
                           <td>{item.timeslot[1]}</td>
                           <td>
-                            <Link to="#">
-                              <button
-                                className="btn button"
-                                onClick={() => {
-                                  deleteLab(item.id);
-                                }}
-                              >
-                                <FontAwesomeIcon
-                                  className="fs-5"
-                                  icon={faCalendarCheck}
-                                />{" "}
-                                Delete
-                              </button>
-                            </Link>
-                            <Link to={`/reservationEditLab/${item.id}/${item.date}/${item.timeslot}/lab/${item.lab_id}/${item.staff_id[0]}`}>
+
+                          <Link to={`/reservationEditLab/${item.id}/${item.date}/${item.timeslot}/lab/${item.lab_id}/${item.staff_id[0]}`}>
                               <button className="btn button">
                                 <FontAwesomeIcon
                                   className="fs-5"
@@ -114,6 +103,23 @@ export default function LabsReservations() {
                                 Edit
                               </button>
                             </Link> 
+                            <Link to="#">
+                              <button
+                                style={{backgroundColor:"red"}}
+                                className="btn btn-sm"
+                                onClick={() => {
+                                  deleteLab(item.id);
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                style={{color:"white"}}
+                                  className="fs-5"
+                                  icon={faTrashAlt}
+                                />{" "}
+              
+                              </button>
+                            </Link>
+                        
                           </td>
                         </tr>
                       );

@@ -72,7 +72,7 @@ class Person(AbstractBaseUser,PermissionsMixin):
     lname = models.CharField(max_length=50)
     email = models.EmailField(max_length=255, unique=True)
     
-    profile_img = models.ImageField(null=True, upload_to='images', blank=True) 
+    profile_img = models.ImageField(null=True, upload_to='images', blank=True, default='images/user.png') 
     
     birthdate = models.DateField(null=True)
     address = models.CharField(max_length=100)
@@ -211,13 +211,13 @@ class Course(models.Model):
 
     instructions = models.TextField(max_length=500)
     materials = models.CharField(max_length=500,blank=True)
-    year = models.CharField( max_length=20,choices=YEAR_CHOICES)
+    year = models.CharField( max_length=20,choices=YEAR_CHOICES ,blank=True)
     SEMESTER_CHOICES = (
         ('one', 'One'),
         ('two', 'Two'),
     )
 
-    semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES)
+    semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES,blank=True)
     
     staff_id = models.ManyToManyField(Staff)
     CATEGORY_CHOICES = (
@@ -259,7 +259,7 @@ class New(models.Model):
     
     description = models.CharField(max_length=100)
 
-    picture = models.ImageField(upload_to='images') 
+    picture = models.ImageField(upload_to='images', default='images/SBE.png') 
     CATEGORY_CHOICES = (
         ('graduate', 'Graduate'),
         ('undergraduate', 'Undergraduate'),

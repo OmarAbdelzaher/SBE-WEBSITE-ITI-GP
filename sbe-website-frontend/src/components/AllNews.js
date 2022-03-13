@@ -26,33 +26,37 @@ export default function AllNews() {
 
   return (
     <>
-        <section className="container">
-            <div style={start} className="row">
-             <h1 className="text-center fw-lighter text-light scroll"> SBE NEWS</h1>
-              {AllNews.sort(orderByOrderValue).map((item) => {
-                return (
-                  <div className="col-md-4 ">
-                    <div className="card mb-4 border-light" key={item.id}>
-                        <div>
-                        
-                         <div className="card-body ">
-                         <h2 className="card-title">{item.title}</h2>
+      <section className="container">
+        <div style={start} className="row">
+          <h1 className="text-center fw-lighter text-light scroll">
+            {" "}
+            SBE NEWS
+          </h1>
+          {AllNews.sort(orderByOrderValue).map((item) => {
+            return (
+              <div className="col-md-4 ">
+                <div className="card mb-4 border-light border-0" key={item.id}>
+                  <div>
+                    <img className="card-img-top img-h" src={item.picture} />
+                  </div>
+                  <div>
+                    <div className="card-body ">
+                      <h2 className="card-title">{item.title}</h2>
 
-                         <p className="card-text text-dark fs-4">{item.description}</p>
-                         <p className="card-text text-dark fw-bold">For : {item.category}</p>
-                         </div>
-                         <div>
-                           <img className="card-img-bottom img-h"  src={item.picture} />
-                         </div>
-
-                   
+                      <p className="card-text text-dark fs-4 ">
+                        {item.description}
+                      </p>
+                      <p className="card-text text-dark fw-bold ">
+                        For : {item.category}
+                      </p>
                     </div>
                   </div>
-                  </div>
-                );
-              })}
-            </div>
-        </section>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </>
   );
 }
