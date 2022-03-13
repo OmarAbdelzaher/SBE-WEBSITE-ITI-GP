@@ -390,14 +390,14 @@ export default function CoursesMenu(isAuthenticated) {
                         ) : null}
                       </div>
                     </div>
-
+{/* 
                     <div className="row">
                       <Link className="button btn btn-lg col-12">
                         <button type="submit" className="button ani ">
                           Show Schedule
                         </button>
                       </Link>
-                    </div>
+                    </div> */}
                   </form>
                 </div>
               </div>
