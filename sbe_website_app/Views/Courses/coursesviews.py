@@ -59,7 +59,8 @@ class CourseDetails(APIView):
         
         serializer = CourseSerializer(course, data=request.data)
         if serializer.is_valid():
-            if len(request.FILES.getlist('stds_grades')) > 0 :
+            if len(request.FILES.getlist('stds_grades')) > 0:
+            #  or len(request.FILES.getlist('stds_grades')) != null :
                 course.stds_grades = request.FILES.getlist('stds_grades')[0]
             serializer.save()
             return Response(serializer.data)
