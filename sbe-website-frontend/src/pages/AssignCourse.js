@@ -1,10 +1,7 @@
-import React from "react";
+import React  from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-
-// import "react-multiple-select-dropdown-lite/dist/index.css";
 
 // select-react import
 import Select from "react-select";
@@ -12,43 +9,34 @@ import makeAnimated from "react-select/animated";
 
 export default function AssignCourse() {
   const params = useParams();
-
   const history = useHistory();
   const animatedComponents = makeAnimated();
-  const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
   const [courses, setCourse] = useState([]);
 
-  const [staffList, setstaffList] = useState([]);
+  // const [staffList, setstaffList] = useState([]);
 
   const url = `http://localhost:8000/api/course/${params.id}`;
+  const [formErrors, setFormErrors] = useState({});
 
-  // let CoursesUrl = "http://localhost:8000/api/courses/";
-
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/course/${params.id}`)
+      .then((res) => setData(res.data));
+  }, []);
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/course/${params.id}`)
       .then((res) => setCourse(res.data));
   }, []);
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/staff/")
 
       .then((res) => setDoctors(res.data));
   }, []);
-  // ,function (res) {
-  // const  options  =
-  //   res.data.map( doctor => ({ value: doctor.id, label: doctor.fname}));
-  //   setDoctors (options)
-  //    console.log(options)
-  //   })
-  // .then((res) => setDoctors(res.data));
 
-  // const [value, setvalue] = useState('')
-
-  // const  handleOnchange  =  val  => {
-  //   setvalue(val)
-  // }
 
   const nameoptions = [];
   doctors.map((tag) =>
@@ -126,12 +114,8 @@ export default function AssignCourse() {
   // };
   const validate = (values) => {
     const errors = {};
-
-    // if (!values.coursename) {
-    //   errors.coursename = "Course Name is Required";
-    // }
-    if (!values.staff) {
-      errors.staff = "Staff Name is Required";
+    if (!values.staff_id) {
+      errors.staff_id = "Staff Name is Required";
     }
 
     return errors;
@@ -153,6 +137,7 @@ export default function AssignCourse() {
       data.staff.forEach((element) => {
         Data.append("staff_id", element);
       });
+
       // console.log("staff_id " ,data)
 
       Data.append("name", courses.name);
@@ -222,15 +207,7 @@ export default function AssignCourse() {
                           >
                             Current Staff
                           </h2>
-                          {/* {courses.map((course) => {
-            return (
-              <> 
-              <div key={course.id}>
-              <span >{course.staff_id}  {" "}</span> 
-              </div>
-              
-              </>
-            )})} */}
+   
                           <h5>{`${courses.staff_id }`}  {" "}</h5>
 
                         </div>
@@ -240,7 +217,7 @@ export default function AssignCourse() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label
-                            htmlFor="ReservationDate"
+                            htmlFor="staff"
                             className="form-label"
                           >
                             Staff Name
@@ -260,7 +237,6 @@ export default function AssignCourse() {
                       className="text-dark"
                       // value={parseInt(courses.staff_id)}
                       isSearchable
-                      // autoFocus
                       setValue
                     />
                     <p className="text-danger">{formErrors.staff}</p>

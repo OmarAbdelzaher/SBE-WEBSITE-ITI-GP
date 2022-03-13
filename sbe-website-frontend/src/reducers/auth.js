@@ -34,6 +34,7 @@ export default function(state = initialState, action) {
     switch(type){
         case LOGIN_SUCCESS:
             localStorage.setItem('access',payload.access);
+            localStorage.setItem('refresh',payload.refresh);
             return {
                 ...state,
                  isAuthenticated :true,
@@ -89,6 +90,8 @@ export default function(state = initialState, action) {
                 refresh:null,
                 isAuthenticated : false,
                 user:null,
+                data:null,
+             
             }
         case AUTHENTICATED_SUCCESS:
             return {

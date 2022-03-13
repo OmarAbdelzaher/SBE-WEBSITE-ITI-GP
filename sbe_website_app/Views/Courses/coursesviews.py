@@ -250,7 +250,7 @@ class MaterialfileDetailsView(APIView):
 
     def get(self, request, pk, format=None):
         material = self.get_object(pk)
-        serializer = MaterialFileSerializer(material)
+        serializer = MaterialfileSerializer(material)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
