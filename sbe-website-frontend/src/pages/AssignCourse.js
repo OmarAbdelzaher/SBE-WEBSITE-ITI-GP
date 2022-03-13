@@ -3,22 +3,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-// import Select, { components } from "react-select";
+
+// import "react-multiple-select-dropdown-lite/dist/index.css";
+
+// select-react import
 import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 export default function AssignCourse() {
-
   const params = useParams();
 
   const history = useHistory();
-
+  const animatedComponents = makeAnimated();
   const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
   const [courses, setCourse] = useState([]);
 
+  const [staffList, setstaffList] = useState([]);
 
-  const url =  `http://localhost:8000/api/course/${params.id}`;
-
+  const url = `http://localhost:8000/api/course/${params.id}`;
 
   // let CoursesUrl = "http://localhost:8000/api/courses/";
 
@@ -30,48 +33,97 @@ export default function AssignCourse() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/staff/")
-      // .then((res) => setDoctors(res.data));
 
       .then((res) => setDoctors(res.data));
-
-    //   function (res) {
-    //   let options = res.data.map( doctor => ({ value: doctor.id, label: doctor.fname}));
-    //   setDoctors (options)
-    //   console.log(options)
-    // })
   }, []);
+  // ,function (res) {
+  // const  options  =
+  //   res.data.map( doctor => ({ value: doctor.id, label: doctor.fname}));
+  //   setDoctors (options)
+  //    console.log(options)
+  //   })
+  // .then((res) => setDoctors(res.data));
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8000/api/courses/")
-  //     .then((res) => setCourse(res.data));
-  // }, []);
+  // const [value, setvalue] = useState('')
 
+  // const  handleOnchange  =  val  => {
+  //   setvalue(val)
+  // }
+
+  const nameoptions = [];
+  doctors.map((tag) =>
+    nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
+  );
+  // const oldvalues = [];
+  // courses.map((course) =>
+  //   oldvalues.push({ value: course.id, label: `${course.staff_id} ` })
+  // );
+// console.log(oldvalues)
   const [data, setData] = useState({
     coursename: params.name,
-    totalgrade:params.total_grade ,
+    totalgrade: "",
 
-    stds_grades:courses.stds_grades ,
+    // stds_grades:'' ,
     instructions: params.instructions,
     materials: params.materials,
     year: params.year,
     semester: params.semester,
-    staff: "",
+    staff:'',
+    // staffold: courses.staff_id,
     category: params.category,
-
-
   });
 
-  function handle(e) {
-    setData({ ...data, [e.target.name]: e.target.value });
-    // console.log(data)
+  // function handle(e) {
+  //   setData({ ...data, [e.target.name]: e.target.value });
+  // ;
+  // }
+  // select Name
+  const changeSelectedNames = (e) => {
+    console.log(Object.values(e));
+    // let oldstaff=courses.staff_id
+    // console.log(oldstaff);
 
-    // const newdata = { ...data };
-    // newdata[e.target.name] = e.target.value;
-    // setData(newdata);
-    // console.log(newdata);
-  }
+    // let old=[];
+    // for (let o of oldstaff){
+    //   old.push(parseInt(o.value));
+    // }
+    // let oldvalues = courses.staff_id
 
+    // console.log(oldvalues);
+
+    let List_names = Object.values(e);
+
+    let chosen = [];
+    for (let t of List_names) {
+      chosen.push(parseInt(t.value));
+    }
+    console.log(chosen);
+
+    // for (let t of oldvalues) {
+    //   chosen.push(parseInt(t.value));
+    // }
+    console.log(chosen);
+    setData({
+      ...data,
+      staff: chosen,
+      
+    });
+  };
+
+  // const oldstaff = (e) => {
+  //   console.log(Object.values(e));
+
+  //   let List_names = Object.values(e);
+  //   let old = [];
+  //   for (let t of List_names) {
+  //     old.push(parseInt(t.value));
+  //   }
+  //   setData({
+  //     ...data,
+  //     staffold: old,
+      
+  //   });
+  // };
   const validate = (values) => {
     const errors = {};
 
@@ -82,50 +134,53 @@ export default function AssignCourse() {
       errors.staff = "Staff Name is Required";
     }
 
-
-
     return errors;
   };
 
   function onSubmit(e) {
+    // oldstaff(e)
     e.preventDefault();
-    console.log(params)
+    console.log(params);
     let errors_form = validate(data);
+
     setFormErrors(errors_form);
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
-      // a = []
 
-      // for i in staff:
-      //   a.append(i)
+
+      // Data.append("staff_id", data.staffold);
+
+      data.staff.forEach((element) => {
+        Data.append("staff_id", element);
+      });
+      // console.log("staff_id " ,data)
 
       Data.append("name", courses.name);
 
-    
-      Data.append("staff_id", data.staff);
-      Data.append("total_grade",courses.total_grade);
-      Data.append("stds_grades",data.stds_grades);
+      Data.append("total_grade", courses.total_grade);
 
-      Data.append("instructions",courses.instructions);
-      Data.append("materials",courses. materials);
-      Data.append("year",courses.year);
+      // Data.append("stds_grades",courses.stds_grades);
+
+      Data.append("instructions", courses.instructions);
+      Data.append("materials", courses.materials);
+      Data.append("year", courses.year);
       Data.append("semester", courses.semester);
       Data.append("category", courses.category);
-      console.log(data)
-
+      console.log(data);
 
       axios
-        .put(url, Data)
+        .put(url, Data, {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        })
         .then((res) => {
           console.log(res.data);
-          setData(res.status);
+          setData(res.data);
 
-
-          history.push("/coursesMenu");
+          history.push(`/courseDetails/${params.id}`);
         })
-        .catch((e)=>console.log(e))
-        
-    
+        .catch((e) => console.log(e));
     }
   }
 
@@ -141,47 +196,46 @@ export default function AssignCourse() {
                     Assign Course
                   </h3>
                   <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
-
-
-                  <div className="row">
+                    <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
+                          <h2
                             htmlFor="ReservationDate"
                             className="form-label"
                           >
-                              Course Name
-                          </label>
+                            Course Name
+                          </h2>
                           <h4>{courses.name}</h4>
-                          <br />
-{/* 
-                          <select
-                            id="coursename"
-                            className="select form-control-lg"
-                            value={data.coursename}
-                            onChange={(e) => handle(e)}
-                            name="coursename"
-                          >
-                            <option selected value="0">Choose Course</option>
+                          {/* <br /> */}
 
-                                  {courses.map((item) => {
-                                    return (
-                                      <option value={item.id}>
-                                        {item.name}
-                                      </option>
-                                    );
-                                  })}
-                          </select> */}
-                          <p className="text-danger">{formErrors.coursename}</p>
-
-                         
+                          {/* <p className="text-danger">{formErrors.coursename}</p> */}
                         </div>
                       </div>
                     </div>
 
-                    
+                    <div className="row">
+                      <div className="col-md-12 mb-4 d-flex align-items-center">
+                        <div className="form-outline datepi+cker w-100">
+                          <h2
+                            htmlFor="ReservationDate"
+                            className="form-label"
+                          >
+                            Current Staff
+                          </h2>
+                          {/* {courses.map((course) => {
+            return (
+              <> 
+              <div key={course.id}>
+              <span >{course.staff_id}  {" "}</span> 
+              </div>
+              
+              </>
+            )})} */}
+                          <h5>{`${courses.staff_id }`}  {" "}</h5>
 
-                   
+                        </div>
+                      </div>
+                    </div>
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
@@ -192,37 +246,33 @@ export default function AssignCourse() {
                             Staff Name
                           </label>
                           <br />
+                          <Select
+                      closeMenuOnSelect={true}
+                      components={animatedComponents}
+                      placeholder={'Choose Staff Names'}
+                      isMulti
+                      options={nameoptions}
+                      onChange={(e) => changeSelectedNames(e)}
+                      name="staff"
+                      // value={data.staff}
+                      //  defaultValue={data.staff}
 
-                          <select
-                            id="staff"
-                            multiple
-                            className="select form-control-lg"
-                            value={data.staff}
-                            onChange={(e) => handle(e)}
-                            name="staff"
-                          >
-                            {/* 
-
-                            {/* <option selected value="0">
-                              Available Staff
-                            </option> */}
-                            {doctors.map((doctor) => {
-                              return (
-                                <option value={doctor.id} multiple >
-                                  {doctor.fname} {doctor.lname}
-                                </option>
-                              );
-                            })}
-
-                          </select>
+                      className="text-dark"
+                      // value={parseInt(courses.staff_id)}
+                      isSearchable
+                      // autoFocus
+                      setValue
+                    />
+                    <p className="text-danger">{formErrors.staff}</p>
+                    <br />
+                    
                           <br />
-                          <p className="text-danger">{formErrors.staff}</p>
                         </div>
                       </div>
                     </div>
-
-                   
-                    <br />
+   
+                 
+    
                     <button type="submit" className="btn button btn-lg mb-1">
                       Submit
                     </button>

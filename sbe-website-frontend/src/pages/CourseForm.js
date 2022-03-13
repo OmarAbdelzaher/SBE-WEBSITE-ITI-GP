@@ -3,14 +3,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-// import Select, { components } from "react-select";
-// import Select from "react-select";
-import { Select } from 'antd';
+
+// select-react import
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 const { Option } = Select;
 
 export default function CourseForm() {
+
   const history = useHistory();
+  const animatedComponents = makeAnimated();
+
 
   const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
@@ -32,13 +36,29 @@ export default function CourseForm() {
       // .then((res) => setDoctors(res.data));
 
       .then((res) => setDoctors(res.data));
-
-    //   function (res) {
-    //   let options = res.data.map( doctor => ({ value: doctor.id, label: doctor.fname}));
-    //   setDoctors (options)
-    //   console.log(options)
-    // })
   }, []);
+
+  const nameoptions = [];
+  doctors.map((tag) =>
+    nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
+  );
+  const changeSelectedNames = (e) => {
+    console.log(Object.values(e));
+
+    let List_names = Object.values(e);
+
+    let chosen = [];
+    for (let t of List_names) {
+      chosen.push(parseInt(t.value));
+    }
+
+    console.log(chosen);
+    setData({
+      ...data,
+      staff: chosen,
+    });
+  };
+
   const [data, setData] = useState({
     name: "",
     totalgrade: "",
@@ -63,13 +83,6 @@ export default function CourseForm() {
       errors.instructions = "Instructions is required !";
     }
 
-    // if (values.year=='0') {
-    //   errors.year = "Year is required";
-    // }
-    // if (!values.semester) {
-    //   errors.semester = " Semester is required ";
-    // }
-
     if (!values.category) {
       errors.category = "Category is required";
     }
@@ -87,7 +100,10 @@ export default function CourseForm() {
 
       Data.append("name", data.name);
       Data.append("total_grade", data.totalgrade);
-      Data.append("staff_id", data.staff);
+      // Data.append("staff_id", data.staff);
+      data.staff.forEach((element) => {
+        Data.append("staff_id", element);
+      });
 
       Data.append("instructions", data.instructions);
       Data.append("materials", data.materials);
@@ -108,15 +124,9 @@ export default function CourseForm() {
     }
   }
 
-
-  // const children = [];
-// for (let i = 10; i < 36; i++) {
-  // const children = course.map(<Option key={course.id}>{course.name}</Option>);
-// }
   function handle(e) {
     setData({ ...data, [e.target.name]: e.target.value });
   }
-
 
   return (
     <>
@@ -257,22 +267,6 @@ export default function CourseForm() {
           );
         })}
         </Select> */}
-        {/* <Select
-    mode="multiple"
-    style={{ width: '100%' }}
-    placeholder="select one country"
-    defaultValue={['china']}
-    onChange={handleChange}
-    optionLabelProp="label"
-  >
-    <Option value="china" label="China">
-      <div className="demo-option-label-item">
-        <span role="img" aria-label="China">
-        
-        </span>
-        China (中国)
-      </div>
-    </Option> */}
 
                           {/* <Select
                             multiple
@@ -303,25 +297,19 @@ export default function CourseForm() {
       
     /> */}
 
-    <select
-             id="multiselect staff"
-             multiple
-             className="select form-control-lg"
-             value={data.staff}
-             onChange={(e) => handle(e)}
-             name="staff">
-                            {doctors.map((doctor) => {
-                              return (
-                                <option value={doctor.id}>
-                                  {doctor.fname} {doctor.lname}
-                                </option>
-                              );
-                            })}
+                          <Select
+                            closeMenuOnSelect={true}
+                            components={animatedComponents}
+                            placeholder={"Choose Staff Names"}
+                            isMulti
+                            options={nameoptions}
+                            onChange={(e) => changeSelectedNames(e)}
+                            name="staff"
+                            className="text-dark"
+                            isSearchable
+                            setValue
+                          />
 
-                          </select>
-
-                          {/* <option value="undergraduate">Undergraduate</option> */}
-                          {/* </select> */}
                           <br />
                           <p className="text-danger">{formErrors.staff}</p>
                         </div>
@@ -376,10 +364,10 @@ export default function CourseForm() {
                                       <option value="0" selected>
                                         Choose Grade
                                       </option>
-                                      <option value="grade1">Grade 1</option>
-                                      <option value="grade2">Grade 2</option>
-                                      <option value="grade3">Grade 3</option>
-                                      <option value="grade4">Grade 4</option>
+                                      <option value="grade1">Year 1</option>
+                                      <option value="grade2">Year 2</option>
+                                      <option value="grade3">Year 3</option>
+                                      <option value="grade4">Year 4</option>
                                     </select>
 
                                     <p className="text-danger">
