@@ -43,29 +43,11 @@ const CourseHistory = () => {
                       >
                         <h2 className="bg-light py-3 nav-links">Year: {item.year}</h2>{" "}
                         <h3 className="col-12">Dr: {item.staff_id}</h3>
-                        <p className="col-4">
-                          Download Materials {item.material}{" "}
-                        </p>
-                        <button className="btn btn-lg col-6 button">
-                          Download
-                        </button>
+                          <a href={item.materials}>Materials Link </a>
                       </div>
                     </>
                   );
                 })}
-
-                {/* <div className="row justify-content-center align-items-center ">
-                                            <h2 className="bg-light py-3 nav-links">Year</h2>
-                                            <h3 className='col-12'>Doctor Name</h3>
-                                            <p className="col-4">Download Materials</p>
-                                            <button className="btn btn-lg col-6 button">
-                                                Download
-                                            </button>
-
-                                        </div> */}
-
-                {/* );
-                                })} */}
               </div>
             </div>
           </div>

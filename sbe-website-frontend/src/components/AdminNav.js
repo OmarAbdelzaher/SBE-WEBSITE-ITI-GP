@@ -28,32 +28,22 @@ import {
 function AdminNav() {
   return (
     <>
-      <nav className="sidenav shadow-lg ">
-        <div className="text-dark">
-          <div className="dropdown-divider"></div>
-          <Link className="fs-3 fw-normal sbar-links" to="/moderator">
-            <FontAwesomeIcon
-              className="fs-4"
-              icon={faScrewdriverWrench}
-              style={{ color: "#dc2f02" }}
-            />{" "}
-            Moderator
+     <nav className="sidenav">
+       <div className="text-dark">
+         <div className="dropdown-divider"></div>
+         <Link className="fs-3 fw-normal sbar-links" to="/moderator">
+            <FontAwesomeIcon className="fs-4" icon={faScrewdriverWrench} style={{color:"#003049"}} /> Moderator
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/halls">
-            <FontAwesomeIcon
-              className="fs-6"
-              icon={faSchool}
-              style={{ color: "#dc2f02" }}
-            />{" "}
-            Halls
+            <FontAwesomeIcon className="fs-6" icon={faSchool} style={{color:"#003049"}} /> Halls
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/labs">
             <FontAwesomeIcon
               className="fs-6"
               icon={faFlask}
-              style={{ color: "#dc2f02" }}
+              style={{color:"#003049"}}
             />{" "}
             Labs
           </Link>
@@ -62,54 +52,34 @@ function AdminNav() {
             <FontAwesomeIcon
               className="fs-6"
               icon={faMicroscope}
-              style={{ color: "#dc2f02" }}
+              style={{color:"#003049"}}
             />{" "}
             Devices
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/hallsreservations">
-            <FontAwesomeIcon
-              className="fs-6"
-              icon={faListCheck}
-              style={{ color: "#dc2f02" }}
-            />{" "}
-            Halls Reservations
+            <FontAwesomeIcon className="fs-6" icon={faListCheck} style={{color:"#003049"}}/>{" "}
+            Halls Reservations 
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/labsreservations">
-            <FontAwesomeIcon
-              className="fs-6"
-              icon={faClock}
-              style={{ color: "#dc2f02" }}
-            />{" "}
-            Labs Reservations
+            <FontAwesomeIcon className="fs-6" icon={faClock} style={{color:"#003049"}}/>{" "}
+            Labs Reservations 
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/devicesreservations">
-            <FontAwesomeIcon
-              className="fs-6"
-              icon={faHourglass}
-              style={{ color: "#dc2f02" }}
-            />{" "}
-            Devices Reservations
+            <FontAwesomeIcon className="fs-6" icon={faHourglass} style={{color:"#003049"}}/>{" "}
+            Devices Reservations 
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/registration-approv">
-            <FontAwesomeIcon
-              className="fs-6"
-              icon={faUserClock}
-              style={{ color: "#dc2f02" }}
-            />{" "}
-            Registration Approvement
+            <FontAwesomeIcon className="fs-6" icon={faUserClock} style={{color:"#003049"}}/>{" "}
+            Registration Approvement 
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/reservation-approv">
-            <FontAwesomeIcon
-              className="fs-6"
-              icon={faCalendarDays}
-              style={{ color: "#dc2f02" }}
-            />{" "}
-            Reservation Approvement
+            <FontAwesomeIcon className="fs-6" icon={faCalendarDays} style={{color:"#003049"}}/>{" "}
+            Reservation Approvement 
           </Link>
           <br></br>
         </div>

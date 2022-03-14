@@ -10,8 +10,8 @@ function Moderator() {
 
   return (
     <>
-    <section className='main-a'>
-      <section className=" py-5 main ">
+    <section style={{height:"100vh"}}>
+      <div className="py-5 main-a" >
         <div className="container ">
           <div className=' row d-flex justify-content-center align-items-center h-100'>
             <div className='py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light'>
@@ -30,7 +30,7 @@ function Moderator() {
         </div>
         <div className="margin-b"></div>
 
-      </section>
+      </div>
       </section>
     </>
   )

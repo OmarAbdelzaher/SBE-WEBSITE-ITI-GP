@@ -222,21 +222,18 @@ function CourseDetails(isAuthenticated) {
                   <div className=" row col-4 offset-1">
                     <div className="row card cards col-10 text-center border border-2 ">
                       <h3 className="card-body col-12 nav-links">Materials</h3>
-                      {course.materials ? (
-                        <TouchableOpacity>
-                          <Text
-                            className="card-text col-12 "
-                            style={{ color: "blue" }}
-                            onPress={() => Linking.openURL(course.materials)}
-                          >
-                            Material Link
-                          </Text>
-                        </TouchableOpacity>
-                      ) : (
-                        <p className="text-danger">
-                          No Materials link available yet
-                        </p>
-                      )}
+                      {course.materials ? 
+                      <TouchableOpacity>
+                        <Text
+                          className="card-text col-12 "
+                          style={{ color: "#03045e" }}
+                          onPress={() => Linking.openURL(course.materials)}
+                        >
+                          Material Link
+                        </Text>
+                      </TouchableOpacity>
+                      : <p className="text-danger">No Materials link available yet</p>
+                      }
 
                       {/* {upload materials} */}
 

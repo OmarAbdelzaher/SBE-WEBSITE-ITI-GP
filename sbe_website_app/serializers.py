@@ -50,7 +50,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta :
         model = Course
         fields = ['id','name','total_grade','stds_grades','instructions','materials','staff_id','category','year','semester']
-        # file = serializers.FileField(max_length=None, allow_empty_file=False)
+
 
 
     def to_representation(self, instance):
