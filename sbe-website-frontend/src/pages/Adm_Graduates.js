@@ -11,6 +11,8 @@ const Adm_Graduates = () => {
             <div className="row">
               <div className="col-lg-9 col-md-8">
                 <div className="member_designation">
+                    <br></br>
+                    <br></br>
                   <h2>Admission</h2>
                   <span>Graduates</span>
                 </div>
