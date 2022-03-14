@@ -36,7 +36,7 @@ export const load_user = () => async dispatch => {
         `${process.env.REACT_APP_API_URL}/auth/users/me/`,
         config
       );
-      
+
       dispatch({
         type: USER_LOADED_SUCCESS,
         payload: res.data,
@@ -61,7 +61,10 @@ export const login = (email, password) => async (dispatch) => {
     },
   };
 
-  const body = JSON.stringify({ email, password });
+  const body = JSON.stringify({
+    email,
+    password,
+  });
 
   try {
     const res = await axios.post(
@@ -78,7 +81,7 @@ export const login = (email, password) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: LOGIN_FAIL,
-      payload : err.response.data.detail,
+      payload: err.response.data.detail,
     });
   }
 };
@@ -100,60 +103,60 @@ export const signup =
     title,
     is_active
   ) =>
-  async (dispatch) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
+    async (dispatch) => {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const body = JSON.stringify({
+        fname,
+        lname,
+        email,
+        password,
+        birthdate,
+        address,
+        graduate,
+        phone_number,
+        gender,
+        year_of_graduation,
+        title,
+        role,
+        is_active,
+      });
+
+      const studentUrl = "/api/students/";
+      const staffUrl = "/api/staff/";
+      const FacultyEmpUrl = "/api/facultyemps/";
+
+      let url = "";
+
+      if (role === "student") {
+        url = studentUrl;
+      } else if (role === "dr" || role === "ta") {
+        url = staffUrl;
+      } else if (role === "employee") {
+        url = FacultyEmpUrl;
+      }
+
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_URL}${url}`,
+          body,
+          config
+        );
+        dispatch({
+          type: SIGNUP_SUCCESS,
+          payload: res.data,
+        });
+      } catch (error) {
+        dispatch({
+          type: SIGNUP_FAIL,
+          payload: error.response.data.email[0],
+        });
+      }
     };
-
-    const body = JSON.stringify({
-      fname,
-      lname,
-      email,
-      password,
-      birthdate,
-      address,
-      graduate,
-      phone_number,
-      gender,
-      year_of_graduation,
-      title,
-      role,
-      is_active,  
-    });
-
-    const studentUrl = "/api/students/";
-    const staffUrl = "/api/staff/";
-    const FacultyEmpUrl = "/api/facultyemps/";
-
-    let url = "";
-
-    if (role == "student") {
-      url = studentUrl;
-    } else if (role == "dr" || role == "ta") {
-      url = staffUrl;
-    } else if (role == "employee") {
-      url = FacultyEmpUrl;
-    }
-
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}${url}`,
-        body,
-        config
-      );
-      dispatch({
-        type: SIGNUP_SUCCESS,
-        payload: res.data,
-      });
-    } catch (error) {
-      dispatch({
-        type: SIGNUP_FAIL,
-        payload:error.response.data.email[0],
-      });
-    }
-  };
 
 export const verify = (uid, token) => async (dispatch) => {
   const config = {
@@ -162,7 +165,10 @@ export const verify = (uid, token) => async (dispatch) => {
     },
   };
 
-  const body = JSON.stringify({ uid, token });
+  const body = JSON.stringify({
+    uid,
+    token,
+  });
 
   try {
     await axios.post(
@@ -190,7 +196,9 @@ export const checkAuthenticated = () => async (dispatch) => {
       },
     };
 
-    const body = JSON.stringify({ token: localStorage.getItem("access") });
+    const body = JSON.stringify({
+      token: localStorage.getItem("access"),
+    });
 
     try {
       const res = await axios.post(
@@ -227,7 +235,9 @@ export const reset_password = (email) => async (dispatch) => {
     },
   };
 
-  const body = JSON.stringify({ email });
+  const body = JSON.stringify({
+    email,
+  });
 
   try {
     await axios.post(
@@ -254,7 +264,12 @@ export const reset_password_confirm =
       },
     };
 
-    const body = JSON.stringify({ uid, token, new_password, re_new_password });
+    const body = JSON.stringify({
+      uid,
+      token,
+      new_password,
+      re_new_password,
+    });
 
     try {
       await axios.post(

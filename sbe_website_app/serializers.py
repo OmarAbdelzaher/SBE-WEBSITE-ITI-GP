@@ -50,7 +50,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta :
         model = Course
         fields = ['id','name','total_grade','stds_grades','instructions','materials','staff_id','category','year','semester']
-        # file = serializers.FileField(max_length=None, allow_empty_file=False)
+
 
 
     def to_representation(self, instance):
@@ -150,3 +150,13 @@ class OfficeHoursSerializer(serializers.ModelSerializer):
     class Meta :
         model = OfficeHours
         fields = ['id','weekday','from_hour','to_hour','staff_id','officehours_type']
+        
+class LecScheduleSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = LecSchedule
+        fields = ['id','year','semester','schedule_file']
+
+class ExamScheduleSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = ExamSchedule
+        fields = ['id','year','semester','exam_file']

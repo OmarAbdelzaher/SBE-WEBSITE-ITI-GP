@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
 
-function GraduateExams() {
+function GraduateExamSchedule() {
   return (
     <>
  <section className="h-custom py-5">
@@ -26,7 +26,7 @@ function GraduateExams() {
                   <tbody className="mb-3">
                     <tr>
                       <td>
-                        <Link className="admin-tables">Master </Link>
+                        <Link className="admin-tables" to="#">Master</Link>
                       </td>
                       <td>
                         <Link>
@@ -61,4 +61,4 @@ function GraduateExams() {
   )
 }
 
-export default GraduateExams
+export default GraduateExamSchedule

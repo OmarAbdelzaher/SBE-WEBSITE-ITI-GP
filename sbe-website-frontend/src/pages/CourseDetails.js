@@ -21,6 +21,7 @@ function CourseDetails(isAuthenticated) {
   const [isCoordinator, setIsCoordinator] = useState(false);
   const [isModerator, setIsModerator] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isExist, setIsExist] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated && who.user != null && flag == false) {
@@ -57,41 +58,58 @@ function CourseDetails(isAuthenticated) {
   useEffect(() => {
     axios.get("http://localhost:8000/api/uploadmaterials/").then((res) => {
       setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
+      console.log(res.data.filter((mat) => mat.course_id == mat_id));
     });
   }, []);
 
-  const handleChangeFile = (e) => {
+  const handleChangeFile = (e, type) => {
     const list = [];
     const files = e.target.files;
-    for (let i = 0; i < files.length; i++) {
-      list.push(files[i]);
+
+    if (type == "mat") {
+      for (let element of files) {
+        if (
+          material.find(
+            (mat) =>
+              mat.material_upload === "/media/student_material/" + element.name
+          ) == undefined
+        ) {
+          list.push(element);
+        }
+      }
+    } else if (type == "grades") {
+      if (course.stds_grades !== "/media/student_grades/" + files[0].name) {
+        list.push(files[0]);
+      } else {
+        setIsExist(true);
+      }
     }
-    console.log(list)
     setFilesList(list);
   };
 
   // const onChange = (e) =>
   //   course.materials = e.target.value ;
 
-  const handleSubmit = (e,type) => {
-
-    e.preventDefault();
+  const handleSubmit = (e, type) => {
+    // e.preventDefault();
 
     let formData = new FormData();
     let fileData = new FormData();
-
-    console.log(filesList);
 
     filesList.forEach((element) => {
       fileData.append("material_upload", element);
       fileData.append("course_id", course.id);
     });
 
-    if(type == "mat"){
-      axios.post("http://localhost:8000/api/uploadmaterials/",fileData).then((res)=>{
-        console.log(res)}).catch((e)=>{
-          console.log(e)
+    if (type == "mat") {
+      axios
+        .post("http://localhost:8000/api/uploadmaterials/", fileData)
+        .then((res) => {
+          console.log(res);
         })
+        .catch((e) => {
+          console.log(e);
+        });
     }
 
     formData.append("name", course.name);
@@ -102,9 +120,9 @@ function CourseDetails(isAuthenticated) {
     formData.append("category", course.category);
     formData.append("year", course.year);
     formData.append("semester", course.semester);
-    formData.append("stds_grades",filesList[0]);
+    formData.append("stds_grades", filesList[0]);
 
-    if(type == "grades"){
+    if (type == "grades") {
       axios
         .put(`http://localhost:8000/api/course/${params.id}`, formData)
         .then((res) => {
@@ -119,7 +137,6 @@ function CourseDetails(isAuthenticated) {
   var fileDownload = require("js-file-download");
 
   function basename(path) {
-    console.log(path)
     return path.split("/").reverse()[0];
   }
 
@@ -136,29 +153,22 @@ function CourseDetails(isAuthenticated) {
           console.log(err);
         });
     } else if (downType == "materials") {
-      console.log(material)
-      console.log(material[0])
-      console.log(material[0].id)
-
-      axios
-        .get(`http://localhost:8000/api/download/${material[0].id}/mat`,{
-          responseType: "blob",
-        })
-        .then((res) => {
-          console.log(res)
-          console.log(res.data)
-          fileDownload(res.data, basename(material[0]));
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      for (let i = 0; i <= material.length; i++) {
+        axios
+          .get(`http://localhost:8000/api/download/${material[i].id}/mat`, {
+            responseType: "blob",
+          })
+          .then((res) => {
+            fileDownload(res.data, basename(material[i].material_upload));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   };
   const btnStyle = {
-   
-    marginTop:'45px',
-
+    marginTop: "45px",
   };
 
   return (
@@ -185,20 +195,19 @@ function CourseDetails(isAuthenticated) {
                       </p>
                     </div>
                     {/* Assign Button  */}
-                    <div className="rounded-4 align-items-start justify-content-left  "  >
-              <Link
-                    className="button btn btn-lg "
-                  to={`/assigncourse/${course.id}/${course.name}/`}
-                    style={btnStyle}
-                  >
-                    <button
-                       className="button   "
-                    >
-                      <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
-                      Assign Course
-                    </button>
-              </Link>
-              </div>
+                    <div className="rounded-4 align-items-start justify-content-left  ">
+                      <Link
+                        className="button btn btn-lg "
+                        to={`/assigncourse/${course.id}/${course.name}/`}
+                        style={btnStyle}
+                      >
+                        <button className="button   ">
+                          <FontAwesomeIcon icon={faCirclePlus} />
+                          {"  "}
+                          Assign Course
+                        </button>
+                      </Link>
+                    </div>
 
                     <div className="btn button col-12 card cards justify-content-center align-items-center ">
                       <Link
@@ -217,7 +226,7 @@ function CourseDetails(isAuthenticated) {
                       <TouchableOpacity>
                         <Text
                           className="card-text col-12 "
-                          style={{ color: "blue" }}
+                          style={{ color: "#03045e" }}
                           onPress={() => Linking.openURL(course.materials)}
                         >
                           Material Link
@@ -230,14 +239,19 @@ function CourseDetails(isAuthenticated) {
 
                       {is_staff || isAdmin || isCoordinator ? (
                         <div>
-                          <form onSubmit={(event) => handleSubmit(event,"mat")}>
-                            {/* <label className="text-primary">Material Link</label><br/> */}
-                            {/* <input name="material-link" type="text" value={course.materials} onChange={(e) => onChange(e)}/> */}
-                            {/* <br/> */}
+                          <form
+                            onSubmit={(event) => handleSubmit(event, "mat")}
+                            action="/coursesMenu"
+                          >
+                            <label className="text-primary">Material Link</label><br/>
+                            <input name="material-link" type="text" value=""/>
+                            <br/>
                             <input
                               type="file"
                               multiple
-                              onChange={(event) => handleChangeFile(event)}
+                              onChange={(event) =>
+                                handleChangeFile(event, "mat")
+                              }
                             />
                             <button type="submit" className="btn btn-success">
                               Upload Materials
@@ -265,32 +279,42 @@ function CourseDetails(isAuthenticated) {
 
                       {is_staff || isAdmin || isCoordinator ? (
                         <div>
-                          <form onSubmit={(event) => handleSubmit(event,"grades")}>
+                          <form
+                            onSubmit={(event) => handleSubmit(event, "grades")}
+                          >
                             <input
                               type="file"
-                              multiple
-                              onChange={(event) => handleChangeFile(event)}
+                              onChange={(event) =>
+                                handleChangeFile(event, "grades")
+                              }
                             />
                             <button type="submit" className="btn btn-success">
                               Upload Grades
                             </button>
+                            {isExist ? (
+                              <p className="text-danger">
+                                This file Already Exists
+                              </p>
+                            ) : null}
                           </form>
                         </div>
                       ) : null}
 
                       {/* {download grades} */}
-                      {course.stds_grades ? 
-                      <div>
-                        <button
-                          className="btn btn-lg col-12 button"
-                          onClick={() => handlePDFDownload("grades")}
+                      {course.stds_grades ? (
+                        <div>
+                          <button
+                            className="btn btn-lg col-12 button"
+                            onClick={() => handlePDFDownload("grades")}
                           >
-                          <a className="button nav-links text-light">
-                            Download Grades
-                          </a>
-                        </button>
-                      </div>
-                      :<p className="text-danger">No Grades uploaded yet</p>}
+                            <a className="button nav-links text-light">
+                              Download Grades
+                            </a>
+                          </button>
+                        </div>
+                      ) : (
+                        <p className="text-danger">No Grades uploaded yet</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -305,6 +329,5 @@ function CourseDetails(isAuthenticated) {
 }
 
 export default CourseDetails;
-
 
 // to={`/assigncourse/${course.id}/${course.name}/${course.total_grade}/${course.stds_grades}/${course.instructions}/${course.materials}/${course.category}/${course.year}/${course.semster}`}

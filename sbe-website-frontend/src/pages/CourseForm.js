@@ -364,10 +364,10 @@ export default function CourseForm() {
                                       <option value="0" selected>
                                         Choose Grade
                                       </option>
-                                      <option value="grade1">Year 1</option>
-                                      <option value="grade2">Year 2</option>
-                                      <option value="grade3">Year 3</option>
-                                      <option value="grade4">Year 4</option>
+                                      <option value="Year 1">Year 1</option>
+                                      <option value="Year 2">Year 2</option>
+                                      <option value="Year 3">Year 3</option>
+                                      <option value="Year 4">Year 4</option>
                                     </select>
 
                                     <p className="text-danger">

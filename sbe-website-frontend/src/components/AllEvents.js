@@ -1,13 +1,8 @@
 import React from "react";
-// import Header from "./header";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import image from "../assets/image/cardimg.jpg";
-import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
-
 
 export default function AllEvents() {
   const [AllEvents, setAllEvents] = useState([]);
@@ -17,20 +12,6 @@ export default function AllEvents() {
       .get("http://localhost:8000/api/events/")
       .then((res) => setAllEvents(res.data));
   }, []);
-  //   function sortUsersByAsc() {
-  //     const orderBy = _.orderBy(users, ['name'], ['asc']);
-  //     setUsers(orderBy);
-  //   }
-
-  //    function sortUsersByDesc() {
-  //     const orderBy = _.orderBy(AllEvents, ['id'], ['desc']);
-  //     setAllEvents(orderBy);
-  //   }
-  //   const sortDescending = () => {
-  //     const sortDescPrices = [...prices]
-  //     sortDescPrices.sort((a, b) => a - b).reverse()
-  //     setPrices( sortDescPrices )
-  // }
 
   // Full function for readability
   function orderByOrderValue(a, b) {
@@ -42,25 +23,12 @@ export default function AllEvents() {
     }
     return 0;
   }
-  const btnStyle = {
-    color: "white",
-    width: "50%",
-    height: "50%",
-    // background:'blue',
-  };
-  // const singleEvent={
-  //      width: '90%',
-  //     height: '60%',
-  // }
+
   const imgEvent = {
     height: "250px",
   };
   const start = {
-    // color: 'red',
-    // width: '50%',
-    // height: '50%',
     marginTop: "150px",
-    // background:'blue',
   };
 
   return (
@@ -91,11 +59,12 @@ export default function AllEvents() {
                       <div class="card-body">
                         <h5 class="card-title">{item.name}</h5>
                         <p class="card-text text-dark">
-                        <FontAwesomeIcon
-                                  className="fs-6"
-                                  icon={faCalendarDays}
-                                />{" "}
-                          {item.details}</p>
+                          <FontAwesomeIcon
+                            className="fs-6"
+                            icon={faCalendarDays}
+                          />{" "}
+                          {item.details}
+                        </p>
                       </div>
                     </div>
                   </div>

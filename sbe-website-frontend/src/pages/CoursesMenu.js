@@ -46,48 +46,45 @@ export default function CoursesMenu(isAuthenticated) {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const btnStyle = {
-   
-      marginTop:'45px',
-
-    };
+  const btnStyle = {
+    // color: "white",
+    // width: "50%",
+    // height: "50%",
+    // background:'red',
+    // marginTop: "45px",
+  };
 
   return (
     <>
-      <section className="h-150 h-custom py-5">
+      <section className="h-custom py-5">
         <div className="container ">
-          <div className="row  justify-content-left align-items-center  ">
-            {isCoordinator || isAdmin ? (
-              <div className="col-lg-2 col-xl-3 align-self-start mt-5 ">
-                <div className="rounded-4 align-items-start justify-content-left  ">
-                  <Link
-                    className="button btn btn-lg "
-                    to="/courseform"
-                    style={btnStyle}
-                  >
-                    <button className="button   ">
-                      <FontAwesomeIcon icon={faCirclePlus} />
-                      {"  "}
-                      Add Course
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ) : null}
-
-
-              <br/>
-             
-
-
+          <div className="row justify-content-center align-items-center">
             
 
             <div className="col-lg-8 col-xl-6">
               <div className=" rounded-3 ">
-                <div className=" p-4 p-md-5 courses-b border border-2 border-light">
-                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 ">
+                <div className=" card form rounded-3 courses-b border border-2 border-light">
+                  <div className="card-body">
+                  <h3 className="fs-2 ">
                     Students Courses
                   </h3>
+                  {isCoordinator || isAdmin ? (
+              // <div className="col-lg-2 col-xl-3 align-self-start mt-5 ">
+                // <div className="rounded-4 align-items-start justify-content-left  ">
+                  <Link
+                  className="btn btn-md col-6" style={{backgroundColor:"#003049", color:"#ffff"}}
+                    to="/courseform"
+                    // style={btnStyle}
+                  >
+                      <FontAwesomeIcon icon={faCirclePlus} />
+                      {"  "}
+                      Add Course
+                   
+                  </Link>
+                // </div>
+              // </div>
+            ) : null}
+            </div>
                   <form className="px-md-2">
                     <div className="row">
                       <div className="col-12">
@@ -103,13 +100,13 @@ export default function CoursesMenu(isAuthenticated) {
                           {/* Default Value */}
                           <option value="0">Please select Your Year</option>
                           {/* Selections values */}
-                          <option value="grade1">Year One</option>
-                          <option value="grade2">Year Two</option>
-                          <option value="grade3">Year Three</option>
-                          <option value="grade4">Year Four</option>
+                          <option value="Year 1">Year One</option>
+                          <option value="Year 2">Year Two</option>
+                          <option value="Year 3">Year Three</option>
+                          <option value="Year 4">Year Four</option>
                         </select>
                         {/* Year One Selection  */}
-                        {formData.Year == "grade1" ? (
+                        {formData.Year == "Year 1" ? (
                           <>
                             <br />
                             <div>
@@ -182,7 +179,7 @@ export default function CoursesMenu(isAuthenticated) {
                           </>
                         ) : null}
                         {/* Year two Selection */}
-                        {formData.Year == "grade2" ? (
+                        {formData.Year == "Year 2" ? (
                           <>
                             <br />
                             <div>
@@ -254,7 +251,7 @@ export default function CoursesMenu(isAuthenticated) {
                           </>
                         ) : null}
                         {/* Year Three Selection */}
-                        {formData.Year == "grade3" ? (
+                        {formData.Year == "Year 3" ? (
                           <>
                             <br />
                             <div>
@@ -325,7 +322,7 @@ export default function CoursesMenu(isAuthenticated) {
                           </>
                         ) : null}
                         {/* Year Four Selection */}
-                        {formData.Year == "grade4" ? (
+                        {formData.Year == "Year 4" ? (
                           <>
                             <br />
                             <div>
@@ -393,14 +390,14 @@ export default function CoursesMenu(isAuthenticated) {
                         ) : null}
                       </div>
                     </div>
-
+{/* 
                     <div className="row">
                       <Link className="button btn btn-lg col-12">
-                        <button type="submit" className="button ani mb-1">
+                        <button type="submit" className="button ani ">
                           Show Schedule
                         </button>
                       </Link>
-                    </div>
+                    </div> */}
                   </form>
                 </div>
               </div>
