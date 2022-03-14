@@ -1,6 +1,4 @@
 import React from "react";
-import EventData from "./EventData";
-import image from "../assets/image/cardimg.jpg";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -37,7 +35,7 @@ export default function Events() {
     <>
 
       <section id='allevents'  className="events-section">
-        <h1 className="text-center text-light">SBE EVENTS</h1>
+        <h1 className="text-center text-light">SBME EVENTS</h1>
  
         <div className="container">
           <div className="row">

@@ -2,7 +2,7 @@
   /* margin-top: 10%; */
   /* height: 150vh !important; */
   /* background-color: #001233; */
-  background-image: url(../src/assets/image/thisisengineering.jpg);
+  background-image: url(../src/assets/uploaded-files/bg-image/backGround.jpg);
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -26,7 +26,7 @@
 
 @media only screen and (max-width: 425px) {
   .h-custom{
-    background-image: url(../src/assets/image/Fac_eng.jpg);
+    background-image: url(../src/assets/uploaded-files/bg-image/backGround.jpg);
     height:350vh !important;
     background-attachment: fixed;
     background-size: cover;
@@ -45,11 +45,11 @@
   margin-top: 34% !important;
 }
 .c-form{
-  margin-bottom: 90%;
+  margin-bottom: 30%;
   /* margin-top: 20% !important; */
 }
 .margin-b{
-  margin-bottom: 10vh;
+  margin-bottom: 50vh;
 }
 
 .courses-b {
@@ -80,13 +80,11 @@
   text-decoration: none !important;
   padding: 2% !important;
 }
-.table-b:hover {
-  color: #9b2226 !important;
-}
+
 
 .tr:hover{
-  color: black;
-  background-color:#001233;
+  background: rgb(0, 0, 0);
+  background: rgba(2, 52, 78, 0.5);
 
 }
 .cards{

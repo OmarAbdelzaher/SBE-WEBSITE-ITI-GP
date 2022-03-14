@@ -20,7 +20,7 @@ function Moderator() {
                   <AdminNav />
                 </div>
                 <div className='card-body justify-content-center'>
-                <h1 className=' text-center sbe text-light'> SBE DEPARTMENT</h1>
+                <h1 className=' text-center sbe text-light'> SBME DEPARTMENT</h1>
               
                 </div>
                

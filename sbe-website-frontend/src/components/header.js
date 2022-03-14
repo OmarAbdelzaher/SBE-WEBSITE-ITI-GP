@@ -1,7 +1,7 @@
 import Navbar from "react-bootstrap/Navbar";
 import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
-import logo from "../assets/image/departmentLogo.png";
+import logo from "../assets/uploaded-files/bg-image/departmentLogo.png";
 import { Link, Redirect } from "react-router-dom";
 import "../pages/style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
