@@ -1,100 +1,70 @@
 import React from "react";
-// import Header from "./header";
 import axios from "axios";
-import { useEffect,useState } from "react";
-import { Link  } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 
+export default function AllNews() {
+  const [AllNews, setAllNews] = useState([]);
 
-export default function AllNews(){
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/news/")
+      .then((res) => setAllNews(res.data));
+  }, []);
 
+  const btnStyle = {
+    color: "white",
+    width: "50%",
+    height: "50%",
+    // background:'blue',
+  };
+  const start = {
+    // color: 'red',
+    // width: '50%',
+    // height: '50%',
+    marginTop: "150px",
+    // background:'blue',
+  };
+  function orderByOrderValue(a, b) {
+    if (a.id > b.id) {
+      return -1;
+    }
+    if (a.id < b.id) {
+      return 1;
+    }
+    return 0;
+  }
 
-    const [AllNews, setAllNews] = useState([]);
+  return (
+    <>
+        <section className="container">
+            <div style={start} className="row">
+             <h1 className="text-center fw-lighter text-light scroll"> SBE NEWS</h1>
+              {AllNews.sort(orderByOrderValue).map((item) => {
+                return (
+                  <div className="col-md-4 ">
+                    <div className="card mb-4 border-light border-0" key={item.id}>
+                    <div>
+                           <img className="card-img-top img-h"  src={item.picture} />
+                         </div>
+                        <div>
+                        
+                         <div className="card-body ">
+                         <h2 className="card-title">{item.title}</h2>
 
-    useEffect(() => {
-        axios
-          .get(
-            "http://localhost:8000/api/news/"
-          )
-          .then((res) => setAllNews(res.data));
-      }, []);
-    
+                         <p className="card-text text-dark fs-4 ">{item.description}</p>
+                         <p className="card-text text-dark fw-bold ">For : {item.category}</p>
+                         </div>
+                       
 
-      const btnStyle = {
-        color: 'white',
-        width: '50%',
-        height: '50%',
-        // background:'blue',
-        
-    };
-    const start = {
-        // color: 'red',
-        // width: '50%',
-        // height: '50%',
-        marginTop:'150px',
-        // background:'blue',
-        
-    };
-    function orderByOrderValue( a, b ) {
-        if ( a.id > b.id ){
-          return -1;
-        }
-        if ( a.id <b.id ){
-          return 1;
-        }
-        return 0;
-      }
-
-
-
-
-  
-    return(
-
-        <>
-         {/* <Header/> */}
-         <br className="mt-5"></br>
-
-<div style={start} >
-        <h1> Hello in All News</h1>
-
-
-        <div className="container-fluid mt-2">
-                <div className="row">
-                    {AllNews.sort(orderByOrderValue).map((item) => {
-                        return (
-                            <div className="col-md-4 ">
-                                <div className="card mb-4 cardItem" key={item.id}>
-                                    {/* <p>{item.id}</p> */}
-
-                                    <h2>{item.title}</h2>
-
-                                <div>
-                                    <img src={item.picture} />
-                                {/* <img src={`http://localhost:8000/api/news/${item.picture}`} alt={item.title} /> */}
-                                {/* <img src={`${item.picture}`} /> */}
-
-                                </div>
-                                    
-                                    {/* <img src={img}  className="card--image" /> */}
-                                    <p className="text-dark" >{item.description}</p>
-                                    <p className="text-dark">For :{item.category}</p>
-
-
-                                </div>
-                            </div>
-                        );
-
-
-                    })}
-
-                </div>
-                {/* <Link to='/' className="nav-link">
-                    <button className="btn btn-danger btn-lg mb-5 " style={btnStyle} >Return Home            </button>
-                </Link> */}
+                   
+                    </div>
+                  </div>
+                  </div>
+                );
+              })}
             </div>
-
-        </div>
-        </>
-    )
+        </section>
+    </>
+  );
 }

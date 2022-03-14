@@ -10,72 +10,91 @@ import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 import { useSelector } from "react-redux";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 
-let flag = false
 
 const Header = ({ logout, isAuthenticated }) => {
+  let flag = false
+
   const [head, setHeader] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [is_staff, setIs_staff] = useState(false);
-  const staff = useSelector(state=>state.auth)
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator,setIsCoordinator] = useState(false)
+  const [isModerator,setIsModerator] = useState(false)
+  const [isAdmin,setIsAdmin] = useState(false)
 
-  if( isAuthenticated && staff.user != null && flag == false)
-  {
-    if (staff.user.role == 'dr' || staff.user.role == 'ta'){
-      setIs_staff(true)
-      flag = true
-    }
-  }
+
+  const person = useSelector(state=>state.auth)
   
+  useEffect(() => {
+
+    if( isAuthenticated && person.user != null && flag == false)
+    {
+      if (person.user.role == 'dr' || person.user.role == 'ta'){
+        setIs_staff(true)
+        if(person.user.is_coordinator)
+        {
+          setIsCoordinator(true)
+        }
+        flag = true
+      }
+
+      if(person.user.role == 'employee'){
+        setIsEmp(true)
+        if(person.user.is_moderator)
+        {
+          setIsModerator(true)
+        }
+      }
+
+      if(person.user.is_admin){
+        setIsAdmin(true)
+      }
+    }
+  });
+
   const logout_user = () => {
     setIs_staff(false)
+    setIsEmp(false)
+    setIsModerator(false)
+    setIsCoordinator(false)
+    setIsAdmin(false)
+
     logout();
     setRedirect(true);
   };
 
   const guestLinks = () => (
     <>
-      <Nav.Link className="button ">
-        <Link className="fs-5 header-link ani" to="/login">
+      <Nav.Link className="button btn-b" >
+        <Link className="fs-4 header-link ani btn-b" to="/login">
           Log In
         </Link>
       </Nav.Link>
-      <Nav.Link className="button">
-        <Link className="fs-5 header-link ani" to="/signup">
+      <Nav.Link className="button btn-b">
+        <Link className="fs-4 header-link ani btn-b" to="/signup">
           Sign Up
         </Link>
       </Nav.Link>
     </>
   );
 
-  // const staffLinks = () =>(
-  //   <>
-  //   <Nav.Link className="button">
-  //     <Link className="fs-5 header-link ani"  to="/reservation">
-  //      Reservation
-  //     </Link>
-  //   </Nav.Link>
-  //   </>
-  // )
-
   const authLinks = () => (
-    <Nav.Link className="button ">
-      <Link className="fs-5 header-link ani" to="/"  onClick={logout_user}>
+    <Nav.Link className="button btn-b">
+      <Link className="fs-4 header-link ani btn-b" to="/"  onClick={logout_user}>
        Logout
       </Link>
     </Nav.Link>
     
   );
-
-  // const signedInLink = () => (
-  //   <Nav.Link className="button">
-  //     <Link className="fs-5 header-link ani" to="/profilepage" >
-  //      Edit Profile 
-  //     </Link>
-  //   </Nav.Link>
-    
-  // );
+  
+const moderatorLink = () => (
+  <Nav.Link className="button btn-b">
+    <Link className="fs-4 header-link ani btn-b" to="/moderator">
+    Moderator
+    </Link>
+  </Nav.Link>
+)
 
   //navbar scroll changeBackground function
   const changeBackground = () => {
@@ -111,43 +130,42 @@ const Header = ({ logout, isAuthenticated }) => {
 
           <Nav  className="col-7 offset-6">
           
-            <Nav.Link className="button">
-              <Link className="fs-5 header-link ani" to="/">
+            <Nav.Link className="button btn-b">
+              <Link className="fs-4 ani btn-b" to="/" style={{color:"#9b2226"}}>
                 <FontAwesomeIcon icon={faHome} />{" "}
               </Link>
             </Nav.Link>
-          
-           
-            {isAuthenticated ? authLinks() : guestLinks()}
-            {/* {isAuthenticated ? signedInLink() : null} */}
 
+            { isAuthenticated ? <div className="dropdown btn-b fs-4" style={{ color:"#001233" }}>
             
-            {/* <Nav.Link className="text-light fs-5" href="/SignupForm">Sign Up</Nav.Link> */}
-            <Nav.Link className="button">
-              <Link className="fs-5 header-link ani" to="/moderator">
-              Moderator
-              </Link>
-            </Nav.Link>
-            {/* {is_staff ? staffLinks() : null} */}
-            { isAuthenticated ? <div className="dropdown  button" >
-              <NavDropdown
-                style={{  }}
-                className=" button "
-                title= {
-                  staff.user != null ? staff.user.fname : null
-                }  
-                id="headScrollingDropdown"
-                aria-controls="navbar-dark-example"
-              >
-                <div className="  "  aria-expanded="false" >
-                <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
-                <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule"> Reservations Schedule</Link></NavDropdown.Item>
-                </div>
-              </NavDropdown>
-            </div> : null }
-            
+            <NavDropdown
+              
+              className=" button btn-b "
+              title= {
+                person.user != null ? person.user.fname : null
+              }  
+              id="headScrollingDropdown"
+              aria-controls="navbar-dark-example"
+            >
+              <div className="  "  aria-expanded="false" >
+              <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
+              {
+                is_staff || isAdmin ? 
+                <>
+                  <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
+                  <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
+                  <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule">Reservations Schedule</Link></NavDropdown.Item>
+                </>
+                : null
+              }
+              {
+                isModerator ? <NavDropdown.Item ><Link className="nav-links" to="/moderator">Moderator</Link></NavDropdown.Item>
+                : null
+              }
+              </div>
+            </NavDropdown>
+          </div> : null }
+            {isAuthenticated ? authLinks() : guestLinks()}
 
           </Nav>
         </Navbar.Collapse>
@@ -156,8 +174,6 @@ const Header = ({ logout, isAuthenticated }) => {
     </>
   );
 };
-
-// export default Header;
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

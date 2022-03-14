@@ -2,7 +2,6 @@ import React from "react";
 import DataNews from "./DataNews";
 import "./cards.css";
 import img from "../assets/image/new.jpg";
-// import images from "../../images"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -43,8 +42,8 @@ export default function News() {
               .slice(0, 3)
               .map((item) => {
                 return (
-                  <div className="col-md-4 card-group">
-                    <div className="card">
+                  <div className="col-md-4 card-group ">
+                    <div className="card border-0">
                       <div className="row ">
                         <div className="col-12">
                           <img src={item.picture} className="img-h card-img-top "/>

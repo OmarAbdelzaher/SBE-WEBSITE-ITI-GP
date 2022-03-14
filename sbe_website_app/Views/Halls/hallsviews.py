@@ -51,7 +51,7 @@ class HallDetails(APIView):
         serializer = HallSerializer(hall, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.validated_data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
@@ -111,13 +111,7 @@ class ReserveHallDetails(APIView):
     def put(self, request, pk, format=None):
         reserved_hall = self.get_object(pk)
         print(request.data)
-        # print(Staff.objects.filter(id = reserved_hall.staff_id))
-        print(reserved_hall.timeslot)
-        
-        field_name = 'staff_id'
-        field_value = getattr(reserved_hall, field_name)
-        print(field_value)
-        
+
         serializer = ReserveHallSerializer(reserved_hall, data=request.data)
         if serializer.is_valid():
             serializer.save()

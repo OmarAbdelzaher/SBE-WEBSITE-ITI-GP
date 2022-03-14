@@ -71,22 +71,23 @@ class Person(AbstractBaseUser,PermissionsMixin):
     lname = models.CharField(max_length=50)
     email = models.EmailField(max_length=255, unique=True)
     
-    profile_img = models.ImageField(null=True, upload_to='images', blank=True) 
+    profile_img = models.ImageField(null=True, upload_to='images', blank=True, default='images/user.png') 
     
     birthdate = models.DateField(null=True)
     address = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
-    role = models.CharField(max_length=100,blank=True, choices=ROLES_CHOICES)
+    role = models.CharField(max_length=100, choices=ROLES_CHOICES)
 
 
     phone_regex = RegexValidator(regex=r'^01[0125][0-9]{8}$', message="Phone number must be 11 digits")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
+    phone_number = models.CharField(validators=[phone_regex], max_length=17) # validators should be a list
     
     is_active = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False) # a admin user; non super-user
-    is_admin = models.BooleanField(default=False) # a superuser
+    is_staff = models.BooleanField(default=False) 
+    is_admin = models.BooleanField(default=False) 
     is_superuser = models.BooleanField(default=False)
-    
+    is_coordinator = models.BooleanField(default=False)
+    is_moderator = models.BooleanField(default=False)
     is_activated = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
@@ -95,7 +96,7 @@ class Person(AbstractBaseUser,PermissionsMixin):
     objects = UserAccountManager()
         
     def __str__(self):
-        return self.fname + ' ' + self.lname
+        return  f'{self.fname} {self.lname}'
 
 
 class TimeSlot(models.Model):
@@ -110,7 +111,7 @@ class TimeSlot(models.Model):
     timeslot = models.IntegerField(choices=TIMESLOT_LIST)
 
     def __str__(self):
-        return '{}'.format( self.time)
+        return str(self.time)
 
     @property
     def time(self):
@@ -148,7 +149,7 @@ class Staff(Person,models.Model):
         ('TA', 'TA'),
     )
     position = models.CharField(max_length=10, choices=POS_CHOICES)
-    
+        
     def __str__(self):
         return self.fname + ' ' + self.lname
 
@@ -184,27 +185,41 @@ class OfficeHours(models.Model):
         unique_together =("weekday","from_hour","to_hour","staff_id","officehours_type")
 
     def __str__(self):
-        return self.weekday + ' ' + str(self.from_hour) + ' ' + 'to' + ' ' + str(self.to_hour)
-    
+        return f'{self.staff_id} office hours : {self.weekday} , {str(self.from_hour)} to {str(self.to_hour)}' 
 
 class FacultyEmp(Person,models.Model):
     title = models.CharField(max_length=20,null=False)
+    # is_moderator = models.BooleanField(default=False,null=True)
     
     def __str__(self):
-        return self.fname + ' ' + self.lname
+        return f'{self.fname} {self.lname}'
 
 class Course(models.Model):
+    YEAR_CHOICES = (
+        ('grade1', 'Year 1'),
+        ('grade2', 'Year 2'),
+        ('grade3', 'Year 3'),
+        ('grade4', 'Year 4'),
+
+    )
     name = models.CharField(max_length=20)
     total_grade = models.IntegerField()
 
 
-    stds_grades = models.FileField(upload_to='student_grades/',null=True)
+    stds_grades = models.FileField(upload_to='student_grades/',null=True,blank=True)
     # filepath= models.FileField(upload_to='files/', null=True, verbose_name="")
 
     instructions = models.TextField(max_length=500)
-    materials = models.CharField(max_length=500)
-    year = models.IntegerField()
-    semester = models.IntegerField()
+    materials = models.CharField(max_length=500,blank=True)
+    year = models.CharField( max_length=20,choices=YEAR_CHOICES)
+    SEMESTER_CHOICES = (
+        ('one', 'One'),
+        ('two', 'Two'),
+      
+
+    )
+
+    semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES)
     
     staff_id = models.ManyToManyField(Staff)
     CATEGORY_CHOICES = (
@@ -220,8 +235,10 @@ class Course(models.Model):
 
 class MaterialFile(models.Model):
     course_id = models.ForeignKey(Course,on_delete=models.CASCADE)
-    matrial_upload = models.FileField(upload_to='student_material/')
+    material_upload = models.FileField(upload_to='student_material/')
 
+    def __str__(self):
+        return f'Material for {str(self.course_id)} course'
 
 class CourseHistory(models.Model):
     year = models.IntegerField()
@@ -239,7 +256,7 @@ class Schedule(models.Model):
     schedule = models.FileField(upload_to='Schedules/')
     
 class Hall(models.Model):
-    name = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=20,unique=True)
 
     def __str__(self):
         return self.name
@@ -249,7 +266,7 @@ class New(models.Model):
     
     description = models.CharField(max_length=100)
 
-    picture = models.ImageField(upload_to='images') 
+    picture = models.ImageField(upload_to='images', default='images/SBE.png') 
     CATEGORY_CHOICES = (
         ('graduate', 'Graduate'),
         ('undergraduate', 'Undergraduate'),
@@ -272,7 +289,7 @@ class ReserveHall(models.Model):
         unique_together = ('hall_id','date','timeslot')
         
     def __str__(self):
-        return '{}'.format( self.time)
+        return str(self.time)
 
     @property
     def time(self):
@@ -282,7 +299,7 @@ class ReserveHall(models.Model):
         return f'{ str(self.hall_id) } reserved by {str(self.staff_id)}'
     
 class Lab(models.Model):
-    name = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=20,unique=True)
     
     def __str__(self):
         return self.name
@@ -298,10 +315,10 @@ class ReserveLab(models.Model):
         unique_together = ('lab_id','date','timeslot')
         
     def __str__(self):
-        return str(self.lab_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
+        return f'{str(self.lab_id)} reserved by {str(self.staff_id)}' 
     
 class Device(models.Model):
-    name = models.CharField(max_length=20,primary_key=True)
+    name = models.CharField(max_length=20,unique=True)
     
     def __str__(self):
         return self.name
@@ -312,12 +329,14 @@ class ReserveDevice(models.Model):
     date = models.DateField(null=True)
     timeslot=models.ForeignKey(TimeSlot,on_delete=models.CASCADE)
     is_confirmed = models.BooleanField(default=False,null=True)
+
+
     
     class Meta:
         unique_together = ('device_id','date','timeslot')
         
     def __str__(self):
-        return str(self.device_id)+ ' ' + 'reserved by' + ' ' + str(self.staff_id)
+        return f'{str(self.device_id)} reserved by {str(self.staff_id)}'
 
 
 class Event(models.Model):
