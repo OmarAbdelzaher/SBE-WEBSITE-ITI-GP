@@ -22,11 +22,11 @@ function Profile(isAuthenticated) {
     fname: "",
     lname: "",
     email: "",
-    profile_img:"",
+    profile_img: "",
     gender: "",
-    address: "",
-    birthdate: "",
-    phone_number: "",
+    address:  "",
+    birthdate:"",
+    phone_number:  "",
     password: "",
     graduate: "",
     year_of_graduation: "",
@@ -34,7 +34,7 @@ function Profile(isAuthenticated) {
     title: "",
 
     role: "",
-  });
+  })
 
   const [FormErrors,setFormErrors] = useState({})
   const pattern_email = new RegExp(
