@@ -1,15 +1,15 @@
 from django.urls import path 
 from django.conf import settings
 from django.conf.urls.static import static
-from .Views.Devices.devicesviews import *
-from .Views.Halls.hallsviews import *
-from .Views.Labs.labsviews import *
-from .Views.Person.personviews import *
-from .Views.Courses.coursesviews import *
-from .Views.Events.eventsviews import *
-from .Views.News.newsviews import *
-from .Views.OffHoursandTimeSlots.hoursandslotsviews import *
-from .Views.Schedules.schedulesviews import *
+from .Views.devicesviews import *
+from .Views.hallsviews import *
+from .Views.labsviews import *
+from .Views.personviews import *
+from .Views.coursesviews import *
+from .Views.eventsviews import *
+from .Views.newsviews import *
+from .Views.hoursandslotsviews import *
+from .Views.schedulesviews import *
 
 
 

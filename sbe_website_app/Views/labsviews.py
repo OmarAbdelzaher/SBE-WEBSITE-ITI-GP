@@ -1,81 +1,82 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from  ...serializers import *
+from  ..serializers import *
 from rest_framework.response import Response
-from ...models import *
+from ..models import *
 from rest_framework import status
 from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.exceptions import ValidationError
+from django.views.decorators.csrf import csrf_exempt
 import re
-
 
 # import email confirmation stuff
 from django.core.mail import send_mail
 from django.conf import settings
 
 
+#  Get and Post HTTP Methods using API For Labs 
 
 
-# Get and Post HTTP Methods using API For Halls 
-
-class HallList(APIView):
+class LabList(APIView):
     def get(self,request):
-        halls = Hall.objects.all()
-        serializer = HallSerializer(halls,many=True)
+        labs = Lab.objects.all()
+        serializer = LabSerializer(labs,many=True)
         return Response(serializer.data)
     def post(self,request):
-        serializer = HallSerializer(data=request.data)
+        serializer = LabSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Get , Put and delete HTTP Methods using API For a specific Hall
+# Get , Put and delete HTTP Methods using API For a specific Lab
 
-class HallDetails(APIView):
+class LabDetails(APIView):
     def get_object(self, pk):
         try:
-            return Hall.objects.get(pk=pk)
-        except Hall.DoesNotExist:
+            return Lab.objects.get(pk=pk)
+        except Lab.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
-        hall = self.get_object(pk)
-        serializer = HallSerializer(hall)
+        lab = self.get_object(pk)
+        serializer = LabSerializer(lab)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        hall = self.get_object(pk)
-        serializer = HallSerializer(hall, data=request.data)
+        lab = self.get_object(pk)
+        serializer = LabSerializer(lab, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.validated_data)
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        hall = self.get_object(pk)
-        hall.delete()
+        lab = self.get_object(pk)
+        lab.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# Get and Post HTTP Methods using API For Reserving Halls 
 
-class ReserveHallList(APIView):
+
+# Get and Post HTTP Methods using API For Reserving Labs 
+class ReserveLabList(APIView):
+    @csrf_exempt    
     def get(self,request):
-        reserved_halls = ReserveHall.objects.all()
-        serializer = ReserveHallSerializer(reserved_halls,many=True)
+        reserved_labs = ReserveLab.objects.all()
+        serializer = ReserveLabSerializer(reserved_labs,many=True)
         return Response(serializer.data)
-    
     def post(self,request):
-        serializer = ReserveHallSerializer(data=request.data)
+        serializer = ReserveLabSerializer(data=request.data)
         if serializer.is_valid():
-            sendReservationRequest(request)
             serializer.save()
+            sendReservationRequest(request)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# Get , Put and delete HTTP Methods using API For a specific reserved Lab
 def sendReservationRequest(request):
     try:
         staff_name = Person.objects.get(id=request.data["staff_id"])
@@ -91,34 +92,32 @@ def sendReservationRequest(request):
     except Exception :
         raise ValidationError("Couldn't send the message to the email ! ") 
     
-
-
-        
-# Get , Put and delete HTTP Methods using API For a specific reserved Hall
-
-class ReserveHallDetails(APIView):
+class ReserveLabDetails(APIView):
+    @csrf_exempt    
     def get_object(self, pk):
         try:
-            return ReserveHall.objects.get(pk=pk)
-        except ReserveHall.DoesNotExist:
+            return ReserveLab.objects.get(pk=pk)
+        except ReserveLab.DoesNotExist:
             raise Http404
 
+    @csrf_exempt    
     def get(self, request, pk, format=None):
-        reserved_hall = self.get_object(pk)
-        serializer = ReserveHallSerializer(reserved_hall)
+        reserved_lab= self.get_object(pk)
+        serializer = ReserveLabSerializer(reserved_lab)
         return Response(serializer.data)
 
+    @csrf_exempt    
     def put(self, request, pk, format=None):
-        reserved_hall = self.get_object(pk)
-        print(request.data)
-
-        serializer = ReserveHallSerializer(reserved_hall, data=request.data)
+        reserved_lab = self.get_object(pk)
+        serializer = ReserveLabSerializer(reserved_lab, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @csrf_exempt   
     def delete(self, request, pk, format=None):
-        reserved_hall = self.get_object(pk)
-        reserved_hall.delete()
+        reserved_lab = self.get_object(pk)
+        reserved_lab.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+

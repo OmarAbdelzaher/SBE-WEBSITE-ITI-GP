@@ -3,7 +3,15 @@ from .models import *
 from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
-
+from .models.person import * 
+from .models.device import * 
+from .models.admission import * 
+from .models.course import * 
+from .models.hall import * 
+from .models.lab import * 
+from .models.lec_exam_schedule import *
+from .models.new_event import *
+from .models.officehours_timeslot import *
 
 User = get_user_model()
 
