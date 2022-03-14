@@ -160,3 +160,8 @@ class ExamScheduleSerializer(serializers.ModelSerializer):
     class Meta :
         model = ExamSchedule
         fields = ['id','year','semester','exam_file']
+
+class AdmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Admission
+        fields = ['id','title','description','instructions','category']
