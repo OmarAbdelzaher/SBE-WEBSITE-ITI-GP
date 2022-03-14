@@ -1,23 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset_password } from '../actions/auth';
+import { useState} from "react";
+import {useSelector } from "react-redux";
 
 const ResetPassword = ({ reset_password }) => {
     const [requestSent, setRequestSent] = useState(false);
     const [formData, setFormData] = useState({
-        email: ''
+        email: '',
     });
+    const [FormErrors,setFormErrors] = useState({})
+  const {
+    email,
+  } = formData;
 
-    const { email } = formData;
+  const pattern_email = new RegExp(
+    /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+  );
+
+    const validate = (values) =>{
+      const errors = {}
+      if (!values.email) {
+        errors.email = "Email is required !";
+  
+      } else if (!pattern_email.test(values.email)) {
+        errors.email = "Email is invalid !";
+        
+      }
+      return errors
+    }
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = e => {
         e.preventDefault();
-
+        let errors_form = validate(formData)
+        console.log(errors_form)
+        setFormErrors(errors_form)
+        if ( Object.keys(errors_form).length === 0  ){
         reset_password(email);
         setRequestSent(true);
+        }
     };
 
     if (requestSent) {
@@ -30,8 +54,8 @@ const ResetPassword = ({ reset_password }) => {
         <div className="container py-5 h-150">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
-              <div className="card rounded-3">
-                <img
+              <div className="card rounded-3 courses-b form">
+                {/* <img
                   src="http://ihd.eng.cu.edu.eg/wp-content/uploads/sites/13/2014/12/Fac_eng_minified-620x279.jpg"
                   className="w-100"
                   style={{
@@ -39,7 +63,7 @@ const ResetPassword = ({ reset_password }) => {
                     borderTopRightRadius: ".3rem",
                   }}
                   alt="Sample photo"
-                />
+                /> */}
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Request Password Reset
@@ -61,11 +85,12 @@ const ResetPassword = ({ reset_password }) => {
                             required
                           />
                         </div>
+                        <p className="text-danger">{ FormErrors.email }</p>
                       </div>
                     </div>
                     <button
                       type="submit"
-                      className="btn btn-success btn-lg mb-1"
+                      className="btn button btn-lg mb-1"
                     >
                       Reset Password 
                     </button>
@@ -76,6 +101,7 @@ const ResetPassword = ({ reset_password }) => {
           </div>
         </div>
       </section>
+      
     </>
 
         // <div className='container mt-5'>

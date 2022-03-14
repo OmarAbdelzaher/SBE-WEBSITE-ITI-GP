@@ -100,13 +100,13 @@ export default function CoursesMenu(isAuthenticated) {
                           {/* Default Value */}
                           <option value="0">Please select Your Year</option>
                           {/* Selections values */}
-                          <option value="grade1">Year One</option>
-                          <option value="grade2">Year Two</option>
-                          <option value="grade3">Year Three</option>
-                          <option value="grade4">Year Four</option>
+                          <option value="Year 1">Year One</option>
+                          <option value="Year 2">Year Two</option>
+                          <option value="Year 3">Year Three</option>
+                          <option value="Year 4">Year Four</option>
                         </select>
                         {/* Year One Selection  */}
-                        {formData.Year == "grade1" ? (
+                        {formData.Year == "Year 1" ? (
                           <>
                             <br />
                             <div>
@@ -184,7 +184,7 @@ export default function CoursesMenu(isAuthenticated) {
                           </>
                         ) : null}
                         {/* Year two Selection */}
-                        {formData.Year == "grade2" ? (
+                        {formData.Year == "Year 2" ? (
                           <>
                             <br />
                             <div>
@@ -262,7 +262,7 @@ export default function CoursesMenu(isAuthenticated) {
                           </>
                         ) : null}
                         {/* Year Three Selection */}
-                        {formData.Year == "grade3" ? (
+                        {formData.Year == "Year 3" ? (
                           <>
                             <br />
                             <div>
@@ -339,7 +339,7 @@ export default function CoursesMenu(isAuthenticated) {
                           </>
                         ) : null}
                         {/* Year Four Selection */}
-                        {formData.Year == "grade4" ? (
+                        {formData.Year == "Year 4" ? (
                           <>
                             <br />
                             <div>

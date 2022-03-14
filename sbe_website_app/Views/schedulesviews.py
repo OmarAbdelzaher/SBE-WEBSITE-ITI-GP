@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from  ...serializers import *
+from  ..serializers import *
 from rest_framework.response import Response
-from ...models import *
+from ..models import *
 from rest_framework import status
 from django.http import Http404
 from rest_framework.decorators import api_view
@@ -85,7 +85,7 @@ class ExamSchedulesDetails(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
-def DownloadPDFSchedules(self,year,type):
+def DownloadPDFSchedules(self,year,type,pk):
     if type == "exam":
         exam = ExamSchedule.objects.get(year=year)
         path_to_file = MEDIA_ROOT + f'/{exam.exam_file}'

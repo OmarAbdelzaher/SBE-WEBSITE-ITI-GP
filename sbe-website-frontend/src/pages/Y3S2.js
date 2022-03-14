@@ -10,10 +10,12 @@ export default function YthreeStwo() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/courseungraduateyearthree/")
-      .then((res) => setCourses(res.data.filter((course)=>course.category=='undergraduate')))
+      .then((res) => {
+        setCourses(res.data.filter((course)=>course.category=='undergraduate'))
+        console.log(res.data.filter((course)=>course.category=='undergraduate'))
+      })
+        
         // setCourses(res.data)
-
-      
   }, []);
   return (
     <>
@@ -38,7 +40,9 @@ export default function YthreeStwo() {
 
                   .map((course) => {
                     return (
-                        <tbody className="mb-3" key={course.id}>
+                      <tbody className="mb-3" key={course.id}>
+                          <h1>{console.log(course)}</h1>
+                        
                           <tr className='tr'>
                             <td><Link className='table-b'  to={`/courseDetails/${course.id}`}>{course.name}</Link></td>
                             <td><Link to={`/courseDetails/${course.id}`}><FontAwesomeIcon icon={faAnglesRight} style={{color:"#ffff"}}/></Link></td>

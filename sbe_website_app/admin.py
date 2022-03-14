@@ -1,4 +1,13 @@
-from .models import *
+from .models.person import *
+from .models.course import *
+from .models.lab import *
+from .models.hall import *
+from .models.officehours_timeslot import *
+from .models.new_event import *
+from .models.device import *
+from .models.lec_exam_schedule import *
+from .models.admission import *
+
 from django.contrib import admin
 from django.contrib.auth.hashers import make_password
 
