@@ -139,11 +139,12 @@ const NavBar = (isAuthenticated) => {
                 <NavDropdown.Item href="/officehourschedule">
                   Office Hours
                 </NavDropdown.Item>
-                {isCoordinator || isModerator ? (
-                  <NavDropdown.Item href="/graduate-exams">
-                    Exams
-                  </NavDropdown.Item>
-                ) : null}
+                <NavDropdown.Item href="/graduate-exams">
+                  Exams Schedule
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/graduate-lecs">
+                  Lectures Schedule
+                </NavDropdown.Item>
               </NavDropdown>
             </div>
             <div className="dropdown">
@@ -162,11 +163,12 @@ const NavBar = (isAuthenticated) => {
                 <NavDropdown.Item href="/officehourschedule">
                   Office Hours
                 </NavDropdown.Item>
-                {isCoordinator || isModerator ? (
-                  <NavDropdown.Item href="/undergraduate-exams">
-                    Exams
-                  </NavDropdown.Item>
-                ) : null}
+                <NavDropdown.Item href="/undergraduate-exams">
+                  Exams Schedule
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/undergraduate-lecs">
+                  Lectures Schedule
+                </NavDropdown.Item>
               </NavDropdown>
             </div>
           </Nav>

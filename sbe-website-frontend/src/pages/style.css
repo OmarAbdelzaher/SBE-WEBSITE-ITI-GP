@@ -94,8 +94,8 @@
 .scroll {
     background-image: linear-gradient(to right, #8ecae6, #0096c7);
     background-image: -o-linear-gradient(right, #457b9d, #0096c7);
-    background-image: -moz-linear-gradient(right, #8ecae6, #adb5bd);
-    background-image: -webkit-linear-gradient(left, #adb5bd, #003049);
+    background-image: -moz-linear-gradient(right, #8ecae6, #ffff);
+    background-image: -webkit-linear-gradient(left, #f6f8fa, #003049);
 }
 
 .logo {
@@ -138,11 +138,11 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(../assets/image/Fac_eng.jpg);
-  /* filter: blur(2px);
+  background-image: url(../assets/image/thisisengineering.jpg);
+  /* filter: blur(3px);
     -webkit-filter: blur(2px); */
-  /* background-color: #bcb8b1;
-  background-blend-mode: multiply; */
+  /* background-color: #adb5bd; */
+  /* background-blend-mode: multiply; */
   background-attachment: fixed;
 }
 .s-tow {
@@ -254,7 +254,7 @@
   filter: grayscale(100%); */
   /* filter: blur(2px);
   -webkit-filter: blur(2px); */
-  background-image: url(../assets/image/Fac_eng.jpg);
+  background-image: url(../assets/image/thisisengineering.jpg);
   background-color: #bcb8b1;
   background-blend-mode: multiply;
 }
@@ -265,17 +265,17 @@
     color: white;
     font-weight: bold;
     padding: 1%;
-    /* border: 3px solid #f1f1f1; */
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 90%;
+    width: 65%;
+    height: 50%;
+    font-size:50px;
     text-align: center;
-    height: auto !important;
+    /* height: auto !important; */
     overflow-x: auto !important;
-    margin-top: 14% !important;
+    /* margin-top: 14% ; */
 }
 
 .admin-tables{
@@ -302,12 +302,13 @@
   z-index: 2;
   top: 0;
   left: 0;
-  background-color: white;
+  border-radius: 5%;
+  background-color:white;
   overflow-x: hidden;
   padding-top: 100px;
   padding-left: 1%;
   font-size:xx-large;
-  box-shadow: 7px 8px 5px 0px rgba(247, 233, 233, 0.2) !important;
+  box-shadow: 7px 8px 5px 0px rgba(2, 9, 73, 0.2) !important;
 
 }
 
@@ -325,24 +326,48 @@
 }
 
 .main-a{
-  height: 100vh;
-  background-attachment: fixed;
+  height: 100%;
+  margin-left: 320px; 
+  padding: 0px 10px;
+  background-image: url(../assets/image/thisisengineering.jpg);
+  background-size:cover;
+  background-repeat:no-repeat;
+  /* background-position: center; */
 
 }
 
+.bg{
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
 .main {
   margin-left: 320px; 
   padding: 0px 10px;
-  background-image: url(../assets/image/Fac_eng.jpg);
+  background-image: url(../assets/image/thisisengineering.jpg);
   height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed; 
- margin-bottom: 0% !important;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-position:bottom;  
+ 
+  
 }
+
+
+
+
+/* .fix{
+height: 100vh;
+} */
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+}
+/* @media (min-width: 1200px) { 
+  .fix{
+  }
+} */
+  
+.margin-bottom{
+  margin-bottom: 100%;
 }

@@ -36,8 +36,10 @@ import RegistrationApprove from "./pages/RegistrationApprove";
 import Users from "./pages/Users";
 import Layout from './hocs/Layout'; 
 import ReservationSchedule from "./components/ReservationSchedule";
-import UnderGraduateExams from "./components/UnderGraduateExams";
-import GraduateExams from "./components/GraduateExams";
+import UnderGraduateExamSchedule from "./components/UnderGraduateExams";
+import GraduateExamSchedule from "./components/GraduateExams";
+import UnderGraduateLecSchedule from "./components/UnderGraduateLecSchedule";
+import GraduateLecSchedule from "./components/GraduateLecSchedule";
 
 import OfficeHours from "./components/OfficeHours";
 import OfficeHoursSchedule from "./components/OfficeHoursView";
@@ -61,6 +63,7 @@ import EditDeviceForm from "./components/EditDeviceForm";
 import CourseForm from "./pages/CourseForm";
 import Adm_Graduates from "./pages/Adm_Graduates"
 import Adm_UnderGraduates from "./pages/Adm_UnderGraduates"
+import AssignCourse from "./pages/AssignCourse";
 
 function App() {
 
@@ -104,13 +107,12 @@ function App() {
             <Route path={"/reservation-approv"} exact component={ReservationApprov} />
             <Route path={"/registration-approv"} exact component={RegistrationApprove} />
             <Route path={"/users"} exact component={Users} />
-            <Route path={"/undergraduate-exams"} exact component={UnderGraduateExams} /> 
-            <Route path={"/graduate-exams"} exact component={GraduateExams} /> 
+            <Route path={"/undergraduate-exams"} exact component={UnderGraduateExamSchedule} /> 
+            <Route path={"/graduate-exams"} exact component={GraduateExamSchedule} /> 
 
 
             <Route path={"/adm-undergraduates"} exact component={Adm_UnderGraduates} />
             <Route path={"/adm-graduates"} exact component={Adm_Graduates} />
-
 
             <Route path={"/reservationsShedule"} exact component={ReservationSchedule} />
             <Route path={"/officehours"} exact component={OfficeHours} />
@@ -131,21 +133,15 @@ function App() {
             <Route path={"/editLabForm/:id/:name"} exact component={EditLabForm} />
             <Route path={"/editDeviceForm/:id/:name"} exact component={EditDeviceForm} />
 
-
-
-
-
-
-
             <Route path={"/labsreservations"} exact component={LabsReservations} />
             <Route path={"/hallsreservations"} exact component={HallsReservations} />
             <Route path={"/devicesreservations"} exact component={DevicesReservations} />
 
-
             <Route path={"/courseform"} exact component={CourseForm} />
+            <Route path={"/assigncourse/:id/:name"} exact component={AssignCourse} />
 
-
-
+            <Route path={"/undergraduate-lecs"} exact component={UnderGraduateLecSchedule} /> 
+            <Route path={"/graduate-lecs"} exact component={GraduateLecSchedule} /> 
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}

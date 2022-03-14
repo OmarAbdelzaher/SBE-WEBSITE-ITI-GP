@@ -41,14 +41,14 @@ export default function Halls() {
       
   return (
     <>
-      <section className="main">
+      <section className="main ">
         <div className="container py-5">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
-              <div className="sidebar justify-content-center">
+              <div className="sidebar justify-content-center ">
                 <AdminNav />
               </div>
-              <div className="card-body ">
+              <div className="card-body">
                 <p className="fs-1 text-light">Halls Menu</p>
 
                 <Link to="/hallform" className="btn btn-md col-3" style={{backgroundColor:"#003049", color:"#ffff"}}>
@@ -113,7 +113,7 @@ export default function Halls() {
                 </table>
               </div>
             </div>
-            <div className="margin-b"></div>
+            <div className="margin-bottom"></div>
           </div>
         </div>
       </section>

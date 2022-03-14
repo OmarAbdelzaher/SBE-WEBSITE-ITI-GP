@@ -13,14 +13,15 @@ from braces.views import CsrfExemptMixin
 from django.http import HttpResponse
 from django.core.exceptions import ValidationError
 import re
+
 # import email confirmation stuff
 from django.core.mail import send_mail
 from django.conf import settings
-# import file staff
+
+# import file stuff
 from django.core.files import File
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
-# from sbe_website_app.settings import BASE_DIR, MEDIA_ROOT
 from sbe_dj_react_proj.settings import BASE_DIR, MEDIA_ROOT
 from rest_framework import viewsets
 
@@ -59,7 +60,8 @@ class CourseDetails(APIView):
         
         serializer = CourseSerializer(course, data=request.data)
         if serializer.is_valid():
-            course.stds_grades = request.FILES.getlist('stds_grades')[0]
+            if len(request.FILES.getlist('stds_grades')) > 0:
+                course.stds_grades = request.FILES.getlist('stds_grades')[0]
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -104,7 +106,7 @@ class CourseUngraduateView(APIView):
 
 class CourseUngraduateYearOne(APIView):
     def get(self,request):
-        course = Course.objects.filter(year='grade1')
+        course = Course.objects.filter(year='Year 1')
 
         # news = New.objects.all()
         serializer = CourseSerializer(course,many=True)
@@ -118,7 +120,7 @@ class CourseUngraduateYearOne(APIView):
 
 class CourseUngraduateYearTwo(APIView):
     def get(self,request):
-        course = Course.objects.filter(year='grade2')
+        course = Course.objects.filter(year='Year 2')
 
         # news = New.objects.all()
         serializer = CourseSerializer(course,many=True)
@@ -132,7 +134,7 @@ class CourseUngraduateYearTwo(APIView):
 
 class CourseUngraduateYearThree(APIView):
     def get(self,request):
-        course = Course.objects.filter(year='grade3')
+        course = Course.objects.filter(year='Year 3')
 
         # news = New.objects.all()
         serializer = CourseSerializer(course,many=True)
@@ -146,7 +148,7 @@ class CourseUngraduateYearThree(APIView):
 
 class CourseUngraduateYearFour(APIView):
     def get(self,request):
-        course = Course.objects.filter(year='grade4')
+        course = Course.objects.filter(year='Year 4')
 
         # news = New.objects.all()
         serializer = CourseSerializer(course,many=True)
@@ -201,8 +203,7 @@ class CourseHistoryDetailsView(APIView):
 
 @api_view(['GET'])
 def DownloadPDF(self,pk,type):
-    print(pk)
-    print(type)
+
     if type == "grade":
         course=Course.objects.get(pk=pk)
         path_to_file = MEDIA_ROOT + f'/{course.stds_grades}'
@@ -210,13 +211,10 @@ def DownloadPDF(self,pk,type):
         mat=MaterialFile.objects.get(pk=pk)
         path_to_file = MEDIA_ROOT + f'/{mat.material_upload}'
     f = open(path_to_file, 'rb')
-    print(f)
     pdfFile = File(f)
-    print(pdfFile)
-    
     response = HttpResponse(pdfFile.read())
     response['Content-Disposition'] = 'attachment'
-    print(response)
+ 
     return response
 
 
@@ -229,13 +227,13 @@ class MaterialfileView(APIView):
     def post(self,request):
         serializer = MaterialfileSerializer(data=request.data)
         
-        # print(type(int(request.data["course_id"])))
+        print(request.FILES.getlist('material_upload'))
         
-        # course = Course.objects.get(id=int(request.data["course_id"]))
+        course = Course.objects.get(id=int(request.data["course_id"]))
         if serializer.is_valid():
-            if len(request.FILES.getlist('material_upload'))>0:
-                # MaterialFile.objects.create(material_upload=request.FILES.getlist('material_upload')[0],course_id=course)
-                serializer.save()
+            for file in request.FILES.getlist('material_upload'):
+                MaterialFile.objects.create(material_upload=file,course_id=course)
+                # serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -248,7 +246,7 @@ class MaterialfileDetailsView(APIView):
 
     def get(self, request, pk, format=None):
         material = self.get_object(pk)
-        serializer = MaterialFileSerializer(material)
+        serializer = MaterialfileSerializer(material)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
