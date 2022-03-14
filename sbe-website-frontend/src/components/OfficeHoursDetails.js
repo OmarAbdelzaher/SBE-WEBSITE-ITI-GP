@@ -109,7 +109,7 @@ export default function OfficeHoursDetails(params) {
                 </tbody>
               </table>
             </div>
-            <div className="margin-b"></div>
+            <div className="margin-bottom"></div>
           </div>
         </div>
       </section>

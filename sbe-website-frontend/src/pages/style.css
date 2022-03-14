@@ -99,7 +99,7 @@
 }
 
 .logo {
-  background-image: url(../assets/image/departmentLogo.png);
+  background-image: url(../assets//uploaded-files/bg-image/departmentLogo.png);
 }
 #headScrollingDropdown{
   color:#001233 ;
@@ -138,11 +138,11 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(../assets/image/thisisengineering.jpg);
+  background-image: url(../assets//uploaded-files/bg-image/backGround.jpg);
   /* filter: blur(3px);
     -webkit-filter: blur(2px); */
-  /* background-color: #adb5bd; */
-  /* background-blend-mode: multiply; */
+  /* background-color: #f6f8fa;
+  background-blend-mode: multiply; */
   background-attachment: fixed;
 }
 .s-tow {
@@ -254,7 +254,7 @@
   filter: grayscale(100%); */
   /* filter: blur(2px);
   -webkit-filter: blur(2px); */
-  background-image: url(../assets/image/thisisengineering.jpg);
+  background-image: url(../assets//uploaded-files/bg-image/backGround.jpg);
   background-color: #bcb8b1;
   background-blend-mode: multiply;
 }
@@ -329,7 +329,7 @@
   height: 100%;
   margin-left: 320px; 
   padding: 0px 10px;
-  background-image: url(../assets/image/thisisengineering.jpg);
+  background-image: url(../assets/uploaded-files/bg-image/backGround.jpg);
   background-size:cover;
   background-repeat:no-repeat;
   /* background-position: center; */
@@ -343,7 +343,7 @@
 .main {
   margin-left: 320px; 
   padding: 0px 10px;
-  background-image: url(../assets/image/thisisengineering.jpg);
+  background-image: url(../assets/uploaded-files/bg-image/backGround.jpg);
   height: 100%;
   background-size:cover;
   background-repeat:no-repeat;

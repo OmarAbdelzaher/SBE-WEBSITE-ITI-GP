@@ -72,7 +72,7 @@ export default function CoursesMenu(isAuthenticated) {
               // <div className="col-lg-2 col-xl-3 align-self-start mt-5 ">
                 // <div className="rounded-4 align-items-start justify-content-left  ">
                   <Link
-                  className="btn btn-md col-6" style={{backgroundColor:"#003049", color:"#ffff"}}
+                  className="btn btn-md col-4" style={{backgroundColor:"#003049", color:"#ffff"}}
                     to="/courseform"
                     // style={btnStyle}
                   >
@@ -135,31 +135,35 @@ export default function CoursesMenu(isAuthenticated) {
                                     {/* Year One Selection Semester One */}
                                     {formData.Semester == "one" ? (
                                       <>
-                                        <label htmlFor="one">
+                                      <div className="d-flex justify-content-center align-items-center row">
+                                        <label htmlFor="one" className="col-12 text-center">
                                           You choose year 1 Semester 1{" "}
-                                        </label>
+                                        </label><br/><br/>
                                         <Link
-                                          className="button btn btn-lg col-12"
+                                          className="button btn btn-lg col-5"
                                           to="/one-smesterone"
                                         >
                                           <button
                                             type="submit"
-                                            className="button ani  mb-1"
+                                            className="button ani  mb-1 "
                                           >
                                             Show Courses
                                           </button>
                                         </Link>
+                                        </div>
                                       </>
                                     ) : null}
 
                                     {/* Year One Selection Semester Two */}
                                     {formData.Semester == "two" ? (
                                       <>
-                                        <label htmlFor="two">
+                                      <div className="d-flex justify-content-center align-items-center row">
+
+                                        <label htmlFor="two" className="col-12 text-center">
                                           You choose year 1 Semester 2{" "}
-                                        </label>
+                                        </label><br/><br/>
                                         <Link
-                                          className="button btn btn-lg col-12"
+                                          className="button btn btn-lg  col-5"
                                           to="/one-smestertwo"
                                         >
                                           <button
@@ -169,6 +173,7 @@ export default function CoursesMenu(isAuthenticated) {
                                             Show Courses
                                           </button>
                                         </Link>
+                                        </div>
                                       </>
                                     ) : null}
                                   </div>
@@ -207,11 +212,13 @@ export default function CoursesMenu(isAuthenticated) {
                                     {/* Year two Selection Semester One */}
                                     {formData.Semester == "one" ? (
                                       <>
-                                        <label htmlFor="one">
+                                      <div className="d-flex justify-content-center align-items-center row">
+
+                                        <label htmlFor="one" className="col-12 text-center">
                                           You choose year 2 Semester 1{" "}
-                                        </label>
+                                        </label><br/><br/>
                                         <Link
-                                          className="button btn btn-lg col-12"
+                                          className="button btn btn-lg col-5"
                                           to="/two-smesterone"
                                         >
                                           <button
@@ -221,17 +228,20 @@ export default function CoursesMenu(isAuthenticated) {
                                             Show Courses
                                           </button>
                                         </Link>
+                                        </div>
                                       </>
                                     ) : null}
 
                                     {/* Year two Selection Semester Two */}
                                     {formData.Semester == "two" ? (
                                       <>
-                                        <label htmlFor="two">
+                                        <div className="d-flex justify-content-center align-items-center row">
+
+                                        <label htmlFor="two" className="col-12 text-center">
                                           You choose year 2 Semester 2{" "}
-                                        </label>
+                                        </label><br/><br/>
                                         <Link
-                                          className="button btn btn-lg col-12"
+                                          className="button btn btn-lg col-5"
                                           to="/two-smestertwo"
                                         >
                                           <button
@@ -241,6 +251,7 @@ export default function CoursesMenu(isAuthenticated) {
                                             Show Courses
                                           </button>
                                         </Link>
+                                        </div>
                                       </>
                                     ) : null}
                                   </div>
@@ -278,11 +289,13 @@ export default function CoursesMenu(isAuthenticated) {
                                     {/* Year Three Selection Smester One*/}
                                     {formData.Semester == "one" ? (
                                       <>
-                                        <label htmlFor="one">
+                                      <div className="d-flex justify-content-center align-items-center row">
+
+                                        <label htmlFor="one" className="col-12 text-center">
                                           You choose year 3 Semester 1{" "}
-                                        </label>
+                                        </label><br/><br/>
                                         <Link
-                                          className="button btn btn-lg col-12"
+                                          className="button btn btn-lg col-5"
                                           to="/three-smesterone"
                                         >
                                           <button
@@ -292,17 +305,20 @@ export default function CoursesMenu(isAuthenticated) {
                                             Show Courses
                                           </button>
                                         </Link>
+                                        </div>
                                       </>
                                     ) : null}
 
                                     {/* Year Three Selection Semester Two  */}
                                     {formData.Semester == "two" ? (
                                       <>
-                                        <label htmlFor="two">
+                                       <div className="d-flex justify-content-center align-items-center row">
+
+                                        <label htmlFor="two" className="col-12 text-center">
                                           You choose year 3 Semester 2{" "}
-                                        </label>
+                                        </label><br/><br/>
                                         <Link
-                                          className="button btn btn-lg col-12"
+                                          className="button btn btn-lg col-5"
                                           to="/three-smestertwo"
                                         >
                                           <button
@@ -312,6 +328,7 @@ export default function CoursesMenu(isAuthenticated) {
                                             Show Courses
                                           </button>
                                         </Link>
+                                        </div>
                                       </>
                                     ) : null}
                                   </div>
@@ -348,11 +365,13 @@ export default function CoursesMenu(isAuthenticated) {
                                     {/* Year Four Selection Semester One */}
                                     {formData.Semester == "one" ? (
                                       <>
-                                        <label htmlFor="one">
+                                      <div className="d-flex justify-content-center align-items-center row">
+
+                                        <label htmlFor="one" className="col-12 text-center">
                                           You choose year 4 Semester 1{" "}
-                                        </label>
+                                        </label><br/><br/>
                                         <Link
-                                          className="button btn btn-lg col-12"
+                                          className="button btn btn-lg col-5"
                                           to="/four-smesterone"
                                         >
                                           <button
@@ -362,23 +381,27 @@ export default function CoursesMenu(isAuthenticated) {
                                             Show Courses
                                           </button>
                                         </Link>
+                                        </div>
                                       </>
                                     ) : null}
 
                                     {/* Year Four Selection Semester Two */}
                                     {formData.Semester == "two" ? (
                                       <>
-                                        <label htmlFor="two">
+                                   <div className="d-flex justify-content-center align-items-center row">
+
+                                        <label htmlFor="two" className="col-12 text-center">
                                           You choose year 4 Semester 2{" "}
-                                        </label>
+                                        </label><br/><br/>
                                         <Link
-                                          className="button btn btn-lg col-12"
+                                          className="button btn btn-lg col-5"
                                           to="/four-smestertwo"
                                         >
                                           <button className="button ani  mb-1">
                                             Show Courses
                                           </button>
                                         </Link>
+                                        </div>
                                       </>
                                     ) : null}
                                   </div>

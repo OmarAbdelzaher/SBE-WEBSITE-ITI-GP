@@ -17,7 +17,7 @@ const Home = () => {
       <div className="home">
         <NavBar />
         <section className="s-one"><div className="img">
-          <h1 className="bg-text d-flex justify-content-center align-items-center">SBE CAIRO UNIVERSITY</h1>
+          <h1 className="bg-text d-flex justify-content-center align-items-center">SBME CAIRO UNIVERSITY</h1>
           </div></section>
         {/* <OfficeHours /> */}
         <News />

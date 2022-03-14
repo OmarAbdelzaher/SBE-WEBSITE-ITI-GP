@@ -1,7 +1,5 @@
 import React from "react";
-import DataNews from "./DataNews";
 import "./cards.css";
-import img from "../assets/image/new.jpg";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -34,7 +32,7 @@ export default function News() {
   return (
     <>
       <section id="allnews" className="news-section">
-        <h1 className=" text-center">SBE NEWS </h1>
+        <h1 className=" text-center">SBME NEWS </h1>
 
         <div className="container ">
           <div className="row">

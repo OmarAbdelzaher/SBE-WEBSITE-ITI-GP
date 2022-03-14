@@ -93,7 +93,7 @@ function ReservationApprov() {
   return (
     <>
       <section className=" main">
-        <div className="container py-5">
+        <div className="container ">
           <div className="row d-flex justify-content-center align-items-center h-100 ">
             <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
               <div className="sidebar justify-content-center">

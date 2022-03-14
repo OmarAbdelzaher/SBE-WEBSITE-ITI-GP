@@ -312,7 +312,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                       <div className="col-md-6 mb-4">
                         <h6 className="mb-2 pb-1">Gender: </h6>
                         <div onChange={(e) => onChange(e)}>
-                          <input type="radio" value="M" name="gender" /> Male
+                          <input type="radio" value="M" name="gender" /> Male {" "} <br/>
                           <input type="radio" value="F" name="gender" /> Female
                         </div>
                       </div>

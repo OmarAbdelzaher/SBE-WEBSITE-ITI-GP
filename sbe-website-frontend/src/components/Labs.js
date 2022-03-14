@@ -6,7 +6,6 @@ import AdminNav from "../components/AdminNav";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import background from '../assets/image/Fac_eng.jpg'
 import Nav from "react-bootstrap/Nav";
 
 import {
@@ -112,7 +111,7 @@ export default function Labs() {
                 </table>
               </div>
             </div>
-            <div className="margin-bottom"></div>
+            <div className="margin-b"></div>
           </div>
         </div>
       </section>

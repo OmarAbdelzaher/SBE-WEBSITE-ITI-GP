@@ -21,7 +21,7 @@ import {
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
-export const load_user = () => async (dispatch) => {
+export const load_user = () => async dispatch => {
   if (localStorage.getItem("access")) {
     const config = {
       headers: {
@@ -46,7 +46,8 @@ export const load_user = () => async (dispatch) => {
         type: USER_LOADED_FAIL,
       });
     }
-  } else {
+  } 
+  else {
     dispatch({
       type: USER_LOADED_FAIL,
     });
@@ -78,7 +79,6 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch(load_user());
   } catch (err) {
-    // console.log(err.response.data.detail)
     dispatch({
       type: LOGIN_FAIL,
       payload: err.response.data.detail,

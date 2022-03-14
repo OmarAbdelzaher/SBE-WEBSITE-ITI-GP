@@ -5,7 +5,12 @@ import axios from "axios";
 import { Linking, Text, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCirclePlus,
+  faDownload,
+  faLink,
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
 
 let flag = false;
 
@@ -87,8 +92,7 @@ function CourseDetails(isAuthenticated) {
     setFilesList(list);
   };
 
-  // const onChange = (e) =>
-  //   course.materials = e.target.value ;
+  const onChange = (e) => (course.materials = e.target.value);
 
   const handleSubmit = (e, type) => {
     // e.preventDefault();
@@ -171,116 +175,171 @@ function CourseDetails(isAuthenticated) {
 
   return (
     <>
-      <section className=" h-custom py-5">
+      <section className="h-custom">
         <div className="container ">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
-              <div className="">
-                <div className="card-body p-4 p-md-5">
-                  <h1 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 bg-light rounded text-center nav-links border border-dark">
-                    {course.name}
-                  </h1>
-                </div>
-
+          <div className="row d-flex justify-content-center align-items-center">
+            <div className="col-lg-8 col-xl-8 card rounded-3 courses-b border border-2 border-light">
+              <div className="card-body p-4 ">
+                <h1 className="mb-4 pb-2 pb-md-0  px-md-2 bg-light rounded text-center nav-links ">
+                  {course.name}
+                </h1>
                 {/* Assign Button  */}
+                {/* <div className="rounded-4 align-items-start justify-content-left  "> */}
                 {is_staff || isAdmin || isCoordinator ? (
-                  <div className="rounded-4 align-items-start justify-content-left  ">
-                    <Link
-                      className="button btn btn-lg "
-                      to={`/assigncourse/${course.id}/${course.name}/`}
-                      
-                    >
-                      <button className="button   ">
-                        <FontAwesomeIcon icon={faCirclePlus} />
-                        {"  "}
-                        Assign Course
-                      </button>
-                    </Link>
+                  <div>
+                <Link
+                  className="btn btn-md col-3"
+                  style={{ backgroundColor: "#003049", color: "#ffff" }}
+                  to={`/assigncourse/${course.id}/${course.name}/`}
+                >
+                  <FontAwesomeIcon icon={faCirclePlus} />
+                  {"  "}
+                  Assign Course
+                </Link>
+                </div>
+                ):null}
+              </div>
+              <div className="row justify-content-center align-items-center ">
+                <div className="col-6">
+                  <div className=" cards card col-12">
+                    <h2 className="card-title py-3 text-center text-dark">
+                      Course Instructions
+                    </h2>
+                    <p className="col-12 card-text fs-4 text-dark text-center">
+                      {course.instructions}
+                    </p>
                   </div>
-                ) : null}
-
-                <div className="row justify-content-center align-items-center">
-                  <div className="row col-6  ">
-                    <div className="col-12 card cards justify-content-center align-items-center ">
-                      <h2 className="col-12 card-title bg-light py-3 text-dark">
-                        Course Instructions
-                      </h2>
-                      <p className="col-12 card-text fs-4 text-dark">
-                        {course.instructions}
-                      </p>
-                    </div>
-
-                    <div className="btn button col-12 card cards justify-content-center align-items-center ">
+                  <div className=" row col-12">
+                  <div className="col-12">
+                    <button className="button btn cards ">
                       <Link
-                        className="btn button fs-4"
+                        style={{ textDecoration: "none", color: "#ffff" }}
+                        className="ani fs-5"
                         to={`/course-history/${course.id}`}
                       >
                         Show Course History
                       </Link>
-                    </div>
+                    </button>
                   </div>
+                </div>
+                </div>
+                <div className="col-6">
+                  <div className="col-12  ">
+                    {/* <div className=" py-3 "> */}
+                    <div className="row card cards border border-2 d-flex justify-content-center align-items-center">
+                      <div className="py-3 col-12">
+                        <h3 className="card-title text-dark  py-2">
+                          Materials
+                        </h3>
+                      </div>
+                      <div className="row text-center d-flex justify-content-center align-items-center ">
+                        <div className="col-12">
+                          {/* {upload materials} */}
 
-                  <div className=" row col-4 offset-1">
-                    <div className="row card cards col-10 text-center border border-2 ">
-                      <h3 className="card-body col-12 nav-links">Materials</h3>
-                      {course.materials ? (
-                        <TouchableOpacity>
-                          <Text
-                            className="card-text col-12 "
-                            style={{ color: "#03045e" }}
-                            onPress={() => Linking.openURL(course.materials)}
-                          >
-                            Material Link
-                          </Text>
-                        </TouchableOpacity>
-                      ) : (
-                        <p className="text-danger">
-                          No Materials link available yet
-                        </p>
-                      )}
+                          {is_staff || isAdmin || isCoordinator ? (
+                            <div>
+                              <form
+                                onSubmit={(event) => handleSubmit(event, "mat")}
+                                action="/coursesMenu"
+                              >
+                                <label style={{ color: "#003049" }}>
+                                  <FontAwesomeIcon icon={faLink} /> Material
+                                  Link
+                                </label>{" "}
+                                <input
+                                  className="col-12"
+                                  name="material-link"
+                                  type="text"
+                                  value={course.materials}
+                                  onChange={(e) => onChange(e)}
+                                />
+                                <br />
+                                <br />
+                                <div className=" d-flex justify-content-center align-items-center">
+                                  <input
+                                    className="col-5"
+                                    type="file"
+                                    multiple
+                                    onChange={(event) =>
+                                      handleChangeFile(event, "mat")
+                                    }
+                                  />
+                                  <br />
+                                  <br />
+                                  <button
+                                    type="submit"
+                                    className="btn btn-md col-7"
+                                    style={{
+                                      // backgroundColor:"#003049",
 
-                      {/* {upload materials} */}
-
-                      {is_staff || isAdmin || isCoordinator ? (
-                        <div>
-                          <form
-                            onSubmit={(event) => handleSubmit(event, "mat")}
-                            action="/coursesMenu"
-                          >
-                            <label className="text-primary">
-                              Material Link
-                            </label>
-                            <br />
-                            <input name="material-link" type="text" value="" />
-                            <br />
-                            <input
-                              type="file"
-                              multiple
-                              onChange={(event) =>
-                                handleChangeFile(event, "mat")
-                              }
-                            />
-                            <button type="submit" className="btn btn-success">
-                              Upload Materials
-                            </button>
-                          </form>
+                                      color: "#003049",
+                                    }}
+                                  >
+                                    <FontAwesomeIcon icon={faUpload} />
+                                    Upload Materials
+                                  </button>
+                                </div>
+                                <br />
+                              </form>
+                            </div>
+                          ) : null}
                         </div>
-                      ) : null}
 
-                      {/* {download materials} */}
+                        <div className="col-12 text-center">
+                          {course.materials ? (
+                            <TouchableOpacity>
+                              <Text
+                                className="card-text "
+                                style={{
+                                  color: "#03045e",
+                                  fontSize: "21px",
+                                }}
+                                onPress={() =>
+                                  Linking.openURL(course.materials)
+                                }
+                              >
+                                Click to Material Link
+                              </Text>
+                            </TouchableOpacity>
+                          ) : (
+                            <p
+                              className="card-text fs-6"
+                              style={{ color: "red" }}
+                            >
+                              No Materials link available yet
+                            </p>
+                          )}
 
-                      <button className="btn btn-lg col-12 button">
-                        <a
-                          className="button nav-links text-light"
-                          onClick={() => handlePDFDownload("materials")}
-                        >
-                          Download
-                        </a>
-                      </button>
+                          {/* {download materials} */}
+                          <br />
+                          <button
+                            className="btn btn-md col-8"
+                            style={{ backgroundColor: "#003049" }}
+                          >
+                            <Link
+                              style={{
+                                textDecoration: "none",
+                                color: "#ffff",
+                              }}
+                              onClick={() => handlePDFDownload("materials")}
+                            >
+                              <FontAwesomeIcon icon={faDownload} />
+                              {"  "}
+                              Download
+                            </Link>
+                          </button>
+                          <br />
+                          <br />
+                        </div>
+                      </div>
                     </div>
-
-                    <div className="row card cards col-10 text-center border border-2 ">
-                      <h3 className="card-body col-12 nav-links">Grades</h3>
+                    {/* </div> */}
+                  </div>
+                  <div className="col-12">
+                    <div className="row card cards border border-2 d-flex justify-content-center align-items-center">
+                      <h3 className="card-title py-3 col-12 text-dark ">
+                        Grades
+                      </h3>
 
                       {/* {upload grades} */}
 
@@ -289,15 +348,25 @@ function CourseDetails(isAuthenticated) {
                           <form
                             onSubmit={(event) => handleSubmit(event, "grades")}
                           >
-                            <input
-                              type="file"
-                              onChange={(event) =>
-                                handleChangeFile(event, "grades")
-                              }
-                            />
-                            <button type="submit" className="btn btn-success">
-                              Upload Grades
-                            </button>
+                            <div className=" d-flex justify-content-center align-items-center">
+                              <input
+                                className="col-5"
+                                type="file"
+                                onChange={(event) =>
+                                  handleChangeFile(event, "grades")
+                                }
+                              />
+                              <button
+                                type="submit"
+                                className="btn btn-md col-7"
+                                style={{
+                                  color: "#003049",
+                                }}
+                              >
+                                <FontAwesomeIcon icon={faUpload} /> Upload
+                                Grades
+                              </button>
+                            </div>
                             {isExist ? (
                               <p className="text-danger">
                                 This file Already Exists
@@ -309,22 +378,38 @@ function CourseDetails(isAuthenticated) {
 
                       {/* {download grades} */}
                       {course.stds_grades ? (
-                        <div>
+                        <div className="d-flex justify-content-center align-items-center">
+                          <br/>
                           <button
-                            className="btn btn-lg col-12 button"
+                            className="btn btn-md col-6 "
+                            style={{ backgroundColor: "#003049" }}
                             onClick={() => handlePDFDownload("grades")}
                           >
-                            <a className="button nav-links text-light">
-                              Download Grades
-                            </a>
-                          </button>
+                            <Link
+                              style={{
+                                textDecoration: "none",
+                                color: "#ffff",
+                              }}
+                            >
+                              <FontAwesomeIcon icon={faDownload} />
+                              {"  "}
+                              Download
+                            </Link>
+                          </button> <br/><br/><br/>
                         </div>
                       ) : (
-                        <p className="text-danger">No Grades uploaded yet</p>
+                        <p
+                          className="card-text col-12 d-flex justify-content-center align-items-center"
+                          style={{ color: "red" }}
+                        >
+                          No Grades uploaded yet
+                        </p>
+                         
                       )}
                     </div>
                   </div>
                 </div>
+                
               </div>
             </div>
           </div>
