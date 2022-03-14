@@ -167,9 +167,7 @@ function CourseDetails(isAuthenticated) {
       }
     }
   };
-  const btnStyle = {
-    marginTop: "45px",
-  };
+
 
   return (
     <>
@@ -184,6 +182,23 @@ function CourseDetails(isAuthenticated) {
                   </h1>
                 </div>
 
+                {/* Assign Button  */}
+                {is_staff || isAdmin || isCoordinator ? (
+                  <div className="rounded-4 align-items-start justify-content-left  ">
+                    <Link
+                      className="button btn btn-lg "
+                      to={`/assigncourse/${course.id}/${course.name}/`}
+                      
+                    >
+                      <button className="button   ">
+                        <FontAwesomeIcon icon={faCirclePlus} />
+                        {"  "}
+                        Assign Course
+                      </button>
+                    </Link>
+                  </div>
+                ) : null}
+
                 <div className="row justify-content-center align-items-center">
                   <div className="row col-6  ">
                     <div className="col-12 card cards justify-content-center align-items-center ">
@@ -193,20 +208,6 @@ function CourseDetails(isAuthenticated) {
                       <p className="col-12 card-text fs-4 text-dark">
                         {course.instructions}
                       </p>
-                    </div>
-                    {/* Assign Button  */}
-                    <div className="rounded-4 align-items-start justify-content-left  ">
-                      <Link
-                        className="button btn btn-lg "
-                        to={`/assigncourse/${course.id}/${course.name}/`}
-                        style={btnStyle}
-                      >
-                        <button className="button   ">
-                          <FontAwesomeIcon icon={faCirclePlus} />
-                          {"  "}
-                          Assign Course
-                        </button>
-                      </Link>
                     </div>
 
                     <div className="btn button col-12 card cards justify-content-center align-items-center ">
@@ -222,18 +223,21 @@ function CourseDetails(isAuthenticated) {
                   <div className=" row col-4 offset-1">
                     <div className="row card cards col-10 text-center border border-2 ">
                       <h3 className="card-body col-12 nav-links">Materials</h3>
-                      {course.materials ? 
-                      <TouchableOpacity>
-                        <Text
-                          className="card-text col-12 "
-                          style={{ color: "#03045e" }}
-                          onPress={() => Linking.openURL(course.materials)}
-                        >
-                          Material Link
-                        </Text>
-                      </TouchableOpacity>
-                      : <p className="text-danger">No Materials link available yet</p>
-                      }
+                      {course.materials ? (
+                        <TouchableOpacity>
+                          <Text
+                            className="card-text col-12 "
+                            style={{ color: "#03045e" }}
+                            onPress={() => Linking.openURL(course.materials)}
+                          >
+                            Material Link
+                          </Text>
+                        </TouchableOpacity>
+                      ) : (
+                        <p className="text-danger">
+                          No Materials link available yet
+                        </p>
+                      )}
 
                       {/* {upload materials} */}
 
@@ -243,9 +247,12 @@ function CourseDetails(isAuthenticated) {
                             onSubmit={(event) => handleSubmit(event, "mat")}
                             action="/coursesMenu"
                           >
-                            <label className="text-primary">Material Link</label><br/>
-                            <input name="material-link" type="text" value=""/>
-                            <br/>
+                            <label className="text-primary">
+                              Material Link
+                            </label>
+                            <br />
+                            <input name="material-link" type="text" value="" />
+                            <br />
                             <input
                               type="file"
                               multiple

@@ -42,7 +42,7 @@ const CourseHistory = () => {
                         key={item.course_id}
                       >
                         <h2 className="bg-light py-3 nav-links">Year: {item.year}</h2>{" "}
-                        <h3 className="col-12">Dr: {item.staff_id}</h3>
+                        <h3 className="col-12">Dr: {`${item.staff_id }`}</h3>
                           <a href={item.materials}>Materials Link </a>
                       </div>
                     </>
