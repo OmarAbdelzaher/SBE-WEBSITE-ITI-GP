@@ -28,11 +28,6 @@ function Profile(isAuthenticated) {
     title: "",
     role: "",
     bio: "",
-
-    is_active:"",
-    is_coordinator:"",
-    is_admin:"",
-    is_moderator:"",
   });
 
   if (who.user != null) {
@@ -59,106 +54,7 @@ function Profile(isAuthenticated) {
       setUser(res.data)
     })
   }, []);
-   
-  const validate = (values) => {
-    const errors = {};
-    if (!values.fname) {
-      errors.fname = "First Name is Required";
-    }
-    if (!values.lname) {
-      errors.lname = "Last Name is Required";
-    }
-    if (!values.email) {
-      errors.email = "Email is required !";
-    } else if (!pattern_email.test(values.email)) {
-      errors.email = "Email is invalid !";
-    }
-    if (!values.phone_number) {
-      errors.phone_number = "Phone Number is required";
-    } else if (values.phone_number.length != 11) {
-      errors.phone_number = "Phone Number must be 11 digits";
-    }
-    if (!values.address) {
-      errors.address = " Address is required ";
-    }
-    var now = new Date();
-    var birthdate = new Date(values.birthdate);
-    if (!values.birthdate) {
-      errors.birthdate = "BirthDate is required";
-    } else if (birthdate.getTime() > now.getTime()) {
-      errors.birthdate = "Enter a valid birth date which is a past date ";
-    }
-    return errors;
-  };
 
-  const onChange = (e) => setUser({ ...User, [e.target.name]: e.target.value });
-
-  const [picture, setPicture] = useState(null);
-  const [imgData, setImgData] = useState(null);
-
-  const onChangePicture = (e) => {
-    if (e.target.files[0]) {
-      console.log("picture: ", e.target.files);
-      setChanged(true);
-      setPicture(e.target.files[0]);
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        setImgData(reader.result);
-      });
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    let errors_form = validate(User);
-    setFormErrors(errors_form);
-
-    if (Object.keys(errors_form).length === 0) {
-      const Data = new FormData();
-
-      if (who.user.role == "student") {
-        //Repeated Line
-        Url = StudentUrl;
-        Data.append("year_of_graduation", User.year_of_graduation);
-        Data.append("graduate", User.graduate);
-      } else if (who.user.role == "dr" || who.user.role == "ta") {
-        //Repeated Line
-        Url = StaffUrl;
-        Data.append("bio", User.bio);
-      } else if ((who.user.role = "employee")) {
-        //Repeated Line
-        Url = EmpUrl;
-        Data.append("title", User.title);
-      }
-
-      if (changed == true) {
-        User.profile_img = picture;
-      }
-      
-      console.log(User.profile_img)
-
-      Data.append("fname", User.fname);
-      Data.append("lname", User.lname);
-      Data.append("email", User.email);
-      Data.append("profile_img", User.profile_img);
-      Data.append("address", User.address);
-      Data.append("gender", User.gender);
-      Data.append("birthdate", User.birthdate);
-      Data.append("phone_number", User.phone_number);
-      Data.append("password", User.password);
-      Data.append("role", User.role);
-      Data.append("is_active", true);
-
-
-      axios
-        .put(Url, Data)
-        .then((res) => {
-          history.push("/");
-        })
-        .catch((e) => console.log(e));
-    }
-  };
 
   return (
     <section className="py-5 h-150 h-custom">
