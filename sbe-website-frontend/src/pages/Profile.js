@@ -6,11 +6,10 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
-
 function Profile(isAuthenticated) {
   const who = useSelector((state) => state.auth);
   const history = useHistory();
-  const [changed,setChanged]=useState(false)
+  const [changed, setChanged] = useState(false);
 
   let StudentUrl = "";
   let StaffUrl = "";
@@ -24,19 +23,18 @@ function Profile(isAuthenticated) {
     email: "",
     profile_img: "",
     gender: "",
-    address:  "",
-    birthdate:"",
-    phone_number:  "",
+    address: "",
+    birthdate: "",
+    phone_number: "",
     password: "",
     graduate: "",
     year_of_graduation: "",
-
     title: "",
-
     role: "",
-  })
+    bio: "",
+  });
 
-  const [FormErrors,setFormErrors] = useState({})
+  const [FormErrors, setFormErrors] = useState({});
   const pattern_email = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
@@ -55,13 +53,20 @@ function Profile(isAuthenticated) {
       Url = EmpUrl;
     }
 
-    if(who.user.is_admin){
-      Url = PersonUrl
+    if (who.user.is_admin) {
+      Url = PersonUrl;
     }
   }
 
-  const validate = (values) =>{
-    const errors = {}
+  useEffect(() => {
+    axios.get(Url).then((res) => {
+      setUser(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
+  const validate = (values) => {
+    const errors = {};
     if (!values.fname) {
       errors.fname = "First Name is Required";
     }
@@ -70,102 +75,87 @@ function Profile(isAuthenticated) {
     }
     if (!values.email) {
       errors.email = "Email is required !";
-
     } else if (!pattern_email.test(values.email)) {
       errors.email = "Email is invalid !";
     }
-    if (!values.phone_number){
+    if (!values.phone_number) {
       errors.phone_number = "Phone Number is required";
-
-    } else if (values.phone_number.length != 11 )
-    {
-      errors.phone_number = "Phone Number must be 11 digits"  
+    } else if (values.phone_number.length != 11) {
+      errors.phone_number = "Phone Number must be 11 digits";
     }
-    if (!values.address)
-    {
-      errors.address = " Address is required "
+    if (!values.address) {
+      errors.address = " Address is required ";
     }
     var now = new Date();
-    var birthdate = new Date(values.birthdate)
-    if(!values.birthdate)
-    {
-      errors.birthdate = "BirthDate is required"
+    var birthdate = new Date(values.birthdate);
+    if (!values.birthdate) {
+      errors.birthdate = "BirthDate is required";
+    } else if (birthdate.getTime() > now.getTime()) {
+      errors.birthdate = "Enter a valid birth date which is a past date ";
     }
-    else if(birthdate.getTime() > now.getTime() )
-    {
-      errors.birthdate = "Enter a valid birth date which is a past date "
-    } 
-    return errors
-  }
-
-  
-  useEffect(() => {
-    axios.get(Url).then((res)=>{
-      setUser(res.data)
-    })
-  }, []);
+    return errors;
+  };
 
   const onChange = (e) => setUser({ ...User, [e.target.name]: e.target.value });
 
-
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
-  const onChangePicture = e => {
+  const onChangePicture = (e) => {
     if (e.target.files[0]) {
       console.log("picture: ", e.target.files);
-      setChanged(true)
+      setChanged(true);
       setPicture(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener("load", () => {
         setImgData(reader.result);
       });
       reader.readAsDataURL(e.target.files[0]);
-      
     }
   };
 
-
   const onSubmit = (e) => {
     e.preventDefault();
-    let errors_form = validate(User)
-    setFormErrors(errors_form)
+    let errors_form = validate(User);
+    setFormErrors(errors_form);
 
-    if ( Object.keys(errors_form).length === 0  )
-    {
-    const Data = new FormData();
+    if (Object.keys(errors_form).length === 0) {
+      const Data = new FormData();
 
-    if (who.user.role == "student") {
-      //Repeated Line
-      Url = StudentUrl;
-      Data.append("year_of_graduation", User.year_of_graduation);
-      Data.append("graduate", User.graduate);
-    } else if (who.user.role == "dr" || who.user.role == "ta") {
-      //Repeated Line
-      Url = StaffUrl;
-    } else if ((who.user.role = "employee")) {
-      //Repeated Line
-      Url = EmpUrl;
-      Data.append("title", User.title);
-    }
+      if (who.user.role == "student") {
+        //Repeated Line
+        Url = StudentUrl;
+        Data.append("year_of_graduation", User.year_of_graduation);
+        Data.append("graduate", User.graduate);
+      } else if (who.user.role == "dr" || who.user.role == "ta") {
+        //Repeated Line
+        Url = StaffUrl;
+        Data.append("bio", User.bio);
+      } else if ((who.user.role = "employee")) {
+        //Repeated Line
+        Url = EmpUrl;
+        Data.append("title", User.title);
+      }
 
-    if(changed==true){
-      User.profile_img=picture
-    }
-    Data.append("fname", User.fname);
-    Data.append("lname", User.lname);
-    Data.append("email", User.email);
-    Data.append("profile_img", User.profile_img);
-    Data.append("address", User.address);
-    Data.append("gender", User.gender);
-    Data.append("birthdate", User.birthdate);
-    Data.append("phone_number", User.phone_number);
-    Data.append("password", User.password);
-    Data.append("role", User.role);
+      if (changed == true) {
+        User.profile_img = picture;
+      }
+      Data.append("fname", User.fname);
+      Data.append("lname", User.lname);
+      Data.append("email", User.email);
+      Data.append("profile_img", User.profile_img);
+      Data.append("address", User.address);
+      Data.append("gender", User.gender);
+      Data.append("birthdate", User.birthdate);
+      Data.append("phone_number", User.phone_number);
+      Data.append("password", User.password);
+      Data.append("role", User.role);
 
-
-      axios.put(Url, Data).then((res)=>{
-        history.push("/");
-      }).catch((e)=>console.log(e))
+      axios
+        .put(Url, Data)
+        .then((res) => {
+          history.push("/");
+        })
+        .catch((e) => console.log(e));
     }
   };
 
@@ -187,11 +177,12 @@ function Profile(isAuthenticated) {
                               height: "140px",
                             }}
                           >
-                            <img  style={{ width: "140px" }} src={User.profile_img}/>
+                            <img
+                              style={{ width: "140px" }}
+                              src={User.profile_img}
+                            />
 
-                          <div>
-                          </div>
-                          
+                            <div></div>
                           </div>
                           <div className="text-muted">
                             <small>Last login 2 hours ago</small>
@@ -207,8 +198,11 @@ function Profile(isAuthenticated) {
                           <p className="mb-2">{User.graduate}</p>
                           <div className="mt-2 button">
                             <button className="btn text-light" type="button">
-                             <input type="file" onChange={onChangePicture} />
-                             <FontAwesomeIcon className="fs-4" icon={faCamera} />{" "}
+                              <input type="file" onChange={onChangePicture} />
+                              <FontAwesomeIcon
+                                className="fs-4"
+                                icon={faCamera}
+                              />{" "}
                             </button>
                           </div>
                         </div>
@@ -243,7 +237,7 @@ function Profile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.fname }</p>
+                              <p className="text-danger">{FormErrors.fname}</p>
                             </div>
                             <div className="col">
                               <div className="form-group">
@@ -257,7 +251,7 @@ function Profile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.lname }</p>
+                              <p className="text-danger">{FormErrors.lname}</p>
                             </div>
                           </div>
                           <br></br>
@@ -274,7 +268,7 @@ function Profile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.email }</p>
+                              <p className="text-danger">{FormErrors.email}</p>
                             </div>
                           </div>
                           <br></br>
@@ -312,7 +306,9 @@ function Profile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.phone_number }</p>
+                              <p className="text-danger">
+                                {FormErrors.phone_number}
+                              </p>
                             </div>
                           </div>
                           <br></br>
@@ -329,7 +325,9 @@ function Profile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.address }</p>
+                              <p className="text-danger">
+                                {FormErrors.address}
+                              </p>
                             </div>
                           </div>
                           <br></br>
@@ -346,13 +344,32 @@ function Profile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.birthdate }</p>
+                              <p className="text-danger">
+                                {FormErrors.birthdate}
+                              </p>
                             </div>
                           </div>
                           <br></br>
-                          <div className="row">
-                            <br></br>
-                          </div>
+                          { who.user.role == "dr" || who.user.role == "ta" ? 
+                            <div className="row">
+                              <div className="col">
+                                <div className="form-group">
+                                  <label>Bio</label>
+                                  <textarea
+                                    className="form-control"
+                                    type="text"
+                                    name="bio"
+                                    rows="5"
+                                    cols="50"
+                                    value={User.bio}
+                                    onChange={(e) => onChange(e)}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            : null
+                          }
+                          <br></br>
                           <div className="row">
                             <div className="col d-flex justify-content-end">
                               <button
