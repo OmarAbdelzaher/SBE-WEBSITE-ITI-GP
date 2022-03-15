@@ -101,8 +101,7 @@ export default function(state = initialState, action) {
         case AUTHENTICATED_FAIL:
             return {
                 ...state,
-                isAuthenticated: false , 
-
+                isAuthenticated: false ,
             }
         case PASSWORD_RESET_SUCCESS:
         case PASSWORD_RESET_FAIL:
