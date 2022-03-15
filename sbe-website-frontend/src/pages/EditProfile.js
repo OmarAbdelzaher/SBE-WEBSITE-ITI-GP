@@ -9,8 +9,17 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 function EditProfile(isAuthenticated) {
   const who = useSelector((state) => state.auth);
+  const [is_staff, setIs_staff] = useState(false);
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+
   const history = useHistory();
   const [changed,setChanged]=useState(false)
+
+  let flag = false;
 
   let StudentUrl = "";
   let StaffUrl = "";
@@ -34,12 +43,45 @@ function EditProfile(isAuthenticated) {
     title: "",
 
     role: "",
+
+    is_active:"",
+    is_coordinator:"",
+    is_moderator:"",
+    is_admin:""
+
   })
 
   const [FormErrors,setFormErrors] = useState({})
   const pattern_email = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
+
+  useEffect(() => {
+    if (isAuthenticated && who.user != null && flag == false) {
+      console.log(who.user)
+      if (who.user.role == "dr" || who.user.role == "ta") {
+        setIs_staff(true);
+        if (who.user.is_coordinator) {
+          setIsCoordinator(true);
+        }
+        flag = true;
+      }
+
+      if (who.user.role == "employee") {
+        setIsEmp(true);
+        if (who.user.is_moderator) {
+          setIsModerator(true);
+        }
+      }
+
+      if (who.user.is_admin) {
+        setIsAdmin(true);
+      }
+      if (who.user.is_active) {
+        setIsActive(true);
+      }
+    }
+  });
 
   if (who.user != null) {
     StudentUrl = `http://localhost:8000/api/student/${who.user.id}`;
@@ -51,12 +93,12 @@ function EditProfile(isAuthenticated) {
       Url = StudentUrl;
     } else if (who.user.role == "dr" || who.user.role == "ta") {
       Url = StaffUrl;
-    } else if ((who.user.role = "employee")) {
+    } else if (who.user.role == "employee") {
       Url = EmpUrl;
     }
-
-    if(who.user.is_admin){
-      Url = PersonUrl
+    
+    if (who.user.is_admin){
+      Url = PersonUrl;
     }
   }
 
@@ -100,6 +142,9 @@ function EditProfile(isAuthenticated) {
 
   
   useEffect(() => {
+    console.log(who.user.is_admin)
+    console.log(Url)
+
     axios.get(Url).then((res)=>{
       setUser(res.data)
     })
@@ -127,6 +172,7 @@ function EditProfile(isAuthenticated) {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    
     let errors_form = validate(User)
     setFormErrors(errors_form)
 
@@ -147,14 +193,37 @@ function EditProfile(isAuthenticated) {
       Url = EmpUrl;
       Data.append("title", User.title);
     }
+    if (who.user.is_admin){
+      Url = PersonUrl;
+    }
 
     if(changed==true){
       User.profile_img=picture
+      Data.append("profile_img", User.profile_img);
     }
+
+    if(isAdmin){
+      Data.append("is_admin", isAdmin);
+    }
+    if(isCoordinator){
+      Data.append("is_coordinator", isCoordinator);
+    }
+    if(isModerator){
+      Data.append("is_moderator", isModerator);
+    }
+    if(is_staff){
+      Data.append("is_staff", is_staff);
+    }
+    if(is_emp){
+      Data.append("is_emp", is_emp);
+    }
+    if(isActive){
+      Data.append("is_active",isActive)
+    }
+
     Data.append("fname", User.fname);
     Data.append("lname", User.lname);
     Data.append("email", User.email);
-    Data.append("profile_img", User.profile_img);
     Data.append("address", User.address);
     Data.append("gender", User.gender);
     Data.append("birthdate", User.birthdate);
@@ -162,9 +231,8 @@ function EditProfile(isAuthenticated) {
     Data.append("password", User.password);
     Data.append("role", User.role);
 
-
       axios.put(Url, Data).then((res)=>{
-        history.push("/");
+        history.push("/profilepage");
       }).catch((e)=>console.log(e))
     }
   };
@@ -192,9 +260,6 @@ function EditProfile(isAuthenticated) {
                           <div>
                           </div>
                           
-                          </div>
-                          <div className="text-muted">
-                            <small>Last login 2 hours ago</small>
                           </div>
                         </div>
                       </div>
@@ -278,26 +343,6 @@ function EditProfile(isAuthenticated) {
                             </div>
                           </div>
                           <br></br>
-
-                          <div className="col-md-6 mb-4">
-                            <h6 className="mb-2 pb-1">Gender: </h6>
-                            <div onChange={(e) => onChange(e)}>
-                              <input
-                                type="radio"
-                                value="M"
-                                name="gender"
-                                checked={User.gender === "M"}
-                              />{" "}
-                              Male
-                              <input
-                                type="radio"
-                                value="F"
-                                name="gender"
-                                checked={User.gender === "F"}
-                              />{" "}
-                              Female
-                            </div>
-                          </div>
 
                           <div className="row">
                             <div className="col">
