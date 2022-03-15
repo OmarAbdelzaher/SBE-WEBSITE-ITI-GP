@@ -62,8 +62,12 @@ urlpatterns = [
     path('uploadmaterial/<int:pk>',MaterialfileDetailsView.as_view()),
     
     path('lecschedules/',LecSchedulesList.as_view()),
+    path('lecschedulesundergraduate/',LecSchedulesUnderGraduate.as_view()),
+    path('lecschedulesgraduate/',LecSchedulesGraduate.as_view()),
     path('lecschedule/<int:pk>',LecSchedulesDetails.as_view()),
     path('examschedules/',ExamSchedulesList.as_view()),
+    path('examschedulesgraduate/',ExamSchedulesGraduate.as_view()),
+    path('examschedulesundergraduate/',ExamSchedulesUnderGraduate.as_view()),
     path('examschedule/<int:pk>',ExamSchedulesDetails.as_view()),
     path('download-exam-lec/<str:year>/<str:type>',DownloadPDFSchedules, name='download_pdf'),
 

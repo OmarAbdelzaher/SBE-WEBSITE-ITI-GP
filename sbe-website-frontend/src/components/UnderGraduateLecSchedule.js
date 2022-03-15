@@ -47,7 +47,7 @@ function UnderGraduateLecSchedule(isAuthenticated) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/lecschedules/").then((res) => {
+    axios.get("http://localhost:8000/api/lecschedulesundergraduate/").then((res) => {
       setYearOneSchedule(res.data.filter((y1) => y1.year == "Year 1"));
       setYearTwoSchedule(res.data.filter((y2) => y2.year == "Year 2"));
       setYearThreeSchedule(res.data.filter((y3) => y3.year == "Year 3"));
@@ -108,16 +108,16 @@ function UnderGraduateLecSchedule(isAuthenticated) {
 
   return (
     <>
-      <section className="h-custom py-5">
-        <div className="container ">
+      <section className="h-custom">
+        <div className="container">
           <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
+            <div className="col-lg-8 col-xl-8 card rounded-3 courses-b border border-2 border-light">
               <div className="">
                 <div className="card-body ">
-                  <p className="fs-2">Lectures Schedule</p>
+                  <p className="fs-2 text-light">Lectures Schedule</p>
                 </div>
                 <div>
-                  <table className="table table-bordered border-primary bg-light fs-4 col-12">
+                  <table className="table table-bordered  bg-light fs-4 col-12">
                     <thead>
                       <tr className="text-dark">
                         <th>Year</th>
@@ -133,8 +133,15 @@ function UnderGraduateLecSchedule(isAuthenticated) {
                               <Link className="admin-tables" to="#">{schedule.year.split(" ")[1]}</Link>
                             </td>
                             <td>
+                              <div className="row">
+                                <div className="col-5">
                               <Link to="#">
-                                <button className="btn button" onClick={()=>handlePDFDownload(schedule)}>
+                                <button  className="btn btn-md "
+                                  style={{
+                                    color: "#ffff",
+                                    background:"#003049"
+                                  }}
+                                   onClick={()=>handlePDFDownload(schedule)}>
                                   <FontAwesomeIcon
                                     className="fs-5"
                                     icon={faDownload}
@@ -142,15 +149,21 @@ function UnderGraduateLecSchedule(isAuthenticated) {
                                   Download Schedule
                                 </button>
                               </Link>
-
+                              </div>
                               {isModerator || isAdmin || isCoordinator ? (
-                                <div>
+                                <div className="col-7">
                                   <form onSubmit={(event) => handleSubmit(event,schedule)}>
                                     <input
+                                      className="col-6 btn btn-md"
                                       type="file"
                                       onChange={(event) => handleChangeFile(event,schedule)}
                                     />
-                                    <button className="btn button">
+                                    <button
+                                      type="submit"
+                                      className="btn btn-md col-6"
+                                      style={{
+                                        color: "#003049",
+                                      }}>
                                         <FontAwesomeIcon
                                           className="fs-5"
                                           icon={faUpload}
@@ -164,6 +177,7 @@ function UnderGraduateLecSchedule(isAuthenticated) {
                                   </form>
                                 </div>
                               ) : null}
+                              </div>
                             </td>
                           </tr>
                         );
@@ -175,6 +189,7 @@ function UnderGraduateLecSchedule(isAuthenticated) {
             </div>
           </div>
         </div>
+        <div className="c-form"></div>
       </section>
     </>
   );

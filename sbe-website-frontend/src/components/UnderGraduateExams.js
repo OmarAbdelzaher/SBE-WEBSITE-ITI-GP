@@ -14,7 +14,7 @@ function UnderGraduateExamSchedule(isAuthenticated) {
   const [isCoordinator, setIsCoordinator] = useState(false);
   const [isModerator, setIsModerator] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isExist,setIsExist] = useState(false)
+  const [isExist, setIsExist] = useState(false);
   const [filesList, setFilesList] = useState([]);
 
   const [yearOneExam, setYearOneExam] = useState([]);
@@ -47,12 +47,15 @@ function UnderGraduateExamSchedule(isAuthenticated) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/examschedules/").then((res) => {
-      setYearOneExam(res.data.filter((y1) => y1.year == "Year 1"));
-      setYearTwoExam(res.data.filter((y2) => y2.year == "Year 2"));
-      setYearThreeExam(res.data.filter((y3) => y3.year == "Year 3"));
-      setYearFourExam(res.data.filter((y4) => y4.year == "Year 4"));
-    }).catch((e)=>console.log(e))
+    axios
+      .get("http://localhost:8000/api/examschedulesundergraduate/")
+      .then((res) => {
+        setYearOneExam(res.data.filter((y1) => y1.year == "Year 1"));
+        setYearTwoExam(res.data.filter((y2) => y2.year == "Year 2"));
+        setYearThreeExam(res.data.filter((y3) => y3.year == "Year 3"));
+        setYearFourExam(res.data.filter((y4) => y4.year == "Year 4"));
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   useEffect(() => {
@@ -78,46 +81,47 @@ function UnderGraduateExamSchedule(isAuthenticated) {
       });
   };
 
-
-  const handleChangeFile = (e,exam) => {
+  const handleChangeFile = (e, exam) => {
     const list = [];
     const files = e.target.files;
-    console.log(files)
-      if(exam.exam_file !== '/media/Exams_Schedule/'+files[0].name){
-        list.push(files[0])
-      }else{
-        setIsExist(true)
-      }
+    console.log(files);
+    if (exam.exam_file !== "/media/Exams_Schedule/" + files[0].name) {
+      list.push(files[0]);
+    } else {
+      setIsExist(true);
+    }
     setFilesList(list);
   };
 
-  const handleSubmit = (e,exam) => {
-
+  const handleSubmit = (e, exam) => {
     // e.preventDefault();
     let fileData = new FormData();
-    
+
     fileData.append("year", exam.year);
     fileData.append("exam_file", filesList[0]);
 
-    axios.put(`http://localhost:8000/api/examschedule/${exam.id}`,fileData).then((res)=>{
-      console.log(res)
-      }).catch((e)=>{
-        console.log(e)
-    })
+    axios
+      .put(`http://localhost:8000/api/examschedule/${exam.id}`, fileData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
     <>
-      <section className="h-custom py-5">
+      <section className="h-custom ">
         <div className="container ">
           <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
+            <div className="col-lg-6 col-xl-8 card rounded-3 courses-b border border-2 border-light">
               <div className="">
                 <div className="card-body ">
-                  <p className="fs-2">Exams Schedule</p>
+                  <p className="fs-2 text-light">Exams Schedule</p>
                 </div>
                 <div>
-                  <table className="table table-bordered border-primary bg-light fs-4 col-12">
+                  <table className="table table-bordered  bg-light fs-4 col-12">
                     <thead>
                       <tr className="text-dark">
                         <th>Year</th>
@@ -130,40 +134,69 @@ function UnderGraduateExamSchedule(isAuthenticated) {
                         return (
                           <tr>
                             <td>
-                              <Link className="admin-tables" to="#">{exam.year.split(" ")[1]}</Link>
+                              <Link className="admin-tables" to="#">
+                                {exam.year.split(" ")[1]}
+                              </Link>
                             </td>
                             <td>
-                              <Link to="#">
-                                <button className="btn button" onClick={()=>handlePDFDownload(exam)}>
+                              <div className="row">
+                              <div className="col-5">
+                            <Link to="#">
+                                <button
+                                  className="btn btn-md "
+                                  style={{
+                                    color: "#ffff",
+                                    background:"#003049"
+                                  }}
+                                  onClick={() => handlePDFDownload(exam)}
+                                >
                                   <FontAwesomeIcon
-                                    className="fs-5"
+                                    className="fs-6"
                                     icon={faDownload}
                                   />{" "}
                                   Download Schedule
                                 </button>
                               </Link>
+                              </div>
+
 
                               {isModerator || isAdmin || isCoordinator ? (
-                                <div>
-                                  <form onSubmit={(event) => handleSubmit(event,exam)}>
-                                    <input
-                                      type="file"
-                                      onChange={(event) => handleChangeFile(event,exam)}
-                                    />
-                                    <button className="btn button">
-                                        <FontAwesomeIcon
-                                          className="fs-5"
-                                          icon={faUpload}
-                                        />{" "}
-                                        Upload Schedule
-                                    </button>
-                                    {
-                                      isExist? <p className="text-danger">This file Already Exists</p> 
-                                      : null
+                                <div className="col-7">
+                                  <form
+                                    onSubmit={(event) =>
+                                      handleSubmit(event, exam)
                                     }
+                                  >
+                                    <input
+                                      className="col-6 btn btn-md"
+                                      type="file"
+                                      onChange={(event) =>
+                                        handleChangeFile(event, exam)
+                                      }
+                                    />
+                                    <button
+                                      type="submit"
+                                      className="btn btn-md col-6"
+                                      style={{
+                                        color: "#003049",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon
+                                        className="fs-5"
+                                        icon={faUpload}
+                                      />{" "}
+                                      Upload Schedule
+                                    </button>
+                                    {isExist ? (
+                                      <p className="text-danger">
+                                        This file Already Exists
+                                      </p>
+                                    ) : null}
                                   </form>
                                 </div>
                               ) : null}
+
+                            </div>
                             </td>
                           </tr>
                         );
@@ -175,6 +208,7 @@ function UnderGraduateExamSchedule(isAuthenticated) {
             </div>
           </div>
         </div>
+        <div className="c-form"></div>
       </section>
     </>
   );

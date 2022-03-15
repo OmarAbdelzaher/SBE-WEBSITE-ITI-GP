@@ -27,6 +27,13 @@ class LecSchedule(models.Model):
     year = models.CharField( max_length=20,choices=YEAR_CHOICES)
     semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES,blank=True)
     schedule_file = models.FileField(upload_to='Lecs_Schedule/')
+    
+    CATEGORY_CHOICES = (
+        ('graduate', 'Graduate'),
+        ('undergraduate', 'Undergraduate'),
+    )
+
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
 
     def __str__(self):
         return os.path.basename(str(self.schedule_file))
@@ -45,6 +52,13 @@ class ExamSchedule(models.Model):
     year = models.CharField( max_length=20,choices=YEAR_CHOICES)
     semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES,blank=True)
     exam_file = models.FileField(upload_to='Exams_Schedule/')
+    
+    CATEGORY_CHOICES = (
+        ('graduate', 'Graduate'),
+        ('undergraduate', 'Undergraduate'),
+    )
+
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     
     def __str__(self):
         return os.path.basename(str(self.exam_file))
