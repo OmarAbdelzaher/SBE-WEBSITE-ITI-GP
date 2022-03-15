@@ -16,7 +16,7 @@ function EditProfile(isAuthenticated) {
   let StaffUrl = "";
   let EmpUrl = "";
   let PersonUrl = "";
-  let Url = "";
+  let Url = `http://localhost:8000/api/person/${who.user.id}`;
 
   const [User, setUser] = useState({
     fname: "",
@@ -30,7 +30,7 @@ function EditProfile(isAuthenticated) {
     password: "",
     graduate: "",
     year_of_graduation: "",
-
+    bio:"",
     title: "",
     role: "",
 
