@@ -66,7 +66,7 @@ admin.site.register(Event)
 admin.site.register(MaterialFile)
 admin.site.register(LecSchedule)
 admin.site.register(ExamSchedule)
-
+admin.site.register(Admission)
 
 
 
