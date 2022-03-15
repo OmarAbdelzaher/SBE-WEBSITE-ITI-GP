@@ -20,9 +20,8 @@ class Admission(models.Model):
         ('graduate', 'Graduate'),
         ('undergraduate', 'Undergraduate'),
     )
-    title = models.CharField(max_length=255)
-    description = models.TextField(max_length=1000,blank=True)
-    instructions = models.TextField(max_length=1000,blank=True)
+    summary = models.TextField(max_length=100000,blank=True)
+    is_active = models.BooleanField(default=False)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     
     def __str__(self):
