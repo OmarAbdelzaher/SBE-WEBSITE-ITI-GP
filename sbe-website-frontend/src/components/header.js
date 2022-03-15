@@ -159,7 +159,7 @@ const moderatorLink = () => (
                 : null
               }
               {
-                isModerator ? <NavDropdown.Item ><Link className="nav-links" to="/moderator">Moderator</Link></NavDropdown.Item>
+                isModerator || isAdmin ? <NavDropdown.Item ><Link className="nav-links" to="/moderator">Moderator</Link></NavDropdown.Item>
                 : null
               }
               </div>

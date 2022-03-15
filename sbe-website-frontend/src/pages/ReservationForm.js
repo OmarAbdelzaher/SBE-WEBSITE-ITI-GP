@@ -6,13 +6,40 @@ import { useHistory } from "react-router-dom";
 
 const ReservationForm = (isAuthenticated) => {
   const staff = useSelector((state) => state.auth);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [is_emp, setIsEmp] = useState(false);
+  const [is_staff, setIs_staff] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState(false);
+  const [staffList, setStaffList] = useState([]);
 
   let staff_id = null;
   let unique_error = "";
+  let flag = false;
 
-  if (isAuthenticated && staff.user != null) {
-    staff_id = staff.user.id;
-  }
+  useEffect(() => {
+    if (isAuthenticated && staff.user != null && flag == false) {
+      if (staff.user.role == "dr" || staff.user.role == "ta") {
+        setIs_staff(true);
+        staff_id = staff.user.id;
+        if (staff.user.is_coordinator) {
+          setIsCoordinator(true);
+        }
+        flag = true;
+      }
+
+      if (staff.user.role == "employee") {
+        setIsEmp(true);
+        if (staff.user.is_moderator) {
+          setIsModerator(true);
+        }
+      }
+
+      if (staff.user.is_admin) {
+        setIsAdmin(true);
+      }
+    }
+  });
 
   const [timeslot, setTimeSlot] = useState([]);
   const [labs, setLabs] = useState([]);
@@ -27,6 +54,12 @@ const ReservationForm = (isAuthenticated) => {
   let ReserveLabUrl = "http://localhost:8000/api/reservedlabs/";
   let ReserveDeviceUrl = "http://localhost:8000/api/reserveddevices/";
   let ReserveUrl = "";
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/staff/")
+      .then((res) => setStaffList(res.data));
+  }, []);
 
   useEffect(() => {
     axios
@@ -57,6 +90,7 @@ const ReservationForm = (isAuthenticated) => {
     ReserveTime: "",
     ReserveType: "hall",
     toBeReserved: "",
+    pickedStaff: "",
   });
 
   const [formErrors, setFormErrors] = useState({});
@@ -92,6 +126,9 @@ const ReservationForm = (isAuthenticated) => {
     ) {
       errors.toBeReserved = "Enter a valid Device";
     }
+    if (values.pickedStaff === "Available Staff" || values.pickedStaff === "") {
+      errors.pickedStaff = "Enter a staff name for this reservation";
+    }
     return errors;
   };
   const onSubmit = (e) => {
@@ -115,7 +152,11 @@ const ReservationForm = (isAuthenticated) => {
       Data.append("date", formData.ReserveDate);
       Data.append("timeslot", formData.ReserveTime);
       Data.append(reserved, formData.toBeReserved);
-      Data.append("staff_id", staff_id);
+      if (isAdmin || isModerator) {
+        Data.append("staff_id", formData.pickedStaff);
+      } else {
+        Data.append("staff_id", staff_id);
+      }
 
       axios
         .post(ReserveUrl, Data)
@@ -306,7 +347,40 @@ const ReservationForm = (isAuthenticated) => {
                           </p>
                         </div>
                       </div>
+
+                      {/* if moderator or admin  */}
+
+                      {isAdmin || isModerator ? (
+                        <div className="row">
+                          <div className="col-12">
+                            <label htmlFor="device">
+                              Choose Staff for Reservation
+                            </label>
+                            <br />
+                            <select
+                              className="select form-control-lg"
+                              value={formData.pickedStaff}
+                              onChange={(e) => onChange(e)}
+                              name="pickedStaff"
+                            >
+                              <option selected value="Available Devices">
+                                Available Staff
+                              </option>
+                              {staffList.map((item) => {
+                                return (
+                                  <option value={item.id}>
+                                    {item.fname} {item.lname}
+                                  </option>
+                                );
+                              })}
+                            </select>
+                          </div>
+                        </div>
+                      ) : null}
+                      <p className="text-danger">{formErrors.pickedStaff}</p>
+
                       <br />
+
                       <button type="submit" className="btn button btn-lg mb-1">
                         Submit
                       </button>

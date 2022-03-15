@@ -9,12 +9,14 @@
   background-position: center;
   background-attachment: fixed;
   overflow: hidden;
+  overflow-x: hidden;
 
   /* filter: blur(2px);
     -webkit-filter: blur(2px); */
 
 
 }
+
 
 .background{
   background-color: #001233;
@@ -343,4 +345,17 @@ ol.styled_list {
 
 ol.styled_list li {
   padding-left: 10px
+}
+
+.profile-head {
+  transform: translateY(9rem)
+}
+
+.cover {
+  background-color: #151d2b;
+  background-size: cover;
+  background-repeat: no-repeat
+}
+.pdata{
+  font-size: 18px;
 }

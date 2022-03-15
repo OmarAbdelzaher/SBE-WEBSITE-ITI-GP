@@ -55,7 +55,7 @@ const CourseHistory = () => {
                       >
                         <tr className="tr">
                         <td className='table-b'>{item.year}</td>{" "}
-                        <td className="table-b">{item.staff_id}</td>
+                        <td className="table-b">{`${item.staff_id }`}</td>
                         <td><a href={item.materials} style={{ color: "#ffff", textDecoration:"none" }}>
                         <FontAwesomeIcon icon={faLink} /> {" "}
                         Click To Materials Link </a></td>
