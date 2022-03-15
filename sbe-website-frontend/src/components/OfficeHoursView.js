@@ -50,7 +50,7 @@ export default function OfficeHoursSchedule() {
                             { staff != undefined ?
                                 staff.map((item,index) => {
                                     return (
-                                <option value={item.id }>{item.fname}</option>
+                                <option value={item.id }>{item.fname}{" "}{item.lname} </option>
                                     )
                                 })
                             : null

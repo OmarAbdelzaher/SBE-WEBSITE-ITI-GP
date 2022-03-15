@@ -108,11 +108,11 @@ export default function CoursesMenu(isAuthenticated) {
                                     >
                                       <option value="0">
                                         {" "}
-                                        Please select Your Term{" "}
+                                        Please select Your Semester{" "}
                                       </option>
 
-                                      <option value="one">First Term</option>
-                                      <option value="two">Second Term</option>
+                                      <option value="one">Semester One</option>
+                                      <option value="two">Semester Two</option>
                                     </select>
 
                                     {/* Year One Selection Semester One */}

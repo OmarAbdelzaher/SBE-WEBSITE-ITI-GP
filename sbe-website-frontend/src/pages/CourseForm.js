@@ -61,6 +61,7 @@ export default function CourseForm() {
 
   const [data, setData] = useState({
     name: "",
+    stdgrades:"",
     totalgrade: "",
     instructions: "",
     materials: "",
@@ -179,7 +180,6 @@ export default function CourseForm() {
                             id="totalgrade"
                             type="number"
                             className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
                             name="totalgrade"
                             value={data.totalgrade}
                           />
@@ -203,7 +203,6 @@ export default function CourseForm() {
                             id="instructions"
                             type="text"
                             className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
                             name="instructions"
                             value={data.instructions}
                           />
@@ -237,7 +236,7 @@ export default function CourseForm() {
                         </div>
                       </div>
                     </div>
-
+                   
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
@@ -248,54 +247,7 @@ export default function CourseForm() {
                             Staff Name
                           </label>
                           <br />
-                          {/* <Select
-                              mode="multiple"
-
-          onChange={handle}
-          optionLabelProp="label"
-
-          style={{ width: '100%' }}
-          placeholder="Select a person"
-          optionFilterProp="children"
-        >
-          {doctors.map((item) => {
-        return (
-
-            <Option value={item.id} >
-              {item.fname} {item.lname}
-            </Option>
-          );
-        })}
-        </Select> */}
-
-                          {/* <Select
-                            multiple
-                            showSearch
-                            style={{ width: 200 }}
-                            placeholder="Select a person"
-                            optionFilterProp="children"
-                            onChange={(e) => this.handle(e)}
-                          >
-                            {course.map((item) => (
-                              <Option key={key} value={item.id}>
-                                {item.name}
-                              </Option>
-                            ))}
-                          </Select> */}
-                          {/* 
-<Select
-      isMulti
-      onChange={(e) => handle(e)}
-      value={doctors.id}
-      name="staff"
-      labelKey='fname'
-      valueKey='id'
-      defaultValue={[doctors[0]]}
-      // isClearable={false}
-      options={doctors}
-      // components={{ MultiValueRemove }}
-      
-    /> */}
+        
 
                           <Select
                             closeMenuOnSelect={true}
