@@ -139,14 +139,9 @@ export default function AssignCourse() {
         Data.append("staff_id", element);
       });
 
-      // console.log("staff_id " ,data)
 
       Data.append("name", courses.name);
-
       Data.append("total_grade", courses.total_grade);
-
-      // Data.append("stds_grades",courses.stds_grades);
-
       Data.append("instructions", courses.instructions);
       Data.append("materials", courses.materials);
       Data.append("year", courses.year);
@@ -192,9 +187,7 @@ export default function AssignCourse() {
                             Course Name
                           </h2>
                           <h4>{courses.name}</h4>
-                          {/* <br /> */}
 
-                          {/* <p className="text-danger">{formErrors.coursename}</p> */}
                         </div>
                       </div>
                     </div>

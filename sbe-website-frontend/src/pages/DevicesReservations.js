@@ -81,7 +81,7 @@ export default function DevicesReservations() {
                         <tr>
                           <td>{index + 1}</td>
 
-                          <td>{item.device_id}</td>
+                          <td>{item.device_id[1]}</td>
 
                           <td>{item.staff_id[1]}</td>
                           <td>

@@ -81,7 +81,7 @@ export default function HallsReservations() {
                         <tr>
                           <td>{index + 1}</td>
 
-                          <td>{item.hall_id}</td>
+                          <td>{item.hall_id[1]}</td>
 
                           <td>{item.staff_id[1]}</td>
                           <td>

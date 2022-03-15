@@ -28,6 +28,8 @@ function CourseDetails(isAuthenticated) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isExist, setIsExist] = useState(false);
 
+  const [link, setLink] = useState();
+
   useEffect(() => {
     if (isAuthenticated && who.user != null && flag == false) {
       if (who.user.role == "dr" || who.user.role == "ta") {
@@ -56,6 +58,7 @@ function CourseDetails(isAuthenticated) {
   useEffect(() => {
     axios.get(`http://localhost:8000/api/course/${params.id}`).then((res) => {
       setCourse(res.data);
+      setLink(res.data.materials);
       mat_id = res.data.id;
     });
   }, []);
@@ -92,7 +95,7 @@ function CourseDetails(isAuthenticated) {
     setFilesList(list);
   };
 
-  const onChange = (e) => (course.materials = e.target.value);
+  const onChange = (e) => setLink(e.target.value);
 
   const handleSubmit = (e, type) => {
     // e.preventDefault();
@@ -116,17 +119,25 @@ function CourseDetails(isAuthenticated) {
         });
     }
 
-    formData.append("name", course.name);
-    formData.append("total_grade", course.total_grade);
-    formData.append("instructions", course.instructions);
-    formData.append("materials", course.materials);
-    formData.append("staff_id", who.user.id);
-    formData.append("category", course.category);
-    formData.append("year", course.year);
-    formData.append("semester", course.semester);
-    formData.append("stds_grades", filesList[0]);
+    if (type == "mat-link" || type == "grades") {
+      if (type == "mat-link") {
+        formData.append("materials", link);
+      } else {
+        formData.append("materials", course.materials);
+      }
+      if (type == "grades") {
+        formData.append("stds_grades", filesList[0]);
+      }
 
-    if (type == "grades") {
+      formData.append("name", course.name);
+      formData.append("total_grade", course.total_grade);
+      formData.append("instructions", course.instructions);
+      // possible error if the one who uploads is not the course staff (may be admin or coordinator)
+      formData.append("staff_id", who.user.id);
+      formData.append("category", course.category);
+      formData.append("year", course.year);
+      formData.append("semester", course.semester);
+
       axios
         .put(`http://localhost:8000/api/course/${params.id}`, formData)
         .then((res) => {
@@ -171,9 +182,6 @@ function CourseDetails(isAuthenticated) {
       }
     }
   };
-  const btnStyle = {
-    marginTop: "45px",
-  };
 
   return (
     <>
@@ -186,17 +194,17 @@ function CourseDetails(isAuthenticated) {
                   {course.name}
                 </h1>
                 {/* Assign Button  */}
-                {/* <div className="rounded-4 align-items-start justify-content-left  "> */}
-                <Link
-                  className="btn btn-md col-3"
-                  style={{ backgroundColor: "#003049", color: "#ffff" }}
-                  to={`/assigncourse/${course.id}/${course.name}/`}
-                >
-                  <FontAwesomeIcon icon={faCirclePlus} />
-                  {"  "}
-                  Assign Course
-                </Link>
-                {/* </div> */}
+                {isCoordinator || isAdmin ? (
+                  <Link
+                    className="btn btn-md col-3"
+                    style={{ backgroundColor: "#003049", color: "#ffff" }}
+                    to={`/assigncourse/${course.id}/${course.name}/`}
+                  >
+                    <FontAwesomeIcon icon={faCirclePlus} />
+                    {"  "}
+                    Assign Course
+                  </Link>
+                ) : null}
               </div>
               <div className="row justify-content-center align-items-center ">
                 <div className="col-6">
@@ -209,22 +217,21 @@ function CourseDetails(isAuthenticated) {
                     </p>
                   </div>
                   <div className=" row col-12">
-                  <div className="col-12">
-                    <button className="button btn cards ">
-                      <Link
-                        style={{ textDecoration: "none", color: "#ffff" }}
-                        className="ani fs-5"
-                        to={`/course-history/${course.id}`}
-                      >
-                        Show Course History
-                      </Link>
-                    </button>
+                    <div className="col-12">
+                      <button className="button btn cards ">
+                        <Link
+                          style={{ textDecoration: "none", color: "#ffff" }}
+                          className="ani fs-5"
+                          to={`/course-history/${course.id}`}
+                        >
+                          Show Course History
+                        </Link>
+                      </button>
+                    </div>
                   </div>
-                </div>
                 </div>
                 <div className="col-6">
                   <div className="col-12  ">
-                    {/* <div className=" py-3 "> */}
                     <div className="row card cards border border-2 d-flex justify-content-center align-items-center">
                       <div className="py-3 col-12">
                         <h3 className="card-title text-dark  py-2">
@@ -238,8 +245,9 @@ function CourseDetails(isAuthenticated) {
                           {is_staff || isAdmin || isCoordinator ? (
                             <div>
                               <form
-                                onSubmit={(event) => handleSubmit(event, "mat")}
-                                action="/coursesMenu"
+                                onSubmit={(event) =>
+                                  handleSubmit(event, "mat-link")
+                                }
                               >
                                 <label style={{ color: "#003049" }}>
                                   <FontAwesomeIcon icon={faLink} /> Material
@@ -247,13 +255,25 @@ function CourseDetails(isAuthenticated) {
                                 </label>{" "}
                                 <input
                                   className="col-12"
-                                  name="material-link"
+                                  name="material_link"
                                   type="text"
-                                  value={course.materials}
+                                  value={link}
                                   onChange={(e) => onChange(e)}
                                 />
-                                <br />
-                                <br />
+                                <button
+                                  type="submit"
+                                  className="btn btn-md col-7"
+                                  style={{
+                                    color: "#003049",
+                                  }}
+                                >
+                                  Update Link
+                                </button>
+                              </form>
+
+                              <form
+                                onSubmit={(event) => handleSubmit(event, "mat")}
+                              >
                                 <div className=" d-flex justify-content-center align-items-center">
                                   <input
                                     className="col-5"
@@ -269,13 +289,11 @@ function CourseDetails(isAuthenticated) {
                                     type="submit"
                                     className="btn btn-md col-7"
                                     style={{
-                                      // backgroundColor:"#003049",
-
                                       color: "#003049",
                                     }}
                                   >
                                     <FontAwesomeIcon icon={faUpload} />
-                                    Upload Materials
+                                    Upload Material
                                   </button>
                                 </div>
                                 <br />
@@ -332,7 +350,6 @@ function CourseDetails(isAuthenticated) {
                         </div>
                       </div>
                     </div>
-                    {/* </div> */}
                   </div>
                   <div className="col-12">
                     <div className="row card cards border border-2 d-flex justify-content-center align-items-center">
@@ -378,7 +395,7 @@ function CourseDetails(isAuthenticated) {
                       {/* {download grades} */}
                       {course.stds_grades ? (
                         <div className="d-flex justify-content-center align-items-center">
-                          <br/>
+                          <br />
                           <button
                             className="btn btn-md col-6 "
                             style={{ backgroundColor: "#003049" }}
@@ -389,12 +406,16 @@ function CourseDetails(isAuthenticated) {
                                 textDecoration: "none",
                                 color: "#ffff",
                               }}
+                              to="#"
                             >
                               <FontAwesomeIcon icon={faDownload} />
                               {"  "}
                               Download
                             </Link>
-                          </button> <br/><br/><br/>
+                          </button>{" "}
+                          <br />
+                          <br />
+                          <br />
                         </div>
                       ) : (
                         <p
@@ -403,12 +424,10 @@ function CourseDetails(isAuthenticated) {
                         >
                           No Grades uploaded yet
                         </p>
-                         
                       )}
                     </div>
                   </div>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -420,5 +439,3 @@ function CourseDetails(isAuthenticated) {
 }
 
 export default CourseDetails;
-
-// to={`/assigncourse/${course.id}/${course.name}/${course.total_grade}/${course.stds_grades}/${course.instructions}/${course.materials}/${course.category}/${course.year}/${course.semster}`}
