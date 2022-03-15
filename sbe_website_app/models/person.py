@@ -141,7 +141,7 @@ class Staff(Person,models.Model):
 
 class FacultyEmp(Person,models.Model):
     title = models.CharField(max_length=20,null=False)
-    # is_moderator = models.BooleanField(default=False,null=True)
+    
     
     def __str__(self):
         return f'{self.fname} {self.lname}'

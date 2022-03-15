@@ -18,7 +18,7 @@ User = get_user_model()
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password' ,'role','is_coordinator','is_moderator','is_admin']
+        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password' ,'role','is_coordinator','is_moderator','is_admin','is_active']
 
         
 class PersonSerializer(serializers.ModelSerializer):
@@ -175,4 +175,4 @@ class ExamScheduleSerializer(serializers.ModelSerializer):
 class AdmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Admission
-        fields = ['id','title','description','instructions','category']
+        fields = ['id','summary','is_active','category']

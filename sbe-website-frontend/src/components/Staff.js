@@ -37,16 +37,13 @@ export default function Staff() {
                             src={item.profile_img}
                             alt="Profile Pic"
                           />
-                          <h5 className="lightTitle card-title">
-                            {item.fname} {item.lname}
-                          </h5>
-                          {/* <h6 className="lightSubTitle card-subtitle">
-                            Front-End Developer
-                          </h6> */}
+                          {item.role == "dr" ? <h5 className="lightTitle card-title">
+                            Dr/ {item.fname} {item.lname}
+                          </h5> : null }
+                          {item.role == "ta" ? <h5 className="lightTitle card-title">
+                            Eng./ {item.fname} {item.lname}
+                          </h5> : null }
                           <p className="lightDesc card-text">
-                            {/* Hi, this is Vivekanand. I am a front-end developer from
-                            India. I love Open Source and want to make web a better
-                            place for the future generation. */}
                             {item.bio}
                           </p>
                           <p className="lightMail card-text">
