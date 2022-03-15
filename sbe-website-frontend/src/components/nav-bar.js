@@ -133,6 +133,7 @@ const NavBar = (isAuthenticated) => {
                   Admission
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
+                <NavDropdown.Item href="/staffpage">Staff</NavDropdown.Item>
                 <NavDropdown.Item href="/coursegraduate">
                   Courses
                 </NavDropdown.Item>

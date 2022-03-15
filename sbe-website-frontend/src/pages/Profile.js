@@ -4,10 +4,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-
 function Profile(isAuthenticated) {
   const who = useSelector((state) => state.auth);
-
 
   let StudentUrl = "";
   let StaffUrl = "";
@@ -21,17 +19,16 @@ function Profile(isAuthenticated) {
     email: "",
     profile_img: "",
     gender: "",
-    address:  "",
-    birthdate:"",
-    phone_number:  "",
+    address: "",
+    birthdate: "",
+    phone_number: "",
     password: "",
     graduate: "",
     year_of_graduation: "",
-
     title: "",
-
     role: "",
-  })
+    bio: "",
+  });
 
   if (who.user != null) {
     StudentUrl = `http://localhost:8000/api/student/${who.user.id}`;
@@ -47,8 +44,8 @@ function Profile(isAuthenticated) {
       Url = EmpUrl;
     }
 
-    if(who.user.is_admin){
-      Url = PersonUrl
+    if (who.user.is_admin) {
+      Url = PersonUrl;
     }
   }
 
