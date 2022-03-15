@@ -41,9 +41,8 @@ function EditProfile(isAuthenticated) {
     year_of_graduation: "",
 
     title: "",
-
     role: "",
-
+    bio:"",
     is_active:"",
     is_coordinator:"",
     is_moderator:"",
@@ -188,6 +187,7 @@ function EditProfile(isAuthenticated) {
     } else if (who.user.role == "dr" || who.user.role == "ta") {
       //Repeated Line
       Url = StaffUrl;
+      Data.append("bio", User.bio);
     } else if ((who.user.role = "employee")) {
       //Repeated Line
       Url = EmpUrl;
@@ -343,7 +343,6 @@ function EditProfile(isAuthenticated) {
                             </div>
                           </div>
                           <br></br>
-
                           <div className="row">
                             <div className="col">
                               <div className="form-group">
@@ -395,6 +394,25 @@ function EditProfile(isAuthenticated) {
                             </div>
                           </div>
                           <br></br>
+                          {who.user != null ? who.user.role == "dr" || who.user.role == "ta" ? 
+                            <div className="row">
+                              <div className="col">
+                                <div className="form-group">
+                                  <label>Bio</label>
+                                  <textarea
+                                    className="form-control"
+                                    type="text"
+                                    name="bio"
+                                    rows="5"
+                                    cols="50"
+                                    value={User.bio}
+                                    onChange={(e) => onChange(e)}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            : null : null
+                          }
                           <div className="row">
                             <br></br>
                           </div>

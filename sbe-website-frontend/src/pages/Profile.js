@@ -28,6 +28,11 @@ function Profile(isAuthenticated) {
     title: "",
     role: "",
     bio: "",
+
+    is_active:"",
+    is_coordinator:"",
+    is_admin:"",
+    is_moderator:"",
   });
 
   if (who.user != null) {
@@ -80,11 +85,14 @@ function Profile(isAuthenticated) {
               <h5 className="mb-0"></h5>
               <h5 class="mb-0">More Info</h5>
               <div className="p-4 rounded shadow-sm bg-light">
-              <h4 className="font-italic mb-0">Role <p p className="pdata">{User.role}</p></h4>
+                {User.role =="dr" ? <h4 className="font-italic mb-0">Role <p p className="pdata">Dr</p></h4> : null}
+                {User.role =="ta" ? <h4 className="font-italic mb-0">Role <p p className="pdata">TA</p></h4> : null}
+                {User.role =="student" ? <h4 className="font-italic mb-0">Role <p p className="pdata">Student</p></h4> : null}
                 <h4 className="font-italic mb-0">Email <p p className="pdata">{User.email}</p></h4>
                 <h4 className="font-italic mb-0">Address <p p className="pdata">{User.address}</p></h4>
                 <h4 className="font-italic mb-0">Birthdate <p p className="pdata">{User.birthdate}</p></h4>
                 <h4 className="font-italic mb-0">Phone Number <p className="pdata">{User.phone_number}</p></h4>
+                { User.bio != "" ? <h4 className="font-italic mb-0">Bio <p className="pdata">{User.bio}</p></h4> : null }
                 
               </div>
             </div>
