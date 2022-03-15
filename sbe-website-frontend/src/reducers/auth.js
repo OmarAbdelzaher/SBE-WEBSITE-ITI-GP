@@ -56,9 +56,6 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 user : null,
-                access : null,
-                refresh : null,
-                
             }
        
         case LOGIN_FAIL:
@@ -105,8 +102,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: false , 
-                access : null,
-                refresh : null,
+
             }
         case PASSWORD_RESET_SUCCESS:
         case PASSWORD_RESET_FAIL:

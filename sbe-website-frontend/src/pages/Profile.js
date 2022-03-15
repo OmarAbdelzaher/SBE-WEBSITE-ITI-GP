@@ -32,6 +32,11 @@ function Profile(isAuthenticated) {
     title: "",
     role: "",
     bio: "",
+
+    is_active:"",
+    is_coordinator:"",
+    is_admin:"",
+    is_moderator:"",
   });
 
   const [FormErrors, setFormErrors] = useState({});
@@ -149,6 +154,11 @@ function Profile(isAuthenticated) {
       Data.append("phone_number", User.phone_number);
       Data.append("password", User.password);
       Data.append("role", User.role);
+      Data.append("is_active", User.is_active);
+      Data.append("is_coordinator", User.is_coordinator);
+      Data.append("is_moderator", User.is_moderator);
+      Data.append("is_admin", User.is_admin);
+
 
       axios
         .put(Url, Data)
@@ -191,6 +201,7 @@ function Profile(isAuthenticated) {
                       </div>
                       <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div className="text-center text-sm-left mb-2 mb-sm-0">
+
                           <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">
                             {User.fname} {User.lname}
                           </h4>
@@ -350,7 +361,8 @@ function Profile(isAuthenticated) {
                             </div>
                           </div>
                           <br></br>
-                          { who.user.role == "dr" || who.user.role == "ta" ? 
+                        
+                            { who.user.role == "dr" || who.user.role == "ta" ? 
                             <div className="row">
                               <div className="col">
                                 <div className="form-group">
