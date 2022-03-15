@@ -85,12 +85,12 @@ class ExamSchedulesDetails(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
-def DownloadPDFSchedules(self,year,type,pk):
+def DownloadPDFSchedules(self,year,type):
     if type == "exam":
         exam = ExamSchedule.objects.get(year=year)
         path_to_file = MEDIA_ROOT + f'/{exam.exam_file}'
     elif type == "lec":
-        lec = LecSchedule.objects.get(pk=pk)
+        lec = LecSchedule.objects.get(year=year)
         path_to_file = MEDIA_ROOT + f'/{lec.schedule_file}'
         
     f = open(path_to_file, 'rb')

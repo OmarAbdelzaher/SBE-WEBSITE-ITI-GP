@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { reset_password } from "../actions/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleCheck,
@@ -76,12 +75,12 @@ export default function ReservationSchedule() {
                     <th scope="col">#</th>
                     <th scope="col" className="text-dark fw-light">Name</th>
                     <th scope="col" className="text-dark fw-light">Reserved By</th>
-                    {/* <th scope="col">Confirmed By</th> */}
                     <th scope="col" className="text-dark fw-light">Date</th>
                     <th scope="col" className="text-dark fw-light">Slot</th>
                     <th scope="col" className="text-dark fw-light">Confirmed</th>
                   </tr>
                 </thead>
+                
                 <tbody className="mb-3">
                   {reservations != undefined
                     ? reservations.map((item, index) => {
@@ -89,15 +88,14 @@ export default function ReservationSchedule() {
                           <>
                             <tr key={index}>
                               <th scope="row">{index + 1}</th>
-                              {item.hall_id ? <td>{item.hall_id}</td> : null}
-                              {item.lab_id ? <td>{item.lab_id}</td> : null}
+                              {item.hall_id ? <td>{item.hall_id[1]}</td> : null}
+                              {item.lab_id ? <td>{item.lab_id[1]}</td> : null}
                               {item.device_id ? (
-                                <td>{item.device_id}</td>
+                                <td>{item.device_id[1]}</td>
                               ) : null}
-                              <td className="admin-tables">{item.staff_id}</td>
-                              {/* <td>{}</td> */}
+                              <td className="admin-tables">{item.staff_id[1]}</td>
                               <td className="admin-tables">{item.date}</td>
-                              <td className="admin-tables">{item.timeslot}</td>
+                              <td className="admin-tables">{item.timeslot[1]}</td>
                               <td className="admin-tables text-center">
                                 {item.is_confirmed ? (
                                   <FontAwesomeIcon

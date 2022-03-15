@@ -106,6 +106,7 @@ class ReserveHallSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
+        ret['hall_id'] = (ret['hall_id'],str(instance.hall_id))
         ret['timeslot'] = (ret['timeslot'],str(instance.timeslot))
         ret['staff_id'] = (ret["staff_id"],str(instance.staff_id))
         return ret
@@ -117,6 +118,7 @@ class ReserveLabSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         ret = super().to_representation(instance)
+        ret['lab_id'] = (ret['lab_id'],str(instance.lab_id))
         ret['timeslot'] = (ret['timeslot'],str(instance.timeslot))
         ret['staff_id'] = (ret["staff_id"],str(instance.staff_id))
         return ret
@@ -128,6 +130,7 @@ class ReserveDeviceSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
+        ret['device_id'] = (ret['device_id'],str(instance.device_id))
         ret['timeslot'] = (ret['timeslot'],str(instance.timeslot))
         ret['staff_id'] = (ret["staff_id"],str(instance.staff_id))
         return ret
