@@ -32,6 +32,11 @@ function Profile(isAuthenticated) {
     title: "",
     role: "",
     bio: "",
+
+    is_active:"",
+    is_coordinator:"",
+    is_admin:"",
+    is_moderator:"",
   });
 
   const [FormErrors, setFormErrors] = useState({});
@@ -64,7 +69,7 @@ function Profile(isAuthenticated) {
       console.log(res.data);
     });
   }, []);
-
+   
   const validate = (values) => {
     const errors = {};
     if (!values.fname) {
@@ -100,6 +105,7 @@ function Profile(isAuthenticated) {
 
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
+
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
       console.log("picture: ", e.target.files);
@@ -139,6 +145,9 @@ function Profile(isAuthenticated) {
       if (changed == true) {
         User.profile_img = picture;
       }
+      
+      console.log(User.profile_img)
+
       Data.append("fname", User.fname);
       Data.append("lname", User.lname);
       Data.append("email", User.email);
@@ -149,6 +158,8 @@ function Profile(isAuthenticated) {
       Data.append("phone_number", User.phone_number);
       Data.append("password", User.password);
       Data.append("role", User.role);
+      Data.append("is_active", true);
+
 
       axios
         .put(Url, Data)
