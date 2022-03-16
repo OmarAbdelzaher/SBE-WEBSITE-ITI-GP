@@ -3,11 +3,43 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight} from "@fortawesome/free-solid-svg-icons";
+import { faAnglesRight,faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
-export default function CourseGraduate() {
+export default function CourseGraduate(isAuthenticated) {
+  let flag = false;
+
   const [graduatecourse, setGraduateCourse] = useState([]);
+  const [is_staff, setIs_staff] = useState(false);
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const person = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated && person.user != null && flag == false) {
+      if (person.user.role == "dr" || person.user.role == "ta") {
+        setIs_staff(true);
+        if (person.user.is_coordinator) {
+          setIsCoordinator(true);
+        }
+        flag = true;
+      }
+
+      if (person.user.role == "employee") {
+        setIsEmp(true);
+        if (person.user.is_moderator) {
+          setIsModerator(true);
+        }
+      }
+
+      if (person.user.is_admin) {
+        setIsAdmin(true);
+      }
+    }
+  });
 
   useEffect(() => {
     axios
@@ -23,14 +55,9 @@ export default function CourseGraduate() {
     color: "white",
     width: "50%",
     height: "50%",
-    // background:'blue',
   };
   const start = {
-    // color: 'red',
-    // width: '50%',
-    // height: '50%',
     marginTop: "150px",
-    // background:'blue',
   };
 
   return (
@@ -44,6 +71,17 @@ export default function CourseGraduate() {
                   <h1 className="mb-4 pb-2 pb-md-0 px-md-2">
                     Graduate Courses
                   </h1>
+                  {isCoordinator || isAdmin ? (
+                      <Link
+                        className="btn btn-md col-4"
+                        style={{ backgroundColor: "#003049", color: "#ffff" }}
+                        to="/courseform"
+                      >
+                        <FontAwesomeIcon icon={faCirclePlus} />
+                        {"  "}
+                        Add Course
+                      </Link>
+                    ) : null}
                 </div>
                 <div className="row table-b">
                   <table className="text-light table table-hover fs-4">

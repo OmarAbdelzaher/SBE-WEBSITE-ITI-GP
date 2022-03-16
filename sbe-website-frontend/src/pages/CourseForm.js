@@ -151,7 +151,7 @@ export default function CourseForm() {
         .then((res) => {
           console.log(res.data.staff_id);
 
-          history.push("/coursesMenu");
+          history.push("/");
         })
         .catch((e) => {
           setFormErrors(e.response.data.non_field_errors[0]);
