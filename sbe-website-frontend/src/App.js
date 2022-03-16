@@ -95,7 +95,7 @@ function App() {
             <Route path={"/graduatepage"} exact component={GraduatePage} />
             <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
             <Route path={"/coursegraduate"} exact component={CourseGraduate} />
-            <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} />
+            {/* <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} /> */}
             <Route path={"/profilepage"} exact component={Profile} />
             <Route path={"/one-smesterone"} exact component={YoneSone} />
             <Route path={"/one-smestertwo"} exact component={YoneStwo} />
@@ -139,7 +139,7 @@ function App() {
             <Route path={"/hallsreservations"} exact component={HallsReservations} />
             <Route path={"/devicesreservations"} exact component={DevicesReservations} />
 
-            <Route path={"/courseform"} exact component={CourseForm} />
+            <Route path={"/courseform/:category"} exact component={CourseForm} />
             <Route path={"/assigncourse/:id/:name"} exact component={AssignCourse} />
 
             <Route path={"/undergraduate-lecs"} exact component={UnderGraduateLecSchedule} /> 

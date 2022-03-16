@@ -2,19 +2,17 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 // select-react import
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
-const { Option } = Select;
-
 export default function CourseForm() {
-
+  const params = useParams();
+  // console.log(params.category)
   const history = useHistory();
   const animatedComponents = makeAnimated();
-
 
   const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
@@ -22,8 +20,6 @@ export default function CourseForm() {
   const url = "http://localhost:8000/api/courses/";
 
   const [course, setCourse] = useState([]);
-
-  let CoursesUrl = "http://localhost:8000/api/courses/";
 
   useEffect(() => {
     axios
@@ -33,8 +29,6 @@ export default function CourseForm() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/staff/")
-      // .then((res) => setDoctors(res.data));
-
       .then((res) => setDoctors(res.data));
   }, []);
 
@@ -52,7 +46,6 @@ export default function CourseForm() {
       chosen.push(parseInt(t.value));
     }
 
-    console.log(chosen);
     setData({
       ...data,
       staff: chosen,
@@ -61,14 +54,14 @@ export default function CourseForm() {
 
   const [data, setData] = useState({
     name: "",
-    stdgrades:"",
+    stdgrades: "",
     totalgrade: "",
     instructions: "",
     materials: "",
     year: "",
     semester: "",
     staff: "",
-    category: "",
+    category: params.category,
   });
 
   const validate = (values) => {
@@ -95,13 +88,11 @@ export default function CourseForm() {
     e.preventDefault();
     let errors_form = validate(data);
     setFormErrors(errors_form);
-    // console.log(data)
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
 
       Data.append("name", data.name);
       Data.append("total_grade", data.totalgrade);
-      // Data.append("staff_id", data.staff);
       data.staff.forEach((element) => {
         Data.append("staff_id", element);
       });
@@ -110,14 +101,16 @@ export default function CourseForm() {
       Data.append("materials", data.materials);
       Data.append("year", data.year);
       Data.append("semester", data.semester);
-      Data.append("category", data.category);
+      Data.append("category", params.category);
 
       axios
         .post(url, Data)
         .then((res) => {
-          console.log(res.data);
-
-          history.push("/coursesMenu");
+          if (params.category == "graduate") {
+            history.push("/coursegraduate");
+          } else if (params.category == "undergraduate") {
+            history.push("/coursesMenu");
+          }
         })
         .catch((e) => {
           setFormErrors(e.response.data.non_field_errors[0]);
@@ -156,7 +149,6 @@ export default function CourseForm() {
                             id="name"
                             type="text"
                             className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
                             name="name"
                             value={data.name}
                           />
@@ -220,7 +212,7 @@ export default function CourseForm() {
                             htmlFor="ReservationDate"
                             className="form-label"
                           >
-                            Material Link{" "}
+                            Material Link (optional){" "}
                           </label>
                           <br />
                           <input
@@ -228,7 +220,6 @@ export default function CourseForm() {
                             id="materials"
                             type="text"
                             className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
                             name="materials"
                             value={data.materials}
                           />
@@ -236,7 +227,7 @@ export default function CourseForm() {
                         </div>
                       </div>
                     </div>
-                   
+
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
@@ -247,7 +238,6 @@ export default function CourseForm() {
                             Staff Name
                           </label>
                           <br />
-        
 
                           <Select
                             closeMenuOnSelect={true}
@@ -271,31 +261,8 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
-                            Category
-                          </label>
-                          <br />
-
-                          <select
-                            id="category"
-                            className="select form-control-lg"
-                            value={data.category}
-                            onChange={(e) => handle(e)}
-                            name="category"
-                          >
-                            <option value="0">Choose Gategory</option>
-
-                            <option value="graduate">Graduate</option>
-                            <option value="undergraduate">Undergraduate</option>
-                          </select>
-                          <p className="text-danger">{formErrors.category}</p>
-
-                          {data.category == "undergraduate" ? (
+                          {params.category == "undergraduate" ? (
                             <>
-                              <br />
                               <div className="row">
                                 <div className="col-md-12 mb-4 d-flex align-items-center">
                                   <div className="form-outline datepi+cker w-100">
@@ -363,10 +330,8 @@ export default function CourseForm() {
                         </div>
                       </div>
                     </div>
-
-                    <br />
                     <button type="submit" className="btn button btn-lg mb-1">
-                      Submit
+                      Add Course
                     </button>
                     <br />
                   </form>
