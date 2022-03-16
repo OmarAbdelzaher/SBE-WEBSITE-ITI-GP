@@ -2,9 +2,9 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight} from "@fortawesome/free-solid-svg-icons";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faAnglesRight,faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 export default function CourseGraduate(isAuthenticated) {
@@ -40,6 +40,35 @@ export default function CourseGraduate(isAuthenticated) {
   });
 
   const [graduatecourse, setGraduateCourse] = useState([]);
+  const [is_staff, setIs_staff] = useState(false);
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const person = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuthenticated && person.user != null && flag == false) {
+      if (person.user.role == "dr" || person.user.role == "ta") {
+        setIs_staff(true);
+        if (person.user.is_coordinator) {
+          setIsCoordinator(true);
+        }
+        flag = true;
+      }
+
+      if (person.user.role == "employee") {
+        setIsEmp(true);
+        if (person.user.is_moderator) {
+          setIsModerator(true);
+        }
+      }
+
+      if (person.user.is_admin) {
+        setIsAdmin(true);
+      }
+    }
+  });
 
   useEffect(() => {
     axios

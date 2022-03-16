@@ -8,14 +8,27 @@ import { useHistory, useParams } from "react-router-dom";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
+let listing = [];
+let concatlist = [];
+
 export default function CourseForm() {
   const params = useParams();
-  // console.log(params.category)
   const history = useHistory();
   const animatedComponents = makeAnimated();
 
   const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
+  const [data, setData] = useState({
+    name: "",
+    stdgrades: "",
+    totalgrade: "",
+    instructions: "",
+    materials: "",
+    year: "",
+    semester: "",
+    staff: "",
+    category: "",
+  });
 
   const url = "http://localhost:8000/api/courses/";
 
@@ -33,22 +46,42 @@ export default function CourseForm() {
   }, []);
 
   const nameoptions = [];
-  doctors.map((tag) =>
-    nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
-  );
+  const taoptions = [];
+  doctors.map((tag) => {
+    if (tag.role == "dr") {
+      nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    } else {
+      taoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    }
+  });
   const changeSelectedNames = (e) => {
     console.log(Object.values(e));
 
     let List_names = Object.values(e);
-
     let chosen = [];
     for (let t of List_names) {
       chosen.push(parseInt(t.value));
     }
-
+    listing = chosen;
     setData({
       ...data,
       staff: chosen,
+    });
+  };
+  // console.log(listing)
+  const changeSelected = (e) => {
+    console.log(Object.values(e));
+
+    let List_names = Object.values(e);
+    let tachoose = [];
+    for (let t of List_names) {
+      tachoose.push(parseInt(t.value));
+    }
+    concatlist = listing.concat(tachoose);
+    console.log(concatlist);
+    setData({
+      ...data,
+      staff: concatlist,
     });
   };
 
@@ -80,6 +113,9 @@ export default function CourseForm() {
     if (!values.category) {
       errors.category = "Category is required";
     }
+    if (!values.staff) {
+      errors.staff = "Doctor Name is required!";
+    }
 
     return errors;
   };
@@ -94,6 +130,7 @@ export default function CourseForm() {
       Data.append("name", data.name);
       Data.append("total_grade", data.totalgrade);
       data.staff.forEach((element) => {
+        console.log(element);
         Data.append("staff_id", element);
       });
 
@@ -137,10 +174,7 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
+                          <label htmlFor="name" className="form-label">
                             Name{" "}
                           </label>
                           <br />
@@ -160,10 +194,7 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
+                          <label htmlFor="totalgrade" className="form-label">
                             Total grade
                           </label>
                           <br />
@@ -183,10 +214,7 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
+                          <label htmlFor="instructions" className="form-label">
                             Instructions
                           </label>
                           <br />
@@ -208,10 +236,7 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
+                          <label htmlFor="materials" className="form-label">
                             Material Link (optional){" "}
                           </label>
                           <br />
@@ -231,18 +256,15 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
-                            Staff Name
+                          <label htmlFor="staff" className="form-label">
+                            Doctors Name
                           </label>
                           <br />
 
                           <Select
                             closeMenuOnSelect={true}
                             components={animatedComponents}
-                            placeholder={"Choose Staff Names"}
+                            placeholder={"Choose Doctor Names"}
                             isMulti
                             options={nameoptions}
                             onChange={(e) => changeSelectedNames(e)}
@@ -261,13 +283,42 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
+                          <label
+                            htmlFor="ReservationDate"
+                            className="form-label"
+                          >
+                            TA Name
+                          </label>
+                          <br />
+
+                          <Select
+                            closeMenuOnSelect={true}
+                            components={animatedComponents}
+                            placeholder={"Choose TA Names"}
+                            isMulti
+                            options={taoptions}
+                            onChange={(e) => changeSelected(e)}
+                            name="staff"
+                            className="text-dark"
+                            isSearchable
+                            setValue
+                          />
+
+                          <br />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-md-12 mb-4 d-flex align-items-center">
+                        <div className="form-outline datepi+cker w-100">
                           {params.category == "undergraduate" ? (
                             <>
                               <div className="row">
                                 <div className="col-md-12 mb-4 d-flex align-items-center">
                                   <div className="form-outline datepi+cker w-100">
                                     <label
-                                      htmlFor="ReservationDate"
+                                      htmlFor="year"
                                       className="form-label"
                                     >
                                       Year
@@ -299,10 +350,7 @@ export default function CourseForm() {
                               <div className="row">
                                 <div className="col-md-12 mb-4 d-flex align-items-center">
                                   <div className="form-outline datepi+cker w-100">
-                                    <label
-                                      htmlFor="ReservationDate"
-                                      className="form-label"
-                                    >
+                                    <label htmlFor="" className="form-label">
                                       Semester
                                     </label>
                                     <br />

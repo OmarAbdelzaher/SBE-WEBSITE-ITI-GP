@@ -3,32 +3,23 @@ import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCalendarCheck,
   faCalendarDays,
-  faCalendarTimes,
-  faClinicMedical,
+  faCalendarPlus,
   faClock,
   faFlask,
-  faGear,
-  faGears,
-  faHome,
+  faGlobe,
   faHourglass,
   faListCheck,
   faMicroscope,
   faSchool,
   faScrewdriverWrench,
-  faSquarePollHorizontal,
-  faToolbox,
-  faUser,
   faUserClock,
-  faUserGraduate,
-  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
 function AdminNav() {
   return (
     <>
-     <nav className="sidenav">
+     <nav className="sidenav fs-3">
        <div className="text-dark">
          <div className="dropdown-divider"></div>
          <Link className="fs-3 fw-normal sbar-links" to="/moderator">
@@ -80,6 +71,16 @@ function AdminNav() {
           <Link className="fs-6 sbar-links" to="/reservation-approv">
             <FontAwesomeIcon className="fs-6" icon={faCalendarDays} style={{color:"#003049"}}/>{" "}
             Reservation Approvement 
+          </Link>
+          <br></br>
+          <Link className="fs-6 sbar-links" to="/addnews">
+            <FontAwesomeIcon className="fs-6" icon={faGlobe} style={{color:"#003049"}}/>{" "}
+            Add News
+          </Link>
+          <br></br>     
+          <Link className="fs-6 sbar-links" to="/addevents">
+            <FontAwesomeIcon className="fs-6" icon={faCalendarPlus} style={{color:"#003049"}}/>{" "}
+            Add Events
           </Link>
           <br></br>
         </div>

@@ -65,8 +65,10 @@ import Adm_Graduates from "./pages/Adm_Graduates"
 import Adm_UnderGraduates from "./pages/Adm_UnderGraduates"
 import AssignCourse from "./pages/AssignCourse";
 import EditProfile from "./pages/EditProfile";
-
 import Staff from "./components/Staff";
+import AddNews from "./components/AddNews";
+import AddEvents from "./components/AddEvents";
+
 function App() {
 
 
@@ -146,6 +148,8 @@ function App() {
             <Route path={"/graduate-lecs"} exact component={GraduateLecSchedule} /> 
             <Route path={"/edit-profile"} exact component={EditProfile} /> 
             <Route path={"/staffpage"} exact component={Staff} /> 
+            <Route path={"/addnews"} exact component={AddNews} /> 
+            <Route path={"/addevents"} exact component={AddEvents} /> 
 
 
 

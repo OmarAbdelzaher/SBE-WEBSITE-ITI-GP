@@ -6,6 +6,8 @@ import { useHistory, useParams } from "react-router-dom";
 // select-react import
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+let listing = [];
+let concatlist = [];
 
 export default function AssignCourse() {
   const params = useParams();
@@ -36,9 +38,14 @@ export default function AssignCourse() {
   }, []);
 
   const nameoptions = [];
-  doctors.map((tag) =>
-    nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
-  );
+  const taoptions = [];
+  doctors.map((tag) => {
+    if (tag.role == "dr") {
+      nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    } else {
+      taoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    }
+  });
 
   const [data, setData] = useState({
     coursename: params.name,
@@ -53,14 +60,27 @@ export default function AssignCourse() {
 
   const changeSelectedNames = (e) => {
     let List_names = Object.values(e);
-
     let chosen = [];
     for (let t of List_names) {
       chosen.push(parseInt(t.value));
     }
+    listing = chosen;
     setData({
       ...data,
       staff: chosen,
+    });
+  };
+
+  const changeSelected = (e) => {
+    let List_names = Object.values(e);
+    let tachoose = [];
+    for (let t of List_names) {
+      tachoose.push(parseInt(t.value));
+    }
+    concatlist = listing.concat(tachoose);
+    setData({
+      ...data,
+      staff: concatlist,
     });
   };
 
@@ -114,17 +134,19 @@ export default function AssignCourse() {
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3 courses-b ">
                 <div className="card-body p-4 p-md-5">
-                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
+                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 fs-2 fw-bold">
                     Assign Course
                   </h3>
                   <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <h2 htmlFor="ReservationDate" className="form-label">
-                            Course Name
+                          <h2 htmlFor="ReservationDate" className="form-label ">
+                            Course Name :
                           </h2>
-                          <h4>{courses.name}</h4>
+                          <p className="fw-light fs-4 text-white ">
+                            - {courses.name}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -133,8 +155,12 @@ export default function AssignCourse() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <h2 htmlFor="ReservationDate" className="form-label">
-                            Current Staff
+                            Current Staff :
                           </h2>
+
+                          <p className="fw-light fs-4 text-white ">
+                            - {`${courses.staff_id}`}{" "}
+                          </p>
 
                           <h5>{`${courses.staff_id}`} </h5>
                         </div>
@@ -144,7 +170,7 @@ export default function AssignCourse() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label htmlFor="staff" className="form-label">
-                            Staff Name
+                            Doctor Name
                           </label>
                           <br />
                           <Select
@@ -161,6 +187,33 @@ export default function AssignCourse() {
                           />
                           <p className="text-danger">{formErrors.staff}</p>
                           <br />
+                          <br />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 mb-4 d-flex align-items-center">
+                        <div className="form-outline datepi+cker w-100">
+                          <label
+                            htmlFor="ReservationDate"
+                            className="form-label"
+                          >
+                            TA Name
+                          </label>
+                          <br />
+
+                          <Select
+                            closeMenuOnSelect={true}
+                            components={animatedComponents}
+                            placeholder={"Choose TA Names"}
+                            isMulti
+                            options={taoptions}
+                            onChange={(e) => changeSelected(e)}
+                            name="staff"
+                            className="text-dark"
+                            isSearchable
+                            setValue
+                          />
                           <br />
                         </div>
                       </div>

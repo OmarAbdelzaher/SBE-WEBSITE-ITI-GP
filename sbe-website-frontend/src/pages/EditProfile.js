@@ -24,7 +24,7 @@ function EditProfile(isAuthenticated) {
   let StaffUrl = "";
   let EmpUrl = "";
   let PersonUrl = "";
-  let Url = "";
+  let Url = `http://localhost:8000/api/person/${who.user.id}`;
 
   const [User, setUser] = useState({
     fname: "",
@@ -38,7 +38,7 @@ function EditProfile(isAuthenticated) {
     password: "",
     graduate: "",
     year_of_graduation: "",
-
+    bio:"",
     title: "",
     role: "",
     bio: "",
@@ -220,12 +220,12 @@ function EditProfile(isAuthenticated) {
   };
 
   return (
-    <section className="py-5 h-150 h-custom">
-      <div className="container">
+    <section className="py-5 h-150 h-custom ">
+      <div className="container ">
         <div className="col py-5">
           <div className="row">
-            <div className="col mb-3">
-              <div className="card ">
+            <div className="col mb-3 d-flex justify-content-center align-items-center">
+              <div className="card col-7">
                 <div className="card-body">
                   <div className="e-profile">
                     <div className="row">
@@ -241,8 +241,24 @@ function EditProfile(isAuthenticated) {
                               style={{ width: "140px" }}
                               src={User.profile_img}
                             />
-
-                            <div></div>
+                          </div>
+                          <div className="mt-2 row justify-content-center">
+                            <button
+                              className="btn text-light btn-sm col-12"
+                              style={{ backgroundColor: "#003049" }}
+                              type="button"
+                            >
+                              <input
+                                className="col-10"
+                                type="file"
+                                onChange={onChangePicture}
+                              />
+                              <FontAwesomeIcon
+                                className="fs-5 col-2 "
+                                icon={faCamera}
+                                display
+                              />{" "}
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -253,19 +269,10 @@ function EditProfile(isAuthenticated) {
                           </h4>
                           <p className="mb-0">{User.email}</p>
                           <p className="mb-2">{User.graduate}</p>
-                          <div className="mt-2 button">
-                            <button className="btn text-light" type="button">
-                              <input type="file" onChange={onChangePicture} />
-                              <FontAwesomeIcon
-                                className="fs-4"
-                                icon={faCamera}
-                              />{" "}
-                            </button>
-                          </div>
                         </div>
                       </div>
                     </div>
-                    <br></br>
+                    <br />
                     <ul className="nav nav-tabs">
                       <li className="nav-item">
                         <a href className="active nav-link">
@@ -274,7 +281,7 @@ function EditProfile(isAuthenticated) {
                       </li>
                     </ul>
                     <br></br>
-                    <div className="tab-content pt-3">
+                    <div className="tab-content pt-3 col-11 ">
                       <div className="tab-pane active">
                         <form
                           className="form-group-lg"
