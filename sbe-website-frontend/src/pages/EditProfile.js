@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
-
 function EditProfile(isAuthenticated) {
   const who = useSelector((state) => state.auth);
   const [is_staff, setIs_staff] = useState(false);
@@ -17,7 +16,7 @@ function EditProfile(isAuthenticated) {
   const [isActive, setIsActive] = useState(false);
 
   const history = useHistory();
-  const [changed,setChanged]=useState(false)
+  const [changed, setChanged] = useState(false);
 
   let flag = false;
 
@@ -33,31 +32,30 @@ function EditProfile(isAuthenticated) {
     email: "",
     profile_img: "",
     gender: "",
-    address:  "",
-    birthdate:"",
-    phone_number:  "",
+    address: "",
+    birthdate: "",
+    phone_number: "",
     password: "",
     graduate: "",
     year_of_graduation: "",
 
     title: "",
     role: "",
-    bio:"",
-    is_active:"",
-    is_coordinator:"",
-    is_moderator:"",
-    is_admin:""
+    bio: "",
+    is_active: "",
+    is_coordinator: "",
+    is_moderator: "",
+    is_admin: "",
+  });
 
-  })
-
-  const [FormErrors,setFormErrors] = useState({})
+  const [FormErrors, setFormErrors] = useState({});
   const pattern_email = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
 
   useEffect(() => {
     if (isAuthenticated && who.user != null && flag == false) {
-      console.log(who.user)
+      console.log(who.user);
       if (who.user.role == "dr" || who.user.role == "ta") {
         setIs_staff(true);
         if (who.user.is_coordinator) {
@@ -95,14 +93,14 @@ function EditProfile(isAuthenticated) {
     } else if (who.user.role == "employee") {
       Url = EmpUrl;
     }
-    
-    if (who.user.is_admin){
+
+    if (who.user.is_admin) {
       Url = PersonUrl;
     }
   }
 
-  const validate = (values) =>{
-    const errors = {}
+  const validate = (values) => {
+    const errors = {};
     if (!values.fname) {
       errors.fname = "First Name is Required";
     }
@@ -111,139 +109,130 @@ function EditProfile(isAuthenticated) {
     }
     if (!values.email) {
       errors.email = "Email is required !";
-
     } else if (!pattern_email.test(values.email)) {
       errors.email = "Email is invalid !";
     }
-    if (!values.phone_number){
+    if (!values.phone_number) {
       errors.phone_number = "Phone Number is required";
-
-    } else if (values.phone_number.length != 11 )
-    {
-      errors.phone_number = "Phone Number must be 11 digits"  
+    } else if (values.phone_number.length != 11) {
+      errors.phone_number = "Phone Number must be 11 digits";
     }
-    if (!values.address)
-    {
-      errors.address = " Address is required "
+    if (!values.address) {
+      errors.address = " Address is required ";
     }
     var now = new Date();
-    var birthdate = new Date(values.birthdate)
-    if(!values.birthdate)
-    {
-      errors.birthdate = "BirthDate is required"
+    var birthdate = new Date(values.birthdate);
+    if (!values.birthdate) {
+      errors.birthdate = "BirthDate is required";
+    } else if (birthdate.getTime() > now.getTime()) {
+      errors.birthdate = "Enter a valid birth date which is a past date ";
     }
-    else if(birthdate.getTime() > now.getTime() )
-    {
-      errors.birthdate = "Enter a valid birth date which is a past date "
-    } 
-    return errors
-  }
+    return errors;
+  };
 
-  
   useEffect(() => {
-    console.log(who.user.is_admin)
-    console.log(Url)
+    console.log(who.user.is_admin);
+    console.log(Url);
 
-    axios.get(Url).then((res)=>{
-      setUser(res.data)
-    })
+    axios.get(Url).then((res) => {
+      setUser(res.data);
+    });
   }, []);
 
   const onChange = (e) => setUser({ ...User, [e.target.name]: e.target.value });
 
-
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
-  const onChangePicture = e => {
+  const onChangePicture = (e) => {
     if (e.target.files[0]) {
       console.log("picture: ", e.target.files);
-      setChanged(true)
+      setChanged(true);
       setPicture(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener("load", () => {
         setImgData(reader.result);
       });
       reader.readAsDataURL(e.target.files[0]);
-      
     }
   };
 
-
   const onSubmit = (e) => {
     e.preventDefault();
-    
-    let errors_form = validate(User)
-    setFormErrors(errors_form)
 
-    if ( Object.keys(errors_form).length === 0  )
-    {
-    const Data = new FormData();
+    let errors_form = validate(User);
+    setFormErrors(errors_form);
 
-    if (who.user.role == "student") {
-      //Repeated Line
-      Url = StudentUrl;
-      Data.append("year_of_graduation", User.year_of_graduation);
-      Data.append("graduate", User.graduate);
-    } else if (who.user.role == "dr" || who.user.role == "ta") {
-      //Repeated Line
-      Url = StaffUrl;
-      Data.append("bio", User.bio);
-    } else if ((who.user.role = "employee")) {
-      //Repeated Line
-      Url = EmpUrl;
-      Data.append("title", User.title);
-    }
-    if (who.user.is_admin){
-      Url = PersonUrl;
-    }
+    if (Object.keys(errors_form).length === 0) {
+      const Data = new FormData();
 
-    if(changed==true){
-      User.profile_img=picture
-      Data.append("profile_img", User.profile_img);
-    }
+      if (who.user.role == "student") {
+        //Repeated Line
+        Url = StudentUrl;
+        Data.append("year_of_graduation", User.year_of_graduation);
+        Data.append("graduate", User.graduate);
+      } else if (who.user.role == "dr" || who.user.role == "ta") {
+        //Repeated Line
+        Url = StaffUrl;
+        Data.append("bio", User.bio);
+      } else if ((who.user.role = "employee")) {
+        //Repeated Line
+        Url = EmpUrl;
+        Data.append("title", User.title);
+      }
+      if (who.user.is_admin) {
+        Url = PersonUrl;
+      }
 
-    if(isAdmin){
-      Data.append("is_admin", isAdmin);
-    }
-    if(isCoordinator){
-      Data.append("is_coordinator", isCoordinator);
-    }
-    if(isModerator){
-      Data.append("is_moderator", isModerator);
-    }
-    if(is_staff){
-      Data.append("is_staff", is_staff);
-    }
-    if(is_emp){
-      Data.append("is_emp", is_emp);
-    }
-    if(isActive){
-      Data.append("is_active",isActive)
-    }
+      if (changed == true) {
+        User.profile_img = picture;
+        Data.append("profile_img", User.profile_img);
+      }
 
-    Data.append("fname", User.fname);
-    Data.append("lname", User.lname);
-    Data.append("email", User.email);
-    Data.append("address", User.address);
-    Data.append("gender", User.gender);
-    Data.append("birthdate", User.birthdate);
-    Data.append("phone_number", User.phone_number);
-    Data.append("password", User.password);
-    Data.append("role", User.role);
+      if (isAdmin) {
+        Data.append("is_admin", isAdmin);
+      }
+      if (isCoordinator) {
+        Data.append("is_coordinator", isCoordinator);
+      }
+      if (isModerator) {
+        Data.append("is_moderator", isModerator);
+      }
+      if (is_staff) {
+        Data.append("is_staff", is_staff);
+      }
+      if (is_emp) {
+        Data.append("is_emp", is_emp);
+      }
+      if (isActive) {
+        Data.append("is_active", isActive);
+      }
 
-      axios.put(Url, Data).then((res)=>{
-        history.push("/profilepage");
-      }).catch((e)=>console.log(e))
+      Data.append("fname", User.fname);
+      Data.append("lname", User.lname);
+      Data.append("email", User.email);
+      Data.append("address", User.address);
+      Data.append("gender", User.gender);
+      Data.append("birthdate", User.birthdate);
+      Data.append("phone_number", User.phone_number);
+      Data.append("password", User.password);
+      Data.append("role", User.role);
+
+      axios
+        .put(Url, Data)
+        .then((res) => {
+          history.push("/profilepage");
+        })
+        .catch((e) => console.log(e));
     }
   };
 
   return (
-    <section className="py-5 h-150 h-custom">
-      <div className="container">
+    <section className="py-5 h-150 h-custom ">
+      <div className="container ">
         <div className="col py-5">
           <div className="row">
-            <div className="col mb-3">
-              <div className="card ">
+            <div className="col mb-3 d-flex justify-content-center align-items-center">
+              <div className="card col-7">
                 <div className="card-body">
                   <div className="e-profile">
                     <div className="row">
@@ -255,11 +244,28 @@ function EditProfile(isAuthenticated) {
                               height: "140px",
                             }}
                           >
-                            <img  style={{ width: "140px" }} src={User.profile_img}/>
-
-                          <div>
+                            <img
+                              style={{ width: "140px" }}
+                              src={User.profile_img}
+                            />
                           </div>
-                          
+                          <div className="mt-2 row justify-content-center">
+                            <button
+                              className="btn text-light btn-sm col-12"
+                              style={{ backgroundColor: "#003049" }}
+                              type="button"
+                            >
+                              <input
+                                className="col-10"
+                                type="file"
+                                onChange={onChangePicture}
+                              />
+                              <FontAwesomeIcon
+                                className="fs-5 col-2 "
+                                icon={faCamera}
+                                display
+                              />{" "}
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -270,16 +276,10 @@ function EditProfile(isAuthenticated) {
                           </h4>
                           <p className="mb-0">{User.email}</p>
                           <p className="mb-2">{User.graduate}</p>
-                          <div className="mt-2 button">
-                            <button className="btn text-light" type="button">
-                             <input type="file" onChange={onChangePicture} />
-                             <FontAwesomeIcon className="fs-4" icon={faCamera} />{" "}
-                            </button>
-                          </div>
                         </div>
                       </div>
                     </div>
-                    <br></br>
+                    <br />
                     <ul className="nav nav-tabs">
                       <li className="nav-item">
                         <a href className="active nav-link">
@@ -288,7 +288,7 @@ function EditProfile(isAuthenticated) {
                       </li>
                     </ul>
                     <br></br>
-                    <div className="tab-content pt-3">
+                    <div className="tab-content pt-3 col-11 ">
                       <div className="tab-pane active">
                         <form
                           className="form-group-lg"
@@ -308,7 +308,7 @@ function EditProfile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.fname }</p>
+                              <p className="text-danger">{FormErrors.fname}</p>
                             </div>
                             <div className="col">
                               <div className="form-group">
@@ -322,7 +322,7 @@ function EditProfile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.lname }</p>
+                              <p className="text-danger">{FormErrors.lname}</p>
                             </div>
                           </div>
                           <br></br>
@@ -339,7 +339,7 @@ function EditProfile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.email }</p>
+                              <p className="text-danger">{FormErrors.email}</p>
                             </div>
                           </div>
                           <br></br>
@@ -356,7 +356,9 @@ function EditProfile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.phone_number }</p>
+                              <p className="text-danger">
+                                {FormErrors.phone_number}
+                              </p>
                             </div>
                           </div>
                           <br></br>
@@ -373,7 +375,9 @@ function EditProfile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.address }</p>
+                              <p className="text-danger">
+                                {FormErrors.address}
+                              </p>
                             </div>
                           </div>
                           <br></br>
@@ -390,29 +394,32 @@ function EditProfile(isAuthenticated) {
                                   onChange={(e) => onChange(e)}
                                 />
                               </div>
-                              <p className="text-danger">{ FormErrors.birthdate }</p>
+                              <p className="text-danger">
+                                {FormErrors.birthdate}
+                              </p>
                             </div>
                           </div>
                           <br></br>
-                          {who.user != null ? who.user.role == "dr" || who.user.role == "ta" ? 
-                            <div className="row">
-                              <div className="col">
-                                <div className="form-group">
-                                  <label>Bio</label>
-                                  <textarea
-                                    className="form-control"
-                                    type="text"
-                                    name="bio"
-                                    rows="5"
-                                    cols="50"
-                                    value={User.bio}
-                                    onChange={(e) => onChange(e)}
-                                  />
+                          {who.user != null ? (
+                            who.user.role == "dr" || who.user.role == "ta" ? (
+                              <div className="row">
+                                <div className="col">
+                                  <div className="form-group">
+                                    <label>Bio</label>
+                                    <textarea
+                                      className="form-control"
+                                      type="text"
+                                      name="bio"
+                                      rows="5"
+                                      cols="50"
+                                      value={User.bio}
+                                      onChange={(e) => onChange(e)}
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            : null : null
-                          }
+                            ) : null
+                          ) : null}
                           <div className="row">
                             <br></br>
                           </div>
