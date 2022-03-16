@@ -173,7 +173,7 @@ export default function AssignCourse() {
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3 courses-b ">
                 <div className="card-body p-4 p-md-5">
-                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
+                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 fs-2 fw-bold">
                     Assign Course
                   </h3>
                   <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
@@ -182,11 +182,11 @@ export default function AssignCourse() {
                         <div className="form-outline datepi+cker w-100">
                           <h2
                             htmlFor="ReservationDate"
-                            className="form-label"
+                            className="form-label "
                           >
-                            Course Name
+                            Course Name :
                           </h2>
-                          <h4>{courses.name}</h4>
+                          <p className="fw-light fs-4 text-white ">- {courses.name}</p>
 
                         </div>
                       </div>
@@ -199,10 +199,10 @@ export default function AssignCourse() {
                             htmlFor="ReservationDate"
                             className="form-label"
                           >
-                            Current Staff
+                            Current Staff :
                           </h2>
    
-                          <h5>{`${courses.staff_id }`}  {" "}</h5>
+                          <p className="fw-light fs-4 text-white ">- {`${courses.staff_id }`}  {" "}</p>
 
                         </div>
                       </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faEdit, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard, faAlignLeft, faCalendarDay, faCalendarDays, faDownload, faEdit, faEnvelope, faLocationArrow, faMobileButton, faMobileScreenButton, faUpload } from "@fortawesome/free-solid-svg-icons";
 
 function Profile(isAuthenticated) {
   const who = useSelector((state) => state.auth);
@@ -102,11 +102,12 @@ function Profile(isAuthenticated) {
               </div>
             <br></br>
             <div className="px-4 py-3">
-              <h5 className="mb-0"></h5>
-              {/* <h5 class="mb-0">More Info</h5>  */}
+              {/* <h5 className="mb-0"></h5>
+              <h5 class="mb-0"></h5>  */}
               <div className="p-4 rounded shadow border">
                 {User.role == "dr" ? (
-                  <h4 className="font-italic mb-0">
+                  <h4 className="fst-italic fw-bold mb-0 ">
+                    <FontAwesomeIcon icon={faAddressCard} />{" "}
                     Role{" "}
                     <p p className="pdata">
                       Dr
@@ -114,7 +115,9 @@ function Profile(isAuthenticated) {
                   </h4>
                 ) : null}
                 {User.role == "ta" ? (
-                  <h4 className="font-italic mb-0">
+                  <h4 className="fst-italic fw-bold mb-0 ">
+                    <FontAwesomeIcon icon={faAddressCard} />{" "}
+
                     Role{" "}
                     <p p className="pdata">
                       TA
@@ -122,7 +125,9 @@ function Profile(isAuthenticated) {
                   </h4>
                 ) : null}
                 {User.role == "student" ? (
-                  <h4 className="font-italic mb-0">
+                  <h4 className="fst-italic fw-bold mb-0 ">
+                   <FontAwesomeIcon icon={faAddressCard} />{" "}
+
                     Role{" "}
                     <p p className="pdata">
                       Student
@@ -130,28 +135,33 @@ function Profile(isAuthenticated) {
                   </h4>
                 ) : null}
                 <h4 className="fst-italic fw-bold mb-0 ">
+                <FontAwesomeIcon icon={faEnvelope} />{" "}
                   Email{" "}
                   <p p className="pdata">
                     {User.email}
                   </p>
                 </h4>
                 <h4 className="fst-italic fw-bold mb-0">
+                <FontAwesomeIcon icon={faLocationArrow} />{" "}
                   Address{" "}
                   <p p className="pdata">
                     {User.address}
                   </p>
                 </h4>
                 <h4 className="fst-italic fw-bold mb-0">
+                <FontAwesomeIcon icon={faCalendarDay} />{" "}
                   Birthdate{" "}
                   <p p className="pdata">
                     {User.birthdate}
                   </p>
                 </h4>
                 <h4 className="fst-italic fw-bold mb-0">
+                <FontAwesomeIcon icon={faMobileScreenButton} />{" "}
                   Phone Number <p className="pdata">{User.phone_number}</p>
                 </h4>
                 {User.bio != "" ? (
                   <h4 className="fst-italic fw-bold mb-0">
+                    <FontAwesomeIcon icon={faAlignLeft} />{" "}
                     Bio <p className="pdata">{User.bio}</p>
                   </h4>
                 ) : null}
