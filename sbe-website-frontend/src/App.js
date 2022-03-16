@@ -64,7 +64,9 @@ import CourseForm from "./pages/CourseForm";
 import Adm_Graduates from "./pages/Adm_Graduates"
 import Adm_UnderGraduates from "./pages/Adm_UnderGraduates"
 import AssignCourse from "./pages/AssignCourse";
+import EditProfile from "./pages/EditProfile";
 
+import Staff from "./components/Staff";
 function App() {
 
 
@@ -142,6 +144,10 @@ function App() {
 
             <Route path={"/undergraduate-lecs"} exact component={UnderGraduateLecSchedule} /> 
             <Route path={"/graduate-lecs"} exact component={GraduateLecSchedule} /> 
+            <Route path={"/edit-profile"} exact component={EditProfile} /> 
+            <Route path={"/staffpage"} exact component={Staff} /> 
+
+
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}

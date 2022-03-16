@@ -46,6 +46,35 @@ class LecSchedulesDetails(APIView):
         lec_schedule = self.get_object(pk)
         lec_schedule.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    
+class LecSchedulesGraduate(APIView):
+    def get(self,request):
+        lec_schedule = LecSchedule.objects.filter(category='graduate')
+        serializer = LecScheduleSerializer(lec_schedule,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = LecScheduleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+
+
+class LecSchedulesUnderGraduate(APIView):
+    def get(self,request):
+        lec_schedule = LecSchedule.objects.filter(category='undergraduate')
+        serializer = LecScheduleSerializer(lec_schedule,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = LecScheduleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+    
 
 class ExamSchedulesList(APIView):
     def get(self,request):
@@ -85,12 +114,12 @@ class ExamSchedulesDetails(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
-def DownloadPDFSchedules(self,year,type,pk):
+def DownloadPDFSchedules(self,year,type):
     if type == "exam":
         exam = ExamSchedule.objects.get(year=year)
         path_to_file = MEDIA_ROOT + f'/{exam.exam_file}'
     elif type == "lec":
-        lec = LecSchedule.objects.get(pk=pk)
+        lec = LecSchedule.objects.get(year=year)
         path_to_file = MEDIA_ROOT + f'/{lec.schedule_file}'
         
     f = open(path_to_file, 'rb')
@@ -99,3 +128,32 @@ def DownloadPDFSchedules(self,year,type,pk):
     response['Content-Disposition'] = 'attachment'
  
     return response
+
+
+
+class ExamSchedulesGraduate(APIView):
+    def get(self,request):
+        exam_schedule = ExamSchedule.objects.filter(category='graduate')
+        serializer = ExamScheduleSerializer(exam_schedule,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = ExamScheduleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+
+class ExamSchedulesUnderGraduate(APIView):
+    def get(self,request):
+        exam_schedule = ExamSchedule.objects.filter(category='undergraduate')
+        serializer = ExamScheduleSerializer(exam_schedule,many=True)
+        return Response(serializer.data)
+    def post(self,request):
+        serializer = ExamScheduleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+    

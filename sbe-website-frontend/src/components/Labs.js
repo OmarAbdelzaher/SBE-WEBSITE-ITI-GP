@@ -1,43 +1,33 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import AdminNav from "../components/AdminNav";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import Nav from "react-bootstrap/Nav";
 
-import {
-  faCalendarCheck,
-  faCalendarXmark,
-  faGear,
-  faGears,
-} from "@fortawesome/free-solid-svg-icons";
+import { faGear } from "@fortawesome/free-solid-svg-icons";
 
 export default function Labs() {
+  const [labs, setLabs] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/labs/")
+      .then((res) => setLabs(res.data));
+  }, []);
 
-    const [labs, setLabs] = useState([]);
-    useEffect(() => {
-        axios
-          .get("http://localhost:8000/api/labs/")
-          .then((res) =>
-            setLabs(res.data)
-          );
-      }, []);
+  const deleteLab = (id) => {
+    axios
+      .delete(`http://localhost:8000/api/lab/${id}`)
+      .then((res) => {
+        const labs_update = labs.filter((item) => item.id !== id);
+        setLabs(labs_update);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-      const deleteLab = (id) => {
-        axios
-          .delete(`http://localhost:8000/api/lab/${id}`)
-          .then((res) => {
-            const labs_update = labs.filter((item) => item.id !== id);
-            setLabs(labs_update);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      };
-   
   return (
     <>
       <section className="main ">
@@ -49,14 +39,16 @@ export default function Labs() {
               </div>
               <div className="card-body">
                 <p className="fs-1 text-light"> Labs Menu</p>
-                <Link  className="btn btn-md col-3" style={{backgroundColor:"#003049", color:"#ffff"}} to="/labform">
-                <FontAwesomeIcon icon={faCirclePlus } />{"  "} 
-                  Add Lab 
+                <Link
+                  className="btn btn-md col-3"
+                  style={{ backgroundColor: "#003049", color: "#ffff" }}
+                  to="/labform"
+                >
+                  <FontAwesomeIcon icon={faCirclePlus} />
+                  {"  "}
+                  Add Lab
                 </Link>
               </div>
-             
-              
-            
 
               <div>
                 <table className="table table-hover bg-light fs-4 col-12">
@@ -72,12 +64,10 @@ export default function Labs() {
                     {labs.map((item, index) => {
                       return (
                         <tr>
-                          <td>{index+1}</td>
+                          <td>{index + 1}</td>
 
                           <td>{item.name}</td>
                           <td>
-                        
-
                             <Link to={`/editLabForm/${item.id}/${item.name}`}>
                               <button className="btn button">
                                 <FontAwesomeIcon
@@ -86,21 +76,20 @@ export default function Labs() {
                                 />{" "}
                                 Edit
                               </button>
-                            </Link> 
+                            </Link>
                             <Link to="#">
                               <button
-                               style={{backgroundColor:"red"}}
+                                style={{ backgroundColor: "red" }}
                                 className="btn btn-sm"
                                 onClick={() => {
                                   deleteLab(item.id);
                                 }}
                               >
                                 <FontAwesomeIcon
-                                style={{color:"white"}}
+                                  style={{ color: "white" }}
                                   className="fs-5"
                                   icon={faTrashAlt}
                                 />{" "}
-                               
                               </button>
                             </Link>
                           </td>
@@ -118,5 +107,3 @@ export default function Labs() {
     </>
   );
 }
-
-// {`/reservationEditHall/${item.id}/${item.date}/${item.timeslot}/hall/${item.hall_id}/${item.staff_id[0]}`}

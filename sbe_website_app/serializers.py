@@ -18,7 +18,7 @@ User = get_user_model()
 class UserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password' ,'role','is_coordinator','is_moderator','is_admin']
+        fields = ['id', 'fname','lname','email','gender','birthdate','address','phone_number','password' ,'role','is_coordinator','is_moderator','is_admin','is_active']
 
         
 class PersonSerializer(serializers.ModelSerializer):
@@ -40,7 +40,7 @@ class StudentSerializer(serializers.ModelSerializer):
 class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','role','is_active','is_coordinator']
+        fields = ['id','fname','lname','email','profile_img','password','gender','birthdate','address','phone_number','bio','role','is_active','is_coordinator']
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
         return super(StaffSerializer, self).create(validated_data)
@@ -106,6 +106,7 @@ class ReserveHallSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
+        ret['hall_id'] = (ret['hall_id'],str(instance.hall_id))
         ret['timeslot'] = (ret['timeslot'],str(instance.timeslot))
         ret['staff_id'] = (ret["staff_id"],str(instance.staff_id))
         return ret
@@ -117,6 +118,7 @@ class ReserveLabSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         ret = super().to_representation(instance)
+        ret['lab_id'] = (ret['lab_id'],str(instance.lab_id))
         ret['timeslot'] = (ret['timeslot'],str(instance.timeslot))
         ret['staff_id'] = (ret["staff_id"],str(instance.staff_id))
         return ret
@@ -128,6 +130,7 @@ class ReserveDeviceSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
+        ret['device_id'] = (ret['device_id'],str(instance.device_id))
         ret['timeslot'] = (ret['timeslot'],str(instance.timeslot))
         ret['staff_id'] = (ret["staff_id"],str(instance.staff_id))
         return ret
@@ -162,14 +165,14 @@ class OfficeHoursSerializer(serializers.ModelSerializer):
 class LecScheduleSerializer(serializers.ModelSerializer):
     class Meta :
         model = LecSchedule
-        fields = ['id','year','semester','schedule_file']
+        fields = ['id','year','semester','schedule_file','category']
 
 class ExamScheduleSerializer(serializers.ModelSerializer):
     class Meta :
         model = ExamSchedule
-        fields = ['id','year','semester','exam_file']
+        fields = ['id','year','semester','exam_file','category']
 
 class AdmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Admission
-        fields = ['id','title','description','instructions','category']
+        fields = ['id','summary','is_active','category']

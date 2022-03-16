@@ -64,13 +64,13 @@ function ReservationApprov() {
 
     if (reserve.hall_id) {
       url = `http://localhost:8000/api/reservedhall/${reserve.id}`;
-      reserveData.append("hall_id", reserve.hall_id);
+      reserveData.append("hall_id", reserve.hall_id[0]);
     } else if (reserve.lab_id) {
       url = `http://localhost:8000/api/reservedlab/${reserve.id}`;
-      reserveData.append("lab_id", reserve.lab_id);
+      reserveData.append("lab_id", reserve.lab_id[0]);
     } else if (reserve.device_id) {
       url = `http://localhost:8000/api/reserveddevice/${reserve.id}`;
-      reserveData.append("device_id", reserve.device_id);
+      reserveData.append("device_id", reserve.device_id[0]);
     }
 
     reserveData.append("staff_id", reserve.staff_id[0]);
@@ -140,9 +140,9 @@ function ReservationApprov() {
                         <tr>
                           <td>{index+1}</td>
 
-                          {item.hall_id ? <td>{item.hall_id}</td> : null}
-                          {item.lab_id ? <td>{item.lab_id}</td> : null}
-                          {item.device_id ? <td>{item.device_id}</td> : null}
+                          {item.hall_id ? <td>{item.hall_id[1]}</td> : null}
+                          {item.lab_id ? <td>{item.lab_id[1]}</td> : null}
+                          {item.device_id ? <td>{item.device_id[1]}</td> : null}
 
                           <td>{item.staff_id[1]}</td>
                           <td>{moderator.user.fname}{" "}{moderator.user.lname}</td>

@@ -73,8 +73,7 @@ class Person(AbstractBaseUser,PermissionsMixin):
     lname = models.CharField(max_length=50)
     email = models.EmailField(max_length=255, unique=True)
     
-    profile_img = models.ImageField(null=True, upload_to='images', blank=True, default='images/user.png') 
-    
+    profile_img = models.ImageField(null=True, upload_to='images', blank=True, default='images/user.png')    
     birthdate = models.DateField(null=True)
     address = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
@@ -133,6 +132,8 @@ class Staff(Person,models.Model):
         ('TA', 'TA'),
     )
     position = models.CharField(max_length=10, choices=POS_CHOICES)
+    bio = models.TextField(blank=True , max_length=500)
+
         
     def __str__(self):
         return self.fname + ' ' + self.lname
@@ -140,7 +141,7 @@ class Staff(Person,models.Model):
 
 class FacultyEmp(Person,models.Model):
     title = models.CharField(max_length=20,null=False)
-    # is_moderator = models.BooleanField(default=False,null=True)
+    
     
     def __str__(self):
         return f'{self.fname} {self.lname}'

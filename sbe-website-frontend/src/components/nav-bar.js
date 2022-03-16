@@ -133,6 +133,7 @@ const NavBar = (isAuthenticated) => {
                   Admission
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
+                <NavDropdown.Item href="/staffpage">Staff</NavDropdown.Item>
                 <NavDropdown.Item href="/coursegraduate">
                   Courses
                 </NavDropdown.Item>
@@ -159,6 +160,7 @@ const NavBar = (isAuthenticated) => {
                 <NavDropdown.Item href="/undergraduatepage">
                   News
                 </NavDropdown.Item>
+                <NavDropdown.Item href="/staffpage">Staff</NavDropdown.Item>
                 <NavDropdown.Item href="/coursesMenu">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/officehourschedule">
                   Office Hours

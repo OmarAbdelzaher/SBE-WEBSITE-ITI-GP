@@ -84,7 +84,7 @@ export default function LabsReservations() {
                         <tr>
                           <td>{index + 1}</td>
 
-                          <td>{item.lab_id}</td>
+                          <td>{item.lab_id[1]}</td>
 
                           <td>{item.staff_id[1]}</td>
                           <td>
