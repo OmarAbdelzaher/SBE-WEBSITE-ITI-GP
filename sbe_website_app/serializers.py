@@ -165,12 +165,12 @@ class OfficeHoursSerializer(serializers.ModelSerializer):
 class LecScheduleSerializer(serializers.ModelSerializer):
     class Meta :
         model = LecSchedule
-        fields = ['id','year','semester','schedule_file']
+        fields = ['id','year','semester','schedule_file','category']
 
 class ExamScheduleSerializer(serializers.ModelSerializer):
     class Meta :
         model = ExamSchedule
-        fields = ['id','year','semester','exam_file']
+        fields = ['id','year','semester','exam_file','category']
 
 class AdmissionSerializer(serializers.ModelSerializer):
     class Meta:

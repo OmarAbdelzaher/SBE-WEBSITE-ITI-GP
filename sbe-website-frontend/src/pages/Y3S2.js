@@ -41,7 +41,7 @@ export default function YthreeStwo() {
                   .map((course) => {
                     return (
                       <tbody className="mb-3" key={course.id}>
-                          <h1>{console.log(course)}</h1>
+                          {/* <h1>{console.log(course)}</h1> */}
                         
                           <tr className='tr'>
                             <td><Link className='table-b'  to={`/courseDetails/${course.id}`}>{course.name}</Link></td>

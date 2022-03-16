@@ -3,6 +3,8 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAnglesRight} from "@fortawesome/free-solid-svg-icons";
 
 export default function CourseGraduate() {
   const [graduatecourse, setGraduateCourse] = useState([]);
@@ -35,36 +37,40 @@ export default function CourseGraduate() {
     <>
       <section className="h-custom ">
         <div className="container">
-          <div className="row py-2 d-flex justify-content-center align-items-center h-100">
-            <div className="col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-lg-6 col-xl-8 card rounded-3 courses-b border border-2 border-light">
               <div className="margin">
-                <div className="card-body p-4 p-md-5">
-                  <h1 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
+                <div className="card-body">
+                  <h1 className="mb-4 pb-2 pb-md-0 px-md-2">
                     Graduate Courses
                   </h1>
                 </div>
-                <div className="row d-flex justify-content-center">
-                  <div className=" text-dark col-8">
-                   
-
+                <div className="row table-b">
+                  <table className="text-light table table-hover fs-4">
+                    <thead>
+                      <tr>
+                        <th>Course Name</th>
+                      </tr>
+                    </thead>
                     {graduatecourse.map((item) => {
                       return (
                         <>
-                        <div className="card cards " key={item.id}>
-                      <div className="card-body">
-                          <h2 className="card-title"> {item.name}</h2>
-                          <p className="card-text fw-bold text-dark">Dr : {item.staff_id}</p>
-                          <p className="card-text text-dark">{item.instructions}</p>
-                          </div>
-
-                        </div>
+                        <tbody className="fs-4 mb-3" key={item.id}>
+                          <tr className='tr'>
+                          {/* <td className='table-b'> {item.name}</td> */}
+                          <td><Link className='table-b'  to={`/courseDetails/${item.id}`}>{item.name}</Link></td>
+                          <td><Link to={`/courseDetails/${item.id}`}><FontAwesomeIcon icon={faAnglesRight} style={{color:"#ffff"}}/></Link></td>
+                          {/* <td className='table-b'> {`${item.staff_id }`}  </td> */}
+                          </tr>
+                        </tbody>
                         
                         </>
                       );
                     })}
-                  </div>
+                     </table>
                 </div>
-              </div>
+                </div>
+             
             </div>
             <div className="c-form py-5"></div>
           </div>
