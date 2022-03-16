@@ -99,6 +99,8 @@ function UnderGraduateExamSchedule(isAuthenticated) {
 
     fileData.append("year", exam.year);
     fileData.append("exam_file", filesList[0]);
+    fileData.append("category", exam.category);
+    
 
     axios
       .put(`http://localhost:8000/api/examschedule/${exam.id}`, fileData)

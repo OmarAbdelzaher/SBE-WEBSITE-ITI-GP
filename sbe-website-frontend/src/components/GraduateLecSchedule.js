@@ -1,64 +1,190 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload, faUpload } from '@fortawesome/free-solid-svg-icons'
+import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
-function GraduateLecSchedule() {
+function GraduateLecSchedule(isAuthenticated) {
+  let flag = false;
+  const who = useSelector((state) => state.auth);
+  const [is_staff, setIs_staff] = useState(false);
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isExist,setIsExist] = useState(false)
+  const [filesList, setFilesList] = useState([]);
+
+
+  const [graduateschedulelec, setGraduateScheduleLec] = useState([]);
+
+
+  // const [allSchedules, setAllSchedules] = useState([]);
+
+  useEffect(() => {
+    if (isAuthenticated && who.user != null && flag == false) {
+      if (who.user.role == "dr" || who.user.role == "ta") {
+        setIs_staff(true);
+        if (who.user.is_coordinator) {
+          setIsCoordinator(true);
+        }
+        flag = true;
+      }
+
+      if (who.user.role == "employee") {
+        setIsEmp(true);
+        if (who.user.is_moderator) {
+          setIsModerator(true);
+        }
+      }
+
+      if (who.user.is_admin) {
+        setIsAdmin(true);
+      }
+    }
+  });
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/lecschedulesgraduate/")
+    .then((res) => setGraduateScheduleLec(res.data));
+  }, []);
+
+  // useEffect(() => {
+  //   setAllSchedules(yearOneSchedule.concat(yearTwoSchedule, yearThreeSchedule, yearFourSchedule));
+  // }, [yearFourSchedule]);
+
+  var fileDownload = require("js-file-download");
+
+  function basename(path) {
+    return path.split("/").reverse()[0];
+  }
+
+  const handlePDFDownload = (schedule) => {
+    axios
+      .get(`http://localhost:8000/api/download/${schedule.year}/lec`, {
+        responseType: "blob",
+      })
+      .then((res) => {
+        fileDownload(res.data, basename(schedule.schedule_file));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+  const handleChangeFile = (e,schedule) => {
+    const list = [];
+    const files = e.target.files;
+    console.log(files)
+      if(schedule.schedule_file !== '/media/Lecs_Schedule/'+files[0].name){
+        list.push(files[0])
+      }else{
+        setIsExist(true)
+      }
+    setFilesList(list);
+  };
+
+  const handleSubmit = (e,schedule) => {
+
+    // e.preventDefault();
+    let fileData = new FormData();
+    
+    fileData.append("year", schedule.year);
+    fileData.append("schedule_file", filesList[0]);
+
+    axios.put(`http://localhost:8000/api/lecschedule/${schedule.id}`,fileData).then((res)=>{
+      console.log(res)
+      }).catch((e)=>{
+        console.log(e)
+    })
+  };
+
   return (
     <>
- <section className="h-custom py-5">
-        <div className="container ">
-          <div className='row d-flex justify-content-center align-items-center h-100'>
-            <div className='py-5 col-lg-8 col-xl-12 card rounded-3 courses-b border border-2 border-light'>
-              <div className='margin'>
-                <div className='card-body justify-content-center'>
-                <p className=' text-center'>Lectures Schedule</p>
+      <section className="h-custom">
+        <div className="container">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-lg-8 col-xl-8 card rounded-3 courses-b border border-2 border-light">
+              <div className="">
+                <div className="card-body ">
+                  <p className="fs-2 text-light">Lectures Schedule</p>
                 </div>
                 <div>
-                <table className="table table-bordered border-primary bg-light fs-4 col-12">
-                  <thead>
-                    <tr className="text-dark">
-                      <th>Section</th>
-                      <th>Download</th>
-                    </tr>
-                  </thead>
+                  <table className="table table-bordered  bg-light fs-4 col-12">
+                    <thead>
+                      <tr className="text-dark">
+                        <th>Download</th>
+                      </tr>
+                    </thead>
 
-                  <tbody className="mb-3">
-                    <tr>
-                      <td>
-                        <Link className="admin-tables" to="#">Master</Link>
-                      </td>
-                      <td>
-                        <Link>
-                          <button className="btn button">
-                            <FontAwesomeIcon
-                              className="fs-5"
-                              icon={faDownload}
-                            />{" "}
-                            Download
-                          </button>
-                        </Link>
-                        <Link>
-                          <button className="btn button">
-                            <FontAwesomeIcon
-                              className="fs-5"
-                              icon={faUpload}
-                            />{" "}
-                            Upload
-                          </button>
-                        </Link>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-               
+                    <tbody className="mb-3">
+                      {graduateschedulelec.map((schedule) => {
+                        return (
+                          <tr>
+                            <td>
+                              <div className="row">
+                                <div className="col-5">
+                              <Link to="#">
+                                <button  className="btn btn-md "
+                                  style={{
+                                    color: "#ffff",
+                                    background:"#003049"
+                                  }}
+                                   onClick={()=>handlePDFDownload(schedule)}>
+                                  <FontAwesomeIcon
+                                    className="fs-5"
+                                    icon={faDownload}
+                                  />{" "}
+                                  Download Schedule
+                                </button>
+                              </Link>
+                              </div>
+                              {isModerator || isAdmin || isCoordinator ? (
+                                <div className="col-7">
+                                  <form onSubmit={(event) => handleSubmit(event,schedule)}>
+                                    <input
+                                      className="col-6 btn btn-md"
+                                      type="file"
+                                      onChange={(event) => handleChangeFile(event,schedule)}
+                                    />
+                                    <button
+                                      type="submit"
+                                      className="btn btn-md col-6"
+                                      style={{
+                                        color: "#003049",
+                                      }}>
+                                        <FontAwesomeIcon
+                                          className="fs-5"
+                                          icon={faUpload}
+                                        />{" "}
+                                        Upload Schedule
+                                    </button>
+                                    {
+                                      isExist? <p className="text-danger">This file Already Exists</p> 
+                                      : null
+                                    }
+                                  </form>
+                                </div>
+                              ) : null}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </section>    </>
-  )
+        <div className="c-form"></div>
+      </section>
+    </>
+  );
 }
 
-export default GraduateLecSchedule
+export default GraduateLecSchedule;

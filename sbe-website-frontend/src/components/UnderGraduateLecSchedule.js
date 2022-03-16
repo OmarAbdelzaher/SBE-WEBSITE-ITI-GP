@@ -98,6 +98,8 @@ function UnderGraduateLecSchedule(isAuthenticated) {
     
     fileData.append("year", schedule.year);
     fileData.append("schedule_file", filesList[0]);
+    fileData.append("category", schedule.category);
+
 
     axios.put(`http://localhost:8000/api/lecschedule/${schedule.id}`,fileData).then((res)=>{
       console.log(res)

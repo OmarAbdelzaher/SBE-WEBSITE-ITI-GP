@@ -73,7 +73,7 @@ class Person(AbstractBaseUser,PermissionsMixin):
     lname = models.CharField(max_length=50)
     email = models.EmailField(max_length=255, unique=True)
     
-    profile_img = models.ImageField(upload_to='images', blank=True) 
+    profile_img = models.ImageField(null=True, upload_to='images', blank=True, default='images/user.png')    
     birthdate = models.DateField(null=True)
     address = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)

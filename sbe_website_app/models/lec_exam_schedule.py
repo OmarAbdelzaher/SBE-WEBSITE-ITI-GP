@@ -24,7 +24,7 @@ class LecSchedule(models.Model):
         ('one', 'One'),
         ('two', 'Two'),
     )
-    year = models.CharField( max_length=20,choices=YEAR_CHOICES)
+    year = models.CharField( max_length=20,choices=YEAR_CHOICES,blank=True)
     semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES,blank=True)
     schedule_file = models.FileField(upload_to='Lecs_Schedule/')
     
@@ -49,7 +49,7 @@ class ExamSchedule(models.Model):
         ('one', 'One'),
         ('two', 'Two'),
     )
-    year = models.CharField( max_length=20,choices=YEAR_CHOICES)
+    year = models.CharField( max_length=20,choices=YEAR_CHOICES,blank=True)
     semester = models.CharField(max_length=20,choices=SEMESTER_CHOICES,blank=True)
     exam_file = models.FileField(upload_to='Exams_Schedule/')
     
