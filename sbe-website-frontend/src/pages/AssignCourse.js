@@ -6,6 +6,9 @@ import { useHistory, useParams } from "react-router-dom";
 // select-react import
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+let listing = []
+let concatlist = []
+
 
 export default function AssignCourse() {
   const params = useParams();
@@ -37,47 +40,36 @@ export default function AssignCourse() {
       .then((res) => setDoctors(res.data));
   }, []);
 
-
   const nameoptions = [];
-  doctors.map((tag) =>
+  const taoptions = [];
+  doctors.map((tag) =>{
+    if(tag.role == "dr")
+    {
     nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
+    }
+    else
+    {
+      taoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
+
+    }
+  }
   );
-  // const oldvalues = [];
-  // courses.map((course) =>
-  //   oldvalues.push({ value: course.id, label: `${course.staff_id} ` })
-  // );
-// console.log(oldvalues)
+
   const [data, setData] = useState({
     coursename: params.name,
     totalgrade: "",
-
-    // stds_grades:'' ,
     instructions: params.instructions,
     materials: params.materials,
     year: params.year,
     semester: params.semester,
     staff:'',
-    // staffold: courses.staff_id,
     category: params.category,
   });
 
-  // function handle(e) {
-  //   setData({ ...data, [e.target.name]: e.target.value });
-  // ;
-  // }
-  // select Name
+ 
   const changeSelectedNames = (e) => {
     console.log(Object.values(e));
-    // let oldstaff=courses.staff_id
-    // console.log(oldstaff);
-
-    // let old=[];
-    // for (let o of oldstaff){
-    //   old.push(parseInt(o.value));
-    // }
-    // let oldvalues = courses.staff_id
-
-    // console.log(oldvalues);
+  
 
     let List_names = Object.values(e);
 
@@ -85,11 +77,7 @@ export default function AssignCourse() {
     for (let t of List_names) {
       chosen.push(parseInt(t.value));
     }
-    console.log(chosen);
-
-    // for (let t of oldvalues) {
-    //   chosen.push(parseInt(t.value));
-    // }
+    listing = chosen
     console.log(chosen);
     setData({
       ...data,
@@ -98,20 +86,24 @@ export default function AssignCourse() {
     });
   };
 
-  // const oldstaff = (e) => {
-  //   console.log(Object.values(e));
+  const changeSelected = (e) => {
+    console.log(Object.values(e));
 
-  //   let List_names = Object.values(e);
-  //   let old = [];
-  //   for (let t of List_names) {
-  //     old.push(parseInt(t.value));
-  //   }
-  //   setData({
-  //     ...data,
-  //     staffold: old,
-      
-  //   });
-  // };
+    let List_names = Object.values(e);
+    let tachoose = []
+    for (let t of List_names) {
+      tachoose.push(parseInt(t.value));
+    }
+  concatlist = listing.concat(tachoose)
+    console.log(concatlist)
+    setData({
+      ...data,
+      staff: concatlist ,
+    });
+  };
+
+
+
   const validate = (values) => {
     const errors = {};
     if (!values.staff_id) {
@@ -123,7 +115,6 @@ export default function AssignCourse() {
 
 
   function onSubmit(e) {
-    // oldstaff(e)
     e.preventDefault();
     console.log(params);
     let errors_form = validate(data);
@@ -132,8 +123,6 @@ export default function AssignCourse() {
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
 
-
-      // Data.append("staff_id", data.staffold);
 
       data.staff.forEach((element) => {
         Data.append("staff_id", element);
@@ -214,7 +203,7 @@ export default function AssignCourse() {
                             htmlFor="staff"
                             className="form-label"
                           >
-                            Staff Name
+                            Doctor Name
                           </label>
                           <br />
                           <Select
@@ -225,17 +214,41 @@ export default function AssignCourse() {
                       options={nameoptions}
                       onChange={(e) => changeSelectedNames(e)}
                       name="staff"
-                      // value={data.staff}
-                      //  defaultValue={data.staff}
-
                       className="text-dark"
-                      // value={parseInt(courses.staff_id)}
                       isSearchable
                       setValue
                     />
                     <p className="text-danger">{formErrors.staff}</p>
-                    <br />
-                    
+                    <br />       
+                          <br />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 mb-4 d-flex align-items-center">
+                        <div className="form-outline datepi+cker w-100">
+                          <label
+                            htmlFor="ReservationDate"
+                            className="form-label"
+                          >
+                            TA Name
+                          </label>
+                          <br />
+        
+
+                          <Select
+                            closeMenuOnSelect={true}
+                            components={animatedComponents}
+                            placeholder={"Choose TA Names"}
+                            isMulti
+                            options={taoptions}
+                            onChange={(e) => changeSelected(e)}
+                            name="staff"
+                            className="text-dark"
+                            isSearchable
+                            setValue
+                          />
+
                           <br />
                         </div>
                       </div>

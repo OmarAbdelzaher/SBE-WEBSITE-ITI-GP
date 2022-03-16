@@ -9,6 +9,9 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
 const { Option } = Select;
+let listing = []
+let concatlist = []
+
 
 export default function CourseForm() {
 
@@ -18,6 +21,18 @@ export default function CourseForm() {
 
   const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
+  const [data, setData] = useState({
+    name: "",
+    stdgrades:"",
+    totalgrade: "",
+    instructions: "",
+    materials: "",
+    year: "",
+    semester: "",
+    staff: "",
+    category: "",
+  });
+
 
   const url = "http://localhost:8000/api/courses/";
 
@@ -35,41 +50,57 @@ export default function CourseForm() {
       .get("http://localhost:8000/api/staff/")
       // .then((res) => setDoctors(res.data));
 
-      .then((res) => setDoctors(res.data));
+      .then((res) => {setDoctors(res.data)
+      console.log(res.data)});
   }, []);
 
+
   const nameoptions = [];
-  doctors.map((tag) =>
+  const taoptions = [];
+  doctors.map((tag) =>{
+    if(tag.role == "dr")
+    {
     nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
+    }
+    else
+    {
+      taoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
+
+    }
+  }
   );
   const changeSelectedNames = (e) => {
     console.log(Object.values(e));
 
     let List_names = Object.values(e);
-
     let chosen = [];
     for (let t of List_names) {
       chosen.push(parseInt(t.value));
     }
-
-    console.log(chosen);
+    listing = chosen
     setData({
       ...data,
       staff: chosen,
     });
   };
+  // console.log(listing)
+  const changeSelected = (e) => {
+    console.log(Object.values(e));
 
-  const [data, setData] = useState({
-    name: "",
-    stdgrades:"",
-    totalgrade: "",
-    instructions: "",
-    materials: "",
-    year: "",
-    semester: "",
-    staff: "",
-    category: "",
-  });
+    let List_names = Object.values(e);
+    let tachoose = []
+    for (let t of List_names) {
+      tachoose.push(parseInt(t.value));
+    }
+  concatlist = listing.concat(tachoose)
+    console.log(concatlist)
+    setData({
+      ...data,
+      staff: concatlist ,
+    });
+  };
+
+
 
   const validate = (values) => {
     const errors = {};
@@ -87,6 +118,10 @@ export default function CourseForm() {
     if (!values.category) {
       errors.category = "Category is required";
     }
+    if (!values.staff)
+    {
+      errors.staff = "Doctor Name is required!"
+    }
 
     return errors;
   };
@@ -95,14 +130,13 @@ export default function CourseForm() {
     e.preventDefault();
     let errors_form = validate(data);
     setFormErrors(errors_form);
-    // console.log(data)
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
 
       Data.append("name", data.name);
       Data.append("total_grade", data.totalgrade);
-      // Data.append("staff_id", data.staff);
       data.staff.forEach((element) => {
+        console.log(element)
         Data.append("staff_id", element);
       });
 
@@ -115,7 +149,7 @@ export default function CourseForm() {
       axios
         .post(url, Data)
         .then((res) => {
-          console.log(res.data);
+          console.log(res.data.staff_id);
 
           history.push("/coursesMenu");
         })
@@ -156,7 +190,6 @@ export default function CourseForm() {
                             id="name"
                             type="text"
                             className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
                             name="name"
                             value={data.name}
                           />
@@ -244,7 +277,7 @@ export default function CourseForm() {
                             htmlFor="ReservationDate"
                             className="form-label"
                           >
-                            Staff Name
+                            Doctors Name
                           </label>
                           <br />
         
@@ -252,7 +285,7 @@ export default function CourseForm() {
                           <Select
                             closeMenuOnSelect={true}
                             components={animatedComponents}
-                            placeholder={"Choose Staff Names"}
+                            placeholder={"Choose Doctor Names"}
                             isMulti
                             options={nameoptions}
                             onChange={(e) => changeSelectedNames(e)}
@@ -264,6 +297,37 @@ export default function CourseForm() {
 
                           <br />
                           <p className="text-danger">{formErrors.staff}</p>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div className="row">
+                      <div className="col-md-12 mb-4 d-flex align-items-center">
+                        <div className="form-outline datepi+cker w-100">
+                          <label
+                            htmlFor="ReservationDate"
+                            className="form-label"
+                          >
+                            TA Name
+                          </label>
+                          <br />
+        
+
+                          <Select
+                            closeMenuOnSelect={true}
+                            components={animatedComponents}
+                            placeholder={"Choose TA Names"}
+                            isMulti
+                            options={taoptions}
+                            onChange={(e) => changeSelected(e)}
+                            name="staff"
+                            className="text-dark"
+                            isSearchable
+                            setValue
+                          />
+
+                          <br />
                         </div>
                       </div>
                     </div>
