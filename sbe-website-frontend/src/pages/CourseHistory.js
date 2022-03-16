@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight, faLink} from "@fortawesome/free-solid-svg-icons";
+import {faLink} from "@fortawesome/free-solid-svg-icons";
 
 
 const CourseHistory = () => {

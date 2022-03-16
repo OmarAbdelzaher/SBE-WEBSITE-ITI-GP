@@ -47,12 +47,15 @@ function UnderGraduateLecSchedule(isAuthenticated) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/lecschedulesundergraduate/").then((res) => {
-      setYearOneSchedule(res.data.filter((y1) => y1.year == "Year 1"));
-      setYearTwoSchedule(res.data.filter((y2) => y2.year == "Year 2"));
-      setYearThreeSchedule(res.data.filter((y3) => y3.year == "Year 3"));
-      setYearFourSchedule(res.data.filter((y4) => y4.year == "Year 4"));
-    }).catch((e)=>console.log(e))
+    axios
+      .get("http://localhost:8000/api/lecschedules/")
+      .then((res) => {
+        let underGradLecs = res.data.filter(lec => lec.category == "undergraduate")
+        setYearOneSchedule(underGradLecs.filter((y1) => y1.year == "Year 1"));
+        setYearTwoSchedule(underGradLecs.filter((y2) => y2.year == "Year 2"));
+        setYearThreeSchedule(underGradLecs.filter((y3) => y3.year == "Year 3"));
+        setYearFourSchedule(underGradLecs.filter((y4) => y4.year == "Year 4"));
+      }).catch((e)=>console.log(e))
   }, []);
 
   useEffect(() => {

@@ -147,7 +147,7 @@ export default function CourseForm() {
                               Details
                             </label>
                             <br />
-                            <input
+                            <textarea
                               onChange={(e) => handle(e)}
                               id="description"
                               type="text"

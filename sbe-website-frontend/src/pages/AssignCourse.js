@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
@@ -6,6 +6,8 @@ import { useHistory, useParams } from "react-router-dom";
 // select-react import
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+let listing = [];
+let concatlist = [];
 
 export default function AssignCourse() {
   const params = useParams();
@@ -13,8 +15,6 @@ export default function AssignCourse() {
   const animatedComponents = makeAnimated();
   const [doctors, setDoctors] = useState([]);
   const [courses, setCourse] = useState([]);
-
-  // const [staffList, setstaffList] = useState([]);
 
   const url = `http://localhost:8000/api/course/${params.id}`;
   const [formErrors, setFormErrors] = useState({});
@@ -37,108 +37,72 @@ export default function AssignCourse() {
       .then((res) => setDoctors(res.data));
   }, []);
 
-
   const nameoptions = [];
-  doctors.map((tag) =>
-    nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
-  );
-  // const oldvalues = [];
-  // courses.map((course) =>
-  //   oldvalues.push({ value: course.id, label: `${course.staff_id} ` })
-  // );
-// console.log(oldvalues)
+  const taoptions = [];
+  doctors.map((tag) => {
+    if (tag.role == "dr") {
+      nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    } else {
+      taoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    }
+  });
+
   const [data, setData] = useState({
     coursename: params.name,
     totalgrade: "",
-
-    // stds_grades:'' ,
     instructions: params.instructions,
     materials: params.materials,
     year: params.year,
     semester: params.semester,
-    staff:'',
-    // staffold: courses.staff_id,
+    staff: "",
     category: params.category,
   });
 
-  // function handle(e) {
-  //   setData({ ...data, [e.target.name]: e.target.value });
-  // ;
-  // }
-  // select Name
   const changeSelectedNames = (e) => {
-    console.log(Object.values(e));
-    // let oldstaff=courses.staff_id
-    // console.log(oldstaff);
-
-    // let old=[];
-    // for (let o of oldstaff){
-    //   old.push(parseInt(o.value));
-    // }
-    // let oldvalues = courses.staff_id
-
-    // console.log(oldvalues);
-
     let List_names = Object.values(e);
-
     let chosen = [];
     for (let t of List_names) {
       chosen.push(parseInt(t.value));
     }
-    console.log(chosen);
-
-    // for (let t of oldvalues) {
-    //   chosen.push(parseInt(t.value));
-    // }
-    console.log(chosen);
+    listing = chosen;
     setData({
       ...data,
       staff: chosen,
-      
     });
   };
 
-  // const oldstaff = (e) => {
-  //   console.log(Object.values(e));
+  const changeSelected = (e) => {
+    let List_names = Object.values(e);
+    let tachoose = [];
+    for (let t of List_names) {
+      tachoose.push(parseInt(t.value));
+    }
+    concatlist = listing.concat(tachoose);
+    setData({
+      ...data,
+      staff: concatlist,
+    });
+  };
 
-  //   let List_names = Object.values(e);
-  //   let old = [];
-  //   for (let t of List_names) {
-  //     old.push(parseInt(t.value));
-  //   }
-  //   setData({
-  //     ...data,
-  //     staffold: old,
-      
-  //   });
-  // };
   const validate = (values) => {
     const errors = {};
     if (!values.staff_id) {
       errors.staff_id = "Staff Name is Required";
     }
-
     return errors;
   };
 
-
   function onSubmit(e) {
-    // oldstaff(e)
     e.preventDefault();
-    console.log(params);
     let errors_form = validate(data);
 
     setFormErrors(errors_form);
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
 
-
-      // Data.append("staff_id", data.staffold);
-
       data.staff.forEach((element) => {
         Data.append("staff_id", element);
       });
-
 
       Data.append("name", courses.name);
       Data.append("total_grade", courses.total_grade);
@@ -147,7 +111,6 @@ export default function AssignCourse() {
       Data.append("year", courses.year);
       Data.append("semester", courses.semester);
       Data.append("category", courses.category);
-      console.log(data);
 
       axios
         .put(url, Data, {
@@ -156,9 +119,7 @@ export default function AssignCourse() {
           },
         })
         .then((res) => {
-          console.log(res.data);
           setData(res.data);
-
           history.push(`/courseDetails/${params.id}`);
         })
         .catch((e) => console.log(e));
@@ -173,21 +134,19 @@ export default function AssignCourse() {
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3 courses-b ">
                 <div className="card-body p-4 p-md-5">
-                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
+                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2 fs-2 fw-bold">
                     Assign Course
                   </h3>
                   <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <h2
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
-                            Course Name
+                          <h2 htmlFor="ReservationDate" className="form-label ">
+                            Course Name :
                           </h2>
-                          <h4>{courses.name}</h4>
-
+                          <p className="fw-light fs-4 text-white ">
+                            - {courses.name}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -195,15 +154,40 @@ export default function AssignCourse() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <h2
-                            htmlFor="ReservationDate"
-                            className="form-label"
-                          >
-                            Current Staff
+                          <h2 htmlFor="ReservationDate" className="form-label">
+                            Current Staff :
                           </h2>
-   
-                          <h5>{`${courses.staff_id }`}  {" "}</h5>
 
+                          <p className="fw-light fs-4 text-white ">
+                            - {`${courses.staff_id}`}{" "}
+                          </p>
+
+                          <h5>{`${courses.staff_id}`} </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 mb-4 d-flex align-items-center">
+                        <div className="form-outline datepi+cker w-100">
+                          <label htmlFor="staff" className="form-label">
+                            Doctor Name
+                          </label>
+                          <br />
+                          <Select
+                            closeMenuOnSelect={true}
+                            components={animatedComponents}
+                            placeholder={"Choose Staff Names"}
+                            isMulti
+                            options={nameoptions}
+                            onChange={(e) => changeSelectedNames(e)}
+                            name="staff"
+                            className="text-dark"
+                            isSearchable
+                            setValue
+                          />
+                          <p className="text-danger">{formErrors.staff}</p>
+                          <br />
+                          <br />
                         </div>
                       </div>
                     </div>
@@ -211,40 +195,32 @@ export default function AssignCourse() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label
-                            htmlFor="staff"
+                            htmlFor="ReservationDate"
                             className="form-label"
                           >
-                            Staff Name
+                            TA Name
                           </label>
                           <br />
-                          <Select
-                      closeMenuOnSelect={true}
-                      components={animatedComponents}
-                      placeholder={'Choose Staff Names'}
-                      isMulti
-                      options={nameoptions}
-                      onChange={(e) => changeSelectedNames(e)}
-                      name="staff"
-                      // value={data.staff}
-                      //  defaultValue={data.staff}
 
-                      className="text-dark"
-                      // value={parseInt(courses.staff_id)}
-                      isSearchable
-                      setValue
-                    />
-                    <p className="text-danger">{formErrors.staff}</p>
-                    <br />
-                    
+                          <Select
+                            closeMenuOnSelect={true}
+                            components={animatedComponents}
+                            placeholder={"Choose TA Names"}
+                            isMulti
+                            options={taoptions}
+                            onChange={(e) => changeSelected(e)}
+                            name="staff"
+                            className="text-dark"
+                            isSearchable
+                            setValue
+                          />
                           <br />
                         </div>
                       </div>
                     </div>
-   
-                 
-    
+
                     <button type="submit" className="btn button btn-lg mb-1">
-                      Submit
+                      Assign Course
                     </button>
                     <br />
                   </form>

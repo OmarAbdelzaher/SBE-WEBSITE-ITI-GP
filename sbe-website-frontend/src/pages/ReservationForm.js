@@ -126,8 +126,10 @@ const ReservationForm = (isAuthenticated) => {
     ) {
       errors.toBeReserved = "Enter a valid Device";
     }
-    if (values.pickedStaff === "Available Staff" || values.pickedStaff === "") {
-      errors.pickedStaff = "Enter a staff name for this reservation";
+    if(isAdmin || isModerator){
+      if (values.pickedStaff === "Available Staff" || values.pickedStaff === "") {
+        errors.pickedStaff = "Enter a staff name for this reservation";
+      }
     }
     return errors;
   };

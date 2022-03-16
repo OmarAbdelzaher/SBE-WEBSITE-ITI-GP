@@ -1,12 +1,22 @@
 import React from 'react'
-
 import "../pages/style.css";
 import "../App.css";
 import AdminNav from '../components/AdminNav';
+import { Redirect } from 'react-router-dom';
+import { useSelector} from 'react-redux';
+
 
 
 function Moderator() {
 
+  const who = useSelector((state) => state.auth);
+  if (who.user != null )
+  {
+    if (who.user.is_moderator == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
 
   return (
     <>
