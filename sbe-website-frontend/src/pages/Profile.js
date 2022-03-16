@@ -86,7 +86,6 @@ function Profile(isAuthenticated) {
                 <h4 className="font-italic mb-0">Address <p p className="pdata">{User.address}</p></h4>
                 <h4 className="font-italic mb-0">Birthdate <p p className="pdata">{User.birthdate}</p></h4>
                 <h4 className="font-italic mb-0">Phone Number <p className="pdata">{User.phone_number}</p></h4>
-                
               </div>
             </div>
             <br></br>
