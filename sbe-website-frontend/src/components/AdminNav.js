@@ -4,10 +4,13 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarCheck,
+  faCalendarDay,
   faCalendarDays,
+  faCalendarPlus,
   faCalendarTimes,
   faClinicMedical,
   faClock,
+  faEarthOceania,
   faFlask,
   faGear,
   faGears,
@@ -80,6 +83,16 @@ function AdminNav() {
           <Link className="fs-6 sbar-links" to="/reservation-approv">
             <FontAwesomeIcon className="fs-6" icon={faCalendarDays} style={{color:"#003049"}}/>{" "}
             Reservation Approvement 
+          </Link>
+          <br></br>
+          <Link className="fs-6 sbar-links" to="/addnews">
+            <FontAwesomeIcon className="fs-6" icon={faEarthOceania} style={{color:"#003049"}}/>{" "}
+            Add News
+          </Link>
+          <br></br>     
+          <Link className="fs-6 sbar-links" to="/addevents">
+            <FontAwesomeIcon className="fs-6" icon={faCalendarPlus} style={{color:"#003049"}}/>{" "}
+            Add Events
           </Link>
           <br></br>
         </div>

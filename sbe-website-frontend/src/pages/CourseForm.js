@@ -145,7 +145,7 @@ export default function CourseForm() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label
-                            htmlFor="ReservationDate"
+                            htmlFor="name"
                             className="form-label"
                           >
                             Name{" "}
@@ -169,7 +169,7 @@ export default function CourseForm() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label
-                            htmlFor="ReservationDate"
+                            htmlFor="totalgrade"
                             className="form-label"
                           >
                             Total grade
@@ -192,7 +192,7 @@ export default function CourseForm() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label
-                            htmlFor="ReservationDate"
+                            htmlFor="instructions"
                             className="form-label"
                           >
                             Instructions
@@ -217,7 +217,7 @@ export default function CourseForm() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label
-                            htmlFor="ReservationDate"
+                            htmlFor="materials"
                             className="form-label"
                           >
                             Material Link{" "}
@@ -241,7 +241,7 @@ export default function CourseForm() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label
-                            htmlFor="ReservationDate"
+                            htmlFor="staff"
                             className="form-label"
                           >
                             Staff Name
@@ -272,7 +272,7 @@ export default function CourseForm() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label
-                            htmlFor="ReservationDate"
+                            htmlFor="category"
                             className="form-label"
                           >
                             Category
@@ -300,7 +300,7 @@ export default function CourseForm() {
                                 <div className="col-md-12 mb-4 d-flex align-items-center">
                                   <div className="form-outline datepi+cker w-100">
                                     <label
-                                      htmlFor="ReservationDate"
+                                      htmlFor="year"
                                       className="form-label"
                                     >
                                       Year
@@ -333,7 +333,7 @@ export default function CourseForm() {
                                 <div className="col-md-12 mb-4 d-flex align-items-center">
                                   <div className="form-outline datepi+cker w-100">
                                     <label
-                                      htmlFor="ReservationDate"
+                                      htmlFor=""
                                       className="form-label"
                                     >
                                       Semester
