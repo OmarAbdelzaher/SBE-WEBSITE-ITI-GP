@@ -18,17 +18,6 @@ export default function CourseForm() {
 
   const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
-  const [data, setData] = useState({
-    name: "",
-    stdgrades: "",
-    totalgrade: "",
-    instructions: "",
-    materials: "",
-    year: "",
-    semester: "",
-    staff: "",
-    category: "",
-  });
 
   const url = "http://localhost:8000/api/courses/";
 
@@ -68,7 +57,7 @@ export default function CourseForm() {
       staff: chosen,
     });
   };
-  // console.log(listing)
+
   const changeSelected = (e) => {
     console.log(Object.values(e));
 

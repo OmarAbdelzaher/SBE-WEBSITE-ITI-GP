@@ -24,7 +24,7 @@ export default function Staff() {
             <div className="row starts bg-light ">
               <h1 className="text-center fw-lighter text-light scroll ">
                 {" "}
-                Our Team
+                Our Staff
               </h1>
               <div className="row"> 
               {/* <!-- Light Mode --> */}
