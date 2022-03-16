@@ -18,7 +18,7 @@ class New(models.Model):
     
     description = models.CharField(max_length=1000)
 
-    picture = models.ImageField(upload_to='images', default='images/file.jpg' , blank=True, null=True) 
+    picture = models.ImageField(upload_to='images', default='images/sbe-white.jpeg' , blank=True, null=True) 
     CATEGORY_CHOICES = (
         ('graduate', 'Graduate'),
         ('undergraduate', 'Undergraduate'),
@@ -31,9 +31,9 @@ class New(models.Model):
         return self.title
 
 class Event(models.Model):
-    name = models.CharField(max_length=20)
-    details = models.CharField(max_length=100)
-    picture = models.ImageField(null=True,upload_to='images/') 
+    name = models.CharField(max_length=100)
+    details = models.CharField(max_length=1000)
+    picture = models.ImageField(null=True,upload_to='images/',default='images/sbe-white.jpeg' , blank=True) 
        
     def __str__(self):
         return self.name
