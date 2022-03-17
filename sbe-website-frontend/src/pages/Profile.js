@@ -102,8 +102,6 @@ function Profile(isAuthenticated) {
               </div>
             <br></br>
             <div className="px-4 py-3">
-              {/* <h5 className="mb-0"></h5>
-              <h5 class="mb-0"></h5>  */}
               <div className="p-4 rounded shadow border">
                 {User.role == "dr" ? (
                   <h4 className="fst-italic fw-bold mb-0 ">
@@ -134,6 +132,16 @@ function Profile(isAuthenticated) {
                     </p>
                   </h4>
                 ) : null}
+                  {User.role == "employee" ? (
+                  <h4 className="fst-italic fw-bold mb-0 ">
+                   <FontAwesomeIcon icon={faAddressCard} />{" "}
+
+                    Role{" "}
+                    <p p className="pdata">
+                      {User.title}
+                    </p>
+                  </h4>
+                ) : null}
                 <h4 className="fst-italic fw-bold mb-0 ">
                 <FontAwesomeIcon icon={faEnvelope} />{" "}
                   Email{" "}
@@ -159,7 +167,7 @@ function Profile(isAuthenticated) {
                 <FontAwesomeIcon icon={faMobileScreenButton} />{" "}
                   Phone Number <p className="pdata">{User.phone_number}</p>
                 </h4>
-                {User.bio != "" ? (
+                {User.bio ? (
                   <h4 className="fst-italic fw-bold mb-0">
                     <FontAwesomeIcon icon={faAlignLeft} />{" "}
                     Bio <p className="pdata">{User.bio}</p>
@@ -167,14 +175,6 @@ function Profile(isAuthenticated) {
                 ) : null}
               </div>
             </div>
-            <br></br>
-            {/* <div className="row">
-              <div className="col d-flex justify-content-end">
-                <Link to="/edit-profile">
-                  <button className="btn btn-lg button">Edit Profile</button>
-                </Link>
-              </div>
-            </div> */}
             <br></br>
           </div>
         </div>

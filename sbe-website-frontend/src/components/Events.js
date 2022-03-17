@@ -51,7 +51,7 @@ export default function Events() {
                         <img src={item.picture} className="img-h card-img-top " />
                       </div>
                       <div className=" col-12 ">
-                        <div className="card-body body-h" key={item.id}>
+                        <div className="card-body " key={item.id}>
                           <h2 className="card-title">{item.name}</h2>
                           <p className="card-text text-dark">
                           <FontAwesomeIcon

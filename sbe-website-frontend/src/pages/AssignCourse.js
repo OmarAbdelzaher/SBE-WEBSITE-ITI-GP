@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
+import { useSelector} from 'react-redux';
 
 // select-react import
 import Select from "react-select";
@@ -15,6 +17,8 @@ export default function AssignCourse() {
   const animatedComponents = makeAnimated();
   const [doctors, setDoctors] = useState([]);
   const [courses, setCourse] = useState([]);
+  const who = useSelector((state) => state.auth);
+
 
   const url = `http://localhost:8000/api/course/${params.id}`;
   const [formErrors, setFormErrors] = useState({});
@@ -36,17 +40,7 @@ export default function AssignCourse() {
 
       .then((res) => setDoctors(res.data));
   }, []);
-
-  const nameoptions = [];
-  const taoptions = [];
-  doctors.map((tag) => {
-    if (tag.role == "dr") {
-      nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
-    } else {
-      taoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
-    }
-  });
-
+  
   const [data, setData] = useState({
     coursename: params.name,
     totalgrade: "",
@@ -56,6 +50,24 @@ export default function AssignCourse() {
     semester: params.semester,
     staff: "",
     category: params.category,
+  });
+
+  if (who.user != null )
+  {
+    if (who.user.is_coordinator == false  && who.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
+
+  const nameoptions = [];
+  const taoptions = [];
+  doctors.map((tag) => {
+    if (tag.role == "dr") {
+      nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    } else {
+      taoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    }
   });
 
   const changeSelectedNames = (e) => {

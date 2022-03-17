@@ -12,7 +12,7 @@ function Moderator() {
   const who = useSelector((state) => state.auth);
   if (who.user != null )
   {
-    if (who.user.is_moderator == false )
+    if (who.user.is_moderator == false && who.user.is_admin == false )
     {
       return <Redirect to="/" />;  
     }
