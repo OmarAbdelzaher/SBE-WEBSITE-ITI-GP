@@ -7,6 +7,7 @@ import { useHistory, useParams } from "react-router-dom";
 // select-react import
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import { Redirect } from 'react-router-dom';
 
 let listing = [];
 let concatlist = [];
@@ -22,6 +23,7 @@ export default function CourseForm() {
   const url = "http://localhost:8000/api/courses/";
 
   const [course, setCourse] = useState([]);
+  const who = useSelector((state) => state.auth);
 
   useEffect(() => {
     axios
@@ -33,6 +35,26 @@ export default function CourseForm() {
       .get("http://localhost:8000/api/staff/")
       .then((res) => setDoctors(res.data));
   }, []);
+  const [data, setData] = useState({
+    name: "",
+    stdgrades: "",
+    totalgrade: "",
+    instructions: "",
+    materials: "",
+    year: "",
+    semester: "",
+    staff: "",
+    category: params.category,
+  });
+  
+  if (who.user != null )
+  {
+    if (who.user.is_coordinator == false  && who.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
+
 
   const nameoptions = [];
   const taoptions = [];
@@ -74,17 +96,7 @@ export default function CourseForm() {
     });
   };
 
-  const [data, setData] = useState({
-    name: "",
-    stdgrades: "",
-    totalgrade: "",
-    instructions: "",
-    materials: "",
-    year: "",
-    semester: "",
-    staff: "",
-    category: params.category,
-  });
+  
 
   const validate = (values) => {
     const errors = {};

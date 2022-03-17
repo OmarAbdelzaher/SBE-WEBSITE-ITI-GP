@@ -70,6 +70,10 @@ import AddNews from "./components/AddNews";
 import AddEvents from "./components/AddEvents";
 import AdmissionForm from "./pages/AdmissionForm";
 import EditAdmission from "./components/EditAdmission";
+import ModeratorNew from "./components/ModeratorNew";
+import ModeratorEvent from "./components/ModeratorEvent";
+import EditNew from "./components/EditNew";
+import EditEvent from "./components/EditEvents";
 
 function App() {
 
@@ -154,6 +158,12 @@ function App() {
             <Route path={"/addevents"} exact component={AddEvents} /> 
             <Route path={"/addAdmission/:category"} exact component={AdmissionForm}/>
             <Route path={"/edit-adm/:id/:title/:summary/:is_active/:category"} exact component={EditAdmission}/>
+
+            <Route path={"/moderatornew"} exact component={ModeratorNew} /> 
+            <Route path={"/moderatorevent"} exact component={ModeratorEvent} /> 
+            <Route path={"/editnew/:id/:title/:description/:category"} exact component={EditNew} /> 
+            <Route path={"/editevent/:id/:name/:details"} exact component={EditEvent} /> 
+
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}

@@ -212,7 +212,7 @@ function CourseDetails(isAuthenticated) {
                     <h2 className="card-title py-3 text-center text-dark">
                       Course Instructions
                     </h2>
-                    <p className="col-12 card-text fs-4 text-dark text-center">
+                    <p className="col-12 p-3 fs-5 text-start text-dark">
                       {course.instructions}
                     </p>
                   </div>
