@@ -74,6 +74,7 @@ import ModeratorNew from "./components/ModeratorNew";
 import ModeratorEvent from "./components/ModeratorEvent";
 import EditNew from "./components/EditNew";
 import EditEvent from "./components/EditEvents";
+import EditCourse from "./pages/EditCourse";
 
 function App() {
 
@@ -163,6 +164,7 @@ function App() {
             <Route path={"/moderatorevent"} exact component={ModeratorEvent} /> 
             <Route path={"/editnew/:id/:title/:description/:category"} exact component={EditNew} /> 
             <Route path={"/editevent/:id/:name/:details"} exact component={EditEvent} /> 
+            <Route path={"/editcourse/:id/:name/:total_grade/:instructions/:materials"} exact component={EditCourse} /> 
 
 
             <Route

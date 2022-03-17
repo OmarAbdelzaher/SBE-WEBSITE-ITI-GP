@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams ,useHistory} from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Linking, Text, TouchableOpacity } from "react-native";
@@ -10,12 +10,16 @@ import {
   faDownload,
   faLink,
   faUpload,
+  faGear,
+  faTrashAlt ,
 } from "@fortawesome/free-solid-svg-icons";
+
 
 let flag = false;
 
 function CourseDetails(isAuthenticated) {
   const who = useSelector((state) => state.auth);
+  const history = useHistory();
 
   const params = useParams();
   const [course, setCourse] = useState({});
@@ -182,7 +186,19 @@ function CourseDetails(isAuthenticated) {
       }
     }
   };
+  const deleteCourse = (id) => {
+    axios
+      .delete(`http://localhost:8000/api/course/${params.id}`)
+      .then((res) => {
+        // const selectedcourse = course.filter((item) => item.id !== id);
+        // setCourse(selectedcourse);
+        history.push("/coursesMenu");
 
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    }
   return (
     <>
       <section className="h-custom">
@@ -204,6 +220,39 @@ function CourseDetails(isAuthenticated) {
                     {"  "}
                     Assign Course
                   </Link>
+                ) : null}
+                <br/>
+
+                {/* Edit Button */}
+                {isCoordinator || isAdmin ? (
+                  <Link
+                    className="btn btn-md col-3 fs-5"
+                    style={{ backgroundColor: "#003049", color: "#ffff" }}
+                    to={`/editcourse/${course.id}/${course.name}/${course.total_grade}/${course.instructions}/${course.materials}`}
+                  >
+                    <FontAwesomeIcon icon={faGear} />
+                    {"  "}
+                    Edit Course
+                  </Link>
+                ) : null}
+                <br/>
+                {/* Delete Button */}
+                {isCoordinator || isAdmin ? (
+                  <Link to="#">
+                  <button
+                    style={{ backgroundColor: "red" }}
+                    className="btn btn-sm"
+                    onClick={() => {
+                        deleteCourse(course.id);
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      style={{ color: "white" }}
+                      className="fs-5"
+                      icon={faTrashAlt}
+                    />{" "}
+                  </button>
+                </Link>
                 ) : null}
               </div>
               <div className="row justify-content-center align-items-center ">

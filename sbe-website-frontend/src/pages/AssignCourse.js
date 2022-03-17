@@ -9,8 +9,6 @@ import { useSelector} from 'react-redux';
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 let listing = [];
-let concatlist = [];
-
 export default function AssignCourse() {
   const params = useParams();
   const history = useHistory();
@@ -89,6 +87,7 @@ export default function AssignCourse() {
     for (let t of List_names) {
       tachoose.push(parseInt(t.value));
     }
+    let concatlist = [];
     concatlist = listing.concat(tachoose);
     setData({
       ...data,

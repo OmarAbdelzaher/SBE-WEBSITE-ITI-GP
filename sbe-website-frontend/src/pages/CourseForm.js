@@ -10,7 +10,6 @@ import makeAnimated from "react-select/animated";
 import { Redirect } from 'react-router-dom';
 
 let listing = [];
-let concatlist = [];
 
 export default function CourseForm() {
   const params = useParams();
@@ -88,6 +87,8 @@ export default function CourseForm() {
     for (let t of List_names) {
       tachoose.push(parseInt(t.value));
     }
+    let concatlist = [];
+
     concatlist = listing.concat(tachoose);
     console.log(concatlist);
     setData({
