@@ -90,6 +90,7 @@ export default function AssignCourse() {
       tachoose.push(parseInt(t.value));
     }
     concatlist = listing.concat(tachoose);
+    console.log(concatlist)
     setData({
       ...data,
       staff: concatlist,
@@ -173,8 +174,6 @@ export default function AssignCourse() {
                           <p className="fw-light fs-4 text-white ">
                             - {`${courses.staff_id}`}{" "}
                           </p>
-
-                          <h5>{`${courses.staff_id}`} </h5>
                         </div>
                       </div>
                     </div>
