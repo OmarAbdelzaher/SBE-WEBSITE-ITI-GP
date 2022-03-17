@@ -10,18 +10,19 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ValidationError
 import re
 
-
 # import email confirmation stuff
 from django.core.mail import send_mail
 from django.conf import settings
 
+
+
 class PersonList(APIView):
+
     def get(self,request):
         persons = Person.objects.all()
         serializer = PersonSerializer(persons,many=True)
         return Response(serializer.data)
         
-    # @csrf_exempt
     def post(self,request):
         user = Person.objects.filter(email=request.data['email'])
         email_uni1 = re.search("@eng1.cu.edu.eg",request.data['email'])
@@ -44,18 +45,15 @@ class PersonList(APIView):
             return Response("this email is already exist")
 
 class PersonDetails(APIView):
-
     def get_object(self, pk):
         try:
             return Person.objects.get(pk=pk)
         except Person.DoesNotExist:
             raise Http404
-
     def get(self, request, pk, format=None):
         person = self.get_object(pk)
         serializer = PersonSerializer(person)
         return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         person = self.get_object(pk)
         serializer = PersonSerializer(person, data=request.data)
@@ -63,7 +61,6 @@ class PersonDetails(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     def delete(self, request, pk, format=None):
         person = self.get_object(pk)
         person.delete()
@@ -72,15 +69,11 @@ class PersonDetails(APIView):
 # Get and Post HTTP Methods using API For Students 
 @method_decorator(csrf_exempt, name='dispatch')
 class StudentList(APIView):
-
-    
-    # @csrf_exempt
     def get(self,request):
         students = Student.objects.all()
         serializer = StudentSerializer(students,many=True)
         return Response(serializer.data)
         
-    # @csrf_exempt
     def post(self,request):
         user = Student.objects.filter(email=request.data['email'])
         email_uni1 = re.search("@eng1.cu.edu.eg",request.data['email'])
@@ -118,7 +111,6 @@ def sendActivationRequest(request):
      
 @method_decorator(csrf_exempt, name='dispatch')    
 class StudentDetails(APIView):
-
     def get_object(self, pk):
         try:
             return Student.objects.get(pk=pk)
@@ -129,7 +121,6 @@ class StudentDetails(APIView):
         student = self.get_object(pk)
         serializer = StudentSerializer(student)
         return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         student = self.get_object(pk)
         serializer = StudentSerializer(student, data=request.data)
@@ -147,11 +138,11 @@ class StudentDetails(APIView):
 
 @method_decorator(csrf_exempt, name='dispatch') 
 class StaffList(APIView):
-
         def get(self,request):
             all_staff = Staff.objects.all()
             serializer = StaffSerializer(all_staff,many=True)
             return Response(serializer.data)
+
         def post(self,request):
             user = Staff.objects.filter(email=request.data['email'])
             email_uni1 = re.search("@eng1.cu.edu.eg",request.data['email'])
@@ -177,18 +168,15 @@ class StaffList(APIView):
 # Get , Put and delete HTTP Methods using API For a specific staff member  
 @method_decorator(csrf_exempt, name='dispatch') 
 class StaffDetails(APIView):
-
     def get_object(self, pk):
         try:
             return Staff.objects.get(pk=pk)
         except Staff.DoesNotExist:
             raise Http404
-
     def get(self, request, pk, format=None):
         one_staff = self.get_object(pk)
         serializer = StaffSerializer(one_staff)
         return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         one_staff = self.get_object(pk)
         serializer = StaffSerializer(one_staff, data=request.data)
@@ -196,7 +184,6 @@ class StaffDetails(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     def delete(self, request, pk, format=None):
         one_staff = self.get_object(pk)
         one_staff.delete()
@@ -207,7 +194,6 @@ class StaffDetails(APIView):
 
 @method_decorator(csrf_exempt, name='dispatch') 
 class FacultyEmpList(APIView):
-
     def get(self,request):
         faculty_emps = FacultyEmp.objects.all()
         serializer = FacultyEmpSerializer(faculty_emps,many=True)
@@ -236,18 +222,15 @@ class FacultyEmpList(APIView):
 # Get , Put and delete HTTP Methods using API For a specific Faculty Employee  
 @method_decorator(csrf_exempt, name='dispatch') 
 class FacultyEmpDetails(APIView):
-
     def get_object(self, pk):
         try:
             return FacultyEmp.objects.get(pk=pk)
         except FacultyEmp.DoesNotExist: 
             raise Http404
-
     def get(self, request, pk, format=None):
         emp = self.get_object(pk)
         serializer = FacultyEmpSerializer(emp)
         return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         emp = self.get_object(pk)
         serializer = FacultyEmpSerializer(emp, data=request.data)
@@ -255,7 +238,6 @@ class FacultyEmpDetails(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     def delete(self, request, pk, format=None):
         emp = self.get_object(pk)
         emp.delete()

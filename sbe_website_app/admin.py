@@ -46,6 +46,8 @@ class FacEmpAdmin(admin.ModelAdmin):
             obj.password = make_password(obj.password)
         super().save_model(request, obj, form, change)
 
+
+
                    
 admin.site.register(Person,PersonAdmin)  
 admin.site.register(Staff,StaffAdmin)
