@@ -47,7 +47,11 @@ function GraduateExamSchedule(isAuthenticated) {
       let graduateExams = res.data.filter(
         (exam) => exam.category == "graduate"
       );
-      setGraduateScheduleExam(graduateExams.reverse()[0]);
+      if (graduateExams.length > 0){
+        setIsExist(true)
+        setGraduateScheduleExam(graduateExams.reverse()[0]);
+      }
+
     });
   }, []);
 
@@ -122,6 +126,9 @@ function GraduateExamSchedule(isAuthenticated) {
                     </thead>
 
                     <tbody className="mb-3">
+                      {
+                        isExist ?
+                         
                       <tr>
                         <td>Master</td>
                         <td>
@@ -135,11 +142,11 @@ function GraduateExamSchedule(isAuthenticated) {
                                     background: "#003049",
                                   }}
                                   onClick={() => handlePDFDownload()}
-                                >
+                                  >
                                   <FontAwesomeIcon
                                     className="fs-6"
                                     icon={faDownload}
-                                  />{" "}
+                                    />{" "}
                                   Download Schedule
                                 </button>
                               </Link>
@@ -153,18 +160,18 @@ function GraduateExamSchedule(isAuthenticated) {
                                     onChange={(event) =>
                                       handleChangeFile(event)
                                     }
-                                  />
+                                    />
                                   <button
                                     type="submit"
                                     className="btn btn-md col-6"
                                     style={{
                                       color: "#003049",
                                     }}
-                                  >
+                                    >
                                     <FontAwesomeIcon
                                       className="fs-5"
                                       icon={faUpload}
-                                    />{" "}
+                                      />{" "}
                                     Upload Schedule
                                   </button>
                                 </form>
@@ -173,6 +180,7 @@ function GraduateExamSchedule(isAuthenticated) {
                           </div>
                         </td>
                       </tr>
+                      : null}
                     </tbody>
                   </table>
                 </div>

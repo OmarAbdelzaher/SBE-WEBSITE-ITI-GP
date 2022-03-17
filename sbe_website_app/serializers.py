@@ -175,4 +175,4 @@ class ExamScheduleSerializer(serializers.ModelSerializer):
 class AdmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Admission
-        fields = ['id','summary','is_active','category']
+        fields = ['id','title','summary','is_active','category']

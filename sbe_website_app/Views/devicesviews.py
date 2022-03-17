@@ -80,7 +80,7 @@ def sendReservationRequest(request):
         staff_name = Person.objects.get(id=request.data["staff_id"])
         
         send_mail("Reservation Request",
-            str(staff_name) + " has requested a reservation, confirm or decline his request",
+            str(staff_name) + " has requested a reservation, confirm or decline his/her request",
             'settings.EMAIL_HOST_USER', ["omarzaher787@gmail.com"],fail_silently=False,)
         
         send_mail("Reservation Pending",

@@ -101,7 +101,7 @@ export default function EditNew() {
                 <div className="card rounded-3 courses-b ">
                   <div className="card-body p-4 p-md-5">
                     <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
-                      Edit Hall Form
+                      Edit News Form
                     </h3>
                     <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
                       <div className="row">
