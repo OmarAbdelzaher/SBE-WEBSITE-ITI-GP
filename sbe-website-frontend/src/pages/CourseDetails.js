@@ -62,6 +62,7 @@ function CourseDetails(isAuthenticated) {
   useEffect(() => {
     axios.get(`http://localhost:8000/api/course/${params.id}`).then((res) => {
       setCourse(res.data);
+      console.log(res.data.staff_id)
       setLink(res.data.materials);
       mat_id = res.data.id;
     });
@@ -70,7 +71,6 @@ function CourseDetails(isAuthenticated) {
   useEffect(() => {
     axios.get("http://localhost:8000/api/uploadmaterials/").then((res) => {
       setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
-      console.log(res.data.filter((mat) => mat.course_id == mat_id));
     });
   }, []);
 
