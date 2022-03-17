@@ -15,10 +15,7 @@ export default function CourseForm() {
   
     const [formErrors, setFormErrors] = useState({});
   
-    const url = "http://localhost:8000/api/news/";
-  
-    const [news, setNews] = useState([]);
-  
+    const url = "http://localhost:8000/api/news/";  
   
 
     function handle(e) {

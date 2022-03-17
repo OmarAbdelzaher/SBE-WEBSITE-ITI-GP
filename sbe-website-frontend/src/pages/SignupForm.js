@@ -178,7 +178,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             value={formData.fname}
                           />
                         </div>
-                        <p className="text-danger">{ FormErrors.fname }</p>
+                        <p className="text-danger bg-white bg-opacity-75">{ FormErrors.fname }</p>
                       </div>
                       <div className="col-md-6 mb-4">
                         <div className="form-outline">
@@ -193,7 +193,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.lname}
                           />
-                          <p className="text-danger">{ FormErrors.lname }</p>
+                          <p className="text-danger bg-white bg-opacity-75">{ FormErrors.lname }</p>
                         </div>
                       </div>
                     </div>
@@ -212,10 +212,10 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.email}
                           />
-                          <p className="text-danger">{FormErrors.email}</p>
+                          <p className="text-danger bg-white bg-opacity-75">{FormErrors.email}</p>
                           <div>
-                          {errorMessage === "this email is already exist" ? <p className="text-danger">{errorMessage}</p> :null}
-                          {emailMessage === "person with this email already exists." ? <p className="text-danger">this email is already exist</p> :null}
+                          {errorMessage === "this email is already exist" ? <p className="text-danger bg-white bg-opacity-75">{errorMessage}</p> :null}
+                          {emailMessage === "person with this email already exists." ? <p className="text-danger bg-white bg-opacity-75">this email is already exist</p> :null}
                           </div>
                         </div>  
                       </div>
@@ -235,7 +235,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.password}
                           />
-                          <p className="text-danger">{ FormErrors.password}</p>
+                          <p className="text-danger bg-white bg-opacity-75">{ FormErrors.password}</p>
                         </div>
                       </div>
                     </div>
@@ -256,7 +256,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.confirm_password}
                           />
-                          <p className="text-danger">{FormErrors.confirm_password}</p>
+                          <p className="text-danger bg-white bg-opacity-75">{FormErrors.confirm_password}</p>
                         </div>
                       </div>
                     </div>
@@ -274,7 +274,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.birthdate}
                           />
-                          <p className="text-danger">{FormErrors.birthdate}</p>
+                          <p className="text-danger bg-white bg-opacity-75">{FormErrors.birthdate}</p>
                         </div>
                       </div>
                       <div className="col-md-12 mb-4 pb-2">
@@ -290,7 +290,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.phone_number}
                           />
-                          <p className="text-danger">{FormErrors.phone_number}</p>
+                          <p className="text-danger bg-white bg-opacity-75 ">{FormErrors.phone_number}</p>
                         </div>
                       </div>
                       <div className="col-md-12 mb-4 pb-2">
@@ -306,7 +306,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.address}
                           />
-                          <p className="text-danger">{FormErrors.address}</p>
+                          <p className="text-danger bg-white bg-opacity-75">{FormErrors.address}</p>
                         </div>
                       </div>
                       <div className="col-md-6 mb-4">
