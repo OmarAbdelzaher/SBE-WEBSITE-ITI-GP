@@ -73,14 +73,14 @@ function AdminNav() {
             Reservation Approvement 
           </Link>
           <br></br>
-          <Link className="fs-6 sbar-links" to="/addnews">
+          <Link className="fs-6 sbar-links" to="/moderatornew">
             <FontAwesomeIcon className="fs-6" icon={faGlobe} style={{color:"#003049"}}/>{" "}
-            Add News
+             News
           </Link>
           <br></br>     
-          <Link className="fs-6 sbar-links" to="/addevents">
+          <Link className="fs-6 sbar-links" to="/moderatorevent">
             <FontAwesomeIcon className="fs-6" icon={faCalendarPlus} style={{color:"#003049"}}/>{" "}
-            Add Events
+             Events
           </Link>
           <br></br>
         </div>

@@ -68,6 +68,10 @@ import EditProfile from "./pages/EditProfile";
 import Staff from "./components/Staff";
 import AddNews from "./components/AddNews";
 import AddEvents from "./components/AddEvents";
+import ModeratorNew from "./components/ModeratorNew";
+import ModeratorEvent from "./components/ModeratorEvent";
+import EditNew from "./components/EditNew";
+import EditEvent from "./components/EditEvents";
 
 function App() {
 
@@ -151,6 +155,10 @@ function App() {
             <Route path={"/addnews"} exact component={AddNews} /> 
             <Route path={"/addevents"} exact component={AddEvents} /> 
 
+            <Route path={"/moderatornew"} exact component={ModeratorNew} /> 
+            <Route path={"/moderatorevent"} exact component={ModeratorEvent} /> 
+            <Route path={"/editnew/:id/:title/:description/:category"} exact component={EditNew} /> 
+            <Route path={"/editevent/:id/:name/:details"} exact component={EditEvent} /> 
 
 
             <Route

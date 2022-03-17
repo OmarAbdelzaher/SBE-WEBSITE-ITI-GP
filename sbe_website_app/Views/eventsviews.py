@@ -38,7 +38,7 @@ class EventsDetails(APIView):
 
     def get(self, request, pk, format=None):
         event = self.get_object(pk)
-        serializer = Event(event)
+        serializer = EventSerializer(event)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):

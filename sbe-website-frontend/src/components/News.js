@@ -41,7 +41,7 @@ export default function News() {
               .map((item) => {
                 return (
                   <div className="col-md-4 card-group  ">
-                    <div className="card border shadow-lg rounded">
+                    <div className="card border shadow rounded">
                       <div className="row ">
                         <div className="col-12">
                           <img src={item.picture} className="img-h card-img-top border"/>
