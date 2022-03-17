@@ -44,6 +44,7 @@ class PersonList(APIView):
             return Response("this email is already exist")
 
 class PersonDetails(APIView):
+
     def get_object(self, pk):
         try:
             return Person.objects.get(pk=pk)
@@ -71,6 +72,7 @@ class PersonDetails(APIView):
 # Get and Post HTTP Methods using API For Students 
 @method_decorator(csrf_exempt, name='dispatch')
 class StudentList(APIView):
+
     
     # @csrf_exempt
     def get(self,request):
@@ -116,6 +118,7 @@ def sendActivationRequest(request):
      
 @method_decorator(csrf_exempt, name='dispatch')    
 class StudentDetails(APIView):
+
     def get_object(self, pk):
         try:
             return Student.objects.get(pk=pk)
@@ -144,6 +147,7 @@ class StudentDetails(APIView):
 
 @method_decorator(csrf_exempt, name='dispatch') 
 class StaffList(APIView):
+
         def get(self,request):
             all_staff = Staff.objects.all()
             serializer = StaffSerializer(all_staff,many=True)
@@ -173,6 +177,7 @@ class StaffList(APIView):
 # Get , Put and delete HTTP Methods using API For a specific staff member  
 @method_decorator(csrf_exempt, name='dispatch') 
 class StaffDetails(APIView):
+
     def get_object(self, pk):
         try:
             return Staff.objects.get(pk=pk)
@@ -202,6 +207,7 @@ class StaffDetails(APIView):
 
 @method_decorator(csrf_exempt, name='dispatch') 
 class FacultyEmpList(APIView):
+
     def get(self,request):
         faculty_emps = FacultyEmp.objects.all()
         serializer = FacultyEmpSerializer(faculty_emps,many=True)
@@ -230,6 +236,7 @@ class FacultyEmpList(APIView):
 # Get , Put and delete HTTP Methods using API For a specific Faculty Employee  
 @method_decorator(csrf_exempt, name='dispatch') 
 class FacultyEmpDetails(APIView):
+
     def get_object(self, pk):
         try:
             return FacultyEmp.objects.get(pk=pk)

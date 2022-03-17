@@ -91,7 +91,7 @@ function LoginForm({login , isAuthenticated}) {
                             name="email"
                           />
                         </div>
-                        <p className="text-danger">{ FormErrors.email }</p>
+                        <p className="text-danger bg-white bg-opacity-75">{ FormErrors.email }</p>
                       </div>
                     </div>
                     <div className="row">
@@ -109,7 +109,7 @@ function LoginForm({login , isAuthenticated}) {
                             value={password}
                           />
                         </div>
-                        <p className="text-danger">{ FormErrors.password }</p>
+                        <p className="text-danger bg-white bg-opacity-75">{ FormErrors.password }</p>
                       </div>
                     </div>
                     <button
@@ -119,7 +119,7 @@ function LoginForm({login , isAuthenticated}) {
                       Login
                     </button>
                     <div>
-                    {errorMessage === "No active account found with the given credentials" ? <p className="text-danger">No active account found with this email</p> :null}
+                    {errorMessage === "No active account found with the given credentials" ? <p className="text-danger bg-white bg-opacity-75 text-center">No active account found with this email</p> :null}
                     </div>
                   </form>
                   <p className="mt-3 text-light fs-5 ">

@@ -1,6 +1,6 @@
 
 # Project Title
-SBE Website
+SBME Website
 
 # Table of contents
 - [Project Description](#project-description)
@@ -14,7 +14,7 @@ SBE Website
 - [Demo](#demo)
 
 ## Project Description
-SBE is a website for systems and biomedical engineering at Cairo University. It's an ITI graduation project, a 3-months intensive training program, Full-stack Development using Python Track.
+SBME is a website for systems and biomedical engineering at Cairo University. It's an ITI graduation project, a 3-months intensive training program, Full-stack Development using Python Track.
 
 ## Project Overview
 The proposed website was made for the sbe department. It will be used by the department staff and employees with all their roles. Also, by the student that will interact with the department. The website's main objective is to facilitate communication between the department, the staff, and the students.
@@ -138,6 +138,14 @@ Moreover, the student can view grades, material, and history for each course
 - Dynamic pages that generate new events and news for both graduate and undergraduate students
 
 ### Users and Roles
+
+#### Staff members:
+- Member (reservation - office hours - upload courses contents assigned by coordinator)
+- Coordinator (add courses - assign courses to members) and coordinator has the same services of regular members
+#### Employees :
+- Member
+- Moderators ( employees have frontend admin privileges to approve requests such as registration) and member has the same services of regular members
+
 #### TAs and Drs
 - Reserve a hall/lab/device for a specific course
 - Define office hours
@@ -163,10 +171,6 @@ Moreover, the student can view grades, material, and history for each course
 
 
 
-
-
-
-
 ## Future Work
  Deployment of the project
 
@@ -176,10 +180,11 @@ Moreover, the student can view grades, material, and history for each course
 Name | Email
 ------------ | -------------
 Nourhan Ibraheem | nouraibraheem82@gmail.com
+Zeina Ayman | zeinaayman14@gmail.com
 Samiha Hesham | samihahesham9@gmail.com
 Saeed Adel | sashsadel7@gmail.com
 Omar Abdelzaher | omarzaher787@gmail.com
-Zeina Ayman | zeinaayman14@gmail.com
+
 
 
 ## User Interface
@@ -196,7 +201,8 @@ Zeina Ayman | zeinaayman14@gmail.com
 
  ### Registration and Login Forms
  #### Registration Form
- ![signup](https://user-images.githubusercontent.com/61268414/158468841-9785eb59-1376-4891-b24b-34dbcb0bffc7.png)
+
+![SignUp](https://user-images.githubusercontent.com/61268414/158795758-4837a0f2-0fce-4bb7-b4c8-87c5a61d34c7.png)
 
 
  #### Login Form
@@ -204,7 +210,8 @@ Zeina Ayman | zeinaayman14@gmail.com
 
 
  ### Reset Password
- 
+ ![reset-pass](https://user-images.githubusercontent.com/61268414/158795807-dac21f21-e145-46e9-b377-49ae9420b64d.png)
+
  ### Profile Page
 
 
@@ -229,13 +236,15 @@ Zeina Ayman | zeinaayman14@gmail.com
 ### Courses Pages
 
 ####  Courses Menu
+![course-menu](https://user-images.githubusercontent.com/61268414/158796652-4b14ebab-6955-4d4e-b636-fd2265d76153.png)
 
 
  #### Specific year and semester courses
 
 
  #### Add Courses
- 
+ ![AddCourse](https://user-images.githubusercontent.com/61268414/158796672-a13d5589-b170-4158-a892-f5e1cb512da0.png)
+
 
  
 ###  Course Details
@@ -254,10 +263,15 @@ Zeina Ayman | zeinaayman14@gmail.com
 
 
 ### Staff Office Hours
+#### Add Office Hours
+![add-office-hours](https://user-images.githubusercontent.com/61268414/158795881-e15e9c26-16b1-4ec6-96bb-8237bf7fff7b.png)
+ #### View Office Hours
+ 
+### Moderator Panel
+![moderator-panel](https://user-images.githubusercontent.com/61268414/158796080-ef7e494d-b980-4395-b441-287dd4a78fba.png)
 
-### Admin Panel
-
-#### Halls
+#### Add News
+![add-news-moderator](https://user-images.githubusercontent.com/61268414/158796068-174f4650-d96f-4bc6-98f5-f07203c31aaf.png)
 
 #### Add Hall
 

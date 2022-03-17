@@ -30,7 +30,7 @@ export default function AllNews() {
         <div style={start} className="row">
           <h1 className="text-center fw-lighter text-light scroll">
             {" "}
-            SBE NEWS
+            SBME NEWS
           </h1>
           {AllNews.sort(orderByOrderValue).map((item) => {
             return (

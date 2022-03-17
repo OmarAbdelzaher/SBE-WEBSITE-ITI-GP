@@ -2,19 +2,19 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 // select-react import
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
-const { Option } = Select;
+let listing = [];
+let concatlist = [];
 
 export default function CourseForm() {
-
+  const params = useParams();
   const history = useHistory();
   const animatedComponents = makeAnimated();
-
 
   const [formErrors, setFormErrors] = useState({});
   const [doctors, setDoctors] = useState([]);
@@ -22,8 +22,6 @@ export default function CourseForm() {
   const url = "http://localhost:8000/api/courses/";
 
   const [course, setCourse] = useState([]);
-
-  let CoursesUrl = "http://localhost:8000/api/courses/";
 
   useEffect(() => {
     axios
@@ -33,42 +31,59 @@ export default function CourseForm() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/staff/")
-      // .then((res) => setDoctors(res.data));
-
       .then((res) => setDoctors(res.data));
   }, []);
 
   const nameoptions = [];
-  doctors.map((tag) =>
-    nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` })
-  );
+  const taoptions = [];
+  doctors.map((tag) => {
+    if (tag.role == "dr") {
+      nameoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    } else {
+      taoptions.push({ value: tag.id, label: `${tag.fname} ${tag.lname}` });
+    }
+  });
   const changeSelectedNames = (e) => {
     console.log(Object.values(e));
 
     let List_names = Object.values(e);
-
     let chosen = [];
     for (let t of List_names) {
       chosen.push(parseInt(t.value));
     }
-
-    console.log(chosen);
+    listing = chosen;
     setData({
       ...data,
       staff: chosen,
     });
   };
 
+  const changeSelected = (e) => {
+    console.log(Object.values(e));
+
+    let List_names = Object.values(e);
+    let tachoose = [];
+    for (let t of List_names) {
+      tachoose.push(parseInt(t.value));
+    }
+    concatlist = listing.concat(tachoose);
+    console.log(concatlist);
+    setData({
+      ...data,
+      staff: concatlist,
+    });
+  };
+
   const [data, setData] = useState({
     name: "",
-    stdgrades:"",
+    stdgrades: "",
     totalgrade: "",
     instructions: "",
     materials: "",
     year: "",
     semester: "",
     staff: "",
-    category: "",
+    category: params.category,
   });
 
   const validate = (values) => {
@@ -87,6 +102,9 @@ export default function CourseForm() {
     if (!values.category) {
       errors.category = "Category is required";
     }
+    if (!values.staff) {
+      errors.staff = "Doctor Name is required!";
+    }
 
     return errors;
   };
@@ -95,14 +113,13 @@ export default function CourseForm() {
     e.preventDefault();
     let errors_form = validate(data);
     setFormErrors(errors_form);
-    // console.log(data)
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
 
       Data.append("name", data.name);
       Data.append("total_grade", data.totalgrade);
-      // Data.append("staff_id", data.staff);
       data.staff.forEach((element) => {
+        console.log(element);
         Data.append("staff_id", element);
       });
 
@@ -110,14 +127,16 @@ export default function CourseForm() {
       Data.append("materials", data.materials);
       Data.append("year", data.year);
       Data.append("semester", data.semester);
-      Data.append("category", data.category);
+      Data.append("category", params.category);
 
       axios
         .post(url, Data)
         .then((res) => {
-          console.log(res.data);
-
-          history.push("/coursesMenu");
+          if (params.category == "graduate") {
+            history.push("/coursegraduate");
+          } else if (params.category == "undergraduate") {
+            history.push("/coursesMenu");
+          }
         })
         .catch((e) => {
           setFormErrors(e.response.data.non_field_errors[0]);
@@ -144,10 +163,7 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="name"
-                            className="form-label"
-                          >
+                          <label htmlFor="name" className="form-label">
                             Name{" "}
                           </label>
                           <br />
@@ -156,7 +172,6 @@ export default function CourseForm() {
                             id="name"
                             type="text"
                             className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
                             name="name"
                             value={data.name}
                           />
@@ -168,10 +183,7 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="totalgrade"
-                            className="form-label"
-                          >
+                          <label htmlFor="totalgrade" className="form-label">
                             Total grade
                           </label>
                           <br />
@@ -191,10 +203,7 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="instructions"
-                            className="form-label"
-                          >
+                          <label htmlFor="instructions" className="form-label">
                             Instructions
                           </label>
                           <br />
@@ -216,11 +225,8 @@ export default function CourseForm() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="materials"
-                            className="form-label"
-                          >
-                            Material Link{" "}
+                          <label htmlFor="materials" className="form-label">
+                            Material Link (optional){" "}
                           </label>
                           <br />
                           <input
@@ -228,7 +234,6 @@ export default function CourseForm() {
                             id="materials"
                             type="text"
                             className="form-control form-control-lg"
-                            // onChange={(e) => onChange(e)}
                             name="materials"
                             value={data.materials}
                           />
@@ -236,23 +241,19 @@ export default function CourseForm() {
                         </div>
                       </div>
                     </div>
-                   
+
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <label
-                            htmlFor="staff"
-                            className="form-label"
-                          >
-                            Staff Name
+                          <label htmlFor="staff" className="form-label">
+                            Doctors Name
                           </label>
                           <br />
-        
 
                           <Select
                             closeMenuOnSelect={true}
                             components={animatedComponents}
-                            placeholder={"Choose Staff Names"}
+                            placeholder={"Choose Doctor Names"}
                             isMulti
                             options={nameoptions}
                             onChange={(e) => changeSelectedNames(e)}
@@ -272,30 +273,36 @@ export default function CourseForm() {
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
                           <label
-                            htmlFor="category"
+                            htmlFor="ReservationDate"
                             className="form-label"
                           >
-                            Category
+                            TA Name
                           </label>
                           <br />
 
-                          <select
-                            id="category"
-                            className="select form-control-lg"
-                            value={data.category}
-                            onChange={(e) => handle(e)}
-                            name="category"
-                          >
-                            <option value="0">Choose Gategory</option>
+                          <Select
+                            closeMenuOnSelect={true}
+                            components={animatedComponents}
+                            placeholder={"Choose TA Names"}
+                            isMulti
+                            options={taoptions}
+                            onChange={(e) => changeSelected(e)}
+                            name="staff"
+                            className="text-dark"
+                            isSearchable
+                            setValue
+                          />
 
-                            <option value="graduate">Graduate</option>
-                            <option value="undergraduate">Undergraduate</option>
-                          </select>
-                          <p className="text-danger">{formErrors.category}</p>
+                          <br />
+                        </div>
+                      </div>
+                    </div>
 
-                          {data.category == "undergraduate" ? (
+                    <div className="row">
+                      <div className="col-md-12 mb-4 d-flex align-items-center">
+                        <div className="form-outline datepi+cker w-100">
+                          {params.category == "undergraduate" ? (
                             <>
-                              <br />
                               <div className="row">
                                 <div className="col-md-12 mb-4 d-flex align-items-center">
                                   <div className="form-outline datepi+cker w-100">
@@ -332,10 +339,7 @@ export default function CourseForm() {
                               <div className="row">
                                 <div className="col-md-12 mb-4 d-flex align-items-center">
                                   <div className="form-outline datepi+cker w-100">
-                                    <label
-                                      htmlFor=""
-                                      className="form-label"
-                                    >
+                                    <label htmlFor="" className="form-label">
                                       Semester
                                     </label>
                                     <br />
@@ -363,10 +367,8 @@ export default function CourseForm() {
                         </div>
                       </div>
                     </div>
-
-                    <br />
                     <button type="submit" className="btn button btn-lg mb-1">
-                      Submit
+                      Add Course
                     </button>
                     <br />
                   </form>

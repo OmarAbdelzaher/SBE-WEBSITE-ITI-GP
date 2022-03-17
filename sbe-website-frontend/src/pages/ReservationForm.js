@@ -126,8 +126,10 @@ const ReservationForm = (isAuthenticated) => {
     ) {
       errors.toBeReserved = "Enter a valid Device";
     }
-    if (values.pickedStaff === "Available Staff" || values.pickedStaff === "") {
-      errors.pickedStaff = "Enter a staff name for this reservation";
+    if(isAdmin || isModerator){
+      if (values.pickedStaff === "Available Staff" || values.pickedStaff === "") {
+        errors.pickedStaff = "Enter a staff name for this reservation";
+      }
     }
     return errors;
   };
@@ -203,7 +205,7 @@ const ReservationForm = (isAuthenticated) => {
                               name="ReserveDate"
                               value={formData.ReserveDate}
                             />
-                            <p className="text-danger">
+                            <p className="text-danger bg-white bg-opacity-75">
                               {formErrors.ReserveDate}
                             </p>
                           </div>
@@ -237,7 +239,7 @@ const ReservationForm = (isAuthenticated) => {
                                 );
                               })}
                             </select>
-                            <p className="text-danger">
+                            <p className="text-danger bg-white bg-opacity-75">
                               {formErrors.ReserveTime}
                             </p>
                           </div>
@@ -377,7 +379,7 @@ const ReservationForm = (isAuthenticated) => {
                           </div>
                         </div>
                       ) : null}
-                      <p className="text-danger">{formErrors.pickedStaff}</p>
+                      <p className="text-danger bg-white bg-opacity-75">{formErrors.pickedStaff}</p>
 
                       <br />
 

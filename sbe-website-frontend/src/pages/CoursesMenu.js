@@ -60,7 +60,7 @@ export default function CoursesMenu(isAuthenticated) {
                       <Link
                         className="btn btn-md col-4"
                         style={{ backgroundColor: "#003049", color: "#ffff" }}
-                        to="/courseform"
+                        to="/courseform/undergraduate"
                       >
                         <FontAwesomeIcon icon={faCirclePlus} />
                         {"  "}

@@ -82,7 +82,7 @@ const Header = ({ logout, isAuthenticated }) => {
   const authLinks = () => (
     <Nav.Link className="button btn-b">
       <Link className="fs-4 header-link ani btn-b" to="/"  onClick={logout_user}>
-       Logout
+       Log out
       </Link>
     </Nav.Link>
     
