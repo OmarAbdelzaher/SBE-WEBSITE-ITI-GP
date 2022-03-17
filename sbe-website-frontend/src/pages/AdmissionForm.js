@@ -12,7 +12,7 @@ export default function AdmissionForm() {
   const [admission, setAdmission] = useState({
     title: "",
     summary: "",
-    is_active: true,
+    is_active: "",
     category: params.category,
   });
   
@@ -37,7 +37,7 @@ export default function AdmissionForm() {
 
       AdmissionData.append("title",admission.title)
       AdmissionData.append("summary",admission.summary)
-      AdmissionData.append("is_active",admission.is_active)
+      AdmissionData.append("is_active",isChecked)
       AdmissionData.append("category",params.category)
 
       axios
@@ -54,10 +54,18 @@ export default function AdmissionForm() {
             console.log(e)
         });
     }
-  }
+  } 
+
+  const [isChecked, setIsChecked] = useState(false);
 
   function handle(e) {
-    setAdmission({ ...admission, [e.target.name]: e.target.value });
+      if (e.target.name == "is_active"){
+        setIsChecked(!isChecked);
+      }
+      else{
+        setAdmission({ ...admission, [e.target.name]: e.target.value });
+      }
+
   }
 
   return (
@@ -115,20 +123,12 @@ export default function AdmissionForm() {
                     <div className="col-md-6 mb-4">
                       <div onChange={(e) => handle(e)}>
                         <input
-                          type="radio"
-                          value={true}
+                          type="checkbox"
+                          value="active"
+                          checked={isChecked}
                           name="is_active"
-                          checked={admission.is_active === true}
                         />{" "}
                         Active
-                        <br/>
-                        <input
-                          type="radio"
-                          value={false}
-                          name="is_active"
-                          checked={admission.is_active === false}
-                        />{" "}
-                        Inactive
                       </div>
                     </div>
 

@@ -43,7 +43,7 @@ export default function EditAdmission() {
 
       AdmissionData.append("title",admission.title)
       AdmissionData.append("summary",admission.summary)
-      AdmissionData.append("is_active",admission.is_active)
+      AdmissionData.append("is_active",isChecked)
       AdmissionData.append("category",params.category)
 
       axios
@@ -61,8 +61,14 @@ export default function EditAdmission() {
     }
   }
 
+  const [isChecked, setIsChecked] = useState(false);
+
   function handle(e) {
-    setAdmission({ ...admission, [e.target.name]: e.target.value });
+    if (e.target.name == "is_active"){
+        setIsChecked(!isChecked);
+    }else{
+        setAdmission({ ...admission, [e.target.name]: e.target.value });
+    }
   }
 
   return (
@@ -119,20 +125,13 @@ export default function EditAdmission() {
                     <div className="col-md-6 mb-4">
                       <div onChange={(e) => handle(e)}>
                         <input
-                          type="radio"
-                          value={true}
+                          type="checkbox"
+                          value="active"
                           name="is_active"
-                          checked={params.is_active == true}
+                          checked={isChecked}
+                          defaultChecked={params.is_active}
                         />{" "}
                         Active
-                        <br/>
-                        <input
-                          type="radio"
-                          value={false}
-                          name="is_active"
-                          checked={params.is_active == false}
-                        />{" "}
-                        Inactive
                       </div>
                     </div>
 

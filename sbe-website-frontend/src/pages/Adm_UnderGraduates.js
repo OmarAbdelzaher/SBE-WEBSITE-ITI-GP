@@ -4,7 +4,11 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCirclePlus,
+  faEdit,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Adm_UnderGraduates = (isAuthenticated) => {
   let flag = false;
@@ -15,24 +19,26 @@ const Adm_UnderGraduates = (isAuthenticated) => {
   const [isModerator, setIsModerator] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const [newAdmissions, setNewAdmissions] = useState([]);
+
   const [intro, setIntro] = useState({
-    title:"",
-    summary:"",
-    is_active:"",
-    category:""
+    title: "",
+    summary: "",
+    is_active: "",
+    category: "",
   });
 
   const [req, setReq] = useState({
-    title:"",
-    summary:"",
-    is_active:"",
-    category:""
+    title: "",
+    summary: "",
+    is_active: "",
+    category: "",
   });
   const [trans, setTrans] = useState({
-    title:"",
-    summary:"",
-    is_active:"",
-    category:""
+    title: "",
+    summary: "",
+    is_active: "",
+    category: "",
   });
 
   useEffect(() => {
@@ -41,7 +47,9 @@ const Adm_UnderGraduates = (isAuthenticated) => {
         (admission) => admission.category == "undergraduate"
       );
       setIntro(
-        undergraduateAdmissions.filter((intro) => intro.title == "Introduction")[0]
+        undergraduateAdmissions.filter(
+          (intro) => intro.title == "Introduction"
+        )[0]
       );
       setReq(
         undergraduateAdmissions.filter(
@@ -56,6 +64,11 @@ const Adm_UnderGraduates = (isAuthenticated) => {
     });
   }, []);
 
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/admissions/").then((res) => {
+      setNewAdmissions(res.data.filter((adm) => adm.id > 3));
+    });
+  });
   useEffect(() => {
     if (isAuthenticated && who.user != null && flag == false) {
       if (who.user.role == "dr" || who.user.role == "ta") {
@@ -79,7 +92,19 @@ const Adm_UnderGraduates = (isAuthenticated) => {
     }
   });
 
-
+  const deleteAdmission = (id) => {
+    axios
+      .delete(`http://localhost:8000/api/admission/${id}`)
+      .then((res) => {
+        const admissions_update = newAdmissions.filter(
+          (item) => item.id !== id
+        );
+        setNewAdmissions(admissions_update);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <>
@@ -105,16 +130,22 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                       Add Admission
                     </Link>
                   ) : null}
-                  <br/>
-                    {intro.is_active ?
-                      <>
-                        <Link to={`/edit-adm/${intro.id}/${intro.title}/${intro.summary}/${intro.is_active}/${intro.category}`} className="fs-6 p-4" style={{ textDecoration:"none", color:"#000" }}>
-                        <FontAwesomeIcon className="fs-6" icon={faEdit} />{" "}Edit</Link>
-                        <p>
-                          {intro.summary} 
-                        </p>
-                      </> 
-                    : null}
+                  <br />
+                  {intro.is_active ? (
+                    <>
+                      {isCoordinator || isModerator || isAdmin ? (
+                        <Link
+                          to={`/edit-adm/${intro.id}/${intro.title}/${intro.summary}/${intro.is_active}/${intro.category}`}
+                          className="fs-6 p-4"
+                          style={{ textDecoration: "none", color: "#000" }}
+                        >
+                          <FontAwesomeIcon className="fs-6" icon={faEdit} />{" "}
+                          Edit
+                        </Link>
+                      ) : null}
+                      <p>{intro.summary}</p>
+                    </>
+                  ) : null}
                 </div>
                 <img
                   src="https://www.t8wealth.com/wp-content/uploads/2021/08/blog_3.jpeg"
@@ -126,19 +157,90 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                   alt="Sample photo"
                 />
                 <div className="member_desc">
-                  <h4>{req.title}</h4>
-                  <p>
-                    {req.is_active ? req.summary : null}
-                  </p>
+                  {req.is_active ? (
+                    <>
+                      <h4>{req.title}</h4>
+                      {isCoordinator || isModerator || isAdmin ? (
+                        <Link
+                          to={`/edit-adm/${req.id}/${req.title}/${req.summary}/${req.is_active}/${req.category}`}
+                          className="fs-6 p-4"
+                          style={{ textDecoration: "none", color: "#000" }}
+                        >
+                          <FontAwesomeIcon className="fs-6" icon={faEdit} />{" "}
+                          Edit
+                        </Link>
+                      ) : null}
+                      <p>{req.summary}</p>
+                    </>
+                  ) : null}
                 </div>
                 <div className="row ">
                   <div className="col-lg-6 member_desc">
-                    <h4>{trans.title}</h4>
-                    <p>
-                      {trans.is_active ? trans.summary : null}
-                    </p>
+                    {trans.is_active ? (
+                      <>
+                        <h4>{trans.title}</h4>
+                        {isCoordinator || isModerator || isAdmin ? (
+                          <Link
+                            to={`/edit-adm/${trans.id}/${trans.title}/${trans.summary}/${trans.is_active}/${trans.category}`}
+                            className="fs-6 p-4"
+                            style={{ textDecoration: "none", color: "#000" }}
+                          >
+                            <FontAwesomeIcon className="fs-6" icon={faEdit} />{" "}
+                            Edit
+                          </Link>
+                        ) : null}
+                        <p>{trans.summary}</p>
+                      </>
+                    ) : null}
                   </div>
                 </div>
+                {newAdmissions.map((adm) => {
+                  return (
+                    <div className="row ">
+                      <div className="col-lg-6 member_desc">
+                        {adm.is_active ? (
+                          <>
+                            <h4>{adm.title}</h4>
+                            {isCoordinator || isModerator || isAdmin ? (
+                              <>
+                                <Link
+                                  to={`/edit-adm/${adm.id}/${adm.title}/${adm.summary}/${adm.is_active}/${adm.category}`}
+                                  className="fs-6 p-4"
+                                  style={{
+                                    textDecoration: "none",
+                                    color: "#000",
+                                  }}
+                                >
+                                  <FontAwesomeIcon
+                                    className="fs-6"
+                                    icon={faEdit}
+                                  />{" "}
+                                  Edit
+                                </Link>
+                                <Link to="#">
+                                  <button
+                                    style={{ backgroundColor: "red" }}
+                                    className="btn btn-sm"
+                                    onClick={() => {
+                                      deleteAdmission(adm.id);
+                                    }}
+                                  >
+                                    <FontAwesomeIcon
+                                      style={{ color: "white" }}
+                                      className="fs-5"
+                                      icon={faTrashAlt}
+                                    />{" "}
+                                  </button>
+                                </Link>
+                              </>
+                            ) : null}
+                            <p>{adm.summary}</p>
+                          </>
+                        ) : null}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
