@@ -17,7 +17,10 @@ SBE Website
 SBE is a website for systems and biomedical engineering at Cairo University. It's an ITI graduation project, a 3-months intensive training program, Full-stack Development using Python Track.
 
 ## Project Overview
-The proposed website was made for the sbe department. It will be used by the department staff and employees with all their roles. Also, by the student that will interact with the department.
+The proposed website was made for the sbe department. It will be used by the department staff and employees with all their roles. Also, by the student that will interact with the department. The website's main objective is to facilitate communication between the department, the staff, and the students.
+ The department information, news, and events will be available to the students to be more familiar with the department.
+ The department staff can upload materials and grades for the courses they teach. Also, they can reserve a hall/lab/device for a specific course.
+Moreover, the student can view grades, material, and history for each course
 
 ## Getting Started
 ### Steps
@@ -181,20 +184,29 @@ Zeina Ayman | zeinaayman14@gmail.com
 
 ## User Interface
  ### Home Page
- ![home1](https://user-images.githubusercontent.com/61268414/157886381-183c8c6f-9645-4786-a7a6-1216f26a459c.png)
+![home1](https://user-images.githubusercontent.com/61268414/158468524-d4522838-f175-4e98-8332-a7dfca665cb8.png)
+
+![home2](https://user-images.githubusercontent.com/61268414/158468607-b3e48657-1aba-4af3-b866-b754f0cec489.png)
+
+
+
  #### About and Footer sections
-![home2](https://user-images.githubusercontent.com/61268414/157886409-5022338a-b9b7-49bd-9061-345d2107227d.png)
+![footer](https://user-images.githubusercontent.com/61268414/158468825-c93bdc82-12ac-4b73-9bc0-3f29b9ff0fe0.png)
+
 
  ### Registration and Login Forms
  #### Registration Form
- ![signuupp](https://user-images.githubusercontent.com/61268414/157886338-75d066ef-1d13-448d-9a74-35041b1e2a88.png)
+ ![signup](https://user-images.githubusercontent.com/61268414/158468841-9785eb59-1376-4891-b24b-34dbcb0bffc7.png)
+
+
  #### Login Form
-![login](https://user-images.githubusercontent.com/61268414/157886426-f27f6308-1890-422a-bb74-d078bc6c2b60.png)
+![login](https://user-images.githubusercontent.com/61268414/158468857-02347ad3-62ec-4eb4-b29e-75da9d6abd3e.png)
+
 
  ### Reset Password
  
  ### Profile Page
- ![profile](https://user-images.githubusercontent.com/61268414/157886730-5d948e5e-82d1-49d9-84ca-f70da91d22c0.png)
+
 
 ### Graduate and Undergraduate Admission
 #### Graduate Admission
@@ -217,35 +229,38 @@ Zeina Ayman | zeinaayman14@gmail.com
 ### Courses Pages
 
 ####  Courses Menu
-![courses](https://user-images.githubusercontent.com/61268414/157886655-80134290-ea86-40f6-bb2d-593b0c955b75.png)
+
 
  #### Specific year and semester courses
- ![courses-pages](https://user-images.githubusercontent.com/61268414/157888527-2fb49447-1b5d-436d-ae22-e3f3db254ee4.png)
+
 
  #### Add Courses
- ![addcourse](https://user-images.githubusercontent.com/61268414/157886889-5989b9fe-5373-4b64-927f-de0019f08aa5.png)
+ 
 
  
 ###  Course Details
 
 ###  Reservation Forms
 #### Reserve A Hall
-![reserve-hall](https://user-images.githubusercontent.com/61268414/157892089-3fc9803e-111d-42f1-b32e-b3763020cd19.png)
+
+![Reserve_hall](https://user-images.githubusercontent.com/61268414/158469576-4f805546-02d2-4bc6-b5fd-8940194f3890.png)
 
 #### Reserve A Lab
-![reserve-lab](https://user-images.githubusercontent.com/61268414/157892167-82970c3a-c96f-47f8-9241-e1de3d1646da.png)
+![ReserveLab](https://user-images.githubusercontent.com/61268414/158469566-f711750a-385e-4a12-853c-48c129b804bb.png)
+
 
 #### Reserve A Device
-![reserve-device](https://user-images.githubusercontent.com/61268414/157892185-bdf9aacc-6914-4b49-a97e-10751e559617.png)
+![ReserveDevice](https://user-images.githubusercontent.com/61268414/158469554-c0168c76-8ea8-428c-ba8a-1df412016023.png)
+
 
 ### Staff Office Hours
 
 ### Admin Panel
-![admin1](https://user-images.githubusercontent.com/61268414/157886866-8a7366fd-5f30-46ce-a974-6e61ae94f447.png)
+
 #### Halls
-![hall-admin](https://user-images.githubusercontent.com/61268414/157886819-1b03b920-805e-4bc3-acad-e58f5c3d12f7.png)
+
 #### Add Hall
-![add_hall](https://user-images.githubusercontent.com/61268414/157886846-45e93fd5-5791-42cc-b5f5-a67eeb8ba4ca.png)
+
 
 
 ## Demo

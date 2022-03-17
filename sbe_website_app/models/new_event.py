@@ -14,11 +14,11 @@ import os
 
     
 class New(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
     
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
 
-    picture = models.ImageField(upload_to='images', default='images/SBE.png') 
+    picture = models.ImageField(upload_to='images', default='images/file.jpg' , blank=True, null=True) 
     CATEGORY_CHOICES = (
         ('graduate', 'Graduate'),
         ('undergraduate', 'Undergraduate'),

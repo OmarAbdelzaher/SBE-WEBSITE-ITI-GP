@@ -1,8 +1,6 @@
 import React from "react";
-// import Header from "./header";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 export default function GraduatePage() {
   const [AllNews, setAllNews] = useState([]);
