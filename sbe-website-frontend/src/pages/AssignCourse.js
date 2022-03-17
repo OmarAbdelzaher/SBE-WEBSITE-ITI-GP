@@ -162,7 +162,7 @@ export default function AssignCourse() {
                             - {`${courses.staff_id}`}{" "}
                           </p>
 
-                          <h5>{`${courses.staff_id}`} </h5>
+                      
                         </div>
                       </div>
                     </div>
