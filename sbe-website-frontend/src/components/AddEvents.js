@@ -90,7 +90,7 @@ export default function AddEvents() {
           .then((res) => {
             console.log(res.data);
   
-            history.push("/moderator");
+            history.push("/moderatorevent");
           })
           .catch((e) => {
             setFormErrors(e.response.data.non_field_errors[0]);
