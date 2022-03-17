@@ -68,6 +68,8 @@ import EditProfile from "./pages/EditProfile";
 import Staff from "./components/Staff";
 import AddNews from "./components/AddNews";
 import AddEvents from "./components/AddEvents";
+import AdmissionForm from "./pages/AdmissionForm";
+import EditAdmission from "./components/EditAdmission";
 
 function App() {
 
@@ -150,8 +152,8 @@ function App() {
             <Route path={"/staffpage"} exact component={Staff} /> 
             <Route path={"/addnews"} exact component={AddNews} /> 
             <Route path={"/addevents"} exact component={AddEvents} /> 
-
-
+            <Route path={"/addAdmission/:category"} exact component={AdmissionForm}/>
+            <Route path={"/edit-adm/:id/:title/:summary/:is_active/:category"} exact component={EditAdmission}/>
 
             <Route
               path={"/password/reset/confirm/:uid/:token"}

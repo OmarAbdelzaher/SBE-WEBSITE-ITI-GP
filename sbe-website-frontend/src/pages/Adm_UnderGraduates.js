@@ -1,32 +1,120 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus, faEdit } from "@fortawesome/free-solid-svg-icons";
+
+const Adm_UnderGraduates = (isAuthenticated) => {
+  let flag = false;
+  const who = useSelector((state) => state.auth);
+  const [is_staff, setIs_staff] = useState(false);
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const [intro, setIntro] = useState({
+    title:"",
+    summary:"",
+    is_active:"",
+    category:""
+  });
+
+  const [req, setReq] = useState({
+    title:"",
+    summary:"",
+    is_active:"",
+    category:""
+  });
+  const [trans, setTrans] = useState({
+    title:"",
+    summary:"",
+    is_active:"",
+    category:""
+  });
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/admissions/").then((res) => {
+      let undergraduateAdmissions = res.data.filter(
+        (admission) => admission.category == "undergraduate"
+      );
+      setIntro(
+        undergraduateAdmissions.filter((intro) => intro.title == "Introduction")[0]
+      );
+      setReq(
+        undergraduateAdmissions.filter(
+          (intro) => intro.title == "General Requirements"
+        )[0]
+      );
+      setTrans(
+        undergraduateAdmissions.filter(
+          (intro) => intro.title == "Transfer Student"
+        )[0]
+      );
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated && who.user != null && flag == false) {
+      if (who.user.role == "dr" || who.user.role == "ta") {
+        setIs_staff(true);
+        if (who.user.is_coordinator) {
+          setIsCoordinator(true);
+        }
+        flag = true;
+      }
+
+      if (who.user.role == "employee") {
+        setIsEmp(true);
+        if (who.user.is_moderator) {
+          setIsModerator(true);
+        }
+      }
+
+      if (who.user.is_admin) {
+        setIsAdmin(true);
+      }
+    }
+  });
 
 
-const Adm_UnderGraduates = () => {
 
-    return (
+  return (
     <>
-
-        <div className="container">
+      <div className="container">
         <section className="member-details">
           <div className="container">
             <div className="row">
               <div className="col-lg-9 col-md-8">
                 <div className="member_designation">
-                <br></br>
-                    <br></br>
-                  <h2>Admission</h2>
-                  <span>UnderGraduates</span>
+                  <br></br>
+                  <br></br>
+                  <h2>Undergraduate Admission</h2>
                 </div>
                 <div className="member_desc">
-                <p>
-                  Being a University Student should be one of the most exciting times of your life. Yet, it brings a whole new set of pressures and challenges. Today’s employment market is more competitive than ever. To stand out from the crowd, you need an education that provides you with the skills, abilities and qualifications that employers will understand and respect. In this increasingly global economy you need qualifications that are recognised in egypt.
-                  </p>
-                  <ul className="styled_list">
-                    <li className><i className="fa fa-chevron-circle-right" aria-hidden="true" /> Birth certificate or certified original.</li>
-                    <li className><i className="fa fa-chevron-circle-right" aria-hidden="true" /> Copy of National ID.</li>
-                    <li className><i className="fa fa-chevron-circle-right" aria-hidden="true" /> 6 passport-size photos.</li>
-                    <li className><i className="fa fa-chevron-circle-right" aria-hidden="true" /> Military Service Form “Namozag 2-3 Gond” (Egyptian males only).</li>
-                  </ul>
+                  {isCoordinator || isModerator || isAdmin ? (
+                    <Link
+                      className="btn btn-md col-4"
+                      style={{ backgroundColor: "#003049", color: "#ffff" }}
+                      to="/addAdmission/undergraduate"
+                    >
+                      <FontAwesomeIcon icon={faCirclePlus} />
+                      {"  "}
+                      Add Admission
+                    </Link>
+                  ) : null}
+                  <br/>
+                    {intro.is_active ?
+                      <>
+                        <Link to={`/edit-adm/${intro.id}/${intro.title}/${intro.summary}/${intro.is_active}/${intro.category}`} className="fs-6 p-4" style={{ textDecoration:"none", color:"#000" }}>
+                        <FontAwesomeIcon className="fs-6" icon={faEdit} />{" "}Edit</Link>
+                        <p>
+                          {intro.summary} 
+                        </p>
+                      </> 
+                    : null}
                 </div>
                 <img
                   src="https://www.t8wealth.com/wp-content/uploads/2021/08/blog_3.jpeg"
@@ -38,22 +126,16 @@ const Adm_UnderGraduates = () => {
                   alt="Sample photo"
                 />
                 <div className="member_desc">
-                  <h4>General Requirements </h4>
+                  <h4>{req.title}</h4>
                   <p>
-                    Vinteger eu libero rutrum, imperdiet arcueniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit volup tatem. accusantium doloremque laudantium.
+                    {req.is_active ? req.summary : null}
                   </p>
                 </div>
                 <div className="row ">
                   <div className="col-lg-6 member_desc">
-                    <h4>Transfer Students</h4>
+                    <h4>{trans.title}</h4>
                     <p>
-                      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.
-                    </p>
-                  </div>
-                  <div className="col-lg-6 member_desc">
-                    <h4>Foreign Certificates</h4>
-                    <p>
-                      Cepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                      {trans.is_active ? trans.summary : null}
                     </p>
                   </div>
                 </div>
@@ -62,7 +144,6 @@ const Adm_UnderGraduates = () => {
           </div>
         </section>
       </div>
-          
     </>
   );
 };
