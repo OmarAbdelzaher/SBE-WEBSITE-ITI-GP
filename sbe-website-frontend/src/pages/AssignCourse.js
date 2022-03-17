@@ -9,7 +9,7 @@ import { useSelector} from 'react-redux';
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 let listing = [];
-let concatlist = [];
+let fordoc = [];
 
 export default function AssignCourse() {
   const params = useParams();
@@ -77,9 +77,11 @@ export default function AssignCourse() {
       chosen.push(parseInt(t.value));
     }
     listing = chosen;
+    let docandta = []
+    docandta = fordoc.concat(chosen)
     setData({
       ...data,
-      staff: chosen,
+      staff: docandta,
     });
   };
 
@@ -89,8 +91,9 @@ export default function AssignCourse() {
     for (let t of List_names) {
       tachoose.push(parseInt(t.value));
     }
+    fordoc = tachoose
+    let concatlist = [];
     concatlist = listing.concat(tachoose);
-    console.log(concatlist)
     setData({
       ...data,
       staff: concatlist,
@@ -115,6 +118,7 @@ export default function AssignCourse() {
 
       data.staff.forEach((element) => {
         Data.append("staff_id", element);
+        console.log(element)
       });
 
       Data.append("name", courses.name);
