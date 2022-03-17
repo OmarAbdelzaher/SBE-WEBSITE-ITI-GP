@@ -1,12 +1,43 @@
 import React from "react";
-// import Header from "./header";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight} from "@fortawesome/free-solid-svg-icons";
+import { faAnglesRight,faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
-export default function CourseGraduate() {
+export default function CourseGraduate(isAuthenticated) {
+  let flag = false;
+  const who = useSelector((state) => state.auth);
+  const [is_staff, setIs_staff] = useState(false);
+  const [is_emp, setIsEmp] = useState(false);
+  const [isCoordinator, setIsCoordinator] = useState(false);
+  const [isModerator, setIsModerator] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  
+  useEffect(() => {
+    if (isAuthenticated && who.user != null && flag == false) {
+      if (who.user.role == "dr" || who.user.role == "ta") {
+        setIs_staff(true);
+        if (who.user.is_coordinator) {
+          setIsCoordinator(true);
+        }
+        flag = true;
+      }
+
+      if (who.user.role == "employee") {
+        setIsEmp(true);
+        if (who.user.is_moderator) {
+          setIsModerator(true);
+        }
+      }
+
+      if (who.user.is_admin) {
+        setIsAdmin(true);
+      }
+    }
+  });
+
   const [graduatecourse, setGraduateCourse] = useState([]);
 
   useEffect(() => {
@@ -14,24 +45,6 @@ export default function CourseGraduate() {
       .get("http://localhost:8000/api/coursegraduate/")
       .then((res) => setGraduateCourse(res.data));
   }, []);
-
-  const imgEvent = {
-    height: "250px",
-  };
-
-  const btnStyle = {
-    color: "white",
-    width: "50%",
-    height: "50%",
-    // background:'blue',
-  };
-  const start = {
-    // color: 'red',
-    // width: '50%',
-    // height: '50%',
-    marginTop: "150px",
-    // background:'blue',
-  };
 
   return (
     <>
@@ -44,6 +57,17 @@ export default function CourseGraduate() {
                   <h1 className="mb-4 pb-2 pb-md-0 px-md-2">
                     Graduate Courses
                   </h1>
+                  {isCoordinator || isAdmin ? (
+                      <Link
+                        className="btn btn-md col-4"
+                        style={{ backgroundColor: "#003049", color: "#ffff" }}
+                        to={`/courseform/graduate`}
+                      >
+                        <FontAwesomeIcon icon={faCirclePlus} />
+                        {"  "}
+                        Add Course
+                      </Link>
+                    ) : null}
                 </div>
                 <div className="row table-b">
                   <table className="text-light table table-hover fs-4">
@@ -57,10 +81,8 @@ export default function CourseGraduate() {
                         <>
                         <tbody className="fs-4 mb-3" key={item.id}>
                           <tr className='tr'>
-                          {/* <td className='table-b'> {item.name}</td> */}
-                          <td><Link className='table-b'  to={`/courseDetails/${item.id}`}>{item.name}</Link></td>
+                          <td><Link className='table-b' to={`/courseDetails/${item.id}`}>{item.name}</Link></td>
                           <td><Link to={`/courseDetails/${item.id}`}><FontAwesomeIcon icon={faAnglesRight} style={{color:"#ffff"}}/></Link></td>
-                          {/* <td className='table-b'> {`${item.staff_id }`}  </td> */}
                           </tr>
                         </tbody>
                         

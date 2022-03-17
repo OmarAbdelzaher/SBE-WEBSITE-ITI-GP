@@ -15,10 +15,7 @@ export default function CourseForm() {
   
     const [formErrors, setFormErrors] = useState({});
   
-    const url = "http://localhost:8000/api/news/";
-  
-    const [news, setNews] = useState([]);
-  
+    const url = "http://localhost:8000/api/news/";  
   
 
     function handle(e) {
@@ -150,7 +147,7 @@ export default function CourseForm() {
                               Details
                             </label>
                             <br />
-                            <input
+                            <textarea
                               onChange={(e) => handle(e)}
                               id="description"
                               type="text"

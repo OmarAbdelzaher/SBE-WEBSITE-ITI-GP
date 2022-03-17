@@ -14,14 +14,10 @@ function GraduateLecSchedule(isAuthenticated) {
   const [isCoordinator, setIsCoordinator] = useState(false);
   const [isModerator, setIsModerator] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isExist,setIsExist] = useState(false)
+  const [isExist, setIsExist] = useState(false);
   const [filesList, setFilesList] = useState([]);
 
-
   const [graduateschedulelec, setGraduateScheduleLec] = useState([]);
-
-
-  // const [allSchedules, setAllSchedules] = useState([]);
 
   useEffect(() => {
     if (isAuthenticated && who.user != null && flag == false) {
@@ -47,13 +43,11 @@ function GraduateLecSchedule(isAuthenticated) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/lecschedulesgraduate/")
-    .then((res) => setGraduateScheduleLec(res.data));
+    axios.get("http://localhost:8000/api/lecschedulesgraduate/").then((res) => {
+      let graduateLecs = res.data.filter((lec) => lec.category == "graduate");
+      setGraduateScheduleLec(graduateLecs.reverse()[0]);
+    });
   }, []);
-
-  // useEffect(() => {
-  //   setAllSchedules(yearOneSchedule.concat(yearTwoSchedule, yearThreeSchedule, yearFourSchedule));
-  // }, [yearFourSchedule]);
 
   var fileDownload = require("js-file-download");
 
@@ -61,45 +55,49 @@ function GraduateLecSchedule(isAuthenticated) {
     return path.split("/").reverse()[0];
   }
 
-  const handlePDFDownload = (schedule) => {
+  const handlePDFDownload = () => {
     axios
-      .get(`http://localhost:8000/api/download/${schedule.year}/lec`, {
-        responseType: "blob",
-      })
+      .get(
+        `http://localhost:8000/api/download-exam-lec/${String(
+          graduateschedulelec.id
+        )}/lec`,
+        {
+          responseType: "blob",
+        }
+      )
       .then((res) => {
-        fileDownload(res.data, basename(schedule.schedule_file));
+        fileDownload(res.data, basename(graduateschedulelec.schedule_file));
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-
-  const handleChangeFile = (e,schedule) => {
+  const handleChangeFile = (e) => {
     const list = [];
     const files = e.target.files;
-    console.log(files)
-      if(schedule.schedule_file !== '/media/Lecs_Schedule/'+files[0].name){
-        list.push(files[0])
-      }else{
-        setIsExist(true)
-      }
+    list.push(files[0]);
     setFilesList(list);
   };
 
-  const handleSubmit = (e,schedule) => {
-
+  const handleSubmit = (e) => {
     // e.preventDefault();
     let fileData = new FormData();
-    
-    fileData.append("year", schedule.year);
-    fileData.append("schedule_file", filesList[0]);
 
-    axios.put(`http://localhost:8000/api/lecschedule/${schedule.id}`,fileData).then((res)=>{
-      console.log(res)
-      }).catch((e)=>{
-        console.log(e)
-    })
+    fileData.append("schedule_file", filesList[0]);
+    fileData.append("category", graduateschedulelec.category);
+
+    axios
+      .put(
+        `http://localhost:8000/api/lecschedule/${graduateschedulelec.id}`,
+        fileData
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -116,24 +114,26 @@ function GraduateLecSchedule(isAuthenticated) {
                   <table className="table table-bordered  bg-light fs-4 col-12">
                     <thead>
                       <tr className="text-dark">
+                        <th>Type</th>
                         <th>Download</th>
                       </tr>
                     </thead>
 
                     <tbody className="mb-3">
-                      {graduateschedulelec.map((schedule) => {
-                        return (
-                          <tr>
-                            <td>
-                              <div className="row">
-                                <div className="col-5">
+                      <tr>
+                        <td>Master</td>
+                        <td>
+                          <div className="row">
+                            <div className="col-5">
                               <Link to="#">
-                                <button  className="btn btn-md "
+                                <button
+                                  className="btn btn-md "
                                   style={{
                                     color: "#ffff",
-                                    background:"#003049"
+                                    background: "#003049",
                                   }}
-                                   onClick={()=>handlePDFDownload(schedule)}>
+                                  onClick={() => handlePDFDownload()}
+                                >
                                   <FontAwesomeIcon
                                     className="fs-5"
                                     icon={faDownload}
@@ -141,39 +141,36 @@ function GraduateLecSchedule(isAuthenticated) {
                                   Download Schedule
                                 </button>
                               </Link>
-                              </div>
-                              {isModerator || isAdmin || isCoordinator ? (
-                                <div className="col-7">
-                                  <form onSubmit={(event) => handleSubmit(event,schedule)}>
-                                    <input
-                                      className="col-6 btn btn-md"
-                                      type="file"
-                                      onChange={(event) => handleChangeFile(event,schedule)}
-                                    />
-                                    <button
-                                      type="submit"
-                                      className="btn btn-md col-6"
-                                      style={{
-                                        color: "#003049",
-                                      }}>
-                                        <FontAwesomeIcon
-                                          className="fs-5"
-                                          icon={faUpload}
-                                        />{" "}
-                                        Upload Schedule
-                                    </button>
-                                    {
-                                      isExist? <p className="text-danger">This file Already Exists</p> 
-                                      : null
+                            </div>
+                            {isModerator || isAdmin || isCoordinator ? (
+                              <div className="col-7">
+                                <form onSubmit={(event) => handleSubmit(event)}>
+                                  <input
+                                    className="col-6 btn btn-md"
+                                    type="file"
+                                    onChange={(event) =>
+                                      handleChangeFile(event)
                                     }
-                                  </form>
-                                </div>
-                              ) : null}
+                                  />
+                                  <button
+                                    type="submit"
+                                    className="btn btn-md col-6"
+                                    style={{
+                                      color: "#003049",
+                                    }}
+                                  >
+                                    <FontAwesomeIcon
+                                      className="fs-5"
+                                      icon={faUpload}
+                                    />{" "}
+                                    Upload Schedule
+                                  </button>
+                                </form>
                               </div>
-                            </td>
-                          </tr>
-                        );
-                      })}
+                            ) : null}
+                          </div>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>

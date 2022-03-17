@@ -3,35 +3,23 @@ import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCalendarCheck,
-  faCalendarDay,
   faCalendarDays,
   faCalendarPlus,
-  faCalendarTimes,
-  faClinicMedical,
   faClock,
-  faEarthOceania,
   faFlask,
-  faGear,
-  faGears,
-  faHome,
+  faGlobe,
   faHourglass,
   faListCheck,
   faMicroscope,
   faSchool,
   faScrewdriverWrench,
-  faSquarePollHorizontal,
-  faToolbox,
-  faUser,
   faUserClock,
-  faUserGraduate,
-  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
 function AdminNav() {
   return (
     <>
-     <nav className="sidenav">
+     <nav className="sidenav fs-3">
        <div className="text-dark">
          <div className="dropdown-divider"></div>
          <Link className="fs-3 fw-normal sbar-links" to="/moderator">
@@ -86,7 +74,7 @@ function AdminNav() {
           </Link>
           <br></br>
           <Link className="fs-6 sbar-links" to="/addnews">
-            <FontAwesomeIcon className="fs-6" icon={faEarthOceania} style={{color:"#003049"}}/>{" "}
+            <FontAwesomeIcon className="fs-6" icon={faGlobe} style={{color:"#003049"}}/>{" "}
             Add News
           </Link>
           <br></br>     

@@ -48,12 +48,13 @@ function UnderGraduateExamSchedule(isAuthenticated) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/examschedulesundergraduate/")
+      .get("http://localhost:8000/api/examschedules/")
       .then((res) => {
-        setYearOneExam(res.data.filter((y1) => y1.year == "Year 1"));
-        setYearTwoExam(res.data.filter((y2) => y2.year == "Year 2"));
-        setYearThreeExam(res.data.filter((y3) => y3.year == "Year 3"));
-        setYearFourExam(res.data.filter((y4) => y4.year == "Year 4"));
+        let underGradExams = res.data.filter(exam => exam.category == "undergraduate")
+        setYearOneExam(underGradExams.filter((y1) => y1.year == "Year 1"));
+        setYearTwoExam(underGradExams.filter((y2) => y2.year == "Year 2"));
+        setYearThreeExam(underGradExams.filter((y3) => y3.year == "Year 3"));
+        setYearFourExam(underGradExams.filter((y4) => y4.year == "Year 4"));
       })
       .catch((e) => console.log(e));
   }, []);
@@ -84,7 +85,7 @@ function UnderGraduateExamSchedule(isAuthenticated) {
   const handleChangeFile = (e, exam) => {
     const list = [];
     const files = e.target.files;
-    console.log(files);
+
     if (exam.exam_file !== "/media/Exams_Schedule/" + files[0].name) {
       list.push(files[0]);
     } else {

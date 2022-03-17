@@ -276,7 +276,7 @@ function CourseDetails(isAuthenticated) {
                               >
                                 <div className=" d-flex justify-content-center align-items-center">
                                   <input
-                                    className="col-5"
+                                    className="col-5 text-dark"
                                     type="file"
                                     multiple
                                     onChange={(event) =>
@@ -366,7 +366,7 @@ function CourseDetails(isAuthenticated) {
                           >
                             <div className=" d-flex justify-content-center align-items-center">
                               <input
-                                className="col-5"
+                                className="col-5 text-dark"
                                 type="file"
                                 onChange={(event) =>
                                   handleChangeFile(event, "grades")

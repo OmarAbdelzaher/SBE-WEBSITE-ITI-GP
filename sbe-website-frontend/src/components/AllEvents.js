@@ -39,7 +39,7 @@ export default function AllEvents() {
           className="row d-flex justify-content-center align-items-center"
         >
           <h1 className="text-center fw-lighter text-light scroll">
-            SBE EVENTS
+            SBME EVENTS
           </h1>
 
           {AllEvents.sort(orderByOrderValue).map((item) => {
