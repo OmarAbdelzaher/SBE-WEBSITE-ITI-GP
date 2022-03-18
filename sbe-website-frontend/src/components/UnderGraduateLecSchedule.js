@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-function UnderGraduateLecSchedule(isAuthenticated) {
+function UnderGraduateLecSchedule(isAuthenticated ,) {
   let flag = false;
   const who = useSelector((state) => state.auth);
   const [is_staff, setIs_staff] = useState(false);
@@ -45,6 +45,7 @@ function UnderGraduateLecSchedule(isAuthenticated) {
       }
     }
   });
+  
 
   useEffect(() => {
     axios
