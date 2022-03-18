@@ -43,10 +43,13 @@ function GraduateLecSchedule(isAuthenticated) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/lecschedulesgraduate/").then((res) => {
+    axios.get("http://localhost:8000/api/lecschedules/").then((res) => {
       let graduateLecs = res.data.filter((lec) => lec.category == "graduate");
-      setGraduateScheduleLec(graduateLecs.reverse()[0]);
-    });
+      if (graduateLecs.length > 0){
+        setIsExist(true)
+        setGraduateScheduleLec(graduateLecs.reverse()[0]);
+      }
+      });
   }, []);
 
   var fileDownload = require("js-file-download");
@@ -120,6 +123,8 @@ function GraduateLecSchedule(isAuthenticated) {
                     </thead>
 
                     <tbody className="mb-3">
+                      {
+                        isExist ? 
                       <tr>
                         <td>Master</td>
                         <td>
@@ -133,11 +138,11 @@ function GraduateLecSchedule(isAuthenticated) {
                                     background: "#003049",
                                   }}
                                   onClick={() => handlePDFDownload()}
-                                >
+                                  >
                                   <FontAwesomeIcon
                                     className="fs-5"
                                     icon={faDownload}
-                                  />{" "}
+                                    />{" "}
                                   Download Schedule
                                 </button>
                               </Link>
@@ -151,18 +156,18 @@ function GraduateLecSchedule(isAuthenticated) {
                                     onChange={(event) =>
                                       handleChangeFile(event)
                                     }
-                                  />
+                                    />
                                   <button
                                     type="submit"
                                     className="btn btn-md col-6"
                                     style={{
                                       color: "#003049",
                                     }}
-                                  >
+                                    >
                                     <FontAwesomeIcon
                                       className="fs-5"
                                       icon={faUpload}
-                                    />{" "}
+                                      />{" "}
                                     Upload Schedule
                                   </button>
                                 </form>
@@ -171,6 +176,7 @@ function GraduateLecSchedule(isAuthenticated) {
                           </div>
                         </td>
                       </tr>
+                      : null}
                     </tbody>
                   </table>
                 </div>

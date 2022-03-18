@@ -60,7 +60,7 @@ function Profile(isAuthenticated) {
     axios.get(Url).then((res) => {
       setUser(res.data);
     });
-  }, []);
+  }, [Url]);
 
   return (
     <section className=" h-150 h-custom">
@@ -102,8 +102,6 @@ function Profile(isAuthenticated) {
               </div>
             <br></br>
             <div className="px-4 py-3">
-              {/* <h5 className="mb-0"></h5>
-              <h5 class="mb-0"></h5>  */}
               <div className="p-4 rounded shadow border">
                 {User.role == "dr" ? (
                   <h4 className="fst-italic fw-bold mb-0 ">
@@ -177,14 +175,6 @@ function Profile(isAuthenticated) {
                 ) : null}
               </div>
             </div>
-            <br></br>
-            {/* <div className="row">
-              <div className="col d-flex justify-content-end">
-                <Link to="/edit-profile">
-                  <button className="btn btn-lg button">Edit Profile</button>
-                </Link>
-              </div>
-            </div> */}
             <br></br>
           </div>
         </div>
