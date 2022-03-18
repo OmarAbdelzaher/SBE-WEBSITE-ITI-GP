@@ -3,11 +3,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 
 export default function EditAdmission() {
   const params = useParams();
   const history = useHistory();
   const [formErrors, setFormErrors] = useState({});
+  const staff = useSelector((state) => state.auth);
+  const [isChecked, setIsChecked] = useState(false);
 
   const [admission, setAdmission] = useState({
     title: params.title,
@@ -21,6 +24,19 @@ export default function EditAdmission() {
         setAdmission(res.data)
     })
   },[])
+
+  if(staff.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (staff.user != null )
+  {
+    if (staff.user.is_moderator == false && staff.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
+
 
   const validate = (values) => {
     const errors = {};
@@ -61,7 +77,6 @@ export default function EditAdmission() {
     }
   }
 
-  const [isChecked, setIsChecked] = useState(false);
 
   function handle(e) {
     if (e.target.name == "is_active"){

@@ -5,6 +5,8 @@ import axios from "axios";
 import AdminNav from "../components/AdminNav";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Redirect } from 'react-router-dom';
+
 import {
   faCalendarCheck,
   faCalendarXmark,
@@ -43,6 +45,20 @@ function ReservationApprov() {
       );
   }, []);
 
+
+  if(moderator.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (moderator.user != null )
+  {
+    if ( moderator.user.is_moderator == false  && moderator.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
+
+
   function onChange(e) {
     if (e.target.value == "halls") {
       setReservation(halls);
@@ -54,6 +70,7 @@ function ReservationApprov() {
       alert("Choose a proper Request Type");
     }
   }
+
 
   let url = "";
 

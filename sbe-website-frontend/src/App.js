@@ -163,8 +163,6 @@ function App() {
             <Route path={"/moderatorevent"} exact component={ModeratorEvent} /> 
             <Route path={"/editnew/:id/:title/:description/:category"} exact component={EditNew} /> 
             <Route path={"/editevent/:id/:name/:details"} exact component={EditEvent} /> 
-
-
             <Route
               path={"/password/reset/confirm/:uid/:token"}
               exact

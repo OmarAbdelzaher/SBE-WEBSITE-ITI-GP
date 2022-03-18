@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCheck, faUserXmark } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 function RegistrationApprove() {
 
   axios.defaults.xsrfCookieName = "csrftoken";
   axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
+  const moderator = useSelector((state) => state.auth);
   const [staff, setStaff] = useState([]);
   const [student, setStudent] = useState([]);
   const [emp, setEmp] = useState([]);
@@ -46,6 +49,20 @@ function RegistrationApprove() {
       alert("Choose a proper Request Type");
     }
   }
+
+  if(moderator.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (moderator.user != null )
+  {
+    if ( moderator.user.is_moderator == false  && moderator.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
+
+
 
   let url = "";
 
