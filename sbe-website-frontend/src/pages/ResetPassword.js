@@ -100,6 +100,7 @@ const ResetPassword = ({ reset_password }) => {
             </div>
           </div>
         </div>
+        <div className='margin-b'></div>
       </section>
       
     </>
