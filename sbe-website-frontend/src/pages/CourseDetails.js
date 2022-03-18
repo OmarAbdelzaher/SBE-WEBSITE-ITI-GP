@@ -226,9 +226,9 @@ function CourseDetails(isAuthenticated) {
                 {/* Edit Button */}
                 {isCoordinator || isAdmin ? (
                   <Link
-                    className="btn btn-md col-3 fs-5"
+                    className="btn btn-md col-3 fs-5 mt-4"
                     style={{ backgroundColor: "#003049", color: "#ffff" }}
-                    to={`/editcourse/${course.id}/${course.name}/${course.total_grade}/${course.instructions}/${course.materials}`}
+                    to={`/editcourse/${course.id}/${course.name}/${course.total_grade}/${course.instructions}/${course.staff_id}/${course.category}/${course.year}/${course.semester}`}
                   >
                     <FontAwesomeIcon icon={faGear} />
                     {"  "}
@@ -240,8 +240,8 @@ function CourseDetails(isAuthenticated) {
                 {isCoordinator || isAdmin ? (
                   <Link to="#">
                   <button
-                    style={{ backgroundColor: "red" }}
-                    className="btn btn-sm"
+                    style={{ backgroundColor: "red" ,color: "#ffff" }}
+                    className="btn btn-sm mt-4 fs-5"
                     onClick={() => {
                         deleteCourse(course.id);
                     }}
@@ -250,7 +250,7 @@ function CourseDetails(isAuthenticated) {
                       style={{ color: "white" }}
                       className="fs-5"
                       icon={faTrashAlt}
-                    />{" "}
+                    />{" "}Delete 
                   </button>
                 </Link>
                 ) : null}
