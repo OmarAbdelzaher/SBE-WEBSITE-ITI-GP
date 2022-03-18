@@ -5,6 +5,9 @@ SBME Website
 # Table of contents
 - [Project Description](#project-description)
 - [Project Overview](#project-overview)
+- [Problem to be solved](#problem-to-be-solved)
+- [Functional requirements](#functional-requirements)
+- [Non Functional requirements](#non-functional-requirements)
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Future Work](#future-work)
@@ -21,6 +24,27 @@ The proposed website was made for the sbe department. It will be used by the dep
  The department information, news, and events will be available to the students to be more familiar with the department.
  The department staff can upload materials and grades for the courses they teach. Also, they can reserve a hall/lab/device for a specific course.
 Moreover, the student can view grades, material, and history for each course
+
+## Problem to be solved
+The project aims to build a website to reduce the paper and manual work for managing the department. Also, it helps to end the complexities involved in communication between the staff and the students. It provides convenient access to the needed information for students and makes it easier for the staff to upload and deliver it for them. So, the website saves time and distance and improve the interaction between the staff and the students
+
+## Functional requirements
+- Signup and Login
+- View and Edit profile
+- Request a registration/ reservation
+- Confirm for a registration /reservation
+- Add and assign courses to members
+- Add course materials, grades and history
+- Add/edit/delete news, events and schedules
+- Add/edit/delete office hours
+- Download and Upload Documents
+
+## Non Functional requirements
+- Good performance
+- Security
+- Reliability
+- Maintainability
+- Usability
 
 ## Getting Started
 ### Steps
