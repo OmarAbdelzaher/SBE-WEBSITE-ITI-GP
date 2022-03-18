@@ -70,9 +70,24 @@ function CourseDetails(isAuthenticated) {
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/uploadmaterials/").then((res) => {
-      setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
+      let checkArrived = res.data.filter((mat) => mat.course_id == mat_id) 
+      if (checkArrived.length > 0){
+        setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
+      }
+      else{
+        MaterialApi()
+      }
     });
   }, []);
+
+  function MaterialApi(){
+    axios.get("http://localhost:8000/api/uploadmaterials/").then((res) => {
+      let checkArrived = res.data.filter((mat) => mat.course_id == mat_id) 
+      if (checkArrived.length > 0){
+      setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
+      }
+    })
+  }
 
   const handleChangeFile = (e, type) => {
     const list = [];
@@ -172,7 +187,7 @@ function CourseDetails(isAuthenticated) {
           console.log(err);
         });
     } else if (downType == "materials") {
-      for (let i = 0; i <= material.length; i++) {
+      for (let i = 0; i < material.length; i++) {
         axios
           .get(`http://localhost:8000/api/download/${material[i].id}/mat`, {
             responseType: "blob",
@@ -317,34 +332,38 @@ function CourseDetails(isAuthenticated) {
                                   Update Link
                                 </button>
                               </form>
-
-                              <form
-                                onSubmit={(event) => handleSubmit(event, "mat")}
-                              >
-                                <div className=" d-flex justify-content-center align-items-center">
-                                  <input
-                                    className="col-5 text-dark"
-                                    type="file"
-                                    multiple
-                                    onChange={(event) =>
-                                      handleChangeFile(event, "mat")
-                                    }
-                                  />
+                              
+                              {material ? (
+                                <form
+                                  onSubmit={(event) =>
+                                    handleSubmit(event, "mat")
+                                  }
+                                >
+                                  <div className=" d-flex justify-content-center align-items-center">
+                                    <input
+                                      className="col-5 text-dark"
+                                      type="file"
+                                      multiple
+                                      onChange={(event) =>
+                                        handleChangeFile(event, "mat")
+                                      }
+                                    />
+                                    <br />
+                                    <br />
+                                    <button
+                                      type="submit"
+                                      className="btn btn-md col-7"
+                                      style={{
+                                        color: "#003049",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon icon={faUpload} />
+                                      Upload Material
+                                    </button>
+                                  </div>
                                   <br />
-                                  <br />
-                                  <button
-                                    type="submit"
-                                    className="btn btn-md col-7"
-                                    style={{
-                                      color: "#003049",
-                                    }}
-                                  >
-                                    <FontAwesomeIcon icon={faUpload} />
-                                    Upload Material
-                                  </button>
-                                </div>
-                                <br />
-                              </form>
+                                </form>
+                              ) : null}
                             </div>
                           ) : null}
                         </div>
@@ -386,7 +405,7 @@ function CourseDetails(isAuthenticated) {
                                 color: "#ffff",
                               }}
                               onClick={() => handlePDFDownload("materials")}
-                            >
+                             to="#">
                               <FontAwesomeIcon icon={faDownload} />
                               {"  "}
                               Download

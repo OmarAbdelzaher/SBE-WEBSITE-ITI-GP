@@ -24,7 +24,10 @@ function EditProfile(isAuthenticated) {
   let StaffUrl = "";
   let EmpUrl = "";
   let PersonUrl = "";
-  let Url = `http://localhost:8000/api/person/${who.user.id}`;
+  // console.log(who)
+  // console.log(who.user)
+  // console.log(who.user.id)
+  let Url = "";
 
   const [User, setUser] = useState({
     fname: "",
@@ -74,7 +77,7 @@ function EditProfile(isAuthenticated) {
         setIsActive(true);
       }
     }
-  });
+  },[]);
 
   if (who.user != null) {
     StudentUrl = `http://localhost:8000/api/student/${who.user.id}`;
@@ -128,9 +131,11 @@ function EditProfile(isAuthenticated) {
 
   useEffect(() => {
     axios.get(Url).then((res) => {
+      console.log(who)
+      console.log(Url)
       setUser(res.data);
     });
-  }, []);
+  }, [Url,who]);
 
   const onChange = (e) => setUser({ ...User, [e.target.name]: e.target.value });
 

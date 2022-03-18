@@ -129,7 +129,6 @@ export default function EditAdmission() {
                           value="active"
                           name="is_active"
                           checked={isChecked}
-                          defaultChecked={params.is_active}
                         />{" "}
                         Active
                       </div>
@@ -145,6 +144,7 @@ export default function EditAdmission() {
             </div>
           </div>
         </div>
+        <div className="margin-b"></div>
       </section>
     </>
   );
