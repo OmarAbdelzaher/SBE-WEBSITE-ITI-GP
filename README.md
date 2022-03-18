@@ -218,11 +218,23 @@ Omar Abdelzaher | omarzaher787@gmail.com
 
  ### Reset Password
  ![reset-pass](https://user-images.githubusercontent.com/61268414/158795807-dac21f21-e145-46e9-b377-49ae9420b64d.png)
+ 
+ ### Confirm Reset Password
+ ![confirmpass](https://user-images.githubusercontent.com/61268414/158981864-52bf1c8a-dbcd-47cb-9ff9-340671aeef0e.png)
+
 
  ### Profile Page
- 
+ ![Profile](https://user-images.githubusercontent.com/61268414/158991897-5cafeb89-3587-45fe-ada3-acf58fd5b015.png)
+
+ ### Edit Profile
+ ![EditProfile](https://user-images.githubusercontent.com/61268414/158991921-88011b06-2d50-40ef-bf4a-3603b2236f8d.png)
+
  ### System Staff
  ![Staff](https://user-images.githubusercontent.com/61268414/158979901-ba3eae81-7544-448d-b0cb-0086756a4bbe.png)
+ 
+  ### Staff Office Hours
+  ![officehours](https://user-images.githubusercontent.com/61268414/158981973-5d04bb2f-b634-4d93-8072-1eafcb3ead81.png)
+
 
 
 
@@ -237,25 +249,38 @@ Omar Abdelzaher | omarzaher787@gmail.com
 
 ### Graduate and Undergraduate News
 #### Graduate News
+![GraduateNews](https://user-images.githubusercontent.com/61268414/158992198-21863c18-8e27-4b61-b9cd-d3add725790d.png)
+
 #### Undergraduate News
+![UnderGraduateNews](https://user-images.githubusercontent.com/61268414/158992226-3d8386ff-01aa-45d4-ad4b-17cb63fbb0fb.png)
 
 
-### Graduate and Undergraduate Exams Scheduale
-#### Graduate Exams Scheduale
+
+### Graduate and Undergraduate Exams Schedule
+#### Graduate Exams Schedule
 ![graduateexamscheduale](https://user-images.githubusercontent.com/61268414/158979467-c580b15c-e9de-461a-a54d-807dec9d5943.png)
 
-#### Undergraduate Exams Scheduale
+#### Undergraduate Exams Schedule
+![UnderGraduateExam](https://user-images.githubusercontent.com/61268414/158991541-37be7ce9-76bd-4c34-be3e-2533dc7f0faf.png)
 
 ### Graduate and Undergraduate Lectures
-#### Graduate Lectures Scheduale
+#### Graduate Lectures Schedule
 
 ![GraduateScheduale](https://user-images.githubusercontent.com/61268414/158979697-129201c3-6af5-4e6a-8c54-0c74dca4919f.png)
 
-#### Undergraduate Lectures Scheduale
+#### Undergraduate Lectures Schedule
 ![LectureSchedule](https://user-images.githubusercontent.com/61268414/158979774-293b715d-03e7-405a-80ba-e17b4b577d38.png)
 
 
-### Reservation and Registration Approve
+### Reservations schedule
+#### Halls Reservations
+![Hall-reservation](https://user-images.githubusercontent.com/61268414/158991773-d2a714fe-7fa4-4007-bdad-5d02f5dd8094.png)
+
+#### Labs Reservations
+![lab-reservations](https://user-images.githubusercontent.com/61268414/158991762-b8f92d66-6542-4565-8ee8-5f988db3eae2.png)
+
+#### Devices Reservations
+![Device-reservation](https://user-images.githubusercontent.com/61268414/158991745-664a4b44-cfc2-41de-a2d4-d4e5ea731296.png)
 
 ### Courses Pages
 
@@ -264,14 +289,19 @@ Omar Abdelzaher | omarzaher787@gmail.com
 
 
  #### Specific year and semester courses
+ 
+![Courses](https://user-images.githubusercontent.com/61268414/158991305-f7848747-e223-41f7-b45b-597331f3c59e.png)
 
 
  #### Add Courses
- ![AddCourse](https://user-images.githubusercontent.com/61268414/158796672-a13d5589-b170-4158-a892-f5e1cb512da0.png)
+![Add-course](https://user-images.githubusercontent.com/61268414/158991831-612a4ab8-935e-47f9-afca-ab70ba410961.png)
+
 
 
  
 ###  Course Details
+![CourseDetails](https://user-images.githubusercontent.com/61268414/158991329-9adb8ec7-ea74-46b4-bcc1-a44dd40684f0.png)
+
 
 ###  Reservation Forms
 #### Reserve A Hall
@@ -287,9 +317,11 @@ Omar Abdelzaher | omarzaher787@gmail.com
 
 
 ### Staff Office Hours
+![officehours](https://user-images.githubusercontent.com/61268414/158991246-da7a9589-5487-4e59-bff8-2fb1ca61dac1.png)
+
 #### Add Office Hours
 ![add-office-hours](https://user-images.githubusercontent.com/61268414/158795881-e15e9c26-16b1-4ec6-96bb-8237bf7fff7b.png)
- #### View Office Hours
+
  
 ### Moderator Panel
 ![moderator-panel](https://user-images.githubusercontent.com/61268414/158796080-ef7e494d-b980-4395-b441-287dd4a78fba.png)
@@ -298,6 +330,8 @@ Omar Abdelzaher | omarzaher787@gmail.com
 ![add-news-moderator](https://user-images.githubusercontent.com/61268414/158796068-174f4650-d96f-4bc6-98f5-f07203c31aaf.png)
 
 #### Add Hall
+![add-hall](https://user-images.githubusercontent.com/61268414/158991186-3b3d3162-d477-4e4b-aa1b-b1a58082f8c0.png)
+
 
 
 
