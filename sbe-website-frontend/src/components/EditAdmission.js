@@ -144,6 +144,7 @@ export default function EditAdmission() {
             </div>
           </div>
         </div>
+        <div className="margin-b"></div>
       </section>
     </>
   );

@@ -10,8 +10,7 @@ import makeAnimated from "react-select/animated";
 import { Redirect } from 'react-router-dom';
 
 let listing = [];
-let concatlist = [];
-
+let fordoc = [];
 export default function CourseForm() {
   const params = useParams();
   const history = useHistory();
@@ -74,9 +73,11 @@ export default function CourseForm() {
       chosen.push(parseInt(t.value));
     }
     listing = chosen;
+    let docandta = []
+    docandta = fordoc.concat(chosen)
     setData({
       ...data,
-      staff: chosen,
+      staff: docandta,
     });
   };
 
@@ -88,8 +89,9 @@ export default function CourseForm() {
     for (let t of List_names) {
       tachoose.push(parseInt(t.value));
     }
+    fordoc = tachoose
+    let concatlist = [];
     concatlist = listing.concat(tachoose);
-    console.log(concatlist);
     setData({
       ...data,
       staff: concatlist,
@@ -333,7 +335,7 @@ export default function CourseForm() {
                                       value={data.year}
                                     >
                                       <option value="0" selected>
-                                        Choose Grade
+                                        Choose Year
                                       </option>
                                       <option value="Year 1">Year 1</option>
                                       <option value="Year 2">Year 2</option>
