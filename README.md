@@ -349,12 +349,34 @@ Omar Abdelzaher | omarzaher787@gmail.com
  
 ### Moderator Panel
 ![moderator-panel](https://user-images.githubusercontent.com/61268414/158796080-ef7e494d-b980-4395-b441-287dd4a78fba.png)
+#### Reservations Approve
+![mod-reserv-approve](https://user-images.githubusercontent.com/61268414/159019969-3c44499c-3812-4c5e-9d8c-a2896ad3dac8.png)
 
+#### Registrations Approve
+![Mod-Reg-approve](https://user-images.githubusercontent.com/61268414/159019978-06801606-88c1-4a57-a176-2f800c184227.png)
+
+ 
+#### Halls Menu
+![Mod-hall](https://user-images.githubusercontent.com/61268414/159019143-016f5182-97d7-4600-b1ad-9f2283c36eb2.png)
+#### Labs Menu
+![mod-labs](https://user-images.githubusercontent.com/61268414/159019287-0ce204ac-5c56-43e4-8fee-cc6a9062a7f5.png)
+
+#### Device Menu
+![mod-devices](https://user-images.githubusercontent.com/61268414/159019308-396ab078-5f99-4673-a6ff-7e1222750f22.png)
+#### Halls Reservations
+![mod-hall-rese](https://user-images.githubusercontent.com/61268414/159019601-e5cd8a71-cf09-43a1-bf06-02a2c15d8101.png)
+
+#### Labs Reservations
+![mod-lab-res](https://user-images.githubusercontent.com/61268414/159019613-5c559f0f-1786-4894-b407-3d42333624c8.png)
+
+#### Devices Reservations
+
+![mod-dev-res](https://user-images.githubusercontent.com/61268414/159019645-c8194011-ead8-49db-9480-ddd9782c3247.png)
 #### Add News
 ![add-news-moderator](https://user-images.githubusercontent.com/61268414/158796068-174f4650-d96f-4bc6-98f5-f07203c31aaf.png)
+#### Add Events
 
-#### Add Hall
-![add-hall](https://user-images.githubusercontent.com/61268414/158991186-3b3d3162-d477-4e4b-aa1b-b1a58082f8c0.png)
+![mod-Add-event](https://user-images.githubusercontent.com/61268414/159020110-a74eb678-a6ef-4273-baab-28551d5926a3.png)
 
 
 
