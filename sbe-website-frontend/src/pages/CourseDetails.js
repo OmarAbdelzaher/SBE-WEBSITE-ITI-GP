@@ -190,8 +190,6 @@ function CourseDetails(isAuthenticated) {
     axios
       .delete(`http://localhost:8000/api/course/${params.id}`)
       .then((res) => {
-        // const selectedcourse = course.filter((item) => item.id !== id);
-        // setCourse(selectedcourse);
         history.push("/coursesMenu");
 
       })

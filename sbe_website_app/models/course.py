@@ -27,8 +27,8 @@ class Course(models.Model):
 
     stds_grades = models.FileField(upload_to='student_grades/',null=True,blank=True)
 
-    instructions = models.TextField(max_length=500)
-    materials = models.CharField(max_length=500,blank=True)
+    instructions = models.TextField(max_length=1000)
+    materials = models.CharField(max_length=1000,blank=True)
     year = models.CharField( max_length=20,choices=YEAR_CHOICES ,blank=True)
     SEMESTER_CHOICES = (
         ('one', 'One'),
