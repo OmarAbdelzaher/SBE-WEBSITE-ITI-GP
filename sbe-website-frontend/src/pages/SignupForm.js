@@ -3,12 +3,23 @@ import { Link, Redirect,useHistory } from 'react-router-dom';
 import { connect  , useSelector} from 'react-redux';
 import { signup } from '../actions/auth';
 import { useState  } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+
 
 
 const Signup = ({ signup, isAuthenticated }) => {
   const errorMessage = useSelector(state => state.auth.data)
   const emailMessage = useSelector(state => state.auth.emailerror)  
-
+  const [passwordShown, setPasswordShown] = useState(false);
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+  const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+  const toggleConfirmPasswordVisiblity = () => {
+    setConfirmPasswordShown(confirmPasswordShown ? false : true);
+  };
+  const eye = <FontAwesomeIcon icon={faEye} />;
   const history = useHistory() 
   const [formData, setFormData] = useState({
     fname: "",
@@ -231,14 +242,18 @@ const Signup = ({ signup, isAuthenticated }) => {
                           <label className="form-label" htmlFor="Password">
                             Password
                           </label>
+                          <div className="pass-wrapper">
                           <input
-                            type="Password"
+                            type={passwordShown ? "text" : "password"}
                             id="Password"
                             className="form-control form-control-lg"
                             name="password"
                             onChange={(e) => onChange(e)}
                             value={formData.password}
                           />
+                          <i className="icon-password" onClick={togglePasswordVisiblity}>{eye}</i>
+                          </div>
+                          <small className="smallPass">! Password must contains 8 characters at least A lowercase,An uppercase and A special character</small>
                           <p className="text-danger bg-white bg-opacity-75">{ FormErrors.password}</p>
                         </div>
                       </div>
@@ -252,14 +267,17 @@ const Signup = ({ signup, isAuthenticated }) => {
                           >
                             Confirm Password
                           </label>
+                          <div className="confirm-pass-wrapper">
                           <input
-                            type="Password"
+                            type={confirmPasswordShown ? "text" : "password"}
                             id="Confirm-Password"
                             className="form-control form-control-lg"
                             name="confirm_password"
                             onChange={(e) => onChange(e)}
                             value={formData.confirm_password}
                           />
+                          <i className="icon-confirm" onClick={toggleConfirmPasswordVisiblity}>{eye}</i>
+                          </div>
                           <p className="text-danger bg-white bg-opacity-75">{FormErrors.confirm_password}</p>
                         </div>
                       </div>
