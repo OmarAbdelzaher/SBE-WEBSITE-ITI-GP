@@ -20,7 +20,7 @@ from .views import index
 from django.conf.urls.static import static
 from django.conf import settings
 
-# router.register
+
 urlpatterns = [
     # path('',index),
     path('admin/', admin.site.urls),

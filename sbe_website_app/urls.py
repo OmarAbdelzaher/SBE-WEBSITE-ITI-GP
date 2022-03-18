@@ -14,7 +14,6 @@ from .Views.admissionsview import *
 
 
 
-
 urlpatterns = [
     path('persons/',PersonList.as_view()),
     path('students/', StudentList.as_view()),

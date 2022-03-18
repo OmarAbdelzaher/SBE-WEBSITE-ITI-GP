@@ -92,7 +92,7 @@ export default function CourseForm() {
           .then((res) => {
             console.log(res.data);
   
-            history.push("/moderator");
+            history.push("/moderatornew");
           })
           .catch((e) => {
             setFormErrors(e.response.data.non_field_errors[0]);

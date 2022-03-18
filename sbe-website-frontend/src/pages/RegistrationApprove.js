@@ -53,6 +53,7 @@ function RegistrationApprove() {
     let userData = new FormData();
 
     if (user.role == "dr" || user.role == "ta") {
+      userData.append("role",user.role)
       url = `http://localhost:8000/api/onestaff/${user.id}`;
     } else if (user.role == "student") {
       url = `http://localhost:8000/api/student/${user.id}`;

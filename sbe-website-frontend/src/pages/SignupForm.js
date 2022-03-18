@@ -2,11 +2,13 @@ import React from "react";
 import { Link, Redirect,useHistory } from 'react-router-dom';
 import { connect  , useSelector} from 'react-redux';
 import { signup } from '../actions/auth';
-import { useState } from "react";
+import { useState  } from "react";
+
 
 const Signup = ({ signup, isAuthenticated }) => {
   const errorMessage = useSelector(state => state.auth.data)
   const emailMessage = useSelector(state => state.auth.emailerror)  
+
   const history = useHistory() 
   const [formData, setFormData] = useState({
     fname: "",
@@ -52,6 +54,8 @@ const Signup = ({ signup, isAuthenticated }) => {
     const pattern_pass = new RegExp(
       "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])"
     );
+
+ 
 
 
   const validate = (values) =>{
@@ -162,7 +166,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Registration Form
                   </h3>
-                  <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
+                  <form className="px-md-2" onSubmit={(e) => onSubmit(e)}  >
                     <div className="row">
                       <div className="col-md-6 mb-4">
                         <div className="form-outline">
@@ -235,6 +239,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             onChange={(e) => onChange(e)}
                             value={formData.password}
                           />
+                          <small className="smallPass">Password must contains 8 characters at least one lowercase,one uppercase and one special character</small>
                           <p className="text-danger bg-white bg-opacity-75">{ FormErrors.password}</p>
                         </div>
                       </div>
@@ -408,7 +413,6 @@ const Signup = ({ signup, isAuthenticated }) => {
                     <button
                       type="submit"
                       className="btn button btn-lg mb-1"
-                      // onClick={submitForm}
                     >
                       Submit
                     </button>
@@ -425,7 +429,7 @@ const Signup = ({ signup, isAuthenticated }) => {
 // export default SignupForm;
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated ,
 });
 
 export default connect(mapStateToProps, { signup })(Signup);

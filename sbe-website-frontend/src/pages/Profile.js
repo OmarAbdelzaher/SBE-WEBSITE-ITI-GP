@@ -134,6 +134,16 @@ function Profile(isAuthenticated) {
                     </p>
                   </h4>
                 ) : null}
+                  {User.role == "employee" ? (
+                  <h4 className="fst-italic fw-bold mb-0 ">
+                   <FontAwesomeIcon icon={faAddressCard} />{" "}
+
+                    Role{" "}
+                    <p p className="pdata">
+                      {User.title}
+                    </p>
+                  </h4>
+                ) : null}
                 <h4 className="fst-italic fw-bold mb-0 ">
                 <FontAwesomeIcon icon={faEnvelope} />{" "}
                   Email{" "}
@@ -159,7 +169,7 @@ function Profile(isAuthenticated) {
                 <FontAwesomeIcon icon={faMobileScreenButton} />{" "}
                   Phone Number <p className="pdata">{User.phone_number}</p>
                 </h4>
-                {User.bio != "" ? (
+                {User.bio ? (
                   <h4 className="fst-italic fw-bold mb-0">
                     <FontAwesomeIcon icon={faAlignLeft} />{" "}
                     Bio <p className="pdata">{User.bio}</p>
