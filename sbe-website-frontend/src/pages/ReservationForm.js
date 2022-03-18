@@ -103,11 +103,12 @@ const ReservationForm = (isAuthenticated) => {
   }
   if (staff.user != null )
   {
-    if (staff.user.role != "ta" && staff.user.role != "dr"  && staff.user.is_admin == false )
+    if (staff.user.role != "ta" && staff.user.role != "dr"  && staff.user.is_admin == false && staff.user.is_moderator == false )
     {
       return <Redirect to="/" />;  
     }
   }
+
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
