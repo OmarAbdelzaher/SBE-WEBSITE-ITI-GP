@@ -26,27 +26,28 @@ export default function Academics() {
                 </a>
               </div>
               {/*Card content*/}
-              <div className="card-body">
+              <div className="card-body h-100">
                 {/*Title*/}
                 <h4 className="card-title">Graduate</h4>
                 {/*Text*/}
                 <p className="card-text text-dark">
-                  See all about graduates, news, admissions and more details
+                Opportunities to participate in the advancement of entire fields of knowledge
+                  {/* See all about graduates, news, admissions and more details */}
                 </p>
                 {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
                 {/* <button type="button" className="btn btn-primary btn-md">Read more</button> */}
-                <Link to="/graduatepage" className="btn button">
+                {/* <Link to="/graduatepage" className="btn button">
                   <button type="button" className="button ani">
                     Read more
                   </button>
-                </Link>
+                </Link> */}
               </div>
             </div>
             {/* Card */}
           </div>
           <div className="col-xs-12 col-sm-6 col-md-6">
             {/* Card */}
-            <div className="card mb-4 cardimg">
+            <div className="card mb-4 cardimg ">
               {/*Card image*/}
               <div className="view overlay">
                 <img
@@ -59,20 +60,21 @@ export default function Academics() {
                 </a>
               </div>
               {/*Card content*/}
-              <div className="card-body">
+              <div className="card-body ">
                 {/*Title*/}
                 <h4 className="card-title">Undergraduate</h4>
                 {/*Text*/}
                 <p className="card-text text-dark">
-                  See all about undergraduates, news, admissions and more
-                  details
+                Rich learning experiences that provide a broad  foundation and deep expertise
+                  {/* See all about undergraduates, news, admissions and more
+                  details */}
                 </p>
                 {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                <Link to="/undergraduatepage" className="btn button">
+                {/* <Link to="/undergraduatepage" className="btn button">
                   <button type="button" className="button ani ">
                     Read more
                   </button>
-                </Link>
+                </Link> */}
               </div>
             </div>
             {/* Card */}

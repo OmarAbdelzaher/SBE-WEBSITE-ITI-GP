@@ -129,9 +129,7 @@ const NavBar = (isAuthenticated) => {
                 title="Graduates"
                 id="navbarScrollingDropdown"
               >
-                <NavDropdown.Item href="/adm-graduates">
-                  Admission
-                </NavDropdown.Item>
+                
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
                 <NavDropdown.Item href="/staffpage">Staff</NavDropdown.Item>
                 <NavDropdown.Item href="/coursegraduate">
