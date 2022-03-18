@@ -64,7 +64,9 @@ class CourseSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         ret = super().to_representation(instance)
         for i in range(len(ret['staff_id'])): 
-            ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
+            ret['staff_id'][i] = (ret['staff_id'][i],instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname)
+
+
         return ret
 
 class CourseHistorySerializer(serializers.ModelSerializer):

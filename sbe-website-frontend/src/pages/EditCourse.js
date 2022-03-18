@@ -13,37 +13,47 @@ export default function EditCourse() {
   let Url = `http://localhost:8000/api/course/${params.id}`;
   const history = useHistory();
   const [formErrors, setFormErrors] = useState({});
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
 
     useEffect(() => {
       axios
         .get(`http://localhost:8000/api/course/${params.id}`)
-        .then((res) => setData(res.data.materials));
-        // console.log(setData(res.data));
-
+        .then((res) => {setData(res.data.materials)
+          console.log(res.data);
+          // console.log(res.data.materials);
+    });
+   
     }, []);
-        console.log(data);
+       
+    console.log( params.staff_id)
 
   const [formData, setFormData] = useState({
     name: params.name,
     total_grade: params.total_grade,
-    // stds_grades:params.stds_grades,
 
     instructions: params.instructions,
-    materials:data.materials,
-    // staff_id: parseInt(params.staff_id),
-    staff_id: params.staff_id,
+    materials:data,
 
+    staff_id: [params.staff_id] ,
     category: params.category,
     year: params.year,
     semester: params.semester,
   });
+ 
+  console.log(formData.staff_id)
+  console.log(formData.staff_id[0])
+  console.log(params.staff_id.split(','))
+
+  const arr = params.staff_id.split(',')
+  var newstaff = arr.filter(Number).map(c => Number(c));
+  console.log(newstaff);
+
+
+  
   if(who.user == null)
   {
-    return <Redirect to="/" />;  
-
-  }
-  
+    return <Redirect to="/" />;
+  }  
   if (who.user != null )
   {
     if (who.user.is_coordinator == false  && who.user.is_admin == false )
@@ -65,9 +75,9 @@ export default function EditCourse() {
     if (!values.instructions) {
       errors.instructions = "Instructions is required";
     }
-    if (!values.category) {
-      errors.category = "Category is required";
-    }
+    // if (!values.category) {
+    //   errors.category = "Category is required";
+    // }
     if (!values.year) {
       errors.year = "Year is required";
     }
@@ -78,22 +88,6 @@ export default function EditCourse() {
     return errors;
   };
 
-  // const changeSelectedNames = (e) => {
-  //   console.log(Object.values(e));
-
-  //   let List_names = Object.values(e);
-  //   let chosen = [];
-  //   for (let t of List_names) {
-  //     chosen.push(parseInt(t.value));
-  //   }
-  //   listing = chosen;
-  //   // let docandta = []
-  //   // docandta = fordoc.concat(chosen)
-  //   setData({
-  //     ...data,
-  //     staff: chosen,
-  //   });
-  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -108,12 +102,11 @@ export default function EditCourse() {
       Data.append("total_grade", formData.total_grade);
       Data.append("instructions", formData.instructions);
       Data.append("materials", formData.materials);
-      Data.append("staff_id",formData.staff_id);
 
-      // data.staff_id.forEach((element) => {
-      //   console.log(element);
-      //   Data.append("staff_id", element);
-      // });    
+      newstaff.forEach((element) => {
+        console.log(element);
+        Data.append("staff_id", element);
+      });    
       Data.append("category", formData.category);
       Data.append("year", formData.year);
       Data.append("semester", formData.semester);
@@ -226,7 +219,7 @@ export default function EditCourse() {
                         </div>
                       </div>
 
-                      <div className="row">
+                      {/* <div className="row">
                         <div className="col-md-12 mb-4 d-flex align-items-center">
                           <div className="form-outline datepi+cker w-100">
                             <label htmlFor="category" className="form-label">
@@ -252,7 +245,7 @@ export default function EditCourse() {
                             <p className="text-danger">{formErrors.category}</p>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="row">
                         <div className="col-md-12 mb-4 d-flex align-items-center">
@@ -306,16 +299,7 @@ export default function EditCourse() {
                         </div>
                       </div>
 
-                      {/* {formErrors.title ? (
-                        <div class="alert alert-danger" role="alert">
-                          Name is required
-                        </div>
-                      ) : null} */}
-                      {/* {HallErrors == "hall with this name already exists." ? (
-                        <div class="alert alert-danger" role="alert">
-                          Hall with this name already exists.
-                        </div>
-                      ) : null} */}
+            
                       <br />
                       <button type="submit" className="btn button btn-lg mb-1">
                         Submit

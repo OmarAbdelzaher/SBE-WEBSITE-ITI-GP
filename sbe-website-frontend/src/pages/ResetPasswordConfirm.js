@@ -44,7 +44,7 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
                       <div className="col-md-12 mb-4 pb-2">
                         <div className="form-outline">
                           <label className="form-label" htmlFor="emailAddress">
-                            New Password
+                          New Password
                           </label>
                           <input
                             className='form-control form-control-lg'
@@ -62,7 +62,7 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
                       <div className="col-md-12 mb-4 pb-2">
                         <div className="form-outline">
                           <label className="form-label" htmlFor="emailAddress">
-                            Confirm New Password
+                          Confirm New Password
                           </label>
                           <input
                             className='form-control form-control-lg'
