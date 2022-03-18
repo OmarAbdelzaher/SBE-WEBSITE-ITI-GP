@@ -155,6 +155,7 @@ export default function AdmissionForm() {
             </div>
           </div>
         </div>
+        <div className="margin-b"></div>
       </section>
     </>
   );

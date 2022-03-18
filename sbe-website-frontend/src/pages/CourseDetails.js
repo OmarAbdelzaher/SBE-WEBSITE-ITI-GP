@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams ,useHistory} from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Linking, Text, TouchableOpacity } from "react-native";
@@ -10,12 +10,16 @@ import {
   faDownload,
   faLink,
   faUpload,
+  faGear,
+  faTrashAlt ,
 } from "@fortawesome/free-solid-svg-icons";
+
 
 let flag = false;
 
 function CourseDetails(isAuthenticated) {
   const who = useSelector((state) => state.auth);
+  const history = useHistory();
 
   const params = useParams();
   const [course, setCourse] = useState({});
@@ -66,9 +70,24 @@ function CourseDetails(isAuthenticated) {
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/uploadmaterials/").then((res) => {
-      setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
+      let checkArrived = res.data.filter((mat) => mat.course_id == mat_id) 
+      if (checkArrived.length > 0){
+        setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
+      }
+      else{
+        MaterialApi()
+      }
     });
   }, []);
+
+  function MaterialApi(){
+    axios.get("http://localhost:8000/api/uploadmaterials/").then((res) => {
+      let checkArrived = res.data.filter((mat) => mat.course_id == mat_id) 
+      if (checkArrived.length > 0){
+      setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
+      }
+    })
+  }
 
   const handleChangeFile = (e, type) => {
     const list = [];
@@ -168,7 +187,7 @@ function CourseDetails(isAuthenticated) {
           console.log(err);
         });
     } else if (downType == "materials") {
-      for (let i = 0; i <= material.length; i++) {
+      for (let i = 0; i < material.length; i++) {
         axios
           .get(`http://localhost:8000/api/download/${material[i].id}/mat`, {
             responseType: "blob",
@@ -182,7 +201,19 @@ function CourseDetails(isAuthenticated) {
       }
     }
   };
+  const deleteCourse = (id) => {
+    axios
+      .delete(`http://localhost:8000/api/course/${params.id}`)
+      .then((res) => {
+        // const selectedcourse = course.filter((item) => item.id !== id);
+        // setCourse(selectedcourse);
+        history.push("/coursesMenu");
 
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    }
   return (
     <>
       <section className="h-custom">
@@ -204,6 +235,39 @@ function CourseDetails(isAuthenticated) {
                     {"  "}
                     Assign Course
                   </Link>
+                ) : null}
+                <br/>
+
+                {/* Edit Button */}
+                {isCoordinator || isAdmin ? (
+                  <Link
+                    className="btn btn-md col-3 fs-5 mt-4"
+                    style={{ backgroundColor: "#003049", color: "#ffff" }}
+                    to={`/editcourse/${course.id}/${course.name}/${course.total_grade}/${course.instructions}/${course.staff_id}/${course.category}/${course.year}/${course.semester}`}
+                  >
+                    <FontAwesomeIcon icon={faGear} />
+                    {"  "}
+                    Edit Course
+                  </Link>
+                ) : null}
+                <br/>
+                {/* Delete Button */}
+                {isCoordinator || isAdmin ? (
+                  <Link to="#">
+                  <button
+                    style={{ backgroundColor: "red" ,color: "#ffff" }}
+                    className="btn btn-sm mt-4 fs-5"
+                    onClick={() => {
+                        deleteCourse(course.id);
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      style={{ color: "white" }}
+                      className="fs-5"
+                      icon={faTrashAlt}
+                    />{" "}Delete 
+                  </button>
+                </Link>
                 ) : null}
               </div>
               <div className="row justify-content-center align-items-center ">
@@ -270,34 +334,38 @@ function CourseDetails(isAuthenticated) {
                                   Update Link
                                 </button>
                               </form>
-
-                              <form
-                                onSubmit={(event) => handleSubmit(event, "mat")}
-                              >
-                                <div className=" d-flex justify-content-center align-items-center">
-                                  <input
-                                    className="col-5 text-dark"
-                                    type="file"
-                                    multiple
-                                    onChange={(event) =>
-                                      handleChangeFile(event, "mat")
-                                    }
-                                  />
+                              
+                              {material ? (
+                                <form
+                                  onSubmit={(event) =>
+                                    handleSubmit(event, "mat")
+                                  }
+                                >
+                                  <div className=" d-flex justify-content-center align-items-center">
+                                    <input
+                                      className="col-5 text-dark"
+                                      type="file"
+                                      multiple
+                                      onChange={(event) =>
+                                        handleChangeFile(event, "mat")
+                                      }
+                                    />
+                                    <br />
+                                    <br />
+                                    <button
+                                      type="submit"
+                                      className="btn btn-md col-7"
+                                      style={{
+                                        color: "#003049",
+                                      }}
+                                    >
+                                      <FontAwesomeIcon icon={faUpload} />
+                                      Upload Material
+                                    </button>
+                                  </div>
                                   <br />
-                                  <br />
-                                  <button
-                                    type="submit"
-                                    className="btn btn-md col-7"
-                                    style={{
-                                      color: "#003049",
-                                    }}
-                                  >
-                                    <FontAwesomeIcon icon={faUpload} />
-                                    Upload Material
-                                  </button>
-                                </div>
-                                <br />
-                              </form>
+                                </form>
+                              ) : null}
                             </div>
                           ) : null}
                         </div>
@@ -339,7 +407,7 @@ function CourseDetails(isAuthenticated) {
                                 color: "#ffff",
                               }}
                               onClick={() => handlePDFDownload("materials")}
-                            >
+                             to="#">
                               <FontAwesomeIcon icon={faDownload} />
                               {"  "}
                               Download

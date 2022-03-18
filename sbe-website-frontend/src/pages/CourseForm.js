@@ -45,6 +45,11 @@ export default function CourseForm() {
     staff: "",
     category: params.category,
   });
+  if(who.user == null)
+  {
+    return <Redirect to="/" />;  
+
+  }
   
   if (who.user != null )
   {
@@ -335,7 +340,7 @@ export default function CourseForm() {
                                       value={data.year}
                                     >
                                       <option value="0" selected>
-                                        Choose Grade
+                                        Choose Year
                                       </option>
                                       <option value="Year 1">Year 1</option>
                                       <option value="Year 2">Year 2</option>

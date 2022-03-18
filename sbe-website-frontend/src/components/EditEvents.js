@@ -10,7 +10,7 @@ export default function EditEvent() {
   let Url = `http://localhost:8000/api/event/${params.id}`;
   const history = useHistory();
   const [formErrors, setFormErrors] = useState({});
-  const [changed,setChanged]=useState(false)
+  const [changed, setChanged] = useState(false);
   const [photo, setPhoto] = useState(null);
   const moderator = useSelector(state=>state.auth)
 
@@ -18,14 +18,12 @@ export default function EditEvent() {
     axios
       .get(`http://localhost:8000/api/event/${params.id}`)
       .then((res) => setPhoto(res.data.picture));
-
   }, []);
 
   const [formData, setFormData] = useState({
     name: params.name,
-    details:params.details,
-    picture:photo,
-
+    details: params.details,
+    picture: photo,
   });
 
   const onChange = (e) =>
@@ -36,9 +34,9 @@ export default function EditEvent() {
     if (!values.name) {
       errors.name = "Name is required";
     }
-    if (!values.name) {
-      errors.name = "Details is required";
-    }  
+    if (!values.details) {
+      errors.details = "Details is required";
+    }
     return errors;
   };
   const [pic, setPicture] = useState(null);
@@ -59,7 +57,7 @@ export default function EditEvent() {
   const onChangePicture = e => {
     if (e.target.files[0]) {
       console.log("pic: ", e.target.files);
-      setChanged(true)
+      setChanged(true);
       setPicture(e.target.files[0]);
       const reader = new FileReader();
       reader.addEventListener("load", () => {
@@ -67,9 +65,7 @@ export default function EditEvent() {
       });
 
       reader.readAsDataURL(e.target.files[0]);
-      
     }
-
   };
 
   const onSubmit = (e) => {
@@ -80,11 +76,10 @@ export default function EditEvent() {
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
       Data.append("name", formData.name);
-      if(changed==true){
-
-        formData.picture=pic
+      if (changed == true) {
+        formData.picture = pic;
         Data.append("picture", formData.picture);
-        }
+      }
       Data.append("details", formData.details);
 
       axios
@@ -95,13 +90,12 @@ export default function EditEvent() {
         .catch((e) => {
           setFormErrors(e.response.data.non_field_errors[0]);
         });
-      
     }
   };
 
   return (
     <>
-      <section >
+      <section>
         <section className="h-150 h-custom">
           <div className="container py-5 h-150">
             <div className="row d-flex justify-content-center align-items-center h-100">
@@ -116,7 +110,7 @@ export default function EditEvent() {
                         <div className="col-md-12 mb-4 d-flex align-items-center">
                           <div className="form-outline datepi+cker w-100">
                             <label htmlFor="name" className="form-label">
-                               Title
+                              Title
                             </label>
                             <br />
                             <input
@@ -127,6 +121,7 @@ export default function EditEvent() {
                               value={formData.name}
                               onChange={(e) => onChange(e)}
                             />
+                            <p className="text-danger">{formErrors.name}</p>
                           </div>
                         </div>
                       </div>
@@ -134,7 +129,7 @@ export default function EditEvent() {
                         <div className="col-md-12 mb-4 d-flex align-items-center">
                           <div className="form-outline datepi+cker w-100">
                             <label htmlFor="details" className="form-label">
-                               Details
+                              Details
                             </label>
                             <br />
                             <input
@@ -145,31 +140,27 @@ export default function EditEvent() {
                               value={formData.details}
                               onChange={(e) => onChange(e)}
                             />
+                            <p className="text-danger">{formErrors.details}</p>
                           </div>
                         </div>
-                      </div> 
+                      </div>
                       <div className="row">
                         <div className="col-md-12 mb-4 d-flex align-items-center">
                           <div className="form-outline datepi+cker w-100">
-                            <label
-                              htmlFor="photo"
-                              className="form-label"
-                            >
+                            <label htmlFor="photo" className="form-label">
                               Photo
                             </label>
                             <br />
                             <input
                               onChange={(e) => onChangePicture(e)}
                               type="file"
-                       
                             />
-                       
                           </div>
                         </div>
                       </div>
-       
-<br/>
-<button type="submit" className="btn button btn-lg mb-1">
+
+                      <br />
+                      <button type="submit" className="btn button btn-lg mb-1">
                         Submit
                       </button>
                     </form>

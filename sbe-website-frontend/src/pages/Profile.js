@@ -60,7 +60,7 @@ function Profile(isAuthenticated) {
     axios.get(Url).then((res) => {
       setUser(res.data);
     });
-  }, []);
+  }, [Url]);
 
   return (
     <section className=" h-150 h-custom">
