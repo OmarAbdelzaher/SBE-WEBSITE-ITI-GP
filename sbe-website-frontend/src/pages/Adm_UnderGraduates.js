@@ -163,7 +163,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                         </div>
                       ) : null}
                       <div className="col-12 text-center">
-                        <p className=" fs-5" style={{ color: "#023047" }}>
+                        <p className=" fs-6" style={{ color: "#023047", fontFamily:"fantasy" }}>
                           {" "}
                           {intro.summary}
                         </p>
@@ -207,7 +207,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                         </div>
                       ) : null}
                       <div className="col-12 ">
-                        <p className="fs-6" style={{ color: "#023047" }}>
+                        <p className="fs-6" style={{ color: "#023047",fontFamily:"fantasy"  }}>
                           {req.summary}
                         </p>
                       </div>
@@ -242,7 +242,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                         </div>
                       ) : null}
                       <div className="col-12">
-                        <p className="fs-6" style={{ color: "#023047" }}>
+                        <p className="fs-6" style={{ color: "#023047",fontFamily:"fantasy"  }}>
                           {trans.summary}
                         </p>
                       </div>
@@ -322,7 +322,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                               </>
                             ) : null}
                             <div className="col-12">
-                              <p className=" fs-6" style={{ color: "#023047" }}>
+                              <p className=" fs-6" style={{ color: "#023047",fontFamily:"fantasy"  }}>
                                 {" "}
                                 {adm.summary}
                               </p>
