@@ -11,6 +11,8 @@ import {
   faTrashCan,
   faCirclePlus
 } from "@fortawesome/free-solid-svg-icons";
+import { Redirect } from 'react-router-dom';
+
 
 export default function OfficeHoursDetails(params) {
   const staff = useSelector((state) => state.auth);
@@ -28,6 +30,19 @@ export default function OfficeHoursDetails(params) {
       setOfficeHours(officehours.filter((oh) => oh.staff_id == staff.user.id));
     }
   }, []);
+
+  if(staff.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (staff.user != null )
+  {
+    if (staff.user.role != "ta" && staff.user.role != "dr"  && staff.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
+
 
   const deleteOfficeHour = (id) => {
     axios

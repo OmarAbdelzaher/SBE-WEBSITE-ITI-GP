@@ -141,7 +141,6 @@ const Signup = ({ signup, isAuthenticated }) => {
       signup(
             fname, lname, email, password, confirm_password ,birthdate,address,phone_number, gender,role, graduate,year_of_graduation,title
           )
-      
     }
     
   };
@@ -151,8 +150,7 @@ const Signup = ({ signup, isAuthenticated }) => {
   }
 
   if (errorMessage != null && errorMessage != "this email is already exist" ) {
-    return <Redirect to="/login" />;  
-    // history.push("/login")
+    return <Redirect to="/login" />;
     }
   
  

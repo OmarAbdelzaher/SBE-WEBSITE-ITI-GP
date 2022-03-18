@@ -148,7 +148,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                   ) : null}
                   <br />
 
-                  {intro.is_active ? (
+                  {intro != null ? intro.is_active ? (
                     <>
                       {isCoordinator || isModerator || isAdmin ? (
                         <div className="text-end">
@@ -169,7 +169,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                         </p>
                       </div>
                     </>
-                  ) : null}
+                  ) : null : null}
                 </div>
                 <img
                   src="https://www.t8wealth.com/wp-content/uploads/2021/08/blog_3.jpeg"
@@ -181,7 +181,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                   alt="Sample photo"
                 />
                 <div className="member_desc p-3">
-                  {req.is_active ? (
+                  {req != null ? req.is_active ? (
                     <>
                       <h4
                         className="text-start "
@@ -205,18 +205,18 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                             Edit
                           </Link>
                         </div>
-                      ) : null}
+                      ) : null }
                       <div className="col-12 ">
                         <p className="fs-6" style={{ color: "#023047",fontFamily:"fantasy"  }}>
                           {req.summary}
                         </p>
                       </div>
                     </>
-                  ) : null}
+                  ) : null : null}
                 </div>{" "}
                 <br />
                 <div className="member_desc p-3">
-                  {trans.is_active ? (
+                  { trans != null ? trans.is_active ? (
                     <>
                       <h4
                         className="text-start "
@@ -247,7 +247,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                         </p>
                       </div>
                     </>
-                  ) : null}
+                  ) : null : null}
                 </div>
                 <div className="py-5  d-flex justify-content-center align-items-center col-12">
                   <div className="col-4 d-flex justify-content-center align-items-center  border-end border-2 ">
@@ -273,7 +273,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                   {newAdmissions.map((adm) => {
                     return (
                       <div className="member_desc col-12  row ">
-                        {adm.is_active ? (
+                        {adm != null ? adm.is_active ? (
                           <>
                             <h4
                               className="text-start col-6"
@@ -328,7 +328,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
                               </p>
                             </div>
                           </>
-                        ) : null}
+                        ) : null : null}
                       </div>
                     );
                   })}

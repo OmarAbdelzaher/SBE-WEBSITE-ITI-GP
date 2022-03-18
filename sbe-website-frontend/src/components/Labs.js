@@ -7,14 +7,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 export default function Labs() {
   const [labs, setLabs] = useState([]);
+  const moderator = useSelector((state) => state.auth);
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/labs/")
       .then((res) => setLabs(res.data));
   }, []);
+
+
+  if(moderator.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (moderator.user != null )
+  {
+    if (moderator.user.role == false && moderator.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
 
   const deleteLab = (id) => {
     axios

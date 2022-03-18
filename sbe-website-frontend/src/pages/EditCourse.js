@@ -3,10 +3,13 @@ import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 let listing = [];
 export default function EditCourse() {
   const params = useParams();
+  const who = useSelector((state) => state.auth);
+
   let Url = `http://localhost:8000/api/course/${params.id}`;
   const history = useHistory();
   const [formErrors, setFormErrors] = useState({});
@@ -36,6 +39,7 @@ export default function EditCourse() {
     year: params.year,
     semester: params.semester,
   });
+ 
   console.log(formData.staff_id)
   console.log(formData.staff_id[0])
   console.log(params.staff_id.split(','))
@@ -45,6 +49,18 @@ export default function EditCourse() {
   console.log(newstaff);
 
 
+  
+  if(who.user == null)
+  {
+    return <Redirect to="/" />;
+  }  
+  if (who.user != null )
+  {
+    if (who.user.is_coordinator == false  && who.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 

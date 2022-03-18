@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import {useHistory,useParams } from "react-router-dom";
 import { useState ,useEffect} from "react";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 export default function EditOfficeHours() {
     const params = useParams();
@@ -28,6 +29,19 @@ export default function EditOfficeHours() {
             console.log(res.data)
             });
     }, []);
+    
+    if(who.user == null)
+    {
+      return <Redirect to="/" />;  
+    }
+    if (who.user != null )
+    {
+      if (who.user.role != "ta" && who.user.role != "dr"  && who.user.is_admin == false )
+      {
+        return <Redirect to="/" />;  
+      }
+    }
+  
 
   
     const onChange = (e) =>
