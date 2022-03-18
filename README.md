@@ -193,6 +193,13 @@ Omar Abdelzaher | omarzaher787@gmail.com
 
 ![home2](https://user-images.githubusercontent.com/61268414/158468607-b3e48657-1aba-4af3-b866-b754f0cec489.png)
 
+ #### News sections
+ ![HomeNews](https://user-images.githubusercontent.com/61268414/158979156-52ed0129-a421-4418-9131-024d5bbc91dd.png)
+
+ 
+ #### Events sections
+ ![HomeEvents](https://user-images.githubusercontent.com/61268414/158979248-14a45398-4646-49c0-9850-f2869fae6c90.png)
+
 
 
  #### About and Footer sections
@@ -213,23 +220,40 @@ Omar Abdelzaher | omarzaher787@gmail.com
  ![reset-pass](https://user-images.githubusercontent.com/61268414/158795807-dac21f21-e145-46e9-b377-49ae9420b64d.png)
 
  ### Profile Page
+ 
+ ### System Staff
+ ![Staff](https://user-images.githubusercontent.com/61268414/158979901-ba3eae81-7544-448d-b0cb-0086756a4bbe.png)
+
 
 
 ### Graduate and Undergraduate Admission
 #### Graduate Admission
+![GraduateAdmission](https://user-images.githubusercontent.com/61268414/158979329-24bcbde8-0e1f-4c28-8379-d0c13adb40c6.png)
+
+
 #### Undergraduate Admission
+![UnderGraduateAdmission](https://user-images.githubusercontent.com/61268414/158979394-4784ecb6-6fec-4d6d-961b-8df7fdf88d19.png)
+
 
 ### Graduate and Undergraduate News
 #### Graduate News
 #### Undergraduate News
 
-### Graduate and Undergraduate Events
-#### Graduate Events
-#### Undergraduate Events
 
-### Graduate and Undergraduate Exams
-#### Graduate Exams
-#### Undergraduate Exams
+### Graduate and Undergraduate Exams Scheduale
+#### Graduate Exams Scheduale
+![graduateexamscheduale](https://user-images.githubusercontent.com/61268414/158979467-c580b15c-e9de-461a-a54d-807dec9d5943.png)
+
+#### Undergraduate Exams Scheduale
+
+### Graduate and Undergraduate Lectures
+#### Graduate Lectures Scheduale
+
+![GraduateScheduale](https://user-images.githubusercontent.com/61268414/158979697-129201c3-6af5-4e6a-8c54-0c74dca4919f.png)
+
+#### Undergraduate Lectures Scheduale
+![LectureSchedule](https://user-images.githubusercontent.com/61268414/158979774-293b715d-03e7-405a-80ba-e17b4b577d38.png)
+
 
 ### Reservation and Registration Approve
 
