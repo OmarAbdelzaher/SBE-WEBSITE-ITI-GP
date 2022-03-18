@@ -10,12 +10,23 @@ from .models.admission import *
 
 from django.contrib import admin
 from django.contrib.auth.hashers import make_password
+from rest_framework_simplejwt.tokens import OutstandingToken
+
+
+# admin.site.unregister(OutstandingToken)
+
 
 class PersonAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if len(obj.password) < 80:
             obj.password = make_password(obj.password) 
         super().save_model(request, obj, form, change)
+
+    def Delete_Person(self, request, queryset):
+        users = queryset.values("id")
+        OutstandingToken.objects.filter(user__id__in=users).delete()
+        queryset.delete()
+    actions = ["Delete_Person"] 
 
 # Register your models here.
 class StaffAdmin(admin.ModelAdmin):
@@ -26,6 +37,11 @@ class StaffAdmin(admin.ModelAdmin):
         if len(obj.password) < 80:
             obj.password = make_password(obj.password)
         super().save_model(request, obj, form, change)
+    def Delete_Staff(self, request, queryset):
+        users = queryset.values("id")
+        OutstandingToken.objects.filter(user__id__in=users).delete()
+        queryset.delete()
+    actions = ["Delete_Staff"] 
 
 
 class StudentAdmin(admin.ModelAdmin):
@@ -36,6 +52,11 @@ class StudentAdmin(admin.ModelAdmin):
         if len(obj.password) < 80:
             obj.password = make_password(obj.password)
         super().save_model(request, obj, form, change)
+    def Delete_Student(self, request, queryset):
+        users = queryset.values("id")
+        OutstandingToken.objects.filter(user__id__in=users).delete()
+        queryset.delete()
+    actions = ["Delete_Student"] 
         
 class FacEmpAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -45,6 +66,11 @@ class FacEmpAdmin(admin.ModelAdmin):
         if len(obj.password) < 80:
             obj.password = make_password(obj.password)
         super().save_model(request, obj, form, change)
+    def Delete_Employee(self, request, queryset):
+        users = queryset.values("id")
+        OutstandingToken.objects.filter(user__id__in=users).delete()
+        queryset.delete()
+    actions = ["Delete_Employee"] 
 
 
 
