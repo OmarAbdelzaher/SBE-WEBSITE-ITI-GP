@@ -88,6 +88,7 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
             </div>
           </div>
         </div>
+        <div className='margin-b'></div>
       </section>
     </>
 
