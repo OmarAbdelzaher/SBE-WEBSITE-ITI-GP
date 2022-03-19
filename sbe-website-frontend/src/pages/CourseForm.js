@@ -45,6 +45,11 @@ export default function CourseForm() {
     staff: "",
     category: params.category,
   });
+  if(who.user == null)
+  {
+    return <Redirect to="/" />;  
+
+  }
   
   if (who.user != null )
   {
@@ -119,6 +124,8 @@ export default function CourseForm() {
     if (!values.staff) {
       errors.staff = "Doctor Name is required!";
     }
+    
+
 
     return errors;
   };

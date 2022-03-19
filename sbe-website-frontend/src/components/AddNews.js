@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -11,7 +12,8 @@ import { Link, useHistory } from "react-router-dom";
 export default function CourseForm() {
 
     const history = useHistory();
-  
+    const moderator = useSelector(state=>state.auth)
+
   
     const [formErrors, setFormErrors] = useState({});
   
@@ -34,6 +36,18 @@ export default function CourseForm() {
   
     const [picture, setPicture] = useState(null);
     const [imgData, setImgData] = useState(null);
+
+    if(moderator.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (moderator.user != null )
+  {
+    if (moderator.user.role == false && moderator.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
     const onChangePicture = e => {
       if (e.target.files[0]) {
         console.log("picture: ", e.target.files);

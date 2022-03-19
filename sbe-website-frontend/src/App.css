@@ -397,3 +397,37 @@ ol.styled_list li {
   color: #4e5055;
   cursor: pointer;
 }
+
+
+
+.newPass{
+  position: relative;
+  display: flex;
+  margin-bottom: 14px;
+}
+.confirnNewPass {
+  position: relative;
+  display: flex;
+  margin-bottom: 14px;
+}
+
+.iconPassword {
+  position: absolute;
+  top: 28%;
+  right: 5%;
+  color: #001233;
+}
+.iconPassword:hover {
+  color: #4e5055;
+  cursor: pointer;
+}
+.iconConfirmPassword {
+  position: absolute;
+  top: 65%;
+  right: 15%;
+  color: #001233;
+}
+.iconConfirmPassword:hover {
+  color: #4e5055;
+  cursor: pointer;
+}

@@ -104,7 +104,6 @@ function App() {
             <Route path={"/graduatepage"} exact component={GraduatePage} />
             <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
             <Route path={"/coursegraduate"} exact component={CourseGraduate} />
-            {/* <Route path={"/courseungraduate"} exact component={CourseUnderGraduate} /> */}
             <Route path={"/profilepage"} exact component={Profile} />
             <Route path={"/one-smesterone"} exact component={YoneSone} />
             <Route path={"/one-smestertwo"} exact component={YoneStwo} />
@@ -164,7 +163,7 @@ function App() {
             <Route path={"/moderatorevent"} exact component={ModeratorEvent} /> 
             <Route path={"/editnew/:id/:title/:description/:category"} exact component={EditNew} /> 
             <Route path={"/editevent/:id/:name/:details"} exact component={EditEvent} /> 
-            <Route path={"/editcourse/:id/:name/:total_grade/:instructions/:staff_id/:category/:year/:semester"} exact component={EditCourse} /> 
+            <Route path={"/editcourse/:id/:name/:total_grade/:instructions/:staff_id/:category"} exact component={EditCourse} /> 
 
 
             <Route

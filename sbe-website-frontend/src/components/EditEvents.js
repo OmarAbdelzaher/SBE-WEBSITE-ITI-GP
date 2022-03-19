@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 export default function EditEvent() {
   const params = useParams();
@@ -11,6 +12,7 @@ export default function EditEvent() {
   const [formErrors, setFormErrors] = useState({});
   const [changed, setChanged] = useState(false);
   const [photo, setPhoto] = useState(null);
+  const moderator = useSelector(state=>state.auth)
 
   useEffect(() => {
     axios
@@ -39,7 +41,20 @@ export default function EditEvent() {
   };
   const [pic, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
-  const onChangePicture = (e) => {
+
+  if(moderator.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (moderator.user != null )
+  {
+    if (moderator.user.role == false && moderator.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
+
+  const onChangePicture = e => {
     if (e.target.files[0]) {
       console.log("pic: ", e.target.files);
       setChanged(true);

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset_password_confirm } from '../actions/auth';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
     const [requestSent, setRequestSent] = useState(false);
@@ -9,6 +11,16 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
         new_password: '',
         re_new_password: ''
     });
+    const [passwordShown, setPasswordShown] = useState(false);
+    const togglePasswordVisiblity = () => {
+      setPasswordShown(passwordShown ? false : true);
+    };
+    const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
+    const toggleConfirmPasswordVisiblity = () => {
+      setConfirmPasswordShown(confirmPasswordShown ? false : true);
+    };
+    const eye = <FontAwesomeIcon icon={faEye} />;
+    
 
     const { new_password, re_new_password } = formData;
 
@@ -46,15 +58,19 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
                           <label className="form-label" htmlFor="emailAddress">
                           New Password
                           </label>
+                          <div className='newPass'>
                           <input
                             className='form-control form-control-lg'
-                            type='password'
+                            type={passwordShown ? "text" : "password"}
                             placeholder='New Password'
                             name='new_password'
                             value={new_password}
                             onChange={e => onChange(e)}
                             required
                           />
+                          <i className="iconPassword" onClick={togglePasswordVisiblity}>{eye}</i>
+                        </div>
+                        <small className="smallPass">!Password must contains 8 characters at least A lowercase,An uppercase and A special character</small>
                         </div>
                       </div>
                     </div>
@@ -64,15 +80,18 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
                           <label className="form-label" htmlFor="emailAddress">
                           Confirm New Password
                           </label>
+                          <div className='confirmNewPass'>
                           <input
                             className='form-control form-control-lg'
-                            type='password'
+                            type={confirmPasswordShown ? "text" : "password"}
                             placeholder='Confirm New Password'
                             name='re_new_password'
                             value={re_new_password}
                             onChange={e => onChange(e)}
                             required
                           />
+                          <i className="iconConfirmPassword" onClick={toggleConfirmPasswordVisiblity}>{eye}</i>
+                        </div>
                         </div>
                       </div>
                     </div>
@@ -88,6 +107,7 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
             </div>
           </div>
         </div>
+        <div className='margin-b'></div>
       </section>
     </>
 

@@ -3,50 +3,67 @@ import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 let listing = [];
 export default function EditCourse() {
   const params = useParams();
+  const who = useSelector((state) => state.auth);
+
   let Url = `http://localhost:8000/api/course/${params.id}`;
   const history = useHistory();
   const [formErrors, setFormErrors] = useState({});
-  const [data, setData] = useState();
+  const [coursedata, setCoursedata] = useState({});
+  const [Link, setLink] = useState();
+  const [courseyear, setCourseyear] = useState();
+  const [courseterm, setCourseterm] = useState();
+
 
     useEffect(() => {
       axios
         .get(`http://localhost:8000/api/course/${params.id}`)
-        .then((res) => {setData(res.data.materials)
+        .then((res) => {setCoursedata(res.data)
+          setLink(res.data.materials)
+          setCourseyear(res.data.year)
+          setCourseterm(res.data.semester)
+
           console.log(res.data);
-          // console.log(res.data.materials);
     });
    
     }, []);
-       
-    console.log( params.staff_id)
+
 
   const [formData, setFormData] = useState({
     name: params.name,
     total_grade: params.total_grade,
-
     instructions: params.instructions,
-    materials:data,
-
     staff_id: [params.staff_id] ,
     category: params.category,
-    year: params.year,
-    semester: params.semester,
+   
   });
-  console.log(formData.staff_id)
-  console.log(formData.staff_id[0])
-  console.log(params.staff_id.split(','))
+
 
   const arr = params.staff_id.split(',')
   var newstaff = arr.filter(Number).map(c => Number(c));
-  console.log(newstaff);
-
-
+  
+  if(who.user == null)
+  {
+    return <Redirect to="/" />;
+  }  
+  if (who.user != null )
+  {
+    if (who.user.is_coordinator == false  && who.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onLinkChange = (e) => setLink(e.target.value);
+    const onyearchange = (e) =>setCourseyear(e.target.value);
+    const ontermchange = (e) => setCourseterm(e.target.value);
+
 
   const validate = (values) => {
     const errors = {};
@@ -59,15 +76,7 @@ export default function EditCourse() {
     if (!values.instructions) {
       errors.instructions = "Instructions is required";
     }
-    // if (!values.category) {
-    //   errors.category = "Category is required";
-    // }
-    if (!values.year) {
-      errors.year = "Year is required";
-    }
-    if (!values.semester) {
-      errors.semester = "Semester is required";
-    }
+
 
     return errors;
   };
@@ -75,7 +84,6 @@ export default function EditCourse() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // changeSelectedNames(e)
     let errors_form = validate(formData);
     setFormErrors(validate(formData));
 
@@ -85,20 +93,24 @@ export default function EditCourse() {
       Data.append("name", formData.name);
       Data.append("total_grade", formData.total_grade);
       Data.append("instructions", formData.instructions);
-      Data.append("materials", formData.materials);
+      Data.append("materials", Link);
 
       newstaff.forEach((element) => {
         console.log(element);
         Data.append("staff_id", element);
       });    
       Data.append("category", formData.category);
-      Data.append("year", formData.year);
-      Data.append("semester", formData.semester);
+      Data.append("year", courseyear);
+      Data.append("semester", courseterm);
 
       axios
         .put(Url, Data)
         .then((res) => {
-          history.push("/coursesMenu");
+          if (params.category == "graduate") {
+            history.push("/coursegraduate");
+          } else if (params.category == "undergraduate") {
+            history.push(`/courseDetails/${params.id}`);
+          }
         })
         .catch((e) => {
           setFormErrors(e.response.data.non_field_errors[0]);
@@ -196,89 +208,78 @@ export default function EditCourse() {
                               className="form-control form-control-lg"
                               id="materials"
                               name="materials"
-                              value={formData.materials}
-                              onChange={(e) => onChange(e)}
+                              value={Link}
+                              onChange={(e) => onLinkChange(e)}
                             />
                           </div>
                         </div>
                       </div>
 
-                      {/* <div className="row">
-                        <div className="col-md-12 mb-4 d-flex align-items-center">
-                          <div className="form-outline datepi+cker w-100">
-                            <label htmlFor="category" className="form-label">
-                              Category
-                            </label>
-                            <br />
-
-                            <select
-                              id="category"
-                              className="select form-control-lg"
-                              value={formData.category}
-                              onChange={(e) => onChange(e)}
-                              name="category"
-                            >
-                              <option value="0">Choose Gategory</option>
-
-                              <option value="graduate">Graduate</option>
-                              <option value="undergraduate">
-                                Undergraduate
-                              </option>
-                            </select>
-
-                            <p className="text-danger">{formErrors.category}</p>
-                          </div>
-                        </div>
-                      </div> */}
-
+                     
                       <div className="row">
                         <div className="col-md-12 mb-4 d-flex align-items-center">
                           <div className="form-outline datepi+cker w-100">
-                            <label htmlFor="year" className="form-label">
-                              Year
-                            </label>
-                            <br />
+                            {params.category == "undergraduate" ? (
+                            <>
+                              <div className="row">
+                                <div className="col-md-12 mb-4 d-flex align-items-center">
+                                  <div className="form-outline datepi+cker w-100">
+                                    <label
+                                      htmlFor="year"
+                                      className="form-label"
+                                    >
+                                      Year
+                                    </label>
+                                    <br />
 
-                            <select
-                              className="select form-control-lg"
-                              onChange={(e) => onChange(e)}
-                              name="year"
-                              value={formData.year}
-                            >
-                              <option value="0" selected>
-                                Choose Year
-                              </option>
-                              <option value="Year 1">Year 1</option>
-                              <option value="Year 2">Year 2</option>
-                              <option value="Year 3">Year 3</option>
-                              <option value="Year 4">Year 4</option>
-                            </select>
-                            <p className="text-danger">{formErrors.year}</p>
-                          </div>
-                        </div>
-                      </div>
+                                    <select
+                                      className="select form-control-lg"
+                                      onChange={(e) => onyearchange(e)}
+                                      name="year"
+                                      value={courseyear}
+                                    >
+                                      <option value="0" selected>
+                                        Choose Year
+                                      </option>
+                                      <option value="Year 1">Year 1</option>
+                                      <option value="Year 2">Year 2</option>
+                                      <option value="Year 3">Year 3</option>
+                                      <option value="Year 4">Year 4</option>
+                                    </select>
 
-                      <div className="row">
-                        <div className="col-md-12 mb-4 d-flex align-items-center">
-                          <div className="form-outline datepi+cker w-100">
-                            <label htmlFor="" className="form-label">
-                              Semester
-                            </label>
-                            <br />
+                                    
+                                  </div>
+                                </div>
+                              </div>
 
-                            <select
-                              className="select form-control-lg"
-                              onChange={(e) => onChange(e)}
-                              name="semester"
-                              value={formData.semester}
-                            >
-                              <option value="0" selected>
-                                Choose Semester
-                              </option>
-                              <option value="one">Semester 1</option>
-                              <option value="two">Semester 2</option>
-                            </select>
-                            <p className="text-danger">{formErrors.semester}</p>
+                              <div className="row">
+                                <div className="col-md-12 mb-4 d-flex align-items-center">
+                                  <div className="form-outline datepi+cker w-100">
+                                    <label htmlFor="" className="form-label">
+                                      Semester
+                                    </label>
+                                    <br />
+
+                                    <select
+                                      className="select form-control-lg"
+                                      onChange={(e) => ontermchange(e)}
+                                      name="semester"
+                                      value={courseterm}
+                                    >
+                                      <option value="0" selected>
+                                        Choose Semester
+                                      </option>
+                                      <option value="one">Semester 1</option>
+                                      <option value="two">Semester 2</option>
+                                    </select>
+                                    {/* <p className="text-danger">
+                                      {formErrors.semester}
+                                    </p> */}
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          ) : null}
                           </div>
                         </div>
                       </div>

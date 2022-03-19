@@ -194,11 +194,11 @@ export default function CoursesMenu(isAuthenticated) {
                                       onChange={(e) => onChange(e)}
                                     >
                                       <option value="0">
-                                        Please select Your Term
+                                        Please select Your Semester
                                       </option>
 
-                                      <option value="one">First Term</option>
-                                      <option value="two">Second Term</option>
+                                      <option value="one">Semester One</option>
+                                      <option value="two">Semester Two</option>
                                     </select>
 
                                     {/* Year two Selection Semester One */}
@@ -279,11 +279,11 @@ export default function CoursesMenu(isAuthenticated) {
                                       onChange={(e) => onChange(e)}
                                     >
                                       <option value="0">
-                                        Please select Your Term
+                                        Please select Your Semester
                                       </option>
 
-                                      <option value="one">First Term</option>
-                                      <option value="two">Second Term</option>
+                                      <option value="one">Semester One</option>
+                                      <option value="two">Semester Two</option>
                                     </select>
 
                                     {/* Year Three Selection Smester One*/}
@@ -364,11 +364,11 @@ export default function CoursesMenu(isAuthenticated) {
                                       onChange={(e) => onChange(e)}
                                     >
                                       <option value="0">
-                                        Please select Your Term
+                                        Please select Your Semester
                                       </option>
 
-                                      <option value="one">First Term</option>
-                                      <option value="two">Second Term</option>
+                                      <option value="one">Semester One</option>
+                                      <option value="two">Semester Two</option>
                                     </select>
                                     {/* Year Four Selection Semester One */}
                                     {formData.Semester == "one" ? (
@@ -429,14 +429,7 @@ export default function CoursesMenu(isAuthenticated) {
                         ) : null}
                       </div>
                     </div>
-                    {/* 
-                    <div className="row">
-                      <Link className="button btn btn-lg col-12">
-                        <button type="submit" className="button ani ">
-                          Show Schedule
-                        </button>
-                      </Link>
-                    </div> */}
+                    
                   </form>
                 </div>
               </div>

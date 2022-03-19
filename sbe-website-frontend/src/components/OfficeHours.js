@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import {useHistory } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
+
 
 export default function OfficeHours() {
   let Url = `http://localhost:8000/api/officehours/`;
@@ -18,6 +20,19 @@ export default function OfficeHours() {
     officehours_type:"",
   });
 
+  if(who.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (who.user != null )
+  {
+    if (who.user.role != "ta" && who.user.role != "dr"  && who.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
+
+  
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 

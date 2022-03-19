@@ -3,17 +3,30 @@ import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 export default function EditHallForm() {
   const params = useParams();
   let Url = `http://localhost:8000/api/hall/${params.id}`;
   const history = useHistory();
-  // const who = useSelector((state) => state.auth);
+  const moderator = useSelector((state) => state.auth);
   const [formErrors, setFormErrors] = useState({});
   const [HallErrors, setHallErrors] = useState({});
   const [formData, setFormData] = useState({
     name: params.name,
   });
+
+  if(moderator.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (moderator.user != null )
+  {
+    if (moderator.user.role == false && moderator.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
