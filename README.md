@@ -14,6 +14,8 @@ SBME Website
 - [Features](#features)
 - [Authors](#authors)
 - [User Interface](#user-interface)
+- [Future Work](#future-work)
+- [Authors](#authors)
 - [Demo](#demo)
 
 ## Project Description
@@ -195,20 +197,6 @@ The project aims to build a website to reduce the paper and manual work for mana
 
 
 
-## Future Work
- Deployment of the project
-
-## Authors
-- ITI Students & Teammates, we are a Full Stack Web Development students at ITI - Python Back-end Track
-
-Name | Email
------------- | -------------
-Nourhan Ibraheem | nouraibraheem82@gmail.com
-Zeina Ayman | zeinaayman14@gmail.com
-Samiha Hesham | samihahesham9@gmail.com
-Saeed Adel | sashsadel7@gmail.com
-Omar Abdelzaher | omarzaher787@gmail.com
-
 
 
 ## User Interface
@@ -225,26 +213,25 @@ Omar Abdelzaher | omarzaher787@gmail.com
  ![HomeEvents](https://user-images.githubusercontent.com/61268414/158979248-14a45398-4646-49c0-9850-f2869fae6c90.png)
 
 
-
  #### About and Footer sections
 ![footer](https://user-images.githubusercontent.com/61268414/158468825-c93bdc82-12ac-4b73-9bc0-3f29b9ff0fe0.png)
 
 
  ### Registration and Login Forms
  #### Registration Form
+![Signup](https://user-images.githubusercontent.com/61268414/159122128-69e25203-0bde-4931-b643-4d264ac0051d.png)
 
-![SignUp](https://user-images.githubusercontent.com/61268414/158795758-4837a0f2-0fce-4bb7-b4c8-87c5a61d34c7.png)
 
 
  #### Login Form
-![login](https://user-images.githubusercontent.com/61268414/158468857-02347ad3-62ec-4eb4-b29e-75da9d6abd3e.png)
+![Login](https://user-images.githubusercontent.com/61268414/159122134-2d3b9be8-9802-4e03-865e-0b0ef8cb7185.png)
 
 
  ### Reset Password
  ![reset-pass](https://user-images.githubusercontent.com/61268414/158795807-dac21f21-e145-46e9-b377-49ae9420b64d.png)
  
  ### Confirm Reset Password
- ![confirmpass](https://user-images.githubusercontent.com/61268414/158981864-52bf1c8a-dbcd-47cb-9ff9-340671aeef0e.png)
+![ResetNewPass](https://user-images.githubusercontent.com/61268414/159122139-6fbd15cc-41f4-4600-8760-ff90e44d1ffc.png)
 
 
  ### Profile Page
@@ -259,16 +246,10 @@ Omar Abdelzaher | omarzaher787@gmail.com
   ### Staff Office Hours
   ![officehours](https://user-images.githubusercontent.com/61268414/158981973-5d04bb2f-b634-4d93-8072-1eafcb3ead81.png)
 
+### Undergraduate Admission
 
-
-
-### Graduate and Undergraduate Admission
-#### Graduate Admission
-![GraduateAdmission](https://user-images.githubusercontent.com/61268414/158979329-24bcbde8-0e1f-4c28-8379-d0c13adb40c6.png)
-
-
-#### Undergraduate Admission
-![UnderGraduateAdmission](https://user-images.githubusercontent.com/61268414/158979394-4784ecb6-6fec-4d6d-961b-8df7fdf88d19.png)
+![Adm-guest-1](https://user-images.githubusercontent.com/61268414/159122154-f0b98c94-ec2d-4138-afaa-b92337e0cac4.png)
+![Adm-guest-2](https://user-images.githubusercontent.com/61268414/159122158-8c6873af-39ab-483f-bcb7-e39f7e1a4298.png)
 
 
 ### Graduate and Undergraduate News
@@ -285,7 +266,8 @@ Omar Abdelzaher | omarzaher787@gmail.com
 ![graduateexamscheduale](https://user-images.githubusercontent.com/61268414/158979467-c580b15c-e9de-461a-a54d-807dec9d5943.png)
 
 #### Undergraduate Exams Schedule
-![UnderGraduateExam](https://user-images.githubusercontent.com/61268414/158991541-37be7ce9-76bd-4c34-be3e-2533dc7f0faf.png)
+
+![ExamSchedule](https://user-images.githubusercontent.com/61268414/159122763-b2cf9dc1-353b-4aaf-8a65-309378840a72.png)
 
 ### Graduate and Undergraduate Lectures
 #### Graduate Lectures Schedule
@@ -293,7 +275,8 @@ Omar Abdelzaher | omarzaher787@gmail.com
 ![GraduateScheduale](https://user-images.githubusercontent.com/61268414/158979697-129201c3-6af5-4e6a-8c54-0c74dca4919f.png)
 
 #### Undergraduate Lectures Schedule
-![LectureSchedule](https://user-images.githubusercontent.com/61268414/158979774-293b715d-03e7-405a-80ba-e17b4b577d38.png)
+
+![LectureSchedule](https://user-images.githubusercontent.com/61268414/159122761-0b286ab2-c0bd-4dee-bd8d-7c5c7cb76a21.png)
 
 
 ### Reservations schedule
@@ -318,13 +301,14 @@ Omar Abdelzaher | omarzaher787@gmail.com
 
 
  #### Add Courses
-![Add-course](https://user-images.githubusercontent.com/61268414/158991831-612a4ab8-935e-47f9-afca-ab70ba410961.png)
-
-
-
+![Addcourse](https://user-images.githubusercontent.com/61268414/159122232-bf4d52e9-6c2b-4d74-a8a3-0484b1229e48.png)
  
-###  Course Details
-![CourseDetails](https://user-images.githubusercontent.com/61268414/158991329-9adb8ec7-ea74-46b4-bcc1-a44dd40684f0.png)
+####  Course Details
+![CourseDetails](https://user-images.githubusercontent.com/61268414/159122432-97060c60-6501-47ad-959a-45c2f1aeffe7.png)
+
+
+#### Course History
+![CourseHistory](https://user-images.githubusercontent.com/61268414/159122196-e40f8a3c-1b78-4663-8062-1d9536bbac72.png)
 
 
 ###  Reservation Forms
@@ -345,6 +329,17 @@ Omar Abdelzaher | omarzaher787@gmail.com
 
 #### Add Office Hours
 ![add-office-hours](https://user-images.githubusercontent.com/61268414/158795881-e15e9c26-16b1-4ec6-96bb-8237bf7fff7b.png)
+
+### Coordinator Panel
+#### Coordinator Exam Schedule
+![cordExamSch](https://user-images.githubusercontent.com/61268414/159122570-d8f7194c-86d2-40c8-9860-8ae99c0092ee.png)
+
+#### Coordinator Lecture Schedule
+![cordLecSch](https://user-images.githubusercontent.com/61268414/159122575-1d407acd-d89f-4ec6-bc20-f1990aca5a0c.png)
+
+#### Coordinator Course Details
+
+![cordCourseDetails](https://user-images.githubusercontent.com/61268414/159122566-f28835f8-1b05-40e6-af26-d744983de28d.png)
 
  
 ### Moderator Panel
@@ -372,11 +367,37 @@ Omar Abdelzaher | omarzaher787@gmail.com
 #### Devices Reservations
 
 ![mod-dev-res](https://user-images.githubusercontent.com/61268414/159019645-c8194011-ead8-49db-9480-ddd9782c3247.png)
+#### View News
+![modNews](https://user-images.githubusercontent.com/61268414/159122359-dce4bdbd-2837-4621-b8af-f17f19e3153c.png)
+
 #### Add News
-![add-news-moderator](https://user-images.githubusercontent.com/61268414/158796068-174f4650-d96f-4bc6-98f5-f07203c31aaf.png)
+![modAddNews](https://user-images.githubusercontent.com/61268414/159122333-2d66374e-301a-4d8d-b879-830edafa8ac7.png)
+
+#### View Events
+![modEvents](https://user-images.githubusercontent.com/61268414/159122356-e6f9c885-f65d-4d64-9753-a216be3656c3.png)
+
 #### Add Events
 
-![mod-Add-event](https://user-images.githubusercontent.com/61268414/159020110-a74eb678-a6ef-4273-baab-28551d5926a3.png)
+![modAddEvent](https://user-images.githubusercontent.com/61268414/159122328-6107ab68-803f-4020-bc39-2b97197004a2.png)
+
+### Add and Edit Admission
+![Adm-admin-1](https://user-images.githubusercontent.com/61268414/159122382-33bada97-d9ea-4b12-8685-a0e8f98d1523.png)
+![Adm-admin-2](https://user-images.githubusercontent.com/61268414/159122391-84b13e04-72ca-4e45-bc99-6608278d5acd.png)
+
+
+## Future Work
+ Deployment of the project
+
+## Authors
+- ITI Students & Teammates, we are a Full Stack Web Development students at ITI - Python Back-end Track
+
+Name | Email
+------------ | -------------
+Nourhan Ibraheem | nouraibraheem82@gmail.com
+Zeina Ayman | zeinaayman14@gmail.com
+Samiha Hesham | samihahesham9@gmail.com
+Saeed Adel | sashsadel7@gmail.com
+Omar Abdelzaher | omarzaher787@gmail.com
 
 
 

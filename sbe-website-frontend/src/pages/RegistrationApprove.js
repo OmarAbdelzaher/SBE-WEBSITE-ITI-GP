@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AdminNav from "../components/AdminNav";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCheck, faUserXmark } from "@fortawesome/free-solid-svg-icons";
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams ,useHistory} from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Linking, Text, TouchableOpacity } from "react-native";
@@ -11,11 +11,10 @@ import {
   faLink,
   faUpload,
   faGear,
-  faTrashAlt ,
+  faTrashAlt,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 
-
-let flag = false;
 
 function CourseDetails(isAuthenticated) {
   const who = useSelector((state) => state.auth);
@@ -34,9 +33,16 @@ function CourseDetails(isAuthenticated) {
 
   const [link, setLink] = useState();
 
-  // useEffect(() => {
-  //   window.location.reload(false);
-  // })
+  let flag = false;
+
+  const [Flag, setFlag] = useState(false)
+
+  useEffect(() => {
+    if(Flag){
+      window.location.reload(false);
+      setFlag(false)
+    }
+  })
   
   useEffect(() => {
     if (isAuthenticated && who.user != null && flag == false) {
@@ -59,28 +65,15 @@ function CourseDetails(isAuthenticated) {
         setIsAdmin(true);
       }
     }
-
-  },[who,isAdmin]);
+  },[who]);
 
   let mat_id = 0;
 
-  // window.location.reload(false);
   
-  window.addEventListener( "pageshow", function ( event ) {
-    var historyTraversal = event.persisted || 
-                           ( typeof window.performance != "undefined" && 
-                                window.performance.navigation.type === 2 );
-    if ( historyTraversal ) {
-      // Handle page restore.
-      window.location.reload();
-    }
-  });
-
 
   useEffect(() => {
     axios.get(`http://localhost:8000/api/course/${params.id}`).then((res) => {
       setCourse(res.data);
-      console.log(res.data.staff_id)
       setLink(res.data.materials);
       mat_id = res.data.id;
     });
@@ -88,23 +81,22 @@ function CourseDetails(isAuthenticated) {
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/uploadmaterials/").then((res) => {
-      let checkArrived = res.data.filter((mat) => mat.course_id == mat_id) 
-      if (checkArrived.length > 0){
+      let checkArrived = res.data.filter((mat) => mat.course_id == mat_id);
+      if (checkArrived.length > 0) {
         setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
-      }
-      else{
-        MaterialApi()
+      } else {
+        MaterialApi();
       }
     });
   }, []);
 
-  function MaterialApi(){
+  function MaterialApi() {
     axios.get("http://localhost:8000/api/uploadmaterials/").then((res) => {
-      let checkArrived = res.data.filter((mat) => mat.course_id == mat_id) 
-      if (checkArrived.length > 0){
-      setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
+      let checkArrived = res.data.filter((mat) => mat.course_id == mat_id);
+      if (checkArrived.length > 0) {
+        setMaterial(res.data.filter((mat) => mat.course_id == mat_id));
       }
-    })
+    });
   }
 
   const handleChangeFile = (e, type) => {
@@ -133,6 +125,7 @@ function CourseDetails(isAuthenticated) {
   };
 
   const onChange = (e) => setLink(e.target.value);
+  const goToAssign = () => setFlag(true)
 
   const handleSubmit = (e, type) => {
     // e.preventDefault();
@@ -223,72 +216,82 @@ function CourseDetails(isAuthenticated) {
   };
   const deleteCourse = (id) => {
     axios
-      .delete(`http://localhost:8000/api/course/${params.id}`)
+      .delete(`http://localhost:8000/api/course/${id}`)
       .then((res) => {
-        history.push("/coursesMenu");
+        console.log(course.category)
+        if (course.category == "graduate") {
+          history.push("/coursegraduate");
+        } else if (course.category == "undergraduate") {
+          history.push("/coursesMenu");
+        }
 
       })
       .catch((e) => {
         console.log(e);
       });
-    }
+  };
   return (
     <>
       <section className="h-custom">
         <div className="container ">
           <div className="row d-flex justify-content-center align-items-center">
             <div className="col-lg-8 col-xl-8 card rounded-3 courses-b border border-2 border-light">
-              <div className="card-body p-4 ">
-                <h1 className="mb-4 pb-2 pb-md-0  px-md-2 bg-light rounded text-center nav-links ">
+              <div className="row card-body p-4 d-flex justify-content-center align-items-center">
+                <h1 className="shadow mb-4 pb-2 pb-md-0 bg-white  rounded text-center nav-links col-8">
                   {course.name}
                 </h1>
-                {/* Assign Button  */}
-                {isCoordinator || isAdmin ? (
-                  <Link
-                    className="btn btn-md col-3"
-                    style={{ backgroundColor: "#003049", color: "#ffff" }}
-                    to={`/assigncourse/${course.id}/${course.name}/`}
-                  >
-                    <FontAwesomeIcon icon={faCirclePlus} />
-                    {"  "}
-                    Assign Course
-                  </Link>
-                ) : null}
-                <br/>
+                <div className="col-12 rounded row bg-opacity-25 bg-light d-flex justify-content-center align-items-center">
+                  {/* Assign Button  */}
+                  <div className="col-4">
+                    {isCoordinator || isAdmin ? (
+                      <Link
+                        className="btn btn-md fs-5"
+                        style={{  color: "#ffff" }}
+                        to={`/assigncourse/${course.id}/${course.name}/`}
+                        onClick={()=>goToAssign()}
+                      >
+                        <FontAwesomeIcon icon={faCirclePlus} />
+                        {"  "}
+                        Assign Course
+                      </Link>
+                    ) : null}
+                  </div>
 
-                {/* Edit Button */}
-                {isCoordinator || isAdmin ? (
-                  <Link
-                    className="btn btn-md col-3 fs-5 mt-4"
-                    style={{ backgroundColor: "#003049", color: "#ffff" }}
-                    to={`/editcourse/${course.id}/${course.name}/${course.total_grade}/${course.instructions}/${course.staff_id}/${course.category}/${course.year}/${course.semester}`}
-                  >
-                    <FontAwesomeIcon icon={faGear} />
-                    {"  "}
-                    Edit Course
-                  </Link>
-                ) : null}
-                <br/>
-                {/* Delete Button */}
-                {isCoordinator || isAdmin ? (
-                  <Link to="#">
-                  <button
-                    style={{ backgroundColor: "red" ,color: "#ffff" }}
-                    className="btn btn-sm mt-4 fs-5"
-                    onClick={() => {
-                        deleteCourse(course.id);
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      style={{ color: "white" }}
-                      className="fs-5"
-                      icon={faTrashAlt}
-                    />{" "}Delete 
-                  </button>
-                </Link>
-                ) : null}
+                  <div className=" col-8 text-end ">
+                    {/* Edit Button */}
+                    {isCoordinator || isAdmin ? (
+                      <Link
+                        className="fs-5 "
+                        style={{ color: "#ffff", textDecoration: "none" }}
+                        to={`/editcourse/${course.id}/${course.name}/${course.total_grade}/${course.instructions}/${course.staff_id}/${course.category}`}
+                      >
+                        <FontAwesomeIcon icon={faEdit} />
+                        {"  "}
+                        Edit  {" "}
+                      </Link>
+                    ) : null}
+                    
+                    {/* Delete Button */}
+                    {isCoordinator || isAdmin ? (
+                      <Link to="#" >
+                        <button
+                          className="fs-5 btn btn-sm"
+                          onClick={() => {
+                            deleteCourse(course.id);
+                          }}
+                        >
+                          {" "}<FontAwesomeIcon
+                            style={{ color: "#ae2012" }}
+                            className="fs-5"
+                            icon={faTrashAlt}
+                          />
+                        </button>
+                      </Link>
+                    ) : null}
+                  </div>
+                </div>
               </div>
-              <div className="row justify-content-center align-items-center ">
+              <div className="row">
                 <div className="col-6">
                   <div className=" cards card col-12">
                     <h2 className="card-title py-3 text-center text-dark">
@@ -352,7 +355,7 @@ function CourseDetails(isAuthenticated) {
                                   Update Link
                                 </button>
                               </form>
-                              
+
                               {material ? (
                                 <form
                                   onSubmit={(event) =>
@@ -425,7 +428,8 @@ function CourseDetails(isAuthenticated) {
                                 color: "#ffff",
                               }}
                               onClick={() => handlePDFDownload("materials")}
-                             to="#">
+                              to="#"
+                            >
                               <FontAwesomeIcon icon={faDownload} />
                               {"  "}
                               Download

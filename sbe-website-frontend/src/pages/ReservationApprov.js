@@ -9,9 +9,6 @@ import { Redirect } from 'react-router-dom';
 
 import {
   faCalendarCheck,
-  faCalendarXmark,
-  faGear,
-  faGears,
 } from "@fortawesome/free-solid-svg-icons";
 
 function ReservationApprov() {

@@ -8,13 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Redirect } from 'react-router-dom';
 
-import Nav from "react-bootstrap/Nav";
 
 import {
-  faCalendarCheck,
-  faCalendarXmark,
   faGear,
-  faGears,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function HallsReservations() {

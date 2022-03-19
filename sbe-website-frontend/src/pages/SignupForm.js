@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect,useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect  , useSelector} from 'react-redux';
 import { signup } from '../actions/auth';
 import { useState  } from "react";
@@ -20,7 +20,6 @@ const Signup = ({ signup, isAuthenticated }) => {
     setConfirmPasswordShown(confirmPasswordShown ? false : true);
   };
   const eye = <FontAwesomeIcon icon={faEye} />;
-  const history = useHistory() 
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -52,7 +51,6 @@ const Signup = ({ signup, isAuthenticated }) => {
     graduate,
     year_of_graduation,
     title,
-    is_active
   } = formData;
 
 
@@ -162,15 +160,6 @@ const Signup = ({ signup, isAuthenticated }) => {
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3 form courses-b">
-                {/* <img
-                  src="http://ihd.eng.cu.edu.eg/wp-content/uploads/sites/13/2014/12/Fac_eng_minified-620x279.jpg"
-                  className="w-100"
-                  style={{
-                    borderTopLeftRadius: ".3rem",
-                    borderTopRightRadius: ".3rem",
-                  }}
-                  alt="Sample photo"
-                /> */}
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Registration Form
@@ -251,7 +240,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                           />
                           <i className="icon-password" onClick={togglePasswordVisiblity}>{eye}</i>
                           </div>
-                          <small className="smallPass">! Password must contains 8 characters at least A lowercase,An uppercase and A special character</small>
+                          <small className="smallPass fs-6">Password must contain 8 characters, at least A lowercase, An uppercase and A special character</small>
                           <p className="text-danger bg-white bg-opacity-75">{ FormErrors.password}</p>
                         </div>
                       </div>

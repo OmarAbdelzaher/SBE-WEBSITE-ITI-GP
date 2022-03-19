@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset_password } from '../actions/auth';
 import { useState} from "react";
-import {useSelector } from "react-redux";
 
 const ResetPassword = ({ reset_password }) => {
     const [requestSent, setRequestSent] = useState(false);
@@ -100,6 +99,7 @@ const ResetPassword = ({ reset_password }) => {
             </div>
           </div>
         </div>
+        <div className='margin-b'></div>
       </section>
       
     </>

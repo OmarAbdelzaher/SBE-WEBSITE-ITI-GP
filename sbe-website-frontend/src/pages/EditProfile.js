@@ -44,7 +44,6 @@ function EditProfile(isAuthenticated) {
     bio:"",
     title: "",
     role: "",
-    bio: "",
   });
 
   const [FormErrors, setFormErrors] = useState({});
@@ -131,8 +130,6 @@ function EditProfile(isAuthenticated) {
 
   useEffect(() => {
     axios.get(Url).then((res) => {
-      console.log(who)
-      console.log(Url)
       setUser(res.data);
     });
   }, [Url,who]);
@@ -143,7 +140,6 @@ function EditProfile(isAuthenticated) {
   const [imgData, setImgData] = useState(null);
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
-      console.log("picture: ", e.target.files);
       setChanged(true);
       setPicture(e.target.files[0]);
       const reader = new FileReader();

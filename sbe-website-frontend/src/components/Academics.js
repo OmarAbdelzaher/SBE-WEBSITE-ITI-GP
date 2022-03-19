@@ -1,6 +1,5 @@
 import React from "react";
 import "./Academics.css";
-import { Link } from "react-router-dom";
 
 export default function Academics() {
   return (
@@ -32,15 +31,7 @@ export default function Academics() {
                 {/*Text*/}
                 <p className="card-text text-dark">
                 Opportunities to participate in the advancement of entire fields of knowledge
-                  {/* See all about graduates, news, admissions and more details */}
                 </p>
-                {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                {/* <button type="button" className="btn btn-primary btn-md">Read more</button> */}
-                {/* <Link to="/graduatepage" className="btn button">
-                  <button type="button" className="button ani">
-                    Read more
-                  </button>
-                </Link> */}
               </div>
             </div>
             {/* Card */}
@@ -66,15 +57,7 @@ export default function Academics() {
                 {/*Text*/}
                 <p className="card-text text-dark">
                 Rich learning experiences that provide a broad  foundation and deep expertise
-                  {/* See all about undergraduates, news, admissions and more
-                  details */}
                 </p>
-                {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                {/* <Link to="/undergraduatepage" className="btn button">
-                  <button type="button" className="button ani ">
-                    Read more
-                  </button>
-                </Link> */}
               </div>
             </div>
             {/* Card */}

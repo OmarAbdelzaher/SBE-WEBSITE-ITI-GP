@@ -4,7 +4,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAddressCard, faAlignLeft, faCalendarDay, faCalendarDays, faDownload, faEdit, faEnvelope, faLocationArrow, faMobileButton, faMobileScreenButton, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard, faAlignLeft, faCalendarDay, faEdit, faEnvelope, faLocationArrow, faMobileScreenButton } from "@fortawesome/free-solid-svg-icons";
 
 function Profile(isAuthenticated) {
   const who = useSelector((state) => state.auth);

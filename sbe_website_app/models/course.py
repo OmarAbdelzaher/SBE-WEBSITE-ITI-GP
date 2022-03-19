@@ -21,7 +21,7 @@ class Course(models.Model):
         ('Year 4', 'Year 4'),
 
     )
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
     total_grade = models.IntegerField()
 
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import { connect , useSelector } from "react-redux";
 import { login } from "../actions/auth"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,7 +24,6 @@ function LoginForm({login , isAuthenticated}) {
   } = formData;
 
   const errorMessage = useSelector(state => state.auth.error)
-  const emailMessage = useSelector(state => state.auth.emailerror) 
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
