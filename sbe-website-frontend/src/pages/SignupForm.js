@@ -5,10 +5,13 @@ import { signup } from '../actions/auth';
 import { useState  } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+// import useScrollToError from 'react-scroll-to-error'
 
 
 
 const Signup = ({ signup, isAuthenticated }) => {
+  // const formEl = useRef(null);
+  // useScrollToError(formEl);
   const errorMessage = useSelector(state => state.auth.data)
   const emailMessage = useSelector(state => state.auth.emailerror)  
   const [passwordShown, setPasswordShown] = useState(false);
