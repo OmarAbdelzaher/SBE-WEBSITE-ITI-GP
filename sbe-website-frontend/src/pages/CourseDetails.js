@@ -34,6 +34,10 @@ function CourseDetails(isAuthenticated) {
 
   const [link, setLink] = useState();
 
+  // useEffect(() => {
+  //   window.location.reload(false);
+  // })
+  
   useEffect(() => {
     if (isAuthenticated && who.user != null && flag == false) {
       if (who.user.role == "dr" || who.user.role == "ta") {
@@ -55,9 +59,23 @@ function CourseDetails(isAuthenticated) {
         setIsAdmin(true);
       }
     }
-  });
+
+  },[who,isAdmin]);
 
   let mat_id = 0;
+
+  // window.location.reload(false);
+  
+  window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || 
+                           ( typeof window.performance != "undefined" && 
+                                window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload();
+    }
+  });
+
 
   useEffect(() => {
     axios.get(`http://localhost:8000/api/course/${params.id}`).then((res) => {
@@ -141,6 +159,8 @@ function CourseDetails(isAuthenticated) {
     if (type == "mat-link" || type == "grades") {
       if (type == "mat-link") {
         formData.append("materials", link);
+        console.log(link)
+
       } else {
         formData.append("materials", course.materials);
       }
