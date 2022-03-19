@@ -119,6 +119,8 @@ export default function CourseForm() {
     if (!values.staff) {
       errors.staff = "Doctor Name is required!";
     }
+    
+
 
     return errors;
   };

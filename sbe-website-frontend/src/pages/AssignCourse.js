@@ -2,8 +2,8 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Redirect } from 'react-router-dom';
-import { useSelector} from 'react-redux';
+import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // select-react import
 import Select from "react-select";
@@ -17,8 +17,9 @@ export default function AssignCourse() {
   const animatedComponents = makeAnimated();
   const [doctors, setDoctors] = useState([]);
   const [courses, setCourse] = useState([]);
-  const who = useSelector((state) => state.auth);
+  const [coursestaff, setCoursestaff] = useState([]);
 
+  const who = useSelector((state) => state.auth);
 
   const url = `http://localhost:8000/api/course/${params.id}`;
   const [formErrors, setFormErrors] = useState({});
@@ -31,7 +32,11 @@ export default function AssignCourse() {
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/course/${params.id}`)
-      .then((res) => setCourse(res.data));
+      .then((res) =>{ setCourse(res.data)
+        setCoursestaff(res.data.staff_id)
+        // console.log(res.data.staff_id)
+      })
+
   }, []);
 
   useEffect(() => {
@@ -40,7 +45,7 @@ export default function AssignCourse() {
 
       .then((res) => setDoctors(res.data));
   }, []);
-  
+
   const [data, setData] = useState({
     coursename: params.name,
     totalgrade: "",
@@ -52,11 +57,9 @@ export default function AssignCourse() {
     category: params.category,
   });
 
-  if (who.user != null )
-  {
-    if (who.user.is_coordinator == false  && who.user.is_admin == false )
-    {
-      return <Redirect to="/" />;  
+  if (who.user != null) {
+    if (who.user.is_coordinator == false && who.user.is_admin == false) {
+      return <Redirect to="/" />;
     }
   }
 
@@ -77,8 +80,8 @@ export default function AssignCourse() {
       chosen.push(parseInt(t.value));
     }
     listing = chosen;
-    let docandta = []
-    docandta = fordoc.concat(chosen)
+    let docandta = [];
+    docandta = fordoc.concat(chosen);
     setData({
       ...data,
       staff: docandta,
@@ -91,7 +94,7 @@ export default function AssignCourse() {
     for (let t of List_names) {
       tachoose.push(parseInt(t.value));
     }
-    fordoc = tachoose
+    fordoc = tachoose;
     let concatlist = [];
     concatlist = listing.concat(tachoose);
     setData({
@@ -118,7 +121,7 @@ export default function AssignCourse() {
 
       data.staff.forEach((element) => {
         Data.append("staff_id", element);
-        console.log(element)
+        console.log(element);
       });
 
       Data.append("name", courses.name);
@@ -171,13 +174,19 @@ export default function AssignCourse() {
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
-                          <h2 htmlFor="ReservationDate" className="form-label">
+                          <h2 htmlFor="ReservationDate" className="form-label font-weight-bold">
                             Current Staff :
                           </h2>
 
-                          <p className="fw-light fs-4 text-white ">
-                            - {`${courses.staff_id}`}{" "}
-                          </p>
+            
+
+                          {coursestaff.map((item) => {
+                            return (
+                              <>
+                                <p className="fw-light fs-4 text-white"> {item[1]}</p>
+                              </>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>

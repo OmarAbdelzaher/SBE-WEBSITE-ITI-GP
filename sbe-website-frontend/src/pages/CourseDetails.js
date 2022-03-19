@@ -55,14 +55,14 @@ function CourseDetails(isAuthenticated) {
         setIsAdmin(true);
       }
     }
-  });
+  },[who]);
 
   let mat_id = 0;
 
   useEffect(() => {
     axios.get(`http://localhost:8000/api/course/${params.id}`).then((res) => {
       setCourse(res.data);
-      console.log(res.data.staff_id)
+      // console.log(res.data.staff_id)
       setLink(res.data.materials);
       mat_id = res.data.id;
     });
@@ -203,9 +203,15 @@ function CourseDetails(isAuthenticated) {
   };
   const deleteCourse = (id) => {
     axios
-      .delete(`http://localhost:8000/api/course/${params.id}`)
+      .delete(`http://localhost:8000/api/course/${id}`)
       .then((res) => {
-        history.push("/coursesMenu");
+        console.log(course.category)
+        // history.push("/coursesMenu");
+        if (course.category == "graduate") {
+          history.push("/coursegraduate");
+        } else if (course.category == "undergraduate") {
+          history.push("/coursesMenu");
+        }
 
       })
       .catch((e) => {
@@ -241,7 +247,7 @@ function CourseDetails(isAuthenticated) {
                   <Link
                     className="btn btn-md col-3 fs-5 mt-4"
                     style={{ backgroundColor: "#003049", color: "#ffff" }}
-                    to={`/editcourse/${course.id}/${course.name}/${course.total_grade}/${course.instructions}/${course.staff_id}/${course.category}/${course.year}/${course.semester}`}
+                    to={`/editcourse/${course.id}/${course.name}/${course.total_grade}/${course.instructions}/${course.staff_id}/${course.category}`}
                   >
                     <FontAwesomeIcon icon={faGear} />
                     {"  "}
