@@ -1,7 +1,21 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 const Adm_Graduates = () => {
+  const params = useParams();
+  const [admission, setAdmission] = useState({});
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/admission/${params.id}`)
+      .then((res) => {
+        console.log(res.data)
+        setAdmission(res.data)
+      })
+  }, []);
+  
 
     return (
     <>
@@ -17,6 +31,7 @@ const Adm_Graduates = () => {
                   <span>Graduates</span>
                 </div>
                 <div className="member_desc">
+                  <h1>{admission.title}</h1>
                   <p>
                   Being a University Student should be one of the most exciting times of your life. Yet, it brings a whole new set of pressures and challenges. Today’s employment market is more competitive than ever. To stand out from the crowd, you need an education that provides you with the skills, abilities and qualifications that employers will understand and respect. In this increasingly global economy you need qualifications that are recognised in egypt.
                   </p>

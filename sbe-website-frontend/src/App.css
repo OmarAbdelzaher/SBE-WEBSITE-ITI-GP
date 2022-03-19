@@ -362,3 +362,38 @@ ol.styled_list li {
   font-size: 20px;
   color: #e2e8f1;
 }
+.smallPass{
+  font-size: 11px;
+  text-decoration: rgb(201, 201, 201);
+}
+.pass-wrapper {
+  position: relative;
+  display: flex;
+  margin-bottom: 14px;
+}
+.confirm-pass-wrapper {
+  position: relative;
+  display: flex;
+  margin-bottom: 14px;
+}
+
+.icon-password {
+  position: absolute;
+  top: 28%;
+  right: 5%;
+  color: #001233;
+}
+.icon-password:hover {
+  color: #4e5055;
+  cursor: pointer;
+}
+.icon-confirm {
+  position: absolute;
+  top: 28%;
+  right: 5%;
+  color: #001233;
+}
+.icon-confirm:hover {
+  color: #4e5055;
+  cursor: pointer;
+}

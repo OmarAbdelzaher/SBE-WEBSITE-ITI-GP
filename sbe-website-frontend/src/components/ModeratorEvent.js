@@ -5,16 +5,30 @@ import AdminNav from "../components/AdminNav";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-
+import { Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 
 export default function ModeratorEvent() {
+  const moderator = useSelector(state=>state.auth)
   const [event, setEvents] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/events/")
       .then((res) => setEvents(res.data));
   }, []);
+  
+  if(moderator.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (moderator.user != null )
+  {
+    if (moderator.user.role == false && moderator.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
 
   const deleteEvent = (id) => {
     axios

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import {useHistory,useParams } from "react-router-dom";
 import { useState ,useEffect} from "react";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 export default function EditLabForm() {
     const params = useParams();
@@ -10,6 +11,7 @@ export default function EditLabForm() {
     const history = useHistory();
     const [formErrors, setFormErrors] = useState({});
     const [LabErrors, setLabErrors] = useState({});
+    const moderator = useSelector((state) => state.auth);
 
     const [formData, setFormData] = useState({
       name: params.name,
@@ -22,6 +24,17 @@ export default function EditLabForm() {
             .then((res) => {setFormData(res.data)
             });
     }, []);
+    if(moderator.user == null)
+    {
+      return <Redirect to="/" />;  
+    }
+    if (moderator.user != null )
+    {
+      if (moderator.user.role == false && moderator.user.is_admin == false )
+      {
+        return <Redirect to="/" />;  
+      }
+    }
 
   
     const onChange = (e) =>

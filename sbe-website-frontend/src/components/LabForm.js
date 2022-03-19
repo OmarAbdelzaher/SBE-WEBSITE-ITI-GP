@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
+
 
 export default function LabForm() {
   let Url = "http://localhost:8000/api/labs/";
@@ -13,6 +15,19 @@ export default function LabForm() {
     name: "",
   });
 
+  const moderator = useSelector((state) => state.auth);
+  
+  if(moderator.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (moderator.user != null )
+  {
+    if (moderator.user.role == false && moderator.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
   const onChange = (e) =>
     setFormData({  [e.target.name]: e.target.value });
 

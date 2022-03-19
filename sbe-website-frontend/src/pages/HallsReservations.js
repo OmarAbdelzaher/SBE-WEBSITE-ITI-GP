@@ -6,6 +6,7 @@ import AdminNav from "../components/AdminNav";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { Redirect } from 'react-router-dom';
 
 import Nav from "react-bootstrap/Nav";
 
@@ -27,6 +28,18 @@ export default function HallsReservations() {
             setHalls(res.data)
           );
       }, []);
+      
+      if(moderator.user == null)
+      {
+        return <Redirect to="/" />;  
+      }
+      if (moderator.user != null )
+      {
+        if (moderator.user.role == false && moderator.user.is_admin == false )
+        {
+          return <Redirect to="/" />;  
+        }
+      }
 
       const deleteHall = (id) => {
         axios

@@ -3,10 +3,13 @@ import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 let listing = [];
 export default function EditCourse() {
   const params = useParams();
+  const who = useSelector((state) => state.auth);
+
   let Url = `http://localhost:8000/api/course/${params.id}`;
   const history = useHistory();
   const [formErrors, setFormErrors] = useState({});
@@ -14,9 +17,6 @@ export default function EditCourse() {
   const [Link, setLink] = useState();
   const [courseyear, setCourseyear] = useState();
   const [courseterm, setCourseterm] = useState();
-
-  
-  
 
 
     useEffect(() => {
@@ -31,8 +31,7 @@ export default function EditCourse() {
     });
    
     }, []);
-       
-    // console.log( params.staff_id)
+
 
   const [formData, setFormData] = useState({
     name: params.name,
@@ -40,18 +39,24 @@ export default function EditCourse() {
     instructions: params.instructions,
     staff_id: [params.staff_id] ,
     category: params.category,
-    // year: '',
-    // semester: '',
+   
   });
-  // console.log(formData.staff_id)
-  // console.log(formData.staff_id[0])
-  // console.log(params.staff_id.split(','))
+
 
   const arr = params.staff_id.split(',')
   var newstaff = arr.filter(Number).map(c => Number(c));
-  // console.log(newstaff);
-
-
+  
+  if(who.user == null)
+  {
+    return <Redirect to="/" />;
+  }  
+  if (who.user != null )
+  {
+    if (who.user.is_coordinator == false  && who.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -72,17 +77,6 @@ export default function EditCourse() {
       errors.instructions = "Instructions is required";
     }
 
-// if (params.category == "undergraduate" ){
-  
-//     if (!values.year) {
-//       errors.year = "Year is required";
-//     }
-//     if (!values.semester) {
-//       errors.semester = "Semester is required";
-//     }
- 
-
-//   }
 
     return errors;
   };
@@ -115,7 +109,7 @@ export default function EditCourse() {
           if (params.category == "graduate") {
             history.push("/coursegraduate");
           } else if (params.category == "undergraduate") {
-            history.push("/coursesMenu");
+            history.push(`/courseDetails/${params.id}`);
           }
         })
         .catch((e) => {
@@ -253,9 +247,7 @@ export default function EditCourse() {
                                       <option value="Year 4">Year 4</option>
                                     </select>
 
-                                    {/* <p className="text-danger">
-                                      {formErrors.year}
-                                    </p> */}
+                                    
                                   </div>
                                 </div>
                               </div>

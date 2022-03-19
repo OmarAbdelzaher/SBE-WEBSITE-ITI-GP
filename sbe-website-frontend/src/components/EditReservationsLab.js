@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 
 export default function EditReservationLab(isAuthenticated) {
   const params = useParams();
@@ -43,6 +44,19 @@ export default function EditReservationLab(isAuthenticated) {
       .get("http://localhost:8000/api/labs/")
       .then((res) => setLabs(res.data));
   }, []);
+
+  if(staff.user == null)
+  {
+    return <Redirect to="/" />;  
+  }
+  if (staff.user != null )
+  {
+    if (staff.user.is_moderator == false && staff.user.is_admin == false )
+    {
+      return <Redirect to="/" />;  
+    }
+  }
+
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

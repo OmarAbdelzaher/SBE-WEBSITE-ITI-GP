@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { connect , useSelector } from "react-redux";
 import { login } from "../actions/auth"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 function LoginForm({login , isAuthenticated}) {
 
@@ -10,6 +12,11 @@ function LoginForm({login , isAuthenticated}) {
     email: "",
     password: "",
   });
+  const [passwordShown, setPasswordShown] = useState(false);
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+  const eye = <FontAwesomeIcon icon={faEye} />;
   const [FormErrors,setFormErrors] = useState({})
   const {
     email,
@@ -100,14 +107,17 @@ function LoginForm({login , isAuthenticated}) {
                           <label className="form-label" htmlFor="Password">
                             Password
                           </label>
+                          <div className="pass-wrapper">
                           <input
-                            type="password"
+                            type={passwordShown ? "text" : "password"}
                             id="Password"
                             name="password"
                             className="form-control form-control-lg"
                             onChange={e => onChange(e)}
                             value={password}
                           />
+                          <i className="icon-password" onClick={togglePasswordVisiblity}>{eye}</i>
+                        </div>
                         </div>
                         <p className="text-danger bg-white bg-opacity-75">{ FormErrors.password }</p>
                       </div>

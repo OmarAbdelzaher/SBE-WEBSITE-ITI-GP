@@ -34,7 +34,6 @@ export default function AssignCourse() {
       .get(`http://localhost:8000/api/course/${params.id}`)
       .then((res) =>{ setCourse(res.data)
         setCoursestaff(res.data.staff_id)
-        // console.log(res.data.staff_id)
       })
 
   }, []);
@@ -121,7 +120,7 @@ export default function AssignCourse() {
 
       data.staff.forEach((element) => {
         Data.append("staff_id", element);
-        console.log(element);
+        // console.log(element);
       });
 
       Data.append("name", courses.name);

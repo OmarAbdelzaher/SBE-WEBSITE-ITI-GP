@@ -197,8 +197,8 @@ export default function CoursesMenu(isAuthenticated) {
                                         Please select Your Semester
                                       </option>
 
-                                      <option value="one">First Semester</option>
-                                      <option value="two">Second Semester</option>
+                                      <option value="one">Semester One</option>
+                                      <option value="two">Semester Two</option>
                                     </select>
 
                                     {/* Year two Selection Semester One */}
@@ -282,8 +282,8 @@ export default function CoursesMenu(isAuthenticated) {
                                         Please select Your Semester
                                       </option>
 
-                                      <option value="one">First Semester</option>
-                                      <option value="two">Second Semester</option>
+                                      <option value="one">Semester One</option>
+                                      <option value="two">Semester Two</option>
                                     </select>
 
                                     {/* Year Three Selection Smester One*/}
@@ -367,8 +367,8 @@ export default function CoursesMenu(isAuthenticated) {
                                         Please select Your Semester
                                       </option>
 
-                                      <option value="one">First Semester</option>
-                                      <option value="two">Second Semester</option>
+                                      <option value="one">Semester One</option>
+                                      <option value="two">Semester Two</option>
                                     </select>
                                     {/* Year Four Selection Semester One */}
                                     {formData.Semester == "one" ? (
