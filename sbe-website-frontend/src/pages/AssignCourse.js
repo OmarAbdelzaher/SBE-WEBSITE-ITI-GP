@@ -104,8 +104,8 @@ export default function AssignCourse() {
 
   const validate = (values) => {
     const errors = {};
-    if (!values.staff_id) {
-      errors.staff_id = "Staff Name is Required";
+    if (!values.staff) {
+      errors.staff = "Staff Name is Required";
     }
     return errors;
   };

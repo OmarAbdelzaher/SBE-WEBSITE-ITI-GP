@@ -1,0 +1,208 @@
+Lab3:
+
+In your directory: touch lab3_sol.sql
+
+In postgres (iti database) import this file: \i /home/omar/PostgreSQL/lab3/lab3_sol.sql
+
+Everytime you edit "lab3_sol.sql" or any file.sql you should import it again with the previous command
+
+Start typing your answer in "lab3_sol.sql" then go execute your function in postgres terminal, then comment your function in lab3_sol.sql and start typing the next function.
+
+OR you can create multiple ".sql" files but you have to import them all.
+  
+/*----------------------------------------------------------------------------*/
+
+/*Question(1):*/
+
+/*Create Hello world function which take username and return welcome message
+to user using his name*/
+
+create or replace function greetings (std_fname varchar) returns varchar as 
+$$ 
+declare
+	welcome_msg varchar = 'Welcome ya ';
+begin  
+
+return concat(welcome_msg,std_fname);
+
+end; 
+
+$$Language plpgsql;
+
+/* 
+
+Execution: select greetings('omar');
+output: welcome ya omar 
+
+*/
+
+/*----------------------------------------------------------------------------*/
+
+/*Question(2):*/
+
+/*Create multiply function which take two number and return the multiply of them*/
+
+create or replace function multiply (x int, y int) returns int as 
+$$ 
+begin  
+
+return x*y; 
+
+end; 
+
+$$Language plpgsql;
+
+/* 
+
+Execution: select multiply(2,3);
+output: 6
+
+*/
+
+/*----------------------------------------------------------------------------*/
+
+/*Question(3):*/
+
+/*Create function which takes student id then return track name of this student*/
+
+create or replace function get_std_track_by_id(student_id int) returns varchar as
+$$
+declare
+	track varchar;
+begin
+
+select track_name into track from students where std_id = student_id;
+
+return track;
+
+end;
+
+$$Language plpgsql;
+
+/* 
+
+Execution: select get_std_track_by_id(2);
+output: Full Stack
+
+*/
+
+/*----------------------------------------------------------------------------*/
+
+/*Question(4):*/
+
+/*Create function which take Course name and return the max score for this course*/
+
+create or replace function get_max_score_by_course(course varchar) returns int as
+$$
+declare
+	score int;
+begin
+
+select total_grade into score from subjects where subj_name = course;
+
+return score;
+
+end;
+
+$$Language plpgsql;
+
+/* 
+
+Execution: select get_max_score_by_course('Linux');
+output: 100
+
+*/
+
+/*----------------------------------------------------------------------------*/
+
+/*Question(5):*/
+
+/*Create Table called Deleted_Students which will hold the deleted students
+info(same columns as in student tables)*/
+
+/*
+create table deleted_stds (std_id serial primary key, std_fname varchar(255), std_lname varchar(255), std_info contact_info,birthdate date, std_gender gender);
+*/
+
+/*---------------------------------------------------------------------------*/
+
+/*Question(6):*/
+
+/*Create trigger to save the deleted student from Student table to
+Deleted_Students*/
+
+/* you can create a delete function to delete certain students or run a query in terminal directly:*/
+
+delete from students where std_id = 2;
+
+/*delete function*/
+create or replace function delete_std_by_id(id int) RETURNS void as 
+$$
+begin
+
+delete from students where std_id = id;
+
+end;
+$$Language plpgsql;
+
+/* 
+Execution: select delete_std_by_id(2);
+*/
+
+/* Creating the Trigger */ 
+
+create or replace function insertDeletion() returns trigger as
+$$
+begin
+
+insert into deleted_stds values (OLD.std_id, OLD.std_fname, OLD.std_lname, OLD.std_info, OLD.birthdate, OLD.std_gender);
+
+return NULL;
+
+end;
+$$Language plpgsql;
+
+create or replace trigger on_delete after delete on students for each row execute procedure insertDeletion();
+
+/*
+Execution: use delete function or delete query then check the insertion in deleted_stds table by : select * from deleted_stds;
+*/
+
+/*------------------------------------------------------------------------*/
+
+/*Question(7):*/
+
+/*
+Create trigger to prevent user to insert or update Student with full name length
+greater than 100 chars
+*/
+
+create or replace function preventFullName() returns trigger as
+$$
+declare
+
+	fullName varchar;
+
+begin
+
+select std_fname,std_lname into fullName from students ;
+if 
+then
+end if 
+
+end;
+$$Language plpgsql;
+
+create or replace trigger on_full_length before insert,update on students for each statement execute procedure preventFullName();
+
+/*------------------------------------------------------------------------*/
+
+/*Question(8):*/
+
+pg_dump iti2 > '/tmp/db_backup'
+
+/*------------------------------------------------------------------------*/
+
+/*Question(9):*/
+
+COPY students to '/tmp/table_backup'
