@@ -3,6 +3,7 @@ import "./cards.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Linking, Text, TouchableOpacity } from "react-native";
 
 export default function News() {
   const [News, setNews] = useState([]);
@@ -53,7 +54,24 @@ export default function News() {
                             key={item.id}
                           >
                             <h2 className="card-title">{item.title}</h2>
-                            <p className="card-text text-dark">{item.description}</p>
+                            <Link className="table-b" to={`/new/${item.id}`}>
+                        <span>
+                          <p className="card-text text-dark fs-4 ">
+                            {item.description.slice(0, 25)}
+
+                            <TouchableOpacity>
+                              <Text
+                                className="card-text"
+                                style={{
+                                  color: "#03045e",
+                                  fontSize: "18px",
+                                }}
+                              >...Read more
+                              </Text>
+                            </TouchableOpacity>
+                          </p>
+                          </span>
+                        </Link>
                           </div>
                         </div>
                       </div>

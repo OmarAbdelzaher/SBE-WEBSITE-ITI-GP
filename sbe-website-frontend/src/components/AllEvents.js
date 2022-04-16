@@ -3,6 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { Linking, Text, TouchableOpacity } from "react-native";
+import { Link } from "react-router-dom";
+
 
 export default function AllEvents() {
   const [AllEvents, setAllEvents] = useState([]);
@@ -58,13 +61,35 @@ export default function AllEvents() {
                     <div className="col-md-8">
                       <div class="card-body">
                         <h5 class="card-title">{item.name}</h5>
-                        <p class="card-text text-dark">
+                        {/* <p class="card-text text-dark">
                           <FontAwesomeIcon
                             className="fs-6"
                             icon={faCalendarDays}
                           />{" "}
                           {item.details}
-                        </p>
+                        </p> */}
+                        <Link className="table-b" to={`/event/${item.id}`}>
+                          <p className="card-text text-dark fs-4 ">
+                            {item.details.slice(0, 25)}
+                            <span>
+
+                            <TouchableOpacity>
+                              <Text
+                                className="card-text "
+                                style={{
+                                  color: "#03045e",
+                                  fontSize: "18px",
+                                }}
+                                // onPress={() =>
+                                //   Linking.openURL('new')
+                                // }
+                              >...Read more
+                              </Text>
+                            </TouchableOpacity>
+                            </span>
+                          </p>
+                          
+                        </Link>
                       </div>
                     </div>
                   </div>
