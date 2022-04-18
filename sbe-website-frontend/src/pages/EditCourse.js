@@ -16,6 +16,7 @@ export default function EditCourse() {
   const [Link, setLink] = useState();
   const [courseyear, setCourseyear] = useState();
   const [courseterm, setCourseterm] = useState();
+  const [coursecode, setCoursecode] = useState();
 
 
     useEffect(() => {
@@ -25,12 +26,15 @@ export default function EditCourse() {
           setLink(res.data.materials)
           setCourseyear(res.data.year)
           setCourseterm(res.data.semester)
+          setCoursecode(res.data.code)
+
     });
    
     }, []);
 
 
   const [formData, setFormData] = useState({
+    // code: params.code,
     name: params.name,
     total_grade: params.total_grade,
     instructions: params.instructions,
@@ -87,6 +91,7 @@ export default function EditCourse() {
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
 
+      Data.append("code", coursecode);
       Data.append("name", formData.name);
       Data.append("total_grade", formData.total_grade);
       Data.append("instructions", formData.instructions);

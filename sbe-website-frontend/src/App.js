@@ -77,6 +77,8 @@ import EditEvent from "./components/EditEvents";
 import EditCourse from "./pages/EditCourse";
 import OneNew from "./components/OneNew";
 import OneEvent from "./components/OneEvent";
+import StaffDr from "./components/StaffDr";
+
 function App() {
 
 
@@ -168,6 +170,7 @@ function App() {
 
             <Route path={"/new/:id"} exact component={OneNew} /> 
             <Route path={"/event/:id"} exact component={OneEvent} /> 
+            <Route path={"/staffdr"} exact component={StaffDr} /> 
 
 
 

@@ -77,6 +77,10 @@ export default function Events() {
                            
                       
                           <p className="card-text text-dark fs-4 ">
+                          <FontAwesomeIcon
+                                  className="fs-6"
+                                  icon={faCalendarDays}
+                                />{" "}
                             {item.details.slice(0, 19)}
 
                             <Link className="table-b" to={`/event/${item.id}`}>

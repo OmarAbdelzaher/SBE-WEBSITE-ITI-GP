@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
 export default function OneEvent() {
   const [Event, setEvent] = useState([]);
@@ -45,7 +47,12 @@ export default function OneEvent() {
                 <div className="col-md-8">
                   <div class="card-body">
                     <h5 class="card-title">{Event.name}</h5>
-                    <p class="card-text text-dark">{Event.details}</p>
+                    <p class="card-text text-dark">
+                    <FontAwesomeIcon
+                            className="fs-6"
+                            icon={faCalendarDays}
+                          />{" "}
+                      {Event.details}</p>
                   </div>
                 </div>
               </div>

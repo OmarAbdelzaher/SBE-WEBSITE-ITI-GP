@@ -46,6 +46,7 @@ export default function AssignCourse() {
   }, []);
 
   const [data, setData] = useState({
+    code: "",
     coursename: params.name,
     totalgrade: "",
     instructions: params.instructions,
@@ -122,7 +123,7 @@ export default function AssignCourse() {
         Data.append("staff_id", element);
         // console.log(element);
       });
-
+      Data.append("code", courses.code);
       Data.append("name", courses.name);
       Data.append("total_grade", courses.total_grade);
       Data.append("instructions", courses.instructions);

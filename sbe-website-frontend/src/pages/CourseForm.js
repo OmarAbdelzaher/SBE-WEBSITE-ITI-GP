@@ -35,6 +35,7 @@ export default function CourseForm() {
       .then((res) => setDoctors(res.data));
   }, []);
   const [data, setData] = useState({
+    code: "",
     name: "",
     stdgrades: "",
     totalgrade: "",
@@ -107,7 +108,9 @@ export default function CourseForm() {
 
   const validate = (values) => {
     const errors = {};
-
+    if (!values.code) {
+      errors.code = "Code is Required";
+    }
     if (!values.name) {
       errors.name = "Course Name is Required";
     }
@@ -137,6 +140,7 @@ export default function CourseForm() {
     if (Object.keys(errors_form).length === 0) {
       const Data = new FormData();
 
+      Data.append("code", data.code);
       Data.append("name", data.name);
       Data.append("total_grade", data.totalgrade);
       data.staff.forEach((element) => {
@@ -181,6 +185,27 @@ export default function CourseForm() {
                     Add Course Form
                   </h3>
                   <form className="px-md-2" onSubmit={(e) => onSubmit(e)}>
+{/* Code Field */}
+                  <div className="row">
+                      <div className="col-md-12 mb-4 d-flex align-items-center">
+                        <div className="form-outline datepi+cker w-100">
+                          <label htmlFor="code" className="form-label">
+                            Code{" "}
+                          </label>
+                          <br />
+                          <input
+                            onChange={(e) => handle(e)}
+                            id="code"
+                            type="text"
+                            className="form-control form-control-lg"
+                            name="code"
+                            value={data.code}
+                          />
+                          <p className="text-danger">{formErrors.code}</p>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="row">
                       <div className="col-md-12 mb-4 d-flex align-items-center">
                         <div className="form-outline datepi+cker w-100">
