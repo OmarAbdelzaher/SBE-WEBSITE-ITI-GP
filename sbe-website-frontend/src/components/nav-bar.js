@@ -6,7 +6,8 @@ import React, { useState, useEffect } from "react";
 import { scroller } from "react-scroll";
 import "../pages/style.css";
 import { useSelector } from "react-redux";
-
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 const NavBar = (isAuthenticated) => {
   let flag = false;
 
@@ -129,11 +130,26 @@ const NavBar = (isAuthenticated) => {
                 title="Graduates"
                 id="navbarScrollingDropdown"
               >
-                
                 <NavDropdown.Item href="/graduatepage">News</NavDropdown.Item>
-                <NavDropdown.Item href="/staffpage">Staff
-                
-                </NavDropdown.Item>
+                {/* <NavDropdown.Item href="/staffpage">Staff</NavDropdown.Item> */}
+                <div >
+                  <DropdownButton
+                    key="end"
+                    id="dropdown-button-drop-end"
+                    drop="end"
+                    variant="white"
+                    title="Staff"
+                  >
+                    <Dropdown.Item href="/staffdr" eventKey="1">
+                      Staff Dr
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/staffpage" eventKey="2">
+                      Staff Ta
+                    </Dropdown.Item>
+                  </DropdownButton>
+                 
+                </div>
+
                 <NavDropdown.Item href="/coursegraduate">
                   Courses
                 </NavDropdown.Item>
@@ -160,7 +176,32 @@ const NavBar = (isAuthenticated) => {
                 <NavDropdown.Item href="/undergraduatepage">
                   News
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/staffpage">Staff</NavDropdown.Item>
+                {/* <Dropdown.Header>Staff</Dropdown.Header> */}
+                <div >
+                  {/* {['end'].map((direction) => ( */}
+                  <DropdownButton
+                    //  as={div}
+                    key="end"
+                    id="dropdown-button-drop-end"
+                    drop="end"
+                    variant="white"
+                    title="Staff"
+                  >
+                    <Dropdown.Item href="/staffdr" eventKey="1">
+                      Staff Dr
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/staffpage" eventKey="2">
+                      Staff Ta
+                    </Dropdown.Item>
+                    {/* <NavDropdown.Item href="/staffdr">
+                    {""} Staff dr
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/staffpage">
+                    {""}Staff ta
+                  </NavDropdown.Item> */}
+                  </DropdownButton>
+                  {/* ))} */}
+                </div>
                 <NavDropdown.Item href="/coursesMenu">Courses</NavDropdown.Item>
                 <NavDropdown.Item href="/officehourschedule">
                   Office Hours

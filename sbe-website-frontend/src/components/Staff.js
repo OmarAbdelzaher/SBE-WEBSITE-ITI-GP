@@ -28,7 +28,9 @@ export default function Staff() {
               </h1>
               <div className="row"> 
               {/* <!-- Light Mode --> */}
-              { staff.map((item)=>{
+              { staff
+              .filter((item) => item.role === "ta")
+              .map((item)=>{
                   return(
                     <div className="col-6 ">
                   
@@ -44,12 +46,14 @@ export default function Staff() {
                           <div className="col-md-8">
                            <div className="card-body">
 
-                          {item.role == "dr" ? <h5 className="lightTitle card-title">
+                          {/* {item.role == "dr" ? <h5 className="lightTitle card-title">
                             Dr/ {item.fname} {item.lname}
-                          </h5> : null }
-                          {item.role == "ta" ? <h5 className="lightTitle card-title">
+                          </h5> : null } */}
+                          {/* {item.role == "ta" ? */}
+                          <h5 className="lightTitle card-title">
                             Eng./ {item.fname} {item.lname}
-                          </h5> : null }
+                          </h5>
+                           {/* : null } */}
                           <p className="lightDesc card-text" >
                             {item.bio}
                           </p>

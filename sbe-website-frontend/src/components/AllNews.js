@@ -1,9 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Linking, Text, TouchableOpacity } from "react-native";
+import { Link } from "react-router-dom";
 
 export default function AllNews() {
   const [AllNews, setAllNews] = useState([]);
+  // const params = useParams();
 
   useEffect(() => {
     axios
@@ -42,10 +45,29 @@ export default function AllNews() {
                   <div>
                     <div className="card-body ">
                       <h2 className="card-title">{item.title}</h2>
+                      
+                        <Link className="table-b" to={`/new/${item.id}`}>
+                        <span>
+                          <p className="card-text text-dark fs-4 ">
+                            {item.description.slice(0, 25)}
 
-                      <p className="card-text text-dark fs-4 ">
-                        {item.description}
-                      </p>
+                            <TouchableOpacity>
+                              <Text
+                                className="card-text "
+                                style={{
+                                  color: "#03045e",
+                                  fontSize: "18px",
+                                }}
+                                // onPress={() =>
+                                //   Linking.openURL('new')
+                                // }
+                              >...Read more
+                              </Text>
+                            </TouchableOpacity>
+                          </p>
+                          </span>
+                        </Link>
+                      
                       <p className="card-text text-dark fw-bold ">
                         For : {item.category}
                       </p>

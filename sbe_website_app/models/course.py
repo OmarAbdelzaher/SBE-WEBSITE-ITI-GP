@@ -23,6 +23,7 @@ class Course(models.Model):
     )
     name = models.CharField(max_length=50)
     total_grade = models.IntegerField()
+    code = models.CharField(max_length=100,unique=True)
 
 
     stds_grades = models.FileField(upload_to='student_grades/',null=True,blank=True)

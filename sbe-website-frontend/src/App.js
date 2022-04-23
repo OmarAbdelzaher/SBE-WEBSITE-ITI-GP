@@ -77,6 +77,10 @@ import EditEvent from "./components/EditEvents";
 import EditCourse from "./pages/EditCourse";
 import DepartmentImg from "./components/DepartmentImg";
 import PagesNavBbar from "./components/PagesNavBar";
+import OneNew from "./components/OneNew";
+import OneEvent from "./components/OneEvent";
+import StaffDr from "./components/StaffDr";
+
 function App() {
 
 
@@ -318,6 +322,11 @@ function App() {
                   exact
                   component={EditCourse}
                 />
+            <Route path={"/new/:id"} exact component={OneNew} /> 
+            <Route path={"/event/:id"} exact component={OneEvent} /> 
+            <Route path={"/staffdr"} exact component={StaffDr} /> 
+
+
 
                 <Route
                   path={"/password/reset/confirm/:uid/:token"}

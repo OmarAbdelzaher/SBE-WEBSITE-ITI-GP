@@ -57,7 +57,7 @@ class FacultyEmpSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta :
         model = Course
-        fields = ['id','name','total_grade','stds_grades','instructions','materials','staff_id','category','year','semester']
+        fields = ['id','code','name','total_grade','stds_grades','instructions','materials','staff_id','category','year','semester']
 
 
 

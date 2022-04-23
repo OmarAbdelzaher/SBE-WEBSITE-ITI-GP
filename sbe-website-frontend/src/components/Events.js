@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { Linking, Text, TouchableOpacity } from "react-native";
 
 
 export default function Events() {
@@ -53,12 +54,53 @@ export default function Events() {
                       <div className=" col-12 ">
                         <div className="card-body " key={item.id}>
                           <h2 className="card-title">{item.name}</h2>
-                          <p className="card-text text-dark">
+                          {/* <p className="card-text text-dark">
                           <FontAwesomeIcon
                                   className="fs-6"
                                   icon={faCalendarDays}
                                 />{" "}
-                            {item.details}</p>
+                            {item.details.slice(0, 25)}
+                            <TouchableOpacity>
+                              <Text
+                                className="card-text "
+                                style={{
+                                  color: "#03045e",
+                                  fontSize: "18px",
+                                }}
+                                // onPress={() =>
+                                //   Linking.openURL('new')
+                                // }
+                              >...Read more
+                              </Text>
+                            </TouchableOpacity>
+                            </p> */}
+                           
+                      
+                          <p className="card-text text-dark fs-4 ">
+                          <FontAwesomeIcon
+                                  className="fs-6"
+                                  icon={faCalendarDays}
+                                />{" "}
+                            {item.details.slice(0, 19)}
+
+                            <Link className="table-b" to={`/event/${item.id}`}>
+                            <TouchableOpacity>
+                              <Text
+                                className="card-text "
+                                style={{
+                                  color: "#03045e",
+                                  fontSize: "18px",
+                                }}
+                                // onPress={() =>
+                                //   Linking.openURL('new')
+                                // }
+                              >...Read more
+                              </Text>
+                            </TouchableOpacity>
+                            </Link>
+                          </p>
+                         
+                       
                         </div>
                       </div>
                     </div>

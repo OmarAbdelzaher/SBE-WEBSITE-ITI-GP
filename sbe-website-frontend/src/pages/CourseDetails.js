@@ -238,7 +238,7 @@ function CourseDetails(isAuthenticated) {
             <div className="col-lg-8 col-xl-8 card rounded-3 courses-b border border-2 border-light">
               <div className="row card-body p-4 d-flex justify-content-center align-items-center">
                 <h1 className="shadow mb-4 pb-2 pb-md-0 bg-white  rounded text-center nav-links col-8">
-                  {course.name}
+                  {course.name} - {course.code}
                 </h1>
                 <div className="col-12 rounded row bg-opacity-25 bg-light d-flex justify-content-center align-items-center">
                   {/* Assign Button  */}
