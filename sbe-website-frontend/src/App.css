@@ -1,5 +1,4 @@
 .h-custom {
-  /* margin-top: 10%; */
   /* height: 150vh !important; */
   /* background-color: #001233; */
   background-image: url(../src/assets/uploaded-files/bg-image/backGround.jpg);
@@ -11,6 +10,7 @@
   overflow: hidden;
   overflow-x: hidden;
   font-family: Arial, Helvetica, sans-serif;
+  
 
   /* filter: blur(2px);
     -webkit-filter: blur(2px); */
@@ -62,7 +62,7 @@
   color: #f1f1f1 !important;
   height: auto;
   overflow-x: auto;
-  margin-top: 14% !important;
+  margin-top: 22% !important;
   padding: 2%;
 }
 

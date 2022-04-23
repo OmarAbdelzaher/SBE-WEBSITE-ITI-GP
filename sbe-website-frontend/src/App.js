@@ -75,105 +75,263 @@ import ModeratorEvent from "./components/ModeratorEvent";
 import EditNew from "./components/EditNew";
 import EditEvent from "./components/EditEvents";
 import EditCourse from "./pages/EditCourse";
-
+import DepartmentImg from "./components/DepartmentImg";
+import PagesNavBbar from "./components/PagesNavBar";
 function App() {
 
 
   return (
     <>
-
-       
       <Provider store={store}>
-
         <BrowserRouter>
+          <Layout>
+            <Header />
+            <Switch>
+              <Route path={"/"} exact component={Home} />
+              <div>
+                <PagesNavBbar />
+                <Route path={"/signup"} exact component={Signup} />
+                <Route path={"/login"} exact component={LoginForm} />
+                <Route
+                  path={"/reservation"}
+                  exact
+                  component={ReservationForm}
+                />
+                <Route path={"/coursesMenu"} exact component={CoursesMenu} />
+                <Route
+                  path={"/course-history/:id"}
+                  exact
+                  component={CourseHistory}
+                />
+                <Route
+                  path={"/courseDetails/:id"}
+                  exact
+                  component={CourseDetails}
+                />
+                <Route path={"/about"} exact component={About} />
+                <Route
+                  path={"/reset-password"}
+                  exact
+                  component={ResetPassword}
+                />
+                <Route path={"/allnews"} exact component={AllNews} />
+                <Route path={"/allevents"} exact component={AllEvents} />
+                <Route path={"/graduatepage"} exact component={GraduatePage} />
+                <Route
+                  path={"/undergraduatepage"}
+                  exact
+                  component={UnderGraduate}
+                />
+                <Route
+                  path={"/coursegraduate"}
+                  exact
+                  component={CourseGraduate}
+                />
+                <Route path={"/profilepage"} exact component={Profile} />
+                <Route path={"/one-smesterone"} exact component={YoneSone} />
+                <Route path={"/one-smestertwo"} exact component={YoneStwo} />
+                <Route path={"/two-smesterone"} exact component={YtwoSone} />
+                <Route path={"/two-smestertwo"} exact component={YtwoStwo} />
+                <Route
+                  path={"/three-smesterone"}
+                  exact
+                  component={YthreeSone}
+                />
+                <Route
+                  path={"/three-smestertwo"}
+                  exact
+                  component={YthreeStwo}
+                />
+                <Route path={"/four-smesterone"} exact component={YfourSone} />
+                <Route path={"/four-smestertwo"} exact component={YfourStwo} />
+                <Route path={"/moderator"} exact component={Moderator} />
+                <Route
+                  path={"/reservation-approv"}
+                  exact
+                  component={ReservationApprov}
+                />
+                <Route
+                  path={"/registration-approv"}
+                  exact
+                  component={RegistrationApprove}
+                />
+                <Route path={"/users"} exact component={Users} />
+                <Route
+                  path={"/undergraduate-exams"}
+                  exact
+                  component={UnderGraduateExamSchedule}
+                />
+                <Route
+                  path={"/graduate-exams"}
+                  exact
+                  component={GraduateExamSchedule}
+                />
 
-        <Layout>
-          <Header/>
-          <Switch>
-            <Route path={"/"} exact component={Home} />
-            <Route path={"/signup"} exact component={Signup} />
-            <Route path={"/login"} exact component={LoginForm} />
-            <Route path={"/reservation"} exact component={ReservationForm} />
-            <Route path={"/coursesMenu"} exact component={CoursesMenu} />
-            <Route path={"/course-history/:id"} exact component={CourseHistory} />
-            <Route path={"/courseDetails/:id"} exact component={CourseDetails} />
-            <Route path={"/about"} exact component={About} />
-            <Route path={"/reset-password"} exact component={ResetPassword} />
-            <Route path={"/allnews"} exact component={AllNews} />
-            <Route path={"/allevents"} exact component={AllEvents} />
-            <Route path={"/graduatepage"} exact component={GraduatePage} />
-            <Route path={"/undergraduatepage"} exact component={UnderGraduate} />
-            <Route path={"/coursegraduate"} exact component={CourseGraduate} />
-            <Route path={"/profilepage"} exact component={Profile} />
-            <Route path={"/one-smesterone"} exact component={YoneSone} />
-            <Route path={"/one-smestertwo"} exact component={YoneStwo} />
-            <Route path={"/two-smesterone"} exact component={YtwoSone} />
-            <Route path={"/two-smestertwo"} exact component={YtwoStwo} />
-            <Route path={"/three-smesterone"} exact component={YthreeSone} />
-            <Route path={"/three-smestertwo"} exact component={YthreeStwo} />
-            <Route path={"/four-smesterone"} exact component={YfourSone} />
-            <Route path={"/four-smestertwo"} exact component={YfourStwo} />
-            <Route path={"/moderator"} exact component={Moderator} />
-            <Route path={"/reservation-approv"} exact component={ReservationApprov} />
-            <Route path={"/registration-approv"} exact component={RegistrationApprove} />
-            <Route path={"/users"} exact component={Users} />
-            <Route path={"/undergraduate-exams"} exact component={UnderGraduateExamSchedule} /> 
-            <Route path={"/graduate-exams"} exact component={GraduateExamSchedule} /> 
+                <Route
+                  path={"/adm-undergraduates"}
+                  exact
+                  component={Adm_UnderGraduates}
+                />
+                <Route
+                  path={"/adm-graduates"}
+                  exact
+                  component={Adm_Graduates}
+                />
 
+                <Route
+                  path={"/reservationsShedule"}
+                  exact
+                  component={ReservationSchedule}
+                />
+                <Route path={"/officehours"} exact component={OfficeHours} />
+                <Route
+                  path={"/officehourschedule"}
+                  exact
+                  component={OfficeHoursSchedule}
+                />
+                <Route
+                  path={"/officehoursDetails"}
+                  exact
+                  component={OfficeHoursDetails}
+                />
+                <Route
+                  path={"/officehoursEdit/:id"}
+                  exact
+                  component={EditOfficeHours}
+                />
+                <Route
+                  path={
+                    "/reservationEditHall/:id/:date/:time/:type/:name/:staff"
+                  }
+                  exact
+                  component={EditReservationHall}
+                />
+                <Route
+                  path={
+                    "/reservationEditLab/:id/:date/:time/:type/:name/:staff"
+                  }
+                  exact
+                  component={EditReservationLab}
+                />
+                <Route
+                  path={
+                    "/reservationEditDevice/:id/:date/:time/:type/:name/:staff"
+                  }
+                  exact
+                  component={EditReservationDevice}
+                />
 
-            <Route path={"/adm-undergraduates"} exact component={Adm_UnderGraduates} />
-            <Route path={"/adm-graduates"} exact component={Adm_Graduates} />
+                <Route path={"/halls"} exact component={Halls} />
+                <Route path={"/hallform"} exact component={HallForm} />
+                <Route path={"/labs"} exact component={Labs} />
+                <Route path={"/labform"} exact component={LabForm} />
+                <Route path={"/devices"} exact component={Devices} />
+                <Route path={"/deviceform"} exact component={DeviceForm} />
+                <Route
+                  path={"/editHallForm/:id/:name"}
+                  exact
+                  component={EditHallForm}
+                />
+                <Route
+                  path={"/editLabForm/:id/:name"}
+                  exact
+                  component={EditLabForm}
+                />
+                <Route
+                  path={"/editDeviceForm/:id/:name"}
+                  exact
+                  component={EditDeviceForm}
+                />
 
-            <Route path={"/reservationsShedule"} exact component={ReservationSchedule} />
-            <Route path={"/officehours"} exact component={OfficeHours} />
-            <Route path={"/officehourschedule"} exact component={OfficeHoursSchedule} />
-            <Route path={"/officehoursDetails"} exact component={OfficeHoursDetails} />
-            <Route path={"/officehoursEdit/:id"} exact component={EditOfficeHours} />
-            <Route path={"/reservationEditHall/:id/:date/:time/:type/:name/:staff"} exact component={EditReservationHall} />
-            <Route path={"/reservationEditLab/:id/:date/:time/:type/:name/:staff"} exact component={EditReservationLab} />
-            <Route path={"/reservationEditDevice/:id/:date/:time/:type/:name/:staff"} exact component={EditReservationDevice} />
+                <Route
+                  path={"/labsreservations"}
+                  exact
+                  component={LabsReservations}
+                />
+                <Route
+                  path={"/hallsreservations"}
+                  exact
+                  component={HallsReservations}
+                />
+                <Route
+                  path={"/devicesreservations"}
+                  exact
+                  component={DevicesReservations}
+                />
 
-            <Route path={"/halls"} exact component={Halls} />
-            <Route path={"/hallform"} exact component={HallForm} />
-            <Route path={"/labs"} exact component={Labs} />
-            <Route path={"/labform"} exact component={LabForm} />
-            <Route path={"/devices"} exact component={Devices} />
-            <Route path={"/deviceform"} exact component={DeviceForm} />
-            <Route path={"/editHallForm/:id/:name"} exact component={EditHallForm} />
-            <Route path={"/editLabForm/:id/:name"} exact component={EditLabForm} />
-            <Route path={"/editDeviceForm/:id/:name"} exact component={EditDeviceForm} />
+                <Route
+                  path={"/courseform/:category"}
+                  exact
+                  component={CourseForm}
+                />
+                <Route
+                  path={"/assigncourse/:id/:name"}
+                  exact
+                  component={AssignCourse}
+                />
 
-            <Route path={"/labsreservations"} exact component={LabsReservations} />
-            <Route path={"/hallsreservations"} exact component={HallsReservations} />
-            <Route path={"/devicesreservations"} exact component={DevicesReservations} />
+                <Route
+                  path={"/undergraduate-lecs"}
+                  exact
+                  component={UnderGraduateLecSchedule}
+                />
+                <Route
+                  path={"/graduate-lecs"}
+                  exact
+                  component={GraduateLecSchedule}
+                />
+                <Route path={"/edit-profile"} exact component={EditProfile} />
+                <Route path={"/staffpage"} exact component={Staff} />
+                <Route path={"/addnews"} exact component={AddNews} />
+                <Route path={"/addevents"} exact component={AddEvents} />
+                <Route
+                  path={"/addAdmission/:category"}
+                  exact
+                  component={AdmissionForm}
+                />
+                <Route
+                  path={"/edit-adm/:id/:title/:summary/:is_active/:category"}
+                  exact
+                  component={EditAdmission}
+                />
 
-            <Route path={"/courseform/:category"} exact component={CourseForm} />
-            <Route path={"/assigncourse/:id/:name"} exact component={AssignCourse} />
+                <Route path={"/moderatornew"} exact component={ModeratorNew} />
+                <Route
+                  path={"/moderatorevent"}
+                  exact
+                  component={ModeratorEvent}
+                />
+                <Route
+                  path={"/editnew/:id/:title/:description/:category"}
+                  exact
+                  component={EditNew}
+                />
+                <Route
+                  path={"/editevent/:id/:name/:details"}
+                  exact
+                  component={EditEvent}
+                />
+                <Route
+                  path={
+                    "/editcourse/:id/:name/:total_grade/:instructions/:staff_id/:category"
+                  }
+                  exact
+                  component={EditCourse}
+                />
 
-            <Route path={"/undergraduate-lecs"} exact component={UnderGraduateLecSchedule} /> 
-            <Route path={"/graduate-lecs"} exact component={GraduateLecSchedule} /> 
-            <Route path={"/edit-profile"} exact component={EditProfile} /> 
-            <Route path={"/staffpage"} exact component={Staff} /> 
-            <Route path={"/addnews"} exact component={AddNews} /> 
-            <Route path={"/addevents"} exact component={AddEvents} /> 
-            <Route path={"/addAdmission/:category"} exact component={AdmissionForm}/>
-            <Route path={"/edit-adm/:id/:title/:summary/:is_active/:category"} exact component={EditAdmission}/>
-
-            <Route path={"/moderatornew"} exact component={ModeratorNew} /> 
-            <Route path={"/moderatorevent"} exact component={ModeratorEvent} /> 
-            <Route path={"/editnew/:id/:title/:description/:category"} exact component={EditNew} /> 
-            <Route path={"/editevent/:id/:name/:details"} exact component={EditEvent} /> 
-            <Route path={"/editcourse/:id/:name/:total_grade/:instructions/:staff_id/:category"} exact component={EditCourse} /> 
-
-
-            <Route
-              path={"/password/reset/confirm/:uid/:token"}
-              exact
-              component={ResetPasswordConfirm}
-              />
-            <Route path={"/activate/:uid/:token"} exact component={Activate} />
-            
-          </Switch>
+                <Route
+                  path={"/password/reset/confirm/:uid/:token"}
+                  exact
+                  component={ResetPasswordConfirm}
+                />
+                <Route
+                  path={"/activate/:uid/:token"}
+                  exact
+                  component={Activate}
+                />
+                <Route path={"/img"} exact component={DepartmentImg} />
+              </div>
+            </Switch>
           </Layout>
         </BrowserRouter>
       </Provider>

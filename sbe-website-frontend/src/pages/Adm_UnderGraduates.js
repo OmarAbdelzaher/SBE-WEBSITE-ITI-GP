@@ -112,7 +112,7 @@ const Adm_UnderGraduates = (isAuthenticated) => {
 
   return (
     <>
-      <div className="container ">
+      <div className="container py-5">
         <section className="member-details ">
           <div className="container d-flex justify-content-center align-items-center">
             <div className="row d-flex justify-content-center align-items-center">

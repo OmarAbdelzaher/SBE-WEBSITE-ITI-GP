@@ -18,7 +18,7 @@ export default function Staff() {
 
   return (
     <>
-      <section className="h-150 h-custom">
+      <section className="h-150 h-custom py-5">
         <div className="container">
           <div className="col py-5">
             <div className="row starts bg-light ">

@@ -33,7 +33,7 @@ export default function AllEvents() {
 
   return (
     <>
-      <section className="container">
+      <section className="container py-5">
         <div
           style={start}
           className="row d-flex justify-content-center align-items-center"

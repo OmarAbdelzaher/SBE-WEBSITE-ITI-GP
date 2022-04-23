@@ -42,7 +42,7 @@ export default function UnderGraduate() {
 
   return (
     <>
-      <section className="container">
+      <section className="container py-5">
         <div style={start} className="row  ">
         <h1 className="text-center fw-lighter text-light scroll"> Students News </h1>
         
