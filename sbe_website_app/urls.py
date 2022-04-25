@@ -67,6 +67,15 @@ urlpatterns = [
     path('download-exam-lec/<str:year>/<str:type>',DownloadPDFSchedules, name='download_pdf'),
 
     path('admissions/',AdmissionList.as_view()),
-    path('admission/<int:pk>',AdmissionDetails.as_view()) 
+    path('admission/<int:pk>',AdmissionDetails.as_view()),
+    path('graduatecourse/',GraduateView.as_view()) ,
+    path('graduatecourse/<int:pk>',GraduateCourseDetails.as_view()) ,
+
+    path('coursegradhistory/',CourseHistoryGradView.as_view()),
+    path('coursegradhistory/<int:pk>',CourseHistoryGradDetailsView.as_view()),
+
+    path('uploadmaterialsgrad/',MaterialfileGradView.as_view()),
+    path('uploadmaterialgrad/<int:pk>',MaterialfileDetailsGradView.as_view()),
+
 ]
 urlpatterns+= static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
