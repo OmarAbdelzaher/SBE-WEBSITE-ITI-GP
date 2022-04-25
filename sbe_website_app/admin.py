@@ -81,7 +81,12 @@ admin.site.register(Student,StudentAdmin)
 admin.site.register(FacultyEmp,FacEmpAdmin)
 admin.site.register(OfficeHours)
 admin.site.register(Course)
+admin.site.register(GraduateCourse)
+
 admin.site.register(CourseHistory)
+admin.site.register(MaterialFileGrad)
+admin.site.register(CourseHistoryGrad)
+
 admin.site.register(Hall)
 admin.site.register(ReserveHall)
 admin.site.register(Lab)
@@ -96,6 +101,7 @@ admin.site.register(LecSchedule)
 admin.site.register(ExamSchedule)
 admin.site.register(Admission)
 
+admin.site.site_header = 'SBME Admin' 
 
 
 

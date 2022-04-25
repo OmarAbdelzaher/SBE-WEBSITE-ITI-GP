@@ -78,6 +78,11 @@ import EditCourse from "./pages/EditCourse";
 import OneNew from "./components/OneNew";
 import OneEvent from "./components/OneEvent";
 import StaffDr from "./components/StaffDr";
+import GradCourseDetails from "./pages/GraduateCourseDetails";
+import EditGradCourse from "./pages/EditGradCourse";
+import AssignGradCourse from "./pages/AssignGradCourse";
+import CourseGradForm from "./pages/CourseGradForm";
+import CourseHistoryGrad from "./pages/CourseHistoryGrad";
 
 function App() {
 
@@ -171,7 +176,12 @@ function App() {
             <Route path={"/new/:id"} exact component={OneNew} /> 
             <Route path={"/event/:id"} exact component={OneEvent} /> 
             <Route path={"/staffdr"} exact component={StaffDr} /> 
+            <Route path={"/gradcoursedetails/:id"} exact component={GradCourseDetails} /> 
+            <Route path={"/editgraduatecourse/:id/:name/:total_grade/:instructions/:staff_id/:year"} exact component={EditGradCourse} /> 
 
+            <Route path={"/assigngradcourse/:id/:name"} exact component={AssignGradCourse} />
+            <Route path={"/coursegradform"} exact component={CourseGradForm} />
+            <Route path={"/graduatecourse-history/:id"} exact component={CourseHistoryGrad} />
 
 
             <Route

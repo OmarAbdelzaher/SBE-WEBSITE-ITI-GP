@@ -74,8 +74,8 @@ export default function AllEvents() {
                             className="fs-6"
                             icon={faCalendarDays}
                           />{" "}
-                            {item.details.slice(0, 25)}
-                            <span>
+                            {item.details.slice(0, 10)}
+                            {/* <span> */}
 
                             <TouchableOpacity>
                               <Text
@@ -83,6 +83,7 @@ export default function AllEvents() {
                                 style={{
                                   color: "#03045e",
                                   fontSize: "18px",
+                                  display:"inline-block",
                                 }}
                                 // onPress={() =>
                                 //   Linking.openURL('new')
@@ -90,7 +91,7 @@ export default function AllEvents() {
                               >...Read more
                               </Text>
                             </TouchableOpacity>
-                            </span>
+                            {/* </span> */}
                           </p>
                           
                         </Link>

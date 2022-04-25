@@ -69,6 +69,21 @@ class CourseSerializer(serializers.ModelSerializer):
 
         return ret
 
+class GraduateCourseSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = GraduateCourse
+        fields = ['id','code','name','total_grade','stds_grades','instructions','materials','staff_id','year']
+
+
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        for i in range(len(ret['staff_id'])): 
+            ret['staff_id'][i] = (ret['staff_id'][i],instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname)
+
+
+        return ret
+
 class CourseHistorySerializer(serializers.ModelSerializer):
     class Meta :
         model = CourseHistory
@@ -79,6 +94,22 @@ class CourseHistorySerializer(serializers.ModelSerializer):
         for i in range(len(ret['staff_id'])): 
             ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
         return ret
+
+class CourseHistoryGradSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = CourseHistoryGrad
+        fields = ['id','year','materials','staff_id','course_id']
+    
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        for i in range(len(ret['staff_id'])): 
+            ret['staff_id'][i] = instance.staff_id.all()[i].fname + ' ' + instance.staff_id.all()[i].lname
+        return ret
+
+class MaterialfileGradSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = MaterialFileGrad
+        fields = ['id','course_id','material_upload']
 
 class MaterialfileSerializer(serializers.ModelSerializer):
     class Meta :
