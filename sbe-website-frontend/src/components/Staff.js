@@ -59,7 +59,7 @@ export default function Staff() {
                           </p>
                           <p className="lightMail card-text">
                             <span className=" rounded" style={{ color:"#9b2226" }}>
-                            <FontAwesomeIcon icon={faEnvelope}/> {" "}
+                            <FontAwesomeIcon icon={faEnvelope}/>{" "}
                               {item.email}
                             </span>
                           </p>

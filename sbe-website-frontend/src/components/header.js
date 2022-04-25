@@ -10,6 +10,8 @@ import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 import { useSelector } from "react-redux";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 
 
 const Header = ({ logout, isAuthenticated }) => {
@@ -111,62 +113,84 @@ const moderatorLink = () => (
     window.addEventListener("scroll", changeBackground);
   });
 
+
+     const style = {
+       // Adding media query..
+       "@media (max-width: 500px)": {
+         display: "none",
+       },
+     };
   return (
     <>
       <Navbar fixed="top" className={head ? "head scroll" : "head"}>
-        <Navbar.Brand className="col-2" href="/">
+        <Navbar.Brand className="col-2" style={style} href="/">
           <img
             src={logo}
+            style={style}
             width="180"
             height="70"
             className="d-inline-block align-top"
             alt="Department logo"
           />
         </Navbar.Brand>{" "}
-        
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        
         <Navbar.Collapse id="responsive-navbar-nav">
-
-          <Nav  className="col-7 offset-8">
-          
+          <Nav className="col-11 d-flex justify-content-end align-items-end">
             <Nav.Link className="button btn-b">
-              <Link className="fs-4 ani btn-b" to="/" style={{color:"#9b2226"}}>
+              <Link
+                className="fs-4 ani btn-b"
+                to="/"
+                style={{ color: "#9b2226" }}
+              >
                 <FontAwesomeIcon icon={faHome} />{" "}
               </Link>
             </Nav.Link>
 
-            { isAuthenticated ? <div className="dropdown btn-b fs-4" style={{ color:"#001233" }}>
-            
-            <NavDropdown
-              
-              className=" button btn-b "
-              title= {
-                person.user != null ? person.user.fname : null
-              }  
-              id="headScrollingDropdown"
-              aria-controls="navbar-dark-example"
-            >
-              <div className="  "  aria-expanded="false" >
-              <NavDropdown.Item ><Link className="nav-links" to="/profilepage">Profile</Link></NavDropdown.Item>
-              {
-                is_staff || isAdmin ? 
-                <>
-                  <NavDropdown.Item ><Link className="nav-links" to="/reservation">Reservation</Link></NavDropdown.Item>
-                  <NavDropdown.Item ><Link className="nav-links" to="/officehoursDetails/">Office Hours</Link></NavDropdown.Item>
-                  <NavDropdown.Item ><Link className="nav-links" to="/reservationsShedule">Reservations Schedule</Link></NavDropdown.Item>
-                </>
-                : null
-              }
-              {
-                isModerator || isAdmin ? <NavDropdown.Item ><Link className="nav-links" to="/moderator">Moderator</Link></NavDropdown.Item>
-                : null
-              }
+            {isAuthenticated ? (
+              <div className="dropdown btn-b fs-4" style={{ color: "#001233" }}>
+                <NavDropdown
+                  className=" button btn-b "
+                  title={person.user != null ? person.user.fname : null}
+                  id="headScrollingDropdown"
+                  aria-controls="navbar-dark-example"
+                >
+                  <div className="  " aria-expanded="false">
+                    <NavDropdown.Item>
+                      <Link className="nav-links" to="/profilepage">
+                        Profile
+                      </Link>
+                    </NavDropdown.Item>
+                    {is_staff || isAdmin ? (
+                      <>
+                        <NavDropdown.Item>
+                          <Link className="nav-links" to="/reservation">
+                            Reservation
+                          </Link>
+                        </NavDropdown.Item>
+                        <NavDropdown.Item>
+                          <Link className="nav-links" to="/officehoursDetails/">
+                            Office Hours
+                          </Link>
+                        </NavDropdown.Item>
+                        <NavDropdown.Item>
+                          <Link className="nav-links" to="/reservationsShedule">
+                            Reservations Schedule
+                          </Link>
+                        </NavDropdown.Item>
+                      </>
+                    ) : null}
+                    {isModerator || isAdmin ? (
+                      <NavDropdown.Item>
+                        <Link className="nav-links" to="/moderator">
+                          Moderator
+                        </Link>
+                      </NavDropdown.Item>
+                    ) : null}
+                  </div>
+                </NavDropdown>
               </div>
-            </NavDropdown>
-          </div> : null }
+            ) : null}
             {isAuthenticated ? authLinks() : guestLinks()}
-
           </Nav>
         </Navbar.Collapse>
       </Navbar>

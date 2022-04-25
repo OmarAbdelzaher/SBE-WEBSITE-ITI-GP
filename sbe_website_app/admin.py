@@ -96,6 +96,7 @@ admin.site.register(LecSchedule)
 admin.site.register(ExamSchedule)
 admin.site.register(Admission)
 
+admin.site.site_header = 'SBME Admin'
 
 
 

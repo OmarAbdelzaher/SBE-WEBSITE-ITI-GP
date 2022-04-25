@@ -19,10 +19,16 @@
   font-family: Arial, Helvetica, sans-serif;
   background: transparent;
 }
-
+@media only screen and (max-width: 425px) {
+  .btn-b.header-link{
+    width: 10px;
+  }
+  
+}
 .header-link {
   text-decoration: none !important;
   color: #ffff !important;
+  
 }
 .button {
   border-radius: 4px;
@@ -367,6 +373,8 @@ height: 100vh;
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
+
+ 
 }
 /* @media (min-width: 1200px) { 
   .fix{

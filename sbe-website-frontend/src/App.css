@@ -35,10 +35,14 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    padding-top: 25%;
+
   }
   .margin{
     margin-top: 10% !important;
   } 
+  
+ 
 }
 
 .d {
@@ -65,6 +69,7 @@
   margin-top: 22% !important;
   padding: 2%;
 }
+
 
 .course-d {
   position: absolute;
